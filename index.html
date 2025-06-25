@@ -389,7 +389,7 @@
             "harina de almendras", "hojas zapote blanco", "ionteracare", "jenjibre", "kelp",
             "levadura nutricional", "licorice", "maca en capsula", "maca en polvo", "miel en panal",
             "moringa en polvo", "palo de arco", "parasito jarabe", "progesterona", "propoleo tintura",
-            "prostazan", "quercetin y bromelain", "sangre de drago", "te matcha", "triple magnesio complex",
+            "prostazan", "quercetin y bromelain", "sacha inchi", "sangre de drago", "te matcha", "triple magnesio complex",
             "valeriana y pasiflora", "xanthin", "zeolita",
             "te de manzanilla organico", "serum facial con vitamina c", "mascarilla capilar de argan"
         ];
@@ -411,58 +411,58 @@
          * Por ahora, estas entradas aseguran que el código buscará tus imágenes con los nombres actuales.
          */
         const imageFileNameMap = {
-            'adipofin': 'Adipofina.jpg',
+            'adipofin': 'Adipofin.jpg',
             'aceite-de-copaiba': 'Copaiba.jpg',
             'ginseng': 'Ginseng.jpg',
-            'flor-de-lavanda': 'LAVANDA.jpg',
+            'flor-de-lavanda': 'lavanda.jpg',
             'aceite-de-ajonjoli': 'ajonjoli.jpg',
             'amargo-sueco': 'amargo sueco.jpg',
             'barro-arcilla': 'arcilla.jpg', // Mapea "barro (arcilla)"
             'aceite-de-batana': 'batana.jpg',
-            'broncovedi-jarabe': 'bronvcovedi.jpg', // Posible error tipográfico en el nombre de archivo del usuario, pero se respeta.
+            'broncovedi-jarabe': 'broncovedi.jpg', // Posible error tipográfico en el nombre de archivo del usuario, pero se respeta.
             'cardo-mariano': 'cardomariano.jpg',
             'citrato-magnesio': 'citratomagnesio.jpg',
             'aceite-de-coco-gl': 'cocogalon.jpg',
             'aceite-de-coco-medio-gl': 'cocomedio.jpg',
             'aceite-de-coco-8-oz': 'cocopequeño.jpg',
             'cola-de-caballo': 'colacaballo.jpg',
-            'curcuma-en-polvo': 'cúrcuma en polvo.jpg',
-            'curcumin': 'curcumina.jpg',
+            'curcuma-en-polvo': 'cúrcumapolvo.jpg',
+            'curcumin': 'curcumin.jpg',
             'diente-de-leon': 'dienteleon.jpg',
-            'fenugreek-capsula': 'cápsula de fenogreco.jpg', // Mapea "fenugreek capsula"
-            'fenugreek-polvo': 'polvo de fenogreco.jpg', // Mapea "fenugreek polvo"
+            'fenugreek-capsula': 'fenugreekcapsula.jpg', // Mapea "fenugreek capsula"
+            'fenugreek-polvo': 'fenugreekpolvo.jpg', // Mapea "fenugreek polvo"
             'generador-desinfectante': 'generador.jpg', // Mapea "generador desinfectante"
             'ginkgo-biloba': 'ginkgobiloba.jpg',
             'harina-de-almendras': 'harinaalmendras.jpg',
-            'fennel': 'hinojo.jpg', // Mapea "fennel"
+            'fennel': 'fennel.jpg', // Mapea "fennel"
             'flor-de-jamaica': 'jamaica.jpg',
-            'kelp': 'algas marinas.jpg', // Mapea "kelp"
+            'kelp': 'kelp.jpg', // Mapea "kelp"
             'levadura-nutricional': 'levaduranutricional.jpg',
-            'licorice': 'regaliz.jpg', // Mapea "licorice"
+            'licorice': 'licorice.jpg', // Mapea "licorice"
             'maca-en-capsula': 'macacapsula.jpg',
             'maca-en-polvo': 'macapolvo.jpg',
             'te-matcha': 'matchat.jpg', // Mapea "te matcha"
             'miel-en-panal': 'mielpanal.jpg',
             'moringa-en-polvo': 'moringapolvo.jpg',
-            'aceite-de-oregano': 'orégano.jpg',
+            'aceite-de-oregano': 'oregano.jpg',
             'palo-de-arco': 'paloarco.jpg',
-            'parasito-jarabe': 'parásito.jpg',
+            'parasito-jarabe': 'parasito.jpg',
             'chanca-piedra': 'piedra.jpg', // Mapea "chanca piedra"
-            'citrato-de-potasio-polvo': 'Polvo de potasio.jpg', // Mapea "citrato de potasio polvo"
-            'propoleo-tintura': 'propóleo.jpg',
-            'quercetin-y-bromelain': 'quercetinabromelaina.jpg',
+            'citrato-de-potasio-polvo': 'potasio polvo.jpg', // Mapea "citrato de potasio polvo"
+            'propoleo-tintura': 'propoleo.jpg',
+            'quercetin-y-bromelain': 'quercetinbromelain.jpg',
             'crema-relabir-antiestres': 'relabir.jpg',
             'aceite-de-ricino': 'ricino.jpg',
             'sangre-de-drago': 'sangre drago.jpg',
             'triple-magnesio-complex': 'triplemagnesio.jpg',
             'valeriana-y-pasiflora': 'valerianaypasiflora.jpg',
-            'xanthin': 'xantina.jpg',
+            'xanthin': 'xanthin.jpg',
             'hojas-zapote-blanco': 'zapoteblanco.jpg', // Mapea "hojas zapote blanco"
             // Las siguientes líneas son ejemplos de imágenes subidas previamente que no aparecen en nombres.jpg
             // Si has renombrado estas imágenes para que coincidan con los IDs en kebab-case.jpg,
             // PUEDES ELIMINARLAS de este mapa. Si no, déjalas para que el código las encuentre.
-            // 'combo-bienestar-total': 'combo-bienestar.jpg',
-            // 'combo-belleza-natural': 'combo-belleza.jpg',
+            // 'combo-bienestar-total': 'combo1.jpg',
+            // 'combo-belleza-natural': 'combo2.jpg',
         };
 
         // Función que devuelve la ruta completa y correcta de la imagen
@@ -1491,7 +1491,7 @@
             showSlides(slideIndex);
             clearInterval(carouselInterval); // Limpia cualquier intervalo existente
             carouselInterval = setInterval(() => {
-                changeSlide(1); // Cambia de diapositiva automáticamente cada 5 segundos
+                changeSlide(1); // Cambia de diapositiva automáticamente cada 3 segundos
             }, 5000);
         }
 
