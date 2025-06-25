@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R&F Productos Integrales</title>
-    <!-- Favicon: Asegúrate de que la ruta y el nombre del archivo coincida EXACTAMENTE con tu repositorio en GitHub (incluyendo mayúsculas/minúsculas) -->
-    <link rel="icon" href="./images/favicon.png" type="image/png">
+    <!-- Favicon: Ruta corregida a 'images/favicon.jpg' y tipo MIME 'image/jpeg'. Asegúrate que la carpeta de imágenes se llame 'images' (sin acento) -->
+    <link rel="icon" href="images/favicon.jpg" type="image/jpeg">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for Icons -->
@@ -129,14 +129,14 @@
             transition: max-height 0.3s ease-out;
         }
         .collapsible-content.active {
-            max-height: 200px; /* Adjust based on content */
+            max-height: 200px; /* Ajusta según el contenido */
         }
 
         /* Specific style for Shop dropdown menu */
         .header-shop-dropdown {
-            width: max-content; /* Ensure dropdown width adapts to content */
-            min-width: 150px; /* Minimum width to prevent very narrow menus */
-            z-index: 50; /* Higher z-index to ensure it appears above other content */
+            width: max-content; /* Asegura que el ancho del desplegable se adapte al contenido */
+            min-width: 150px; /* Ancho mínimo para evitar menús muy estrechos */
+            z-index: 50; /* Mayor z-index para asegurar que aparezca encima de otro contenido */
         }
     </style>
 </head>
@@ -150,8 +150,8 @@
         <div class="container mx-auto px-4 flex items-center justify-between flex-wrap">
             <!-- Logo -->
             <a href="#home" class="flex items-center space-x-2 mr-6" onclick="navigateTo('home', null, event)">
-                <!-- Asegúrate de que './images/favicon.png' coincida EXACTAMENTE con el nombre de tu archivo en GitHub (incluyendo mayúsculas/minúsculas) -->
-                <img src="./images/favicon.png" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
+                <!-- Ruta corregida directamente a 'images/favicon.jpg' -->
+                <img src="images/favicon.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
                 <span class="text-2xl font-bold text-primary">R&F Productos Integrales</span>
             </a>
 
@@ -276,14 +276,14 @@
             <button onclick="closeFichaTecnicaModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
             <h3 class="text-2xl font-bold text-primary mb-4 text-center" id="modalTituloProducto"></h3>
             <div class="modal-body flex flex-col md:flex-row gap-4 items-center" id="modalCuerpoFicha">
-                <!-- Content injected here -->
+                <!-- Contenido inyectado aquí -->
             </div>
         </div>
     </div>
 
 
     <script>
-        // --- Helper Functions (Independent/Utility - no reliance on global state/data/DOM elements initially) ---
+        // --- Funciones de Ayuda (Independientes/Utilidad - sin dependencia inicial de estado global/datos/elementos DOM) ---
         function toKebabCase(string) {
             return string.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-.]/g, '');
         }
@@ -301,9 +301,9 @@
             return date.toISOString().split('T')[0]; //YYYY-MM-DD
         }
 
-        // Function to assign categories and benefits based on product name
+        // Función para asignar categorías y beneficios basados en el nombre del producto
         function assignCategoryAndBenefits(name) {
-            let category = 'Otros'; // Default to 'Otros' if no specific category matches
+            let category = 'Otros'; // Por defecto a 'Otros' si no hay coincidencia de categoría específica
             let benefits = ['En construcción.'];
 
             const lowerName = name.toLowerCase();
@@ -327,7 +327,6 @@
                 else if (lowerName.includes("ginkgo biloba")) benefits = ["Mejora la memoria y concentración", "Apoya la circulación"];
                 else if (lowerName.includes("maca")) benefits = ["Aumenta la energía", "Equilibrio hormonal"];
                 else if (lowerName.includes("ginseng")) benefits = ["Aumenta la resistencia al estrés", "Mejora el rendimiento"];
-                else if (lowerName.includes("jenjibre")) benefits = ["Apoya la digestión", "Propiedades antiinflamatorias"];
                 else benefits = ["Apoyo a la salud general", "Mejora el bienestar"];
             }
             // Alimentación Saludable
@@ -367,7 +366,17 @@
             return { category, benefits };
         }
 
-        // --- Global Data & Constants ---
+        // --- Datos Globales y Constantes ---
+        // Se define la RUTA BASE para todas las imágenes.
+        // ********************************************************************************
+        // ¡IMPORTANTE! Basado en el pantallazo, si 'index.html' está directamente dentro
+        // de 'Tienda-RYFPFI', y la carpeta de imágenes se llama 'images' (sin acento)
+        // DENTRO de 'Tienda-RYFPFI', entonces la ruta es 'images/'.
+        // POR FAVOR, ASEGÚRATE de que tu carpeta de imágenes se llame 'images'
+        // (todo en minúsculas y sin acento) en tu proyecto.
+        const IMAGE_BASE_PATH = 'images/';
+        // ********************************************************************************
+
         const productNames = [
             "aceite de ajonjoli", "aceite de batana", "aceite de coco 8 oz.", "aceite de coco gl.", "aceite de coco medio gl",
             "aceite de copaiba", "aceite de linaza", "aceite de oregano", "aceite de ricino", "adipo-cf",
@@ -385,6 +394,98 @@
             "te de manzanilla organico", "serum facial con vitamina c", "mascarilla capilar de argan"
         ];
         
+        /**
+         * ¡IMPORTANTE! Este mapa DEBE contener una entrada para CADA imagen cuyo nombre de archivo
+         * (incluyendo mayúsculas/minúsculas y extensión) NO COINCIDA EXACTAMENTE con el formato
+         * de ID en kebab-case MÁS la extensión por defecto (.jpg).
+         *
+         * Si el ID del producto es 'mi-producto' y tu archivo se llama 'mi-producto.jpg',
+         * NO necesitas una entrada aquí.
+         *
+         * Si el ID del producto es 'mi-producto' pero tu archivo se llama 'Mi Producto.png',
+         * entonces NECESITARÁS una entrada aquí: `'mi-producto': 'Mi Producto.png',`.
+         *
+         * Se han añadido entradas basadas en los nombres de archivo exactos proporcionados en 'nombres.jpg'.
+         * Si tu intención es estandarizar todos los nombres a 'kebab-case.jpg' en tu repositorio,
+         * podrás ELIMINAR la mayoría de estas entradas, dejando el mapa lo más vacío posible.
+         * Por ahora, estas entradas aseguran que el código buscará tus imágenes con los nombres actuales.
+         */
+        const imageFileNameMap = {
+            'adipofin': 'Adipofina.jpg',
+            'aceite-de-copaiba': 'Copaiba.jpg',
+            'ginseng': 'Ginseng.jpg',
+            'flor-de-lavanda': 'LAVANDA.jpg',
+            'aceite-de-ajonjoli': 'ajonjoli.jpg',
+            'amargo-sueco': 'amargo sueco.jpg',
+            'barro-arcilla': 'arcilla.jpg', // Mapea "barro (arcilla)"
+            'aceite-de-batana': 'batana.jpg',
+            'broncovedi-jarabe': 'bronvcovedi.jpg', // Posible error tipográfico en el nombre de archivo del usuario, pero se respeta.
+            'cardo-mariano': 'cardomariano.jpg',
+            'citrato-magnesio': 'citratomagnesio.jpg',
+            'aceite-de-coco-gl': 'cocogalon.jpg',
+            'aceite-de-coco-medio-gl': 'cocomedio.jpg',
+            'aceite-de-coco-8-oz': 'cocopequeño.jpg',
+            'cola-de-caballo': 'colacaballo.jpg',
+            'curcuma-en-polvo': 'cúrcuma en polvo.jpg',
+            'curcumin': 'curcumina.jpg',
+            'diente-de-leon': 'dienteleon.jpg',
+            'fenugreek-capsula': 'cápsula de fenogreco.jpg', // Mapea "fenugreek capsula"
+            'fenugreek-polvo': 'polvo de fenogreco.jpg', // Mapea "fenugreek polvo"
+            'generador-desinfectante': 'generador.jpg', // Mapea "generador desinfectante"
+            'ginkgo-biloba': 'ginkgobiloba.jpg',
+            'harina-de-almendras': 'harinaalmendras.jpg',
+            'fennel': 'hinojo.jpg', // Mapea "fennel"
+            'flor-de-jamaica': 'jamaica.jpg',
+            'kelp': 'algas marinas.jpg', // Mapea "kelp"
+            'levadura-nutricional': 'levaduranutricional.jpg',
+            'licorice': 'regaliz.jpg', // Mapea "licorice"
+            'maca-en-capsula': 'macacapsula.jpg',
+            'maca-en-polvo': 'macapolvo.jpg',
+            'te-matcha': 'matchat.jpg', // Mapea "te matcha"
+            'miel-en-panal': 'mielpanal.jpg',
+            'moringa-en-polvo': 'moringapolvo.jpg',
+            'aceite-de-oregano': 'orégano.jpg',
+            'palo-de-arco': 'paloarco.jpg',
+            'parasito-jarabe': 'parásito.jpg',
+            'chanca-piedra': 'piedra.jpg', // Mapea "chanca piedra"
+            'citrato-de-potasio-polvo': 'Polvo de potasio.jpg', // Mapea "citrato de potasio polvo"
+            'propoleo-tintura': 'propóleo.jpg',
+            'quercetin-y-bromelain': 'quercetinabromelaina.jpg',
+            'crema-relabir-antiestres': 'relabir.jpg',
+            'aceite-de-ricino': 'ricino.jpg',
+            'sangre-de-drago': 'sangre drago.jpg',
+            'triple-magnesio-complex': 'triplemagnesio.jpg',
+            'valeriana-y-pasiflora': 'valerianaypasiflora.jpg',
+            'xanthin': 'xantina.jpg',
+            'hojas-zapote-blanco': 'zapoteblanco.jpg', // Mapea "hojas zapote blanco"
+            // Las siguientes líneas son ejemplos de imágenes subidas previamente que no aparecen en nombres.jpg
+            // Si has renombrado estas imágenes para que coincidan con los IDs en kebab-case.jpg,
+            // PUEDES ELIMINARLAS de este mapa. Si no, déjalas para que el código las encuentre.
+            // 'combo-bienestar-total': 'combo-bienestar.jpg',
+            // 'combo-belleza-natural': 'combo-belleza.jpg',
+        };
+
+        // Función que devuelve la ruta completa y correcta de la imagen
+        function getImagePath(productId) {
+            console.log(`[getImagePath] Buscando imagen para productId: ${productId}`);
+            let filePath = '';
+
+            // 1. Primero, verifica si hay un mapeo específico para este ID de producto en el imageFileNameMap
+            if (imageFileNameMap[productId]) {
+                filePath = IMAGE_BASE_PATH + imageFileNameMap[productId];
+                console.log(`[getImagePath] Mapeo encontrado y ruta completa: ${filePath}`);
+                return filePath;
+            }
+
+            // 2. Si no hay un mapeo específico, intenta con el nombre en kebab-case y la extensión .jpg por defecto.
+            // Esta es la opción preferida si vas a estandarizar a JPG.
+            filePath = IMAGE_BASE_PATH + productId + '.jpg';
+            console.log(`[getImagePath] No se encontró mapeo específico. Intentando con ruta por defecto (.jpg): ${filePath}`);
+            
+            return filePath;
+        }
+
+
         const products = productNames.map((name, index) => {
             const id = toKebabCase(name);
             const basePrice = getRandomPrice(300, 1900);
@@ -407,7 +508,8 @@
                 price: priceDetail,
                 priceDetail: priceDetail,
                 priceWholesale: priceWholesale,
-                image: `./images/${id}.jpg`,
+                // Usa la función getImagePath para obtener la ruta correcta de la imagen
+                image: getImagePath(id), 
                 description_es: 'Este producto está actualmente en desarrollo de descripción. Pronto tendrás toda la información detallada que necesitas para conocer sus beneficios y usos.',
                 description_en: 'This product\'s description is currently under development. Soon you will have all the detailed information you need to know about its benefits and uses.',
                 ingredients_es: 'Ingredientes: En construcción. Consulte la etiqueta del producto para más detalles.',
@@ -448,7 +550,7 @@
             {
                 id: 'combo-bienestar-total',
                 name: 'Combo Bienestar Total',
-                image: './images/combo-bienestar.jpg',
+                image: IMAGE_BASE_PATH + 'combo-bienestar.jpg', // Usando IMAGE_BASE_PATH
                 description_es: 'Este combo está diseñado para brindarte un bienestar integral, combinando productos que te ayudarán a mantener la energía y la calma en tu día a día.',
                 description_en: 'This combo is designed to provide you with complete wellness, combining products that will help you maintain energy and calm in your daily life.',
                 price: 1500.00,
@@ -462,13 +564,13 @@
             {
                 id: 'combo-belleza-natural',
                 name: 'Combo Belleza Natural',
-                image: './images/combo-belleza.jpg',
+                image: IMAGE_BASE_PATH + 'combo-belleza.jpg', // Usando IMAGE_BASE_PATH
                 description_es: 'Logra una piel radiante y un cabello saludable con este combo esencial, formulado con ingredientes naturales para realzar tu belleza.',
                 description_en: 'Achieve radiant skin and healthy hair with this essential combo, formulated with natural ingredients to enhance your beauty.',
                 price: 2200.00,
                 originalPrice: 2800.00,
                 productsIncluded: [
-                    { id: 'serum-facial-con-vitamina-c', quantity: 1, benefits_es: ["Ilumina y unifica el tono de la piel", "Reduce líneas finas"], benefits_en: ["Brightens and evens skin tone", "Reduces fine lines"] },
+                    { id: 'serum-facial-con-vitaminac', quantity: 1, benefits_es: ["Ilumina y unifica el tono de la piel", "Reduce líneas finas"], benefits_en: ["Brightens and evens skin tone", "Reduces fine lines"] },
                     { id: 'mascarilla-capilar-de-argan', quantity: 1, benefits_es: ["Nutre e hidrata el cabello", "Aporta brillo y suavidad"], benefits_en: ["Nourishes and hydrates hair", "Adds shine and softness"] }
                 ]
             }
@@ -476,7 +578,7 @@
 
         const carouselImages = [
             {
-                src: './images/carousel-bienvenida.jpg',
+                src: IMAGE_BASE_PATH + 'carousel-bienvenida.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Bienvenido a R&F Productos Integrales',
                 alt_en: 'Welcome to R&F Integral Products',
                 title_es: 'Descubre el Poder de lo Natural',
@@ -488,7 +590,7 @@
                 buttonLink: '#shop'
             },
             {
-                src: 'https://placehold.co/1200x450/B8D8D8/000000?text=R%26F+Productos+Integrales',
+                src: 'https://placehold.co/1200x450/B8D8D8/000000?text=R%26F+Productos+Integrales', // Esta es una URL externa, no necesita IMAGE_BASE_PATH
                 alt_es: 'R&F Productos Integrales - Tu fuente de bienestar natural',
                 alt_en: 'R&F Productos Integrales - Your source for natural wellness',
                 title_es: '',
@@ -500,7 +602,7 @@
                 buttonLink: ''
             },
             {
-                src: './images/carousel-ofertas.jpg',
+                src: IMAGE_BASE_PATH + 'carousel-ofertas.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Ofertas Exclusivas',
                 alt_en: 'Exclusive Offers',
                 title_es: 'Ofertas Imperdibles',
@@ -533,8 +635,8 @@
                 removedFromWishlist: "Producto Eliminado de Lista de Deseos", 
                 wishlistPageTitle: "Tu Lista de Deseos", 
                 noProductsInWishlist: "No hay productos en tu lista de deseos.", 
-                wishlist: "Lista de Deseos", // This key is specifically for the header link text
-                addToWishlist: "Añadir a Lista de Deseos", // NEW: Translation for the button text
+                wishlist: "Lista de Deseos", // Esta clave es específicamente para el texto del enlace del encabezado
+                addToWishlist: "Añadir a Lista de Deseos", // Traducción para el texto del botón
 
                 aboutUsText: "R&F Productos Integrales es tu tienda online de confianza para productos naturales en la República Dominicana. Nos dedicamos a ofrecerte lo mejor para tu bienestar.",
                 infoTitle: "Información", contact: "Contacto", helpFAQ: "Ayuda y FAQ", blog: "Blog", privacyPolicy: "Política de Privacidad", termsOfUse: "Términos de Uso",
@@ -602,11 +704,11 @@
                 wishlistPageTitle: "Your Wishlist", 
                 noProductsInWishlist: "No products in your wishlist.", 
                 wishlist: "Wishlist", // This key is specifically for the header link text
-                addToWishlist: "Add to Wishlist", // NEW: Translation for the button text
+                addToWishlist: "Add to Wishlist", // Translation for the button text
 
                 aboutUsText: "R&F Productos Integrales is your trusted online store for natural products in the Dominican Republic. We are dedicated to offering you the best for your well-being.",
                 infoTitle: "Information", contact: "Contact", helpFAQ: "Help & FAQ", blog: "Blog", privacyPolicy: "Privacy Policy", termsOfUse: "Terms of Use",
-                customerServiceTitle: "Customer Service", shippingPolicy: "Shipping Policy", returnPolicy: "Return Policy", paymentMethods: "Payment Methods", hours: "Hours: M-F 9am-5pm",
+                customerServiceTitle: "Customer Service", shippingPolicy: "Shipping Policy", returnPolicy: "Return Policy", paymentMethods: "Payment Methods", hours: "M-F 9am-5pm",
                 followUs: "Follow Us", newsletter: "Newsletter", yourEmail: "Your email", subscribe: "Subscribe",
                 copyright: "&copy; 2025 R&F Productos Integrales. All rights reserved.",
                 disclaimer: "Disclaimer: The information on this site does not replace medical advice. Products are not intended to diagnose, treat, cure, or prevent diseases. Consult a doctor for dosage and frequency.",
@@ -652,7 +754,7 @@
             }
         };
 
-        // --- Global State Variables (initialized) ---
+        // --- Variables de Estado Global (inicializadas) ---
         let currentLanguage = 'es';
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -660,9 +762,9 @@
         let slideIndex = 0;
         let carouselInterval;
 
-        // --- DOM Element References ---
-        // These are intentionally placed here, as they are accessed after DOMContentLoaded
-        // and before any direct manipulation by rendering functions.
+        // --- Referencias de Elementos DOM ---
+        // Se colocan aquí intencionadamente, ya que se acceden después de DOMContentLoaded
+        // y antes de cualquier manipulación directa por las funciones de renderizado.
         const appContent = document.getElementById('app-content');
         const cartCountElement = document.getElementById('cart-count');
         const wishlistCountElement = document.getElementById('wishlist-count');
@@ -671,7 +773,7 @@
         const searchInput = document.getElementById('search-input');
         const fichaTecnicaModal = document.getElementById('fichaTecnicaModal');
 
-        // --- Core Helper Functions (that depend on global data/state/DOM refs) ---
+        // --- Funciones de Ayuda Centrales (que dependen de datos/estado/referencias DOM globales) ---
         function formatPrice(price) { return `RD$${(price || 0).toFixed(2)}`; }
 
         function updateCartCount() {
@@ -750,7 +852,7 @@
 
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
-                if (lang[key] !== undefined) { // Check for undefined specifically
+                if (lang[key] !== undefined) { // Verifica específicamente si no es indefinido
                     if (key === 'copyright') {
                         element.innerHTML = lang[key];
                     } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
@@ -766,16 +868,16 @@
             if (document.getElementById('promo-banner')) document.getElementById('promo-banner').textContent = lang.promoBanner;
             const shopLinkNode = document.querySelector('nav ul li:nth-child(2) a');
             if (shopLinkNode && shopLinkNode.childNodes.length > 0) {
-                 // Update only the text node, preserve the icon
+                 // Actualiza solo el nodo de texto, preserva el icono
                  shopLinkNode.childNodes[0].nodeValue = lang.shop + ' '; 
             }
             
             populateCategoryMenu();
 
             if (currentPage === 'home') {
-                renderHome(); // Re-render to update carousel content if necessary
+                renderHome(); // Vuelve a renderizar para actualizar el contenido del carrusel si es necesario
             }
-            // Manually re-render Shop and Product detail if they are current pages to ensure button text updates
+            // Vuelve a renderizar manualmente la Tienda y el detalle del Producto si son las páginas actuales para asegurar que el texto del botón se actualice
             if (currentPage === 'shop') {
                 renderShop(null, document.getElementById('sort-options')?.value || 'relevance', true);
             } else if (currentPage === 'product') {
@@ -785,7 +887,7 @@
                 const comboId = window.location.hash.substring(1).split('-')[1];
                 renderComboDetail(comboId);
             }
-            // Ensure wishlist page also re-renders to update text
+            // Asegura que la página de la lista de deseos también se vuelva a renderizar para actualizar el texto
             if (currentPage === 'wishlist') {
                 renderWishlist();
             }
@@ -865,11 +967,6 @@
             saveCart();
             updateCartCount();
             showModal(translations[currentLanguage].productAdded, translations[currentLanguage].addedSuccessfully);
-            // No need to re-render the whole page here unless a visual update is critical.
-            // The cart count is already updated.
-            // if (['shop', 'offers', 'home', 'wishlist', 'product'].includes(currentPage)) {
-            //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]); 
-            // }
         }
 
         function addToCartCombo(comboId) {
@@ -877,7 +974,7 @@
         }
 
         function updateQuantity(itemId, change) {
-            console.log(`Attempting to update quantity for item: ${itemId} with change: ${change}`);
+            console.log(`[updateQuantity] Intentando actualizar cantidad para item: ${itemId} con cambio: ${change}`);
             const itemIndex = cart.findIndex(item => item.productId === itemId);
             if (itemIndex > -1) {
                 const itemInCart = cart[itemIndex];
@@ -885,31 +982,32 @@
                 let itemData = isCombo ? combos.find(c => c.id === itemId) : products.find(p => p.id === itemId);
 
                 if (!itemData) {
-                    console.error(`Item with ID ${itemId} not found in data arrays for quantity update.`);
+                    console.error(`[updateQuantity] Item con ID ${itemId} no encontrado en los arrays de datos para la actualización de cantidad.`);
                     return;
                 }
 
                 let newQuantity = itemInCart.quantity + change;
-                if (newQuantity < 0) newQuantity = 0;
+                if (newQuantity < 0) newQuantity = 0; // No permitir cantidades negativas
 
                 if (newQuantity === 0) {
-                    cart.splice(itemIndex, 1);
-                    console.log(`Removed item ${itemId} from cart. New cart:`, cart);
+                    cart.splice(itemIndex, 1); // Elimina el elemento si la cantidad llega a 0
+                    console.log(`[updateQuantity] Elemento ${itemId} eliminado del carrito. Nuevo carrito:`, cart);
                 } else {
                     itemInCart.quantity = newQuantity;
+                    // Recalcula el precio por unidad, ya que podría cambiar si se alcanza el umbral de mayoreo
                     itemInCart.pricePerUnit = getPricePerUnit(itemData, newQuantity, isCombo);
                     if (isNaN(itemInCart.pricePerUnit)) {
-                        console.warn(`Calculated pricePerUnit for item ${itemId} is not a number: ${itemInCart.pricePerUnit}. Defaulting to 0.`);
+                        console.warn(`[updateQuantity] El pricePerUnit calculado para el item ${itemId} no es un número: ${itemInCart.pricePerUnit}. Se establece en 0.`);
                         itemInCart.pricePerUnit = 0;
                     }
-                    console.log(`Updated item ${itemId} quantity to ${newQuantity}. New price per unit: ${itemInCart.pricePerUnit}. New cart:`, cart);
+                    console.log(`[updateQuantity] Cantidad del item ${itemId} actualizada a ${newQuantity}. Nuevo precio por unidad: ${itemInCart.pricePerUnit}. Nuevo carrito:`, cart);
                 }
                 saveCart();
                 updateCartCount();
-                renderCart();
-                console.log(`Cart re-rendered after quantity update.`);
+                renderCart(); // Vuelve a renderizar el carrito para reflejar los cambios
+                console.log(`[updateQuantity] Carrito re-renderizado después de la actualización de cantidad.`);
             } else {
-                console.warn(`Item ${itemId} not found in cart for quantity update. Current cart:`, cart);
+                console.warn(`[updateQuantity] Item ${itemId} no encontrado en el carrito para la actualización de cantidad. Carrito actual:`, cart);
             }
         }
 
@@ -937,7 +1035,7 @@
                 if (updatedItem) {
                     updatedItem.pricePerUnit = getPricePerUnit(product, newQuantity, false);
                     if (isNaN(updatedItem.pricePerUnit)) {
-                        console.warn(`Calculated pricePerUnit for product ${productId} is not a number: ${updatedItem.pricePerUnit}. Defaulting to 0.`);
+                        console.warn(`[updateProductQuantityInCartFromInput] El pricePerUnit calculado para el producto ${productId} no es un número: ${updatedItem.pricePerUnit}. Se establece en 0.`);
                         updatedItem.pricePerUnit = 0;
                     }
                 }
@@ -948,6 +1046,7 @@
             }
             saveCart();
             updateCartCount();
+            // Re-renderiza la página actual si es necesario (ej. si estás en la tienda o en el detalle del producto)
             if (['shop', 'home', 'product', 'offers', 'wishlist'].includes(currentPage)) {
                 renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
             }
@@ -976,7 +1075,7 @@
                 if (updatedItem) {
                     updatedItem.pricePerUnit = getPricePerUnit(product, newQuantity, false);
                     if (isNaN(updatedItem.pricePerUnit)) {
-                        console.warn(`Calculated pricePerUnit for product ${productId} is not a number: ${updatedItem.pricePerUnit}. Defaulting to 0.`);
+                        console.warn(`[updateProductQuantityInCart] El pricePerUnit calculado para el producto ${productId} no es un número: ${updatedItem.pricePerUnit}. Se establece en 0.`);
                         updatedItem.pricePerUnit = 0;
                     }
                 }
@@ -999,7 +1098,7 @@
         }
 
         function calculateCartTotals() {
-            console.log("Calculating cart totals...");
+            console.log("Calculando totales del carrito...");
             let subtotal = 0;
             cart.forEach(item => {
                 let itemData;
@@ -1010,6 +1109,7 @@
                 }
                 
                 if (itemData) {
+                    // Asegúrate de que item.pricePerUnit se establezca aquí antes de usarlo para subtotal
                     item.pricePerUnit = getPricePerUnit(itemData, item.quantity, item.type === 'combo');
                     subtotal += item.quantity * (item.pricePerUnit || 0); 
                 }
@@ -1031,10 +1131,10 @@
             if (deliveryMethod === "A Domicilio") {
                 if (customerAddress.includes("santo domingo") || customerAddress.includes("dn") || customerAddress.includes("distrito nacional")) {
                     shippingCost = 300;
-                } else if (customerAddress !== '') {
+                } else if (customerAddress !== '') { // Si hay una dirección pero no es SD/DN, asume fuera.
                     shippingCost = 600;
-                } else {
-                    shippingCost = 0;
+                } else { // Si no hay dirección, el costo es 0 (no se puede calcular aún)
+                    shippingCost = 0; 
                 }
             } else if (deliveryMethod === "Recoger en Tienda") {
                 shippingCost = 0;
@@ -1062,7 +1162,7 @@
             if (shippingLabel) shippingLabel.textContent = translations[currentLanguage].shippingCost;
             if (totalLabel) totalLabel.textContent = translations[currentLanguage].total;
 
-            console.log("Cart totals calculated and updated:", { subtotal, discount, shippingCost, total });
+            console.log("Totales del carrito calculados y actualizados:", { subtotal, discount, shippingCost, total });
 
             return { subtotal, discount, shippingCost, total };
         }
@@ -1085,9 +1185,10 @@
         }
 
         function initCartFormListeners() {
+            // Asegúrate de que estos elementos existan antes de añadir listeners
             const customerAddressInput = document.getElementById('customer-address');
             if (customerAddressInput) {
-                customerAddressInput.removeEventListener('input', calculateCartTotals);
+                customerAddressInput.removeEventListener('input', calculateCartTotals); // Elimina el listener anterior para evitar duplicados
                 customerAddressInput.addEventListener('input', calculateCartTotals);
             }
 
@@ -1118,11 +1219,11 @@
 
         function checkoutOrder() {
             const lang = translations[currentLanguage];
-            console.log("Attempting checkout.");
+            console.log("Intentando finalizar compra.");
 
             if (cart.length === 0) {
                 showModal(lang.cartEmpty, lang.cartEmpty);
-                console.warn("Checkout aborted: Cart is empty.");
+                console.warn("Finalización de compra abortada: El carrito está vacío.");
                 return;
             }
 
@@ -1139,13 +1240,15 @@
 
             let allFieldsValid = true;
 
+            // Validación de campos: añade/elimina borde rojo
             if (!customerName) { customerNameInput?.classList.add('border-red-500'); allFieldsValid = false; } else { customerNameInput?.classList.remove('border-red-500'); }
-            if (!customerPhone || !/^\d{7,}$/.test(customerPhone)) { 
+            if (!customerPhone || !/^\d{7,}$/.test(customerPhone)) { // Valida que sea un número de al menos 7 dígitos
                 customerPhoneInput?.classList.add('border-red-500'); allFieldsValid = false; 
             } else { 
                 customerPhoneInput?.classList.remove('border-red-500'); 
             }
             
+            // Validación de método de entrega
             if (!deliveryMethod) { 
                 document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.closest('label').classList.add('text-red-500'));
                 allFieldsValid = false; 
@@ -1153,12 +1256,14 @@
                 document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.closest('label').classList.remove('text-red-500'));
             }
 
+            // Validación de dirección si es a domicilio
             if (deliveryMethod === "A Domicilio" && customerAddress === '') {
                 customerAddressInput?.classList.add('border-red-500'); allFieldsValid = false; 
             } else {
                 customerAddressInput?.classList.remove('border-red-500');
             }
 
+            // Validación de método de pago
             if (!paymentMethod) { 
                 document.querySelectorAll('input[name="payment-method"]').forEach(el => el.closest('label').classList.add('text-red-500'));
                 allFieldsValid = false; 
@@ -1168,12 +1273,12 @@
 
             if (!allFieldsValid) {
                 showModal(lang.requiredFields, lang.completeYourDetails);
-                console.warn("Checkout aborted: Validation failed.");
+                console.warn("Finalización de compra abortada: Fallo en la validación.");
                 return;
             }
 
             const { subtotal, discount, shippingCost, total } = calculateCartTotals();
-            console.log("Checkout: Totals for WhatsApp message:", { subtotal, discount, shippingCost, total });
+            console.log("Finalización de compra: Totales para mensaje de WhatsApp:", { subtotal, discount, shippingCost, total });
 
             let whatsappMessage = `¡Hola! Me gustaría hacer un pedido de R&F Productos Integrales.\n\n`;
             whatsappMessage += `*--- Datos del Cliente ---*\n`;
@@ -1201,6 +1306,7 @@
                 } else {
                     const product = products.find(p => p.id === item.productId);
                     name = product ? product.name : 'Producto Desconocido';
+                    // Reutiliza la lógica de precio por unidad para asegurar la consistencia
                     pricePerUnit = product ? getPricePerUnit(product, item.quantity, false) : 0;
                 }
                 whatsappMessage += `- ${name} x${item.quantity} (RD$${(pricePerUnit || 0).toFixed(2)} c/u)\n`;
@@ -1215,12 +1321,13 @@
             whatsappMessage += `Por favor, envíame los detalles para completar la compra. ¡Gracias!`;
 
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappNumber = '18094254540';
+            const whatsappNumber = '18094254540'; // Número de WhatsApp de R&F Productos Integrales
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
             window.open(whatsappUrl, '_blank');
-            console.log("WhatsApp URL opened:", whatsappUrl);
+            console.log("URL de WhatsApp abierta:", whatsappUrl);
 
+            // Limpia el carrito y los campos del formulario después del envío (simulado)
             cart = [];
             saveCart();
             updateCartCount();
@@ -1230,8 +1337,9 @@
             if (customerPhoneInput) customerPhoneInput.value = '';
             document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.checked = false);
             document.querySelectorAll('input[name="payment-method"]').forEach(el => el.checked = false);
-            toggleBankDetails();
+            toggleBankDetails(); // Oculta los detalles bancarios si estaban visibles
 
+            // Navega a la página de inicio después de un breve retraso para que el usuario vea el modal
             setTimeout(() => navigateTo('home', null, event), 3000);
         }
 
@@ -1241,11 +1349,6 @@
                 saveWishlist();
                 updateWishlistCount();
                 showWishlistModal(translations[currentLanguage].addedToWishlist, translations[currentLanguage].addedSuccessfully);
-                // No need to re-render the whole page here unless a visual update is critical.
-                // The wishlist count is already updated.
-                // if (['shop', 'home', 'product', 'offers'].includes(currentPage)) {
-                //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
-                // }
             } else {
                 showWishlistModal(translations[currentLanguage].wishlistPageTitle, `¡Este producto ya está en tu Lista de Deseos!`);
             }
@@ -1255,37 +1358,34 @@
             wishlist = wishlist.filter(id => id !== itemId);
             saveWishlist();
             updateWishlistCount();
-            renderWishlist();
+            renderWishlist(); // Vuelve a renderizar la lista de deseos
             showWishlistModal(translations[currentLanguage].removedFromWishlist, `El producto ha sido eliminado de tu Lista de Deseos.`);
-            // No need to re-render the whole page here unless a visual update is critical.
-            // if (['shop', 'home', 'product', 'offers'].includes(currentPage)) {
-            //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
-            // }
         }
 
         function navigateTo(page, param = null, event = null) {
-            console.log(`[navigateTo] Attempting navigation to page: ${page} with param: ${param}`);
+            console.log(`[navigateTo] Intentando navegación a la página: ${page} con parámetro: ${param}`);
             if (event) {
-                event.preventDefault();
-                console.log(`[navigateTo] Event prevented for: ${event.type}`);
+                event.preventDefault(); // Previene la acción predeterminada del evento (ej. el salto de un enlace)
+                console.log(`[navigateTo] Evento prevenido para: ${event.type}`);
             }
             
             const newHash = page + (param ? `-${param}` : '');
             
+            // Solo actualiza el hash si es diferente para evitar entradas duplicadas en el historial del navegador
             if (window.location.hash.substring(1) !== newHash) {
                 window.location.hash = newHash;
-                console.log(`[navigateTo] Hash updated to: ${newHash}`);
+                console.log(`[navigateTo] Hash actualizado a: ${newHash}`);
             } else {
-                console.log(`[navigateTo] Hash already is: ${newHash}. Not updating hash.`);
+                console.log(`[navigateTo] El hash ya es: ${newHash}. No se actualiza el hash.`);
             }
             
-            renderPage(page, param);
+            renderPage(page, param); // Renderiza la página inmediatamente
         }
 
-        // --- Main Rendering Functions ---
+        // --- Funciones Principales de Renderizado ---
         function renderGenericPage(titleKey, contentKey) {
             const lang = translations[currentLanguage];
-            if (appContent) {
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto border border-gray-200">
                         <h1 class="text-3xl font-bold text-primary mb-6 text-center">${lang[titleKey]}</h1>
@@ -1310,7 +1410,7 @@
 
         function renderHome() {
             const lang = translations[currentLanguage];
-            if (!appContent) return; // Safeguard
+            if (!appContent) return; // Verificación de seguridad
 
             appContent.innerHTML = `
                 <section class="relative h-[250px] md:h-[350px] lg:h-[450px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
@@ -1384,38 +1484,40 @@
                     </div>
                 </section>
             `;
-            initCarousel();
+            initCarousel(); // Inicializa el carrusel al renderizar la página de inicio
         }
 
         function initCarousel() {
             showSlides(slideIndex);
-            clearInterval(carouselInterval);
+            clearInterval(carouselInterval); // Limpia cualquier intervalo existente
             carouselInterval = setInterval(() => {
-                changeSlide(1);
+                changeSlide(1); // Cambia de diapositiva automáticamente cada 5 segundos
             }, 5000);
         }
 
         function showSlides(n) {
             const slides = document.getElementsByClassName("carousel-item");
             const dots = document.getElementsByClassName("carousel-dot");
-            if (slides.length === 0) return;
+            if (slides.length === 0) return; // Salir si no hay diapositivas
 
-            if (n >= slides.length) { slideIndex = 0 }
-            if (n < 0) { slideIndex = slides.length - 1 }
+            if (n >= slides.length) { slideIndex = 0 } // Si se supera el final, vuelve al principio
+            if (n < 0) { slideIndex = slides.length - 1 } // Si se va al principio, ve al final
 
+            // Oculta todas las diapositivas y desactiva todos los puntos
             for (let i = 0; i < slides.length; i++) {
                 slides[i].classList.remove('active');
             }
             for (let i = 0; i < dots.length; i++) {
                 dots[i].classList.remove('active');
             }
+            // Muestra la diapositiva actual y activa su punto correspondiente
             slides[slideIndex].classList.add('active');
             dots[slideIndex].classList.add('active');
         }
 
         function changeSlide(n) {
             showSlides(slideIndex += n);
-            clearInterval(carouselInterval);
+            clearInterval(carouselInterval); // Reinicia el intervalo al cambiar manualmente
             carouselInterval = setInterval(() => {
                 changeSlide(1);
             }, 5000);
@@ -1423,7 +1525,7 @@
 
         function currentSlide(n) {
             showSlides(slideIndex = n);
-            clearInterval(carouselInterval);
+            clearInterval(carouselInterval); // Reinicia el intervalo al ir a una diapositiva específica
             carouselInterval = setInterval(() => {
                 changeSlide(1);
             }, 5000);
@@ -1433,7 +1535,8 @@
             const lang = translations[currentLanguage];
             let filteredProducts = [...products];
 
-            const currentSearchQuery = searchInput ? searchInput.value.toLowerCase() : ''; // Safeguard
+            // Aplica el filtro de búsqueda si existe
+            const currentSearchQuery = searchInput ? searchInput.value.toLowerCase() : ''; // Verificación de seguridad
             if (currentSearchQuery) {
                 filteredProducts = filteredProducts.filter(p =>
                     p.name.toLowerCase().includes(currentSearchQuery) ||
@@ -1445,6 +1548,7 @@
                 );
             }
 
+            // Recupera los valores actuales de los filtros desde el DOM (si existen)
             const brandFilter = document.getElementById('filter-brand')?.value;
             const categoryFilterFromUI = document.getElementById('filter-category')?.value;
             const benefitFilter = document.getElementById('filter-benefit')?.value;
@@ -1452,8 +1556,10 @@
             const minPriceFilter = parseFloat(document.getElementById('filter-price-min')?.value);
             const maxPriceFilter = parseFloat(document.getElementById('filter-price-max')?.value);
 
+            // Usa el filtro de categoría pasado como parámetro o el de la UI
             const activeCategoryFilter = filter.category || categoryFilterFromUI || '';
 
+            // Aplica los filtros
             if (brandFilter) { filteredProducts = filteredProducts.filter(p => p.brand === brandFilter); }
             if (activeCategoryFilter) { filteredProducts = filteredProducts.filter(p => p.normalizedCategory === activeCategoryFilter); }
             if (filter.subcategory) { filteredProducts = filteredProducts.filter(p => p.subcategory === filter.subcategory); }
@@ -1462,10 +1568,12 @@
             if (minPriceFilter !== undefined && !isNaN(minPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail >= minPriceFilter); }
             if (maxPriceFilter !== undefined && !isNaN(maxPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail <= maxPriceFilter); }
 
+            // Filtro específico para la página de ofertas
             if (filter.isOffer) {
                 filteredProducts = filteredProducts.filter(p => p.isOffer === true);
             }
             
+            // Aplica el ordenamiento
             switch (sort) {
                 case 'priceAsc':
                     filteredProducts.sort((a, b) => a.priceDetail - b.priceDetail);
@@ -1480,16 +1588,18 @@
                     filteredProducts.sort((a, b) => b.salesCount - a.salesCount);
                     break;
                 case 'customerRating':
+                    // Implementación de calificación de clientes aquí si tienes datos
                     break;
                 case 'relevance':
                 default:
-                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); // Orden alfabético por defecto
                     break;
             }
 
             let individualOffersHtml = '';
+            // Si es la página de ofertas, solo muestra un subconjunto y añade un título de ofertas individuales
             if (filter.isOffer) {
-                filteredProducts = filteredProducts.slice(0, 4);
+                filteredProducts = filteredProducts.slice(0, 4); // Limita los productos individuales en ofertas
                 if (filteredProducts.length > 0) {
                      individualOffersHtml = `<h3 class="text-2xl font-bold text-primary mb-6 mt-8">${lang.individualOffers}</h3>`;
                 }
@@ -1501,7 +1611,7 @@
             const benefits = getUniqueBenefits();
 
             let sidebarHtml = '';
-            let mainContentWidthClass = 'lg:w-3/4';
+            let mainContentWidthClass = 'lg:w-3/4'; // Ancho por defecto con barra lateral
 
             if (displaySidebar) {
                 mainContentWidthClass = 'lg:w-3/4';
@@ -1554,11 +1664,11 @@
                     </aside>
                 `;
             } else {
-                mainContentWidthClass = 'lg:w-full';
+                mainContentWidthClass = 'lg:w-full'; // Ancho completo si no hay barra lateral
                 sidebarHtml = '';
             }
 
-            if (appContent) { // Safeguard
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <div class="flex flex-col lg:flex-row gap-8">
                         ${sidebarHtml}
@@ -1612,7 +1722,7 @@
                                     filteredProducts.map(p => `
                                         <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
                                             <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)" class="block">
-                                                <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain p-4 rounded-t-lg">
+                                                <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                                                 <h3 class="text-lg font-semibold text-gray-800 mb-1 px-4 pt-2">${p.name}</h3>
                                             </a>
                                             <div class="p-4 flex-grow flex flex-col justify-between">
@@ -1647,6 +1757,7 @@
                 `;
             }
 
+            // Añade los event listeners para los filtros y el ordenamiento si la barra lateral está presente
             if (displaySidebar) {
                 document.getElementById('filter-brand')?.addEventListener('change', applyFiltersAndSort);
                 document.getElementById('filter-category')?.addEventListener('change', applyFiltersAndSort);
@@ -1656,20 +1767,20 @@
                 document.getElementById('filter-price-max')?.addEventListener('input', applyFiltersAndSort);
                 document.getElementById('sort-options')?.addEventListener('change', applyFiltersAndSort);
             }
-            updateContentLanguage();
+            updateContentLanguage(); // Aplica el lenguaje después de renderizar el contenido
         }
 
         function renderProductDetail(productId) {
-            console.log(`Attempting to render product detail for ID: ${productId}`);
+            console.log(`[renderProductDetail] Intentando renderizar el detalle del producto para el ID: ${productId}`);
             const product = products.find(p => p.id === productId);
             const lang = translations[currentLanguage];
 
             if (!product) {
                 if (appContent) appContent.innerHTML = `<p class="text-center text-red-500 text-xl">Producto no encontrado.</p>`;
-                console.error(`Product with ID: ${productId} not found.`);
+                console.error(`[renderProductDetail] Producto con ID: ${productId} no encontrado.`);
                 return;
             }
-            console.log(`Product found: ${product.name}`);
+            console.log(`[renderProductDetail] Producto encontrado: ${product.name}`);
 
             const descriptionText = product[`description_${currentLanguage}`] || product.description_es;
             const ingredientsText = product[`ingredients_${currentLanguage}`] || product.ingredients_es;
@@ -1677,7 +1788,7 @@
             const warningsText = product[`warnings_${currentLanguage}`] || product.warnings_es;
             const fichaTecnicaContent = product[`fichaTecnica_${currentLanguage}`] || product.fichaTecnica_es;
 
-            if (appContent) { // Safeguard
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
                         <div class="lg:w-1/2 flex justify-center items-center">
@@ -1686,7 +1797,7 @@
                         <div class="lg:w-1/2">
                             <h1 class="text-4xl font-bold text-primary mb-2">${product.name}</h1>
                             <p class="text-xl text-gray-700 mb-4">${product.brand}</p>
-                            <p class="text-5xl font-extrabold text-green-600 mb-6">${formatPrice(product.priceDetail)} ${product.priceWholesale && product.priceWholesale !== p.priceDetail ? `<span class="text-sm text-gray-500">(RD$${(product.priceWholesale || 0).toFixed(2)} Mayor)</span>` : ''}</p>
+                            <p class="text-5xl font-extrabold text-green-600 mb-6">${formatPrice(product.priceDetail)} ${product.priceWholesale && product.priceWholesale !== product.priceDetail ? `<span class="text-sm text-gray-500">(RD$${(product.priceWholesale || 0).toFixed(2)} Mayor)</span>` : ''}</p>
                             
                             <div class="flex items-center justify-start space-x-2 mb-4">
                                 <button onclick="updateProductQuantityInCart('${product.id}', -1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">-</button>
@@ -1701,14 +1812,14 @@
                                 <i class="fas fa-cart-plus mr-2"></i> ${lang.addToCart}
                             </button>
                             <button onclick="addToWishlist('${product.id}', 'product')" class="w-full bg-gray-200 text-gray-700 text-xl py-3 rounded-full hover:bg-gray-300 transition duration-200 mb-4" data-translate="addToWishlist">
-                                <i class="fas fa-heart ${wishlist.includes(p.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                                <i class="fas fa-heart ${wishlist.includes(product.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
                             </button>
-                            <button onclick="openFichaTecnicaModal('${p.id}')" class="w-full bg-gray-600 text-white text-xl py-3 rounded-full hover:bg-gray-700 transition duration-200 mb-8">
+                            <button onclick="openFichaTecnicaModal('${product.id}')" class="w-full bg-gray-600 text-white text-xl py-3 rounded-full hover:bg-gray-700 transition duration-200 mb-8">
                                                 Ver Ficha Técnica
                                             </button>
 
 
-                            <!-- Tabs for Description, Ingredients, Usage, Warnings, Reviews -->
+                            <!-- Tabs para Descripción, Ingredientes, Uso, Advertencias, Reseñas -->
                             <div class="border-b border-gray-200">
                                 <nav class="-mb-px flex space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
                                     <button class="tab-button text-primary whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-lg" data-tab="description" data-translate="description">${lang.description}</button>
@@ -1761,15 +1872,19 @@
                 `;
             }
 
+            // Añade event listeners para los botones de las pestañas
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', function() {
+                    // Desactiva todas las pestañas
                     document.querySelectorAll('.tab-button').forEach(btn => {
                         btn.classList.remove('text-primary', 'border-primary');
                         btn.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
                     });
+                    // Activa la pestaña clickeada
                     this.classList.add('text-primary', 'border-primary');
                     this.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
 
+                    // Oculta todos los paneles de contenido y muestra el correspondiente a la pestaña clickeada
                     document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
                     document.getElementById(`tab-${this.dataset.tab}`).classList.remove('hidden');
                 });
@@ -1789,7 +1904,7 @@
 
             const productsInComboHtml = combo.productsIncluded.map(item => {
                 const product = products.find(p => p.id === item.id);
-                if (!product) return '';
+                if (!product) return ''; // Salta si el producto no se encuentra
 
                 const productBenefits = item[`benefits_${currentLanguage}`] || item.benefits_es;
 
@@ -1811,7 +1926,7 @@
                 `;
             }).join('');
 
-            if (appContent) { // Safeguard
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
                         <div class="lg:w-1/2 flex justify-center items-center">
@@ -1843,10 +1958,10 @@
 
 
         /**
-         * Renders the cart page, displaying items, quantities, and totals.
+         * Renderiza la página del carrito, mostrando los artículos, cantidades y totales.
          */
         function renderCart() {
-            console.log("Starting renderCart function.");
+            console.log("[renderCart] Iniciando función renderCart.");
             const lang = translations[currentLanguage];
             let cartContent = '';
 
@@ -1879,6 +1994,7 @@
                                         const product = products.find(p => p.id === item.productId);
                                         name = product ? product.name : 'Producto Desconocido';
                                         image = product ? product.image : '';
+                                        // Asegúrate de usar getPricePerUnit aquí también para la visualización del carrito
                                         pricePerUnit = product ? getPricePerUnit(product, item.quantity) : 0;
                                     }
 
@@ -1915,7 +2031,7 @@
                     </div>
 
                     <div class="flex flex-col items-end space-y-4 w-full">
-                        <!-- Totals Summary -->
+                        <!-- Resumen de Totales -->
                         <div class="bg-gray-100 p-4 rounded-lg w-full md:w-1/2 lg:w-1/3 shadow-inner">
                             <div class="flex justify-between text-lg font-semibold text-gray-700 mb-2">
                                 <span id="display-subtotal-label" data-translate="subtotal">${lang.subtotal}</span>
@@ -1935,7 +2051,7 @@
                             </div>
                         </div>
                         
-                        <!-- Customer Details Form -->
+                        <!-- Formulario de Datos del Cliente -->
                         <div class="w-full lg:w-1/2 p-4 bg-gray-50 rounded-lg shadow-inner mt-6">
                             <h3 class="text-xl font-semibold text-primary mb-4" data-translate="contactDetails">${lang.contactDetails}</h3>
                             <div class="space-y-3">
@@ -1953,7 +2069,7 @@
                                 </div>
                             </div>
 
-                            <!-- Delivery Method -->
+                            <!-- Método de Entrega -->
                             <div class="mt-6">
                                 <h4 class="text-lg font-semibold text-gray-800 mb-3" data-translate="deliveryMethod">${lang.deliveryMethod} <span class="text-red-500">*</span></h4>
                                 <div class="flex flex-col space-y-2">
@@ -1966,14 +2082,14 @@
                                         <span class="ml-2 text-gray-700" data-translate="storePickup">${lang.storePickup}</span>
                                     </label>
                                 </div>
-                                <!-- Delivery Cost Notes -->
+                                <!-- Notas sobre el Costo de Envío -->
                                 <div id="delivery-cost-notes" class="mt-3 text-sm text-gray-600 p-3 bg-gray-100 rounded-md">
                                     <p data-translate="deliveryCostNoteSantoDomingo">${lang.deliveryCostNoteSantoDomingo}</p>
                                     <p data-translate="deliveryCostNoteOutside">${lang.deliveryCostNoteOutside}</p>
                                 </div>
                             </div>
 
-                            <!-- Payment Method -->
+                            <!-- Método de Pago -->
                             <div class="mt-6">
                                 <h4 class="text-lg font-semibold text-gray-800 mb-3" data-translate="paymentMethod">${lang.paymentMethod} <span class="text-red-500">*</span></h4>
                                 <div class="flex flex-col space-y-2">
@@ -1986,7 +2102,7 @@
                                         <span class="ml-2 text-gray-700" data-translate="bankTransfer">${lang.bankTransfer}</span>
                                     </label>
                                 </div>
-                                <!-- Bank Account Details (Initially hidden, shown on Transferencia Bancaria selection) -->
+                                <!-- Detalles de Cuentas Bancarias (Inicialmente oculto, se muestra al seleccionar Transferencia Bancaria) -->
                                 <div id="bank-accounts-details" class="mt-3 text-sm text-gray-600 p-3 bg-gray-100 rounded-md hidden">
                                     <p class="font-semibold mb-2" data-translate="bankAccounts">${lang.bankAccounts}:</p>
                                     <ul class="list-disc list-inside space-y-1">
@@ -1995,12 +2111,12 @@
                                         <li data-translate="bhd">${lang.bhd}</li>
                                     </ul>
                                 </div>
-                                <!-- Payment Confirmation Note -->
+                                <!-- Nota de Confirmación de Pago -->
                                 <p id="payment-confirmation-note" class="mt-4 text-sm text-red-600 font-medium" data-translate="paymentConfirmationNote">
                                     ${lang.paymentConfirmationNote}
                                 </p>
                             </div>
-                            <!-- New Discount Note -->
+                            <!-- Nueva Nota de Descuento -->
                             <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800">
                                 <p class="text-sm" data-translate="discountNote">
                                     ${lang.discountNote}
@@ -2012,7 +2128,7 @@
                             <button onclick="navigateTo('shop', null, event)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition duration-200" data-translate="continueShopping">
                                 ${lang.continueShopping}
                             </button>
-                            <!-- Updated: Checkout button now calls the checkoutOrder function -->
+                            <!-- Actualizado: El botón de Pagar ahora llama a la función checkoutOrder -->
                             <button onclick="checkoutOrder()" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200" data-translate="checkout">
                                 ${lang.checkout}
                             </button>
@@ -2021,22 +2137,22 @@
                 `;
             }
 
-            if (appContent) { // Safeguard
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="yourCart">${lang.yourCart}</h1>
                     ${cartContent}
                 `;
             }
             
-            updateContentLanguage(); 
-            toggleBankDetails(); 
-            initCartFormListeners();
-            calculateCartTotals();
-            console.log("Finished renderCart function.");
+            updateContentLanguage(); // Aplica la traducción después de renderizar el contenido
+            toggleBankDetails(); // Asegura que los detalles bancarios se muestren/oculten correctamente al cargar el carrito
+            initCartFormListeners(); // Reinicializa los listeners del formulario del carrito
+            calculateCartTotals(); // Recalcula los totales al renderizar el carrito
+            console.log("[renderCart] Función renderCart finalizada.");
         }
 
         /**
-         * Renders the wishlist page, displaying items saved by the user.
+         * Renderiza la página de la lista de deseos, mostrando los artículos guardados por el usuario.
          */
         function renderWishlist() {
             const lang = translations[currentLanguage];
@@ -2050,11 +2166,11 @@
                         ${wishlist.map(itemId => {
                             const product = products.find(p => p.id === itemId);
                             const combo = combos.find(c => c.id === itemId);
-                            const item = product || combo; // Could be a product or a combo
+                            const item = product || combo; // Podría ser un producto o un combo
 
-                            if (!item) return ''; // Skip if item not found
+                            if (!item) return ''; // Ignora si el artículo no se encuentra
 
-                            const isCombo = !!combo; // Check if it's a combo
+                            const isCombo = !!combo; // Verifica si es un combo
 
                             return `
                                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
@@ -2078,29 +2194,29 @@
                 `;
             }
 
-            if (appContent) { // Safeguard
+            if (appContent) { // Verificación de seguridad
                 appContent.innerHTML = `
                     <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="wishlistPageTitle">${lang.wishlistPageTitle}</h1>
                     ${wishlistContent}
                 `;
             }
-            updateContentLanguage(); // Apply language after rendering content
+            updateContentLanguage(); // Aplica el lenguaje después de renderizar el contenido
         }
 
 
-        // --- Event Listeners and Initial Setup ---
+        // --- Event Listeners e Configuración Inicial ---
 
-        // Event listener for hash changes in the URL (for navigation)
+        // Event listener para cambios en el hash de la URL (para navegación)
         window.addEventListener('hashchange', () => {
             const hash = window.location.hash.substring(1);
             const parts = hash.split('-');
             const page = parts[0];
-            const param = parts.slice(1).join('-'); // Reconstruct param if it contains hyphens
-            console.log(`[hashchange] Hash change detected: page=${page}, param=${param}`);
+            const param = parts.slice(1).join('-'); // Reconstruye el parámetro si contiene guiones
+            console.log(`[hashchange] Cambio de hash detectado: page=${page}, param=${param}`);
             
-            // This condition prevents re-rendering if the hash is the same, but allows
-            // re-rendering if a param changes while the page (e.g., 'shop') remains the same.
-            // Also ensures a render if the page itself changes.
+            // Esta condición evita el re-renderizado si el hash es el mismo, pero permite
+            // el re-renderizado si un parámetro cambia mientras la página (ej. 'shop') sigue siendo la misma.
+            // También asegura un renderizado si la página misma cambia.
             if (currentPage !== page || (param && window.location.hash.substring(1) !== `${page}-${param}`) || (!param && window.location.hash.substring(1) !== page)) {
                  renderPage(page, param);
             }
@@ -2108,15 +2224,15 @@
         });
 
         /**
-         * Renders the content for the current page based on its name and optional parameter.
-         * This function should be the SOLE entry point for rendering content based on navigation.
-         * @param {string} page - The name of the page to render.
-         * @param {string} [param=null] - An optional parameter for the page.
+         * Renderiza el contenido de la página actual basándose en su nombre y parámetro opcional.
+         * Esta función debe ser el ÚNICO punto de entrada para renderizar contenido basado en la navegación.
+         * @param {string} page - El nombre de la página a renderizar.
+         * @param {string} [param=null] - Un parámetro opcional para la página.
          */
         function renderPage(page, param = null) {
-            console.log(`[renderPage] Rendering page: ${page} with param: ${param}`); // Debugging: Page render start
-            currentPage = page; // Keep track of the current page
-            // Clear any active carousel interval when navigating away from home
+            console.log(`[renderPage] Renderizando página: ${page} con parámetro: ${param}`); // Depuración: Inicio del renderizado de página
+            currentPage = page; // Mantener un registro de la página actual
+            // Limpia cualquier intervalo de carrusel activo al navegar fuera de la página de inicio
             if (page !== 'home') {
                 clearInterval(carouselInterval);
             }
@@ -2126,13 +2242,13 @@
                     break;
                 case 'shop':
                     let shopFilter = {};
-                    let sortOption = 'relevance'; // Default sort
-                    let displaySidebar = true; // Default to showing sidebar for shop page
+                    let sortOption = 'relevance'; // Orden predeterminado
+                    let displaySidebar = true; // Por defecto, muestra la barra lateral para la página de la tienda
 
                     if (param) {
                         const parts = param.split('-');
                         if (parts[0] === 'category' && parts[1]) {
-                            shopFilter.category = parts[1]; // Use the normalized/kebab-case category for filtering
+                            shopFilter.category = parts[1]; // Usa la categoría normalizada/kebab-case para filtrar
                         }
                     }
                     renderShop(shopFilter, sortOption, displaySidebar);
@@ -2140,19 +2256,19 @@
                 case 'product':
                     renderProductDetail(param);
                     break;
-                case 'combo': // NEW case for combo detail page
+                case 'combo': // Nuevo caso para la página de detalle del combo
                     renderComboDetail(param);
                     break;
                 case 'cart':
                     renderCart();
                     break;
-                case 'offers': // The offers page directly sets isOffer filter
-                    renderShop({ isOffer: true }, 'relevance', false); // No sidebar for offers
+                case 'offers': // La página de ofertas establece directamente el filtro isOffer
+                    renderShop({ isOffer: true }, 'relevance', false); // No hay barra lateral para las ofertas
                     break;
-                case 'wishlist': // New case for 'Lista de Deseos'
+                case 'wishlist': // Nuevo caso para 'Lista de Deseos'
                     renderWishlist();
                     break;
-                // Pages that use renderGenericPage (from footer-logic, now also About Us)
+                // Páginas que usan renderGenericPage (desde la lógica del pie de página, ahora también Acerca de Nosotros)
                 case 'contact':
                 case 'help-faq':
                 case 'blog':
@@ -2161,30 +2277,30 @@
                 case 'shipping-policy':
                 case 'return-policy':
                 case 'payment-methods':
-                case 'about-us': // Added case for "about-us"
+                case 'about-us': // Se añadió el caso para "about-us"
                     renderGenericPage(page, `${page}PageContent`);
                     break;
                 default:
-                    renderHome(); // Fallback to home page
+                    renderHome(); // Vuelve a la página de inicio por defecto
             }
-            // Ensure search input is cleared/reset when navigating away from shop/search results
-            if (searchInput && page !== 'shop') { // Safeguard searchInput
+            // Asegura que el campo de búsqueda se borre/reinicie al navegar fuera de la tienda/resultados de búsqueda
+            if (searchInput && page !== 'shop') { // Verificación de seguridad para searchInput
                 searchInput.value = '';
             }
-            console.log(`[renderPage] Page ${page} rendered successfully.`); // Debugging: Page render end
+            console.log(`[renderPage] Página ${page} renderizada exitosamente.`); // Depuración: Fin del renderizado de página
         }
 
         /**
-         * Populates the shop dropdown menu with dynamic categories.
+         * Rellena el menú desplegable de la tienda con categorías dinámicas.
          */
         function populateCategoryMenu() {
             const shopDropdown = document.querySelector('nav .group div.header-shop-dropdown');
             if (!shopDropdown) {
-                console.error("Shop dropdown element not found.");
+                console.error("Elemento de menú desplegable de la tienda no encontrado.");
                 return;
             }
 
-            shopDropdown.innerHTML = ''; // Clear existing content
+            shopDropdown.innerHTML = ''; // Limpia el contenido existente
 
             const categories = getUniqueCategories();
             categories.forEach(category => {
@@ -2205,9 +2321,9 @@
         }
 
         /**
-         * Applies filters and sorting to the shop page.
-         * This function reads current filter/sort selections from the DOM and calls renderShop.
-         * @param {Object} [additionalFilter={}] - Optional additional filter parameters (e.g., from search or category links).
+         * Aplica filtros y ordenamiento a la página de la tienda.
+         * Esta función lee las selecciones actuales de filtro/ordenamiento del DOM y llama a renderShop.
+         * @param {Object} [additionalFilter={}] - Parámetros de filtro adicionales opcionales (ej. de búsqueda o enlaces de categoría).
          */
         function applyFiltersAndSort(additionalFilter = {}) {
             const brandFilter = document.getElementById('filter-brand')?.value || '';
@@ -2218,7 +2334,7 @@
             const maxPriceFilter = parseFloat(document.getElementById('filter-price-max')?.value) || undefined;
             const sortOption = document.getElementById('sort-options')?.value || 'relevance';
 
-            const shouldDisplaySidebar = true; 
+            const shouldDisplaySidebar = true; // Por ahora, la barra lateral siempre se muestra en la tienda
 
             const currentFilters = {
                 brand: brandFilter,
@@ -2233,54 +2349,54 @@
             renderShop(currentFilters, sortOption, shouldDisplaySidebar);
         }
 
-        // DOMContentLoaded ensures all HTML is parsed before running the script
+        // DOMContentLoaded asegura que todo el HTML se haya analizado antes de ejecutar el script
         document.addEventListener('DOMContentLoaded', () => {
             updateCartCount();
             updateWishlistCount();
             populateCategoryMenu();
-            // Moved initial renderPage call inside DOMContentLoaded but after all setup
+            // Llamada inicial a renderPage dentro de DOMContentLoaded pero después de toda la configuración
             const initialHash = window.location.hash.substring(1);
             const initialParts = initialHash.split('-');
             const initialPage = initialParts[0] || 'home';
             const initialParam = initialParts.slice(1).join('-');
             renderPage(initialPage, initialParam);
-            updateContentLanguage(); // Call this AFTER initial renderPage for existing content
-            console.log("[DOMContentLoaded] Initial page rendered.");
+            updateContentLanguage(); // Llama a esto DESPUÉS del renderizado inicial de la página para el contenido existente
+            console.log("[DOMContentLoaded] Página inicial renderizada.");
 
-            // Event listener for language toggle buttons
+            // Event listener para los botones de cambio de idioma
             document.getElementById('language-toggle')?.parentNode?.querySelectorAll('button').forEach(button => {
                 button.addEventListener('click', (e) => {
                     currentLanguage = e.target.dataset.lang;
                     updateContentLanguage();
-                    console.log(`Language changed to: ${currentLanguage}`);
+                    console.log(`Idioma cambiado a: ${currentLanguage}`);
                 });
             });
 
-            // Event listener for search button click
+            // Event listener para el clic del botón de búsqueda
             document.getElementById('search-button')?.addEventListener('click', (event) => {
                 const searchQuery = searchInput ? searchInput.value : '';
-                console.log(`Search button clicked. Query: ${searchQuery}`);
+                console.log(`Botón de búsqueda clickeado. Consulta: ${searchQuery}`);
                 navigateTo('shop', null, event); 
-                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0);
+                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); // Aplica el filtro después de que el DOM esté listo
             });
 
-            // Event listener for Enter key in search input
-            searchInput?.addEventListener('keypress', (e) => { // Safeguard searchInput
+            // Event listener para la tecla Enter en el campo de búsqueda
+            searchInput?.addEventListener('keypress', (e) => { // Verificación de seguridad para searchInput
                 if (e.key === 'Enter') {
                     const searchQuery = searchInput ? searchInput.value : '';
-                    console.log(`Search input Enter pressed. Query: ${searchQuery}`);
-                    navigateTo('shop', null, e);
-                    setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0);
+                    console.log(`Se presionó Enter en el campo de búsqueda. Consulta: ${searchQuery}`);
+                    navigateTo('shop', null, e); // Navega y dispara el renderizado
+                    setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); // Aplica el filtro
                 }
             });
 
-            // NEW: Event listener for Newsletter form submission
-            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { // Safeguard form
-                event.preventDefault();
+            // NUEVO: Event listener para el envío del formulario de Newsletter
+            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { // Verificación de seguridad para el formulario
+                event.preventDefault(); // Previene el envío predeterminado del formulario
                 const emailInput = this.querySelector('input[type="email"]');
-                if (emailInput && emailInput.value.trim() !== '') { // Safeguard emailInput
+                if (emailInput && emailInput.value.trim() !== '') { // Verificación de seguridad para emailInput
                     showModal(translations[currentLanguage].newsletter, translations[currentLanguage].subscribedNewsletter || '¡Gracias por suscribirte a nuestro newsletter!');
-                    emailInput.value = '';
+                    emailInput.value = ''; // Limpia el campo después de la suscripción
                 } else {
                     showModal(translations[currentLanguage].newsletter, translations[currentLanguage].invalidEmail || 'Por favor, introduce un correo electrónico válido.');
                 }
