@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&F Productos Integrales</title>
+    <!-- Favicon: Asegúrate de que la ruta y el nombre del archivo coincida EXACTAMENTE con tu repositorio en GitHub (incluyendo mayúsculas/minúsculas) -->
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        /* Custom Colors */
+        .text-primary { color: #228B22; /* Forest Green */ }
+        .bg-primary { background-color: #228B22; }
+        .hover-scale:hover { transform: scale(1.05); transition: transform 0.2s ease-in-out; }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Fade-in animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-fade-in-delay {
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* Carousel specific styles */
+        .carousel-item {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.7s ease-in-out;
+            opacity: 0;
+            background-size: cover;
+            background-position: center;
+            display: flex; /* Always flex for content positioning */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        .carousel-item.active {
+            display: flex;
+            opacity: 1;
+        }
+        .carousel-content {
+            max-width: 800px;
+            z-index: 10;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        .carousel-control-btn {
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 20;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: background-color 0.3s;
+        }
+        .carousel-control-btn:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .carousel-dot.active {
+            background-color: rgba(255,255,255,1);
+            transform: scale(1.2);
+        }
+
+        /* Dropdown content (for footer collapsible) */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .collapsible-content.active {
+            max-height: 200px; /* Adjust based on content */
+        }
+
+        /* Specific style for Shop dropdown menu */
+        .header-shop-dropdown {
+            width: max-content; /* Ensure dropdown width adapts to content */
+            min-width: 150px; /* Minimum width to prevent very narrow menus */
+            z-index: 50; /* Higher z-index to ensure it appears above other content */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-white shadow-md py-4">
+        <!-- Top Promotional Banner -->
+        <div id="promo-banner" class="bg-primary text-white text-center py-2 text-sm">
+            Envío GRATIS por el consumo mínimo de RD$2,000 | Entrega en 24/48 horas | Confianza y pago seguro
+        </div>
+        <div class="container mx-auto px-4 flex items-center justify-between flex-wrap">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center space-x-2 mr-6" onclick="navigateTo('home', null, event)">
+                <!-- Asegúrate de que './images/favicon.png' coincida EXACTAMENTE con el nombre de tu archivo en GitHub (incluyendo mayúsculas/minúsculas) -->
+                <img src="./images/favicon.png" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
+                <span class="text-2xl font-bold text-primary">R&F Productos Integrales</span>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="flex-grow max-w-lg mx-auto order-last md:order-none w-full md:w-auto mt-4 md:mt-0">
+                <div class="relative flex items-center w-full">
+                    <input type="text" id="search-input" placeholder="Buscar productos..."
+                           class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
+                    <button id="search-button" class="absolute right-0 top-0 mt-0.5 mr-1.5 flex items-center justify-center p-2 rounded-full bg-primary text-white hover:bg-green-700 transition duration-200">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Utility Icons/Links (Cart, Wishlist, Language) -->
+            <div class="flex items-center space-x-4 ml-auto">
+                <!-- Cart Link -->
+                <a href="#cart" id="cart-link" class="relative p-2 text-gray-600 hover:text-primary transition duration-200" onclick="navigateTo('cart', null, event)">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+                <!-- Wishlist Link (replaces Account) -->
+                <a href="#wishlist" id="wishlist-link" class="relative p-2 text-gray-600 hover:text-primary transition duration-200" onclick="navigateTo('wishlist', null, event)">
+                    <i class="fas fa-heart text-xl"></i>
+                    <span id="wishlist-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center" data-translate="wishlist">0</span>
+                </a>
+                <!-- Language Selector -->
+                <div class="relative group">
+                    <button id="language-toggle" class="p-2 text-gray-600 hover:text-primary transition duration-200">
+                        <i class="fas fa-globe text-xl"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                        <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="es" data-translate="spanish">Español</button>
+                        <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en" data-translate="english">English</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact Info (hidden on small screens, shown on medium and up) -->
+            <div class="hidden md:flex items-center space-x-2 ml-4">
+                <i class="fas fa-phone text-primary"></i>
+                <!-- Modificado: El número de teléfono ahora enlaza a WhatsApp -->
+                <a href="https://wa.me/18094254540" target="_blank" class="text-gray-600 text-sm hover:text-primary transition duration-200" data-translate="phone">809-425-4540</a>
+            </div>
+        </div>
+        <!-- Main Navigation -->
+        <nav class="bg-gray-100 py-3 mt-4 shadow-sm">
+            <div class="container mx-auto px-4">
+                <ul class="flex justify-center space-x-8 text-gray-700 font-medium text-lg flex-wrap">
+                    <li><a href="#home" class="hover:text-primary transition duration-200" onclick="navigateTo('home', null, event)" data-translate="home">Inicio</a></li>
+                    <li class="relative group">
+                        <a href="#shop" class="hover:text-primary transition duration-200 inline-flex items-center" onclick="navigateTo('shop', null, event)" data-translate="shop">
+                            Tienda <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </a>
+                        <!-- Added custom class for shop dropdown for easier styling -->
+                        <div class="header-shop-dropdown absolute left-0 mt-2 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <!-- Dynamically populated categories here -->
+                        </div>
+                    </li>
+                    <li><a href="#offers" class="hover:text-primary transition duration-200" onclick="navigateTo('offers', null, event)" data-translate="offers">Ofertas</a></li>
+                    <!-- Eliminados "Nuevos Productos" y "Más Vendidos" de la navegación principal -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="app-content" class="flex-grow container mx-auto px-4 py-8">
+        <!-- Content will be dynamically loaded here by JavaScript -->
+    </main>
+
+    <!-- Footer Section - Integrated from the clean footer logic -->
+    <footer class="bg-gray-800 text-white py-10 mt-8 rounded-t-lg shadow-lg">
+        <div class="container mx-auto px-4 grid grid-cols-1 gap-8">
+            <!-- Sección de Redes Sociales y Newsletter -->
+            <div>
+                <h4 class="text-lg font-semibold mb-2 text-orange-400" data-translate="followUs">Síguenos</h4>
+                <div class="flex space-x-4 mb-4">
+                    <a href="https://www.facebook.com/productosintegralesryf" target="_blank" class="text-gray-300 hover:text-orange-200 text-2xl transition duration-200"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/prointegrales/" target="_blank" class="text-gray-300 hover:text-orange-200 text-2xl transition duration-200"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/channel/UCcWcm2tDvaTtgNG0L5nugMA" target="_blank" class="text-gray-300 hover:text-orange-200 text-2xl transition duration-200"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-gray-300 hover:text-orange-200 text-2xl transition duration-200"><i class="fab fa-tiktok"></i></a>
+                </div>
+                <h4 class="text-lg font-semibold mb-2 text-orange-400" data-translate="newsletter">Newsletter</h4>
+                <form id="newsletter-form" class="flex">
+                    <input type="email" placeholder="Tu correo electrónico" class="p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-900 w-full" data-translate="yourEmail" required>
+                    <button type="submit" class="bg-orange-500 text-white p-2 rounded-r-md hover:bg-orange-600 transition duration-200" data-translate="subscribe">
+                        Suscribir
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-sm text-gray-400 mt-8 border-t border-gray-700 pt-6">
+            <p data-translate="copyright">&copy; 2025 R&F Productos Integrales. Todos los derechos reservados.</p>
+            <p class="mt-2 text-xs" data-translate="disclaimer">
+                Descargo de Responsabilidad: La información en este sitio no reemplaza el consejo médico. Los productos no están destinados a diagnosticar, tratar, curar o prevenir enfermedades. Consultar a un médico para dosis y frecuencia.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- Cart Confirmation Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+            <h3 class="text-xl font-semibold mb-4" id="modal-title" data-translate="productAdded">Producto Añadido al Carrito</h3>
+            <p class="text-gray-700 mb-6" id="modal-message" data-translate="addedSuccessfully">¡El producto ha sido añadido exitosamente a tu carrito de compras!</p>
+            <button onclick="closeModal()" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-green-700 transition duration-200" data-translate="close">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Wishlist Confirmation Modal (re-using cart-modal structure) -->
+    <div id="wishlist-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+            <h3 class="text-xl font-semibold mb-4" id="wishlist-modal-title" data-translate="productAdded">Producto Añadido a Lista de Deseos</h3>
+            <p class="text-gray-700 mb-6" id="wishlist-modal-message" data-translate="addedSuccessfully">¡El producto ha sido añadido exitosamente a tu Lista de Deseos!</p>
+            <button onclick="closeWishlistModal()" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-green-700 transition duration-200" data-translate="close">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Ficha Técnica Modal -->
+    <div id="fichaTecnicaModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-11/12 md:w-3/4 lg:w-1/2 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeFichaTecnicaModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-primary mb-4 text-center" id="modalTituloProducto"></h3>
+            <div class="modal-body flex flex-col md:flex-row gap-4 items-center" id="modalCuerpoFicha">
+                <!-- Content injected here -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Helper Functions (Independent/Utility - no reliance on global state/data/DOM elements initially) ---
+        function toKebabCase(string) {
+            return string.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-.]/g, '');
+        }
+
+        function capitalizeEachWord(str) {
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        function getRandomPrice(min, max) {
+            return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+        }
+
+        function getRandomDate(start, end) {
+            const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return date.toISOString().split('T')[0]; //YYYY-MM-DD
+        }
+
+        // Function to assign categories and benefits based on product name
+        function assignCategoryAndBenefits(name) {
+            let category = 'Otros'; // Default to 'Otros' if no specific category matches
+            let benefits = ['En construcción.'];
+
+            const lowerName = name.toLowerCase();
+
+            // Suplementos Naturales
+            if (lowerName.includes("aceite de copaiba") || lowerName.includes("aceite de linaza") || lowerName.includes("aceite de oregano") || lowerName.includes("aceite de ricino") ||
+                lowerName.includes("adipo-cf") || lowerName.includes("adipofin") || lowerName.includes("alcachofa") || lowerName.includes("amargo sueco") || lowerName.includes("ashwagandha") ||
+                lowerName.includes("ayurcolon") || lowerName.includes("ayurmona") || lowerName.includes("broncovedi jarabe") || lowerName.includes("cardo mariano") ||
+                lowerName.includes("chanca piedra") || lowerName.includes("citrato de potasio polvo") || lowerName.includes("citrato magnesio") || lowerName.includes("cola de caballo") ||
+                lowerName.includes("crema relabir antiestres") || lowerName.includes("curcuma en polvo") || lowerName.includes("curcumin") || lowerName.includes("damiana") || lowerName.includes("diabenol") || lowerName.includes("dianin") ||
+                lowerName.includes("diente de leon") || lowerName.includes("fennel") || lowerName.includes("fenugreek capsula") || lowerName.includes("fenugreek polvo") ||
+                lowerName.includes("ganoderma") || lowerName.includes("ginkgo biloba") || lowerName.includes("ginseng") || lowerName.includes("hojas zapote blanco") ||
+                lowerName.includes("ionteracare") || lowerName.includes("jenjibre") || lowerName.includes("kelp") || lowerName.includes("levadura nutricional") || lowerName.includes("licorice") ||
+                lowerName.includes("maca en capsula") || lowerName.includes("maca en polvo") || lowerName.includes("miel en panal") || lowerName.includes("moringa en polvo") || lowerName.includes("parasito jarabe") ||
+                lowerName.includes("progesterona") || lowerName.includes("propoleo tintura") || lowerName.includes("prostazan") || lowerName.includes("quercetin y bromelain") ||
+                lowerName.includes("sangre de drago") || lowerName.includes("triple magnesio complex") || lowerName.includes("valeriana y pasiflora") || lowerName.includes("xanthin")
+            ) {
+                category = 'Suplementos Naturales';
+                if (lowerName.includes("curcuma")) benefits = ["Potente antiinflamatorio", "Antioxidante"];
+                else if (lowerName.includes("magnesio")) benefits = ["Mejora la función muscular y nerviosa", "Reduce la fatiga"];
+                else if (lowerName.includes("ginkgo biloba")) benefits = ["Mejora la memoria y concentración", "Apoya la circulación"];
+                else if (lowerName.includes("maca")) benefits = ["Aumenta la energía", "Equilibrio hormonal"];
+                else if (lowerName.includes("ginseng")) benefits = ["Aumenta la resistencia al estrés", "Mejora el rendimiento"];
+                else if (lowerName.includes("jenjibre")) benefits = ["Apoya la digestión", "Propiedades antiinflamatorias"];
+                else benefits = ["Apoyo a la salud general", "Mejora el bienestar"];
+            }
+            // Alimentación Saludable
+            else if (lowerName.includes("aceite de ajonjoli") || lowerName.includes("harina de almendras") || lowerName.includes("flor de jamaica") || lowerName.includes("miel en panal") || lowerName.includes("te matcha") || lowerName.includes("almendras") || lowerName.includes("te de manzanilla organico")) {
+                category = 'Alimentación saludable';
+                if (lowerName.includes("aceite de ajonjoli")) benefits = ["Rico en antioxidantes", "Promueve la salud ósea"];
+                else if (lowerName.includes("harina de almendras")) benefits = ["Alternativa sin gluten", "Fuente de proteínas"];
+                else if (lowerName.includes("flor de jamaica")) benefits = ["Diurético natural", "Rica en vitamina C"];
+                else if (lowerName.includes("miel en panal")) benefits = ["Fuente de energía natural", "Propiedades antibacterianas"];
+                else if (lowerName.includes("te matcha")) benefits = ["Aumenta el metabolismo", "Rico en L-teanina para la calma"];
+                else if (lowerName.includes("almendras")) benefits = ["Fuente de grasas saludables", "Ricas en vitamina E"];
+                else if (lowerName.includes("te de manzanilla organico")) benefits = ["Promueve la relajación y el sueño", "Alivia el estrés"];
+            }
+            // Cosmética Natural y Cuidado Personal
+            else if (lowerName.includes("aceite de batana") || lowerName.includes("crema relabir antiestres") || lowerName.includes("serum facial") || lowerName.includes("mascarilla capilar") || lowerName.includes("barro (arcilla)") || (lowerName.includes("aceite de coco") && (lowerName.includes("8 oz") || lowerName.includes("gl") || lowerName.includes("medio gl")))) {
+                category = 'Cosmética natural y Cuidado Personal';
+                if (lowerName.includes("aceite de batana")) benefits = ["Promueve el crecimiento del cabello", "Hidrata la piel"];
+                else if (lowerName.includes("crema relabir antiestres")) benefits = ["Alivia la tensión muscular", "Promueve la relajación"];
+                else if (lowerName.includes("serum facial")) benefits = ["Ilumina la piel", "Reduce arrugas"];
+                else if (lowerName.includes("mascarilla capilar")) benefits = ["Repara el cabello dañado", "Aporta brillo"];
+                else if (lowerName.includes("barro (arcilla)")) benefits = ["Desintoxica la piel", "Purifica los poros"];
+                else if (lowerName.includes("aceite de coco")) benefits = ["Hidratante natural", "Antibacterial"];
+            }
+            // Dispositivos para la Salud
+            else if (lowerName.includes("generador desinfectante") || lowerName.includes("ionteracare")) {
+                category = 'Dispositivos para la salud';
+                if (lowerName.includes("generador desinfectante")) benefits = ["Elimina bacterias y virus", "Desinfecta superficies"];
+                else if (lowerName.includes("ionteracare")) benefits = ["Mejora la circulación", "Alivia el dolor"];
+            }
+            // Otros (ya es el valor por defecto, pero buena regla explícita)
+            else if (lowerName.includes("zeolita") || lowerName.includes("palo de arco")) {
+                category = 'Otros';
+                if (lowerName.includes("zeolita")) benefits = ["Desintoxicación natural", "Soporte digestivo"];
+                else if (lowerName.includes("palo de arco")) benefits = ["Apoyo al sistema inmune", "Propiedades antifúngicas"];
+            }
+
+            return { category, benefits };
+        }
+
+        // --- Global Data & Constants ---
+        const productNames = [
+            "aceite de ajonjoli", "aceite de batana", "aceite de coco 8 oz.", "aceite de coco gl.", "aceite de coco medio gl",
+            "aceite de copaiba", "aceite de linaza", "aceite de oregano", "aceite de ricino", "adipo-cf",
+            "adipofin", "alcachofa", "almendras", "amargo sueco", "ashwagandha",
+            "ayurcolon", "ayurmona", "barro (arcilla)", "broncovedi jarabe", "cardo mariano",
+            "chanca piedra", "citrato de potasio polvo", "citrato magnesio", "cola de caballo", "crema relabir antiestres",
+            "curcuma en polvo", "curcumin", "damiana", "diabenol", "dianin",
+            "diente de leon", "fennel", "fenugreek capsula", "fenugreek polvo", "flor de jamaica",
+            "flor de lavanda", "ganoderma", "generador desinfectante", "ginkgo biloba", "ginseng",
+            "harina de almendras", "hojas zapote blanco", "ionteracare", "jenjibre", "kelp",
+            "levadura nutricional", "licorice", "maca en capsula", "maca en polvo", "miel en panal",
+            "moringa en polvo", "palo de arco", "parasito jarabe", "progesterona", "propoleo tintura",
+            "prostazan", "quercetin y bromelain", "sangre de drago", "te matcha", "triple magnesio complex",
+            "valeriana y pasiflora", "xanthin", "zeolita",
+            "te de manzanilla organico", "serum facial con vitamina c", "mascarilla capilar de argan"
+        ];
+        
+        const products = productNames.map((name, index) => {
+            const id = toKebabCase(name);
+            const basePrice = getRandomPrice(300, 1900);
+            const priceDetail = basePrice;
+            const priceWholesale = basePrice > 600 ? parseFloat((basePrice * 0.8).toFixed(2)) : basePrice;
+            const salesCount = Math.floor(Math.random() * 300) + 20;
+            const dateAdded = getRandomDate(new Date(2024, 0, 1), new Date());
+
+            const { category, benefits } = assignCategoryAndBenefits(name);
+            const capitalizedName = capitalizeEachWord(name);
+
+            return {
+                id: id,
+                name: capitalizedName,
+                brand: 'R&F Integrales',
+                category: category,
+                normalizedCategory: toKebabCase(category),
+                subcategory: 'General',
+                type: 'General',
+                price: priceDetail,
+                priceDetail: priceDetail,
+                priceWholesale: priceWholesale,
+                image: `./images/${id}.jpg`,
+                description_es: 'Este producto está actualmente en desarrollo de descripción. Pronto tendrás toda la información detallada que necesitas para conocer sus beneficios y usos.',
+                description_en: 'This product\'s description is currently under development. Soon you will have all the detailed information you need to know about its benefits and uses.',
+                ingredients_es: 'Ingredientes: En construcción. Consulte la etiqueta del producto para más detalles.',
+                ingredients_en: 'Ingredients: Under construction. Consult product label for more details.',
+                usage_es: 'Uso Sugerido: En construcción. Siga las indicaciones de un profesional de la salud o la etiqueta del producto.',
+                usage_en: 'Suggested Use: Under construction. Follow health professional\'s directions or product label.',
+                warnings_es: 'Advertencias: En construcción. Mantener fuera del alcance de los niños. Consulte a su médico antes de usar si está embarazada, lactando o tiene alguna condición médica.',
+                warnings_en: 'Warnings: Under construction. Keep out of reach of children. Consult your doctor before use if pregnant, nursing, or have any medical condition.',
+                certifications: ['En construcción'],
+                benefits: benefits,
+                dateAdded: dateAdded,
+                salesCount: salesCount,
+                isOffer: index < 4 && !id.startsWith('combo-'),
+                fichaTecnica_es: `
+                    <h4>Ficha Técnica de ${capitalizedName}</h4>
+                    <p>En construcción: Detalles específicos y propiedades del producto.</p>
+                    <h4>Usos/Beneficios Principales:</h4>
+                    <ul>
+                        ${benefits.map(b => `<li>${b}</li>`).join('')}
+                    </ul>
+                    <h4>Advertencias/Notas:</h4>
+                    <p>En construcción: Información adicional y precauciones.</p>
+                `,
+                fichaTecnica_en: `
+                    <h4>Technical Sheet for ${capitalizeEachWord(name)}</h4>
+                    <p>Under construction: Specific details and product properties.</p>
+                    <h4>Main Uses/Benefits:</h4>
+                    <ul>
+                        ${benefits.map(b => `<li>${b}</li>`).join('')}
+                    </ul>
+                    <h4>Warnings/Notes:</h4>
+                    <p>Under construction: Additional information and precautions.</p>
+                `
+            };
+        });
+
+        const combos = [
+            {
+                id: 'combo-bienestar-total',
+                name: 'Combo Bienestar Total',
+                image: './images/combo-bienestar.jpg',
+                description_es: 'Este combo está diseñado para brindarte un bienestar integral, combinando productos que te ayudarán a mantener la energía y la calma en tu día a día.',
+                description_en: 'This combo is designed to provide you with complete wellness, combining products that will help you maintain energy and calm in your daily life.',
+                price: 1500.00,
+                originalPrice: 2000.00,
+                productsIncluded: [
+                    { id: 'maca-en-polvo', quantity: 1, benefits_es: ["Aumenta la energía y vitalidad", "Mejora el estado de ánimo"], benefits_en: ["Increases energy and vitality", "Improves mood"] },
+                    { id: 'aceite-de-coco-8-oz', quantity: 1, benefits_es: ["Hidratación profunda para piel y cabello", "Soporte metabólico"], benefits_en: ["Deep hydration for skin and hair", "Metabolic support"] },
+                    { id: 'te-de-manzanilla-organico', quantity: 1, benefits_es: ["Promueve la relajación y el sueño", "Alivia el estrés"], benefits_en: ["Promotes relaxation and sleep", "Relieves stress"] }
+                ]
+            },
+            {
+                id: 'combo-belleza-natural',
+                name: 'Combo Belleza Natural',
+                image: './images/combo-belleza.jpg',
+                description_es: 'Logra una piel radiante y un cabello saludable con este combo esencial, formulado con ingredientes naturales para realzar tu belleza.',
+                description_en: 'Achieve radiant skin and healthy hair with this essential combo, formulated with natural ingredients to enhance your beauty.',
+                price: 2200.00,
+                originalPrice: 2800.00,
+                productsIncluded: [
+                    { id: 'serum-facial-con-vitamina-c', quantity: 1, benefits_es: ["Ilumina y unifica el tono de la piel", "Reduce líneas finas"], benefits_en: ["Brightens and evens skin tone", "Reduces fine lines"] },
+                    { id: 'mascarilla-capilar-de-argan', quantity: 1, benefits_es: ["Nutre e hidrata el cabello", "Aporta brillo y suavidad"], benefits_en: ["Nourishes and hydrates hair", "Adds shine and softness"] }
+                ]
+            }
+        ];
+
+        const carouselImages = [
+            {
+                src: './images/carousel-bienvenida.jpg',
+                alt_es: 'Bienvenido a R&F Productos Integrales',
+                alt_en: 'Welcome to R&F Integral Products',
+                title_es: 'Descubre el Poder de lo Natural',
+                title_en: 'Discover the Power of Natural',
+                subtitle_es: 'Productos de alta calidad para tu bienestar y el de tu familia.',
+                subtitle_en: 'High-quality products for your well-being and your family.',
+                buttonText_es: 'Ver Tienda',
+                buttonText_en: 'View Shop',
+                buttonLink: '#shop'
+            },
+            {
+                src: 'https://placehold.co/1200x450/B8D8D8/000000?text=R%26F+Productos+Integrales',
+                alt_es: 'R&F Productos Integrales - Tu fuente de bienestar natural',
+                alt_en: 'R&F Productos Integrales - Your source for natural wellness',
+                title_es: '',
+                title_en: '',
+                subtitle_es: '',
+                subtitle_en: '',
+                buttonText_es: '',
+                buttonText_en: '',
+                buttonLink: ''
+            },
+            {
+                src: './images/carousel-ofertas.jpg',
+                alt_es: 'Ofertas Exclusivas',
+                alt_en: 'Exclusive Offers',
+                title_es: 'Ofertas Imperdibles',
+                title_en: 'Unmissable Offers',
+                subtitle_es: 'Aprovecha nuestros descuentos especiales por tiempo limitado.',
+                subtitle_en: 'Take advantage of our special limited-time discounts.',
+                buttonText_es: 'Ver Ofertas',
+                buttonText_en: 'View Offers',
+                buttonLink: '#offers'
+            }
+        ];
+
+        const translations = {
+            es: {
+                promoBanner: "Envío GRATIS por el consumo mínimo de RD$2,000 | Entrega en 24/48 horas | Confianza y pago seguro",
+                searchPlaceholder: "Buscar productos...",
+                spanish: "Español", english: "English", phone: "Teléfono",
+                home: "Inicio", shop: "Tienda", offers: "Ofertas", newProducts: "Nuevos Productos", bestSellers: "Más Vendidos",
+                filterBy: "Filtrar por", brand: "Marca", productType: "Tipo de Producto", skinHairType: "Tipo de Piel / Cabello",
+                healthBenefit: "Beneficio / Condición de Salud", certifications: "Certificaciones", price: "Precio", availability: "Disponibilidad",
+                inStock: "En stock", outOfStock: "No disponible", sortBy: "Ordenar por", relevance: "Relevancia",
+                priceAsc: "Precio (Ascendente)", priceDesc: "Precio (Descendente)", mostSold: "Más vendidos", newest: "Novedades",
+                customerRating: "Calificación de clientes", addToCart: "Añadir al Carrito", all: "Todos", applyFilters: "Aplicar Filtros",
+                description: "Descripción Detallada", ingredients: "Lista Completa de Ingredientes", usage: "Modo de Uso / Dosis Recomendada",
+                warnings: "Advertencias / Contraindicaciones", reviews: "Opiniones y Calificaciones", relatedProducts: "Productos Relacionados",
+                yourCart: "Tu Carrito de Compras", item: "Artículo", quantity: "Cantidad", subtotal: "Subtotal:", discount: "Descuento:", shippingCost: "Envío:", total: "Total a pagar:",
+                checkout: "Realizar Pedido", continueShopping: "Continuar Comprando", cartEmpty: "Tu carrito está vacío.", removeItem: "Eliminar",
+                productAdded: "Producto Añadido al Carrito", addedSuccessfully: "¡El producto ha sido añadido exitosamente a tu carrito de compras!", close: "Cerrar",
+                addedToWishlist: "Producto Añadido a Lista de Deseos", 
+                removedFromWishlist: "Producto Eliminado de Lista de Deseos", 
+                wishlistPageTitle: "Tu Lista de Deseos", 
+                noProductsInWishlist: "No hay productos en tu lista de deseos.", 
+                wishlist: "Lista de Deseos", // This key is specifically for the header link text
+                addToWishlist: "Añadir a Lista de Deseos", // NEW: Translation for the button text
+
+                aboutUsText: "R&F Productos Integrales es tu tienda online de confianza para productos naturales en la República Dominicana. Nos dedicamos a ofrecerte lo mejor para tu bienestar.",
+                infoTitle: "Información", contact: "Contacto", helpFAQ: "Ayuda y FAQ", blog: "Blog", privacyPolicy: "Política de Privacidad", termsOfUse: "Términos de Uso",
+                customerServiceTitle: "Atención al Cliente", shippingPolicy: "Política de Envíos", returnPolicy: "Política de Devoluciones", paymentMethods: "Métodos de Pago", hours: "Horarios: L-V 9am-5pm",
+                followUs: "Síguenos", newsletter: "Newsletter", yourEmail: "Tu correo electrónico", subscribe: "Suscribir",
+                copyright: "&copy; 2025 R&F Productos Integrales. Todos los derechos reservados.",
+                disclaimer: "Descargo de Responsabilidad: La información en este sitio no reemplaza el consejo médico. Los productos no están destinados a diagnosticar, tratar, curar o prevenir enfermedades. Consultar a un médico para dosis y frecuencia.",
+                contactDetails: "Tus Datos de Contacto",
+                fullName: "Nombre Completo",
+                yourNamePlaceholder: "Tu Nombre",
+                deliveryAddress: "Dirección de Entrega",
+                yourAddressPlaceholder: "Calle, número, sector, ciudad",
+                yourPhoneNumber: "Tu Teléfono (WhatsApp)",
+                yourPhonePlaceholder: "Ej: 8091234567",
+                requiredFields: "Campos Requeridos",
+                completeYourDetails: "Por favor, completa todos tus datos de contacto (Nombre, Dirección, Teléfono) y selecciona el Método de Entrega y Pago para poder procesar tu pedido.",
+                orderSent: "Pedido Enviado",
+                orderSentMessage: "Tu pedido ha sido enviado por WhatsApp. ¡Nos pondremos en contacto contigo pronto!",
+                deliveryMethod: "Método de Entrega",
+                homeDelivery: "A Domicilio",
+                storePickup: "Recoger en Tienda",
+                deliveryCostNoteSantoDomingo: "Si el envío es en el Gran Santo Domingo o DN., el costo será de RD$300.00",
+                deliveryCostNoteOutside: "Si el envío es fuera de esta área demográfica (otras partes del país), el costo será de RD$600.00",
+                paymentMethod: "Método de Pago",
+                cash: "Efectivo",
+                bankTransfer: "Transferencia Bancaria",
+                selectDelivery: "Selecciona un método de entrega",
+                selectPayment: "Selecciona un método de pago",
+                bankAccounts: "Cuentas Bancarias para Transferencia",
+                bankPopular: "Banco Popular: 764444055 (Cuenta de ahorro - Troadia Cepeda)",
+                banreservas: "Banreservas: 0230009255 (Cuenta Corriente - Fausto Paulino Cepada)",
+                bhd: "BHD: 1122334455 (Cuenta de ahorro - Fausto Paulino Cepada)",
+                paymentConfirmationNote: "Para pagos vía transferencia, haga el pago cuando su pedido ha sido confirmado por uno de nuestros representantes.",
+                discountNote: "La aplicación de algún descuento especial, si el caso lo amerita, será realizado por el representante, una vez reciba la notificación del pedido, y se lo comunicará al cliente inmediatamente revise la solicitud del pedido y antes de proceder con el pago.",
+                aboutUsPageTitle: "Nuestra Historia en R&F Productos Integrales",
+                aboutUsPageContent: "En R&F Productos Integrales, nuestra pasión es tu bienestar. Fundada en 2025, nos dedicamos a seleccionar y ofrecer los más puros y efectivos productos naturales de la República Dominicana. Creemos firmemente en el poder de la naturaleza para nutrir el cuerpo y la mente, y nuestro compromiso es brindarte opciones saludables y sostenibles. Cada producto en nuestra tienda ha sido cuidadosamente elegido, garantizando calidad, origen y eficacia. Únete a nuestra comunidad y descubre un mundo de bienestar natural.",
+                noProductsFound: "No se encontraron productos con los filtros seleccionados.",
+                comboOffers: "Nuestros Combos en Oferta",
+                individualOffers: "Ofertas Individuales",
+                productsInCombo: "Productos en este Combo",
+                benefits: "Beneficios",
+                "suplementos-naturales": "Suplementos Naturales",
+                "alimentacion-saludable": "Alimentación Saludable",
+                "cosmetica-natural-y-cuidado-personal": "Cosmética Natural y Cuidado Personal",
+                "dispositivos-para-la-salud": "Dispositivos para la Salud",
+                "otros": "Otros",
+            },
+            en: {
+                promoBanner: "FREE shipping for minimum consumption of RD$2,000 | Delivery in 24/48 hours | Trust and secure payment",
+                searchPlaceholder: "Search products...",
+                spanish: "Spanish", english: "English", phone: "Phone",
+                home: "Home", shop: "Shop", offers: "Offers", newProducts: "New Products", bestSellers: "Best Sellers",
+                filterBy: "Filter by", brand: "Brand", productType: "Product Type", skinHairType: "Skin / Hair Type",
+                healthBenefit: "Health Benefit / Condition", certifications: "Certifications", price: "Price", availability: "Availability",
+                inStock: "In stock", outOfStock: "Out of stock", sortBy: "Sort by", relevance: "Relevance",
+                priceAsc: "Price (Ascending)", priceDesc: "Price (Descending)", mostSold: "Most Sold", newest: "Newest",
+                customerRating: "Customer Rating", addToCart: "Add to Cart", all: "All", applyFilters: "Apply Filters",
+                description: "Detailed Description", ingredients: "Full List of Ingredients", usage: "How to Use / Recommended Dose",
+                warnings: "Warnings / Contraindications", reviews: "Reviews and Ratings", relatedProducts: "Related Products",
+                yourCart: "Your Shopping Cart", item: "Item", quantity: "Quantity", subtotal: "Subtotal:", discount: "Discount:", shippingCost: "Shipping:", total: "Total to pay:",
+                checkout: "Checkout", continueShopping: "Continue Shopping", cartEmpty: "Your cart is empty.", removeItem: "Remove",
+                productAdded: "Product Added to Cart", addedSuccessfully: "The product has been successfully added to your shopping cart!", close: "Close",
+                addedToWishlist: "Product Added to Wishlist", 
+                removedFromWishlist: "Product Removed from Wishlist", 
+                wishlistPageTitle: "Your Wishlist", 
+                noProductsInWishlist: "No products in your wishlist.", 
+                wishlist: "Wishlist", // This key is specifically for the header link text
+                addToWishlist: "Add to Wishlist", // NEW: Translation for the button text
+
+                aboutUsText: "R&F Productos Integrales is your trusted online store for natural products in the Dominican Republic. We are dedicated to offering you the best for your well-being.",
+                infoTitle: "Information", contact: "Contact", helpFAQ: "Help & FAQ", blog: "Blog", privacyPolicy: "Privacy Policy", termsOfUse: "Terms of Use",
+                customerServiceTitle: "Customer Service", shippingPolicy: "Shipping Policy", returnPolicy: "Return Policy", paymentMethods: "Payment Methods", hours: "Hours: M-F 9am-5pm",
+                followUs: "Follow Us", newsletter: "Newsletter", yourEmail: "Your email", subscribe: "Subscribe",
+                copyright: "&copy; 2025 R&F Productos Integrales. All rights reserved.",
+                disclaimer: "Disclaimer: The information on this site does not replace medical advice. Products are not intended to diagnose, treat, cure, or prevent diseases. Consult a doctor for dosage and frequency.",
+                contactDetails: "Your Contact Details",
+                fullName: "Full Name",
+                yourNamePlaceholder: "Your Name",
+                deliveryAddress: "Delivery Address",
+                yourAddressPlaceholder: "Street, number, sector, city",
+                yourPhoneNumber: "Your Phone Number (WhatsApp)",
+                yourPhonePlaceholder: "Ex: 8091234567",
+                requiredFields: "Required Fields",
+                completeYourDetails: "Please complete all your contact details (Name, Address, Phone) and select the Delivery and Payment Method to process your order.",
+                orderSent: "Order Sent",
+                orderSentMessage: "Your order has been sent via WhatsApp. We will contact you soon!",
+                deliveryMethod: "Delivery Method",
+                homeDelivery: "Home Delivery",
+                storePickup: "Store Pickup",
+                deliveryCostNoteSantoDomingo: "If shipping is within Greater Santo Domingo or DN, the cost will be RD$300.00",
+                deliveryCostNoteOutside: "If shipping is outside this demographic area (other parts of the country), the cost will be RD$600.00",
+                paymentMethod: "Payment Method",
+                cash: "Cash",
+                bankTransfer: "Bank Transfer",
+                selectDelivery: "Select a delivery method",
+                selectPayment: "Select a payment method",
+                bankAccounts: "Bank Accounts for Transfer",
+                bankPopular: "Banco Popular: 764444055 (Savings Account - Troadia Cepeda)",
+                banreservas: "Banreservas: 0230009255 (Checking Account - Fausto Paulino Cepada)",
+                bhd: "BHD: 1122334455 (Savings Account - Fausto Paulino Cepada)",
+                paymentConfirmationNote: "For bank transfer payments, please make the payment once your order has been confirmed by one of our representatives.",
+                discountNote: "Any special discount, if applicable, will be applied by the representative once they receive the order notification, and they will communicate it to the client immediately after reviewing the order request and before proceeding with the payment.",
+                aboutUsPageTitle: "Our Story at R&F Integral Products",
+                aboutUsPageContent: "At R&F Integral Products, our passion is your well-being. Founded in 2025, we are dedicated to selecting and offering the purest and most effective natural products in the Dominican Republic. We firmly believe in the power of nature to nourish the body and mind, and our commitment is to provide you with healthy and sustainable options. Every product in our store has been carefully chosen, ensuring quality, origin, and effectiveness. Join our community and discover a world of natural well-being.",
+                noProductsFound: "No products found with the selected filters.",
+                comboOffers: "Our Combo Offers",
+                individualOffers: "Individual Offers",
+                productsInCombo: "Products in this Combo",
+                benefits: "Benefits",
+                "suplementos-naturales": "Natural Supplements",
+                "alimentacion-saludable": "Healthy Food",
+                "cosmetica-natural-y-cuidado-personal": "Natural Cosmetics and Personal Care",
+                "dispositivos-para-la-salud": "Health Devices",
+                "otros": "Others",
+            }
+        };
+
+        // --- Global State Variables (initialized) ---
+        let currentLanguage = 'es';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        let currentPage = window.location.hash.substring(1).split('-')[0] || 'home';
+        let slideIndex = 0;
+        let carouselInterval;
+
+        // --- DOM Element References ---
+        // These are intentionally placed here, as they are accessed after DOMContentLoaded
+        // and before any direct manipulation by rendering functions.
+        const appContent = document.getElementById('app-content');
+        const cartCountElement = document.getElementById('cart-count');
+        const wishlistCountElement = document.getElementById('wishlist-count');
+        const cartModal = document.getElementById('cart-modal');
+        const wishlistModal = document.getElementById('wishlist-modal');
+        const searchInput = document.getElementById('search-input');
+        const fichaTecnicaModal = document.getElementById('fichaTecnicaModal');
+
+        // --- Core Helper Functions (that depend on global data/state/DOM refs) ---
+        function formatPrice(price) { return `RD$${(price || 0).toFixed(2)}`; }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (cartCountElement) cartCountElement.textContent = totalItems;
+        }
+
+        function updateWishlistCount() {
+            if (wishlistCountElement) wishlistCountElement.textContent = wishlist.length;
+        }
+
+        function showModal(title, message) {
+            if (document.getElementById('modal-title')) document.getElementById('modal-title').textContent = title;
+            if (document.getElementById('modal-message')) document.getElementById('modal-message').textContent = message;
+            if (cartModal) cartModal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            if (cartModal) cartModal.classList.add('hidden');
+        }
+
+        function showWishlistModal(title, message) {
+            if (document.getElementById('wishlist-modal-title')) document.getElementById('wishlist-modal-title').textContent = title;
+            if (document.getElementById('wishlist-modal-message')) document.getElementById('wishlist-modal-message').textContent = message;
+            if (wishlistModal) wishlistModal.classList.remove('hidden');
+        }
+
+        function closeWishlistModal() {
+            if (wishlistModal) wishlistModal.classList.add('hidden');
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function saveWishlist() {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function getUniqueCategories() {
+            const categories = new Set();
+            products.forEach(p => categories.add(p.category));
+            return Array.from(categories);
+        }
+
+        function getUniqueSubcategories(category) {
+            const subcategories = new Set();
+            products.filter(p => p.category === category).forEach(p => subcategories.add(p.subcategory));
+            return Array.from(subcategories);
+        }
+
+        function getUniqueBrands() {
+            const brands = new Set();
+            products.forEach(p => brands.add(p.brand));
+            return Array.from(brands);
+        }
+
+        function getUniqueCertifications() {
+            const certs = new Set();
+            products.forEach(p => {
+                p.certifications.forEach(cert => certs.add(cert));
+            });
+            return Array.from(certs);
+        }
+
+        function getUniqueBenefits() {
+            const benefits = new Set();
+            products.forEach(p => {
+                p.benefits.forEach(benefit => benefits.add(benefit));
+            });
+            return Array.from(benefits);
+        }
+
+        function updateContentLanguage() {
+            const lang = translations[currentLanguage];
+
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (lang[key] !== undefined) { // Check for undefined specifically
+                    if (key === 'copyright') {
+                        element.innerHTML = lang[key];
+                    } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+                        element.placeholder = lang[key];
+                    } else {
+                        element.textContent = lang[key];
+                    }
+                } else {
+                    console.warn(`Translation key "${key}" not found or is undefined for language "${currentLanguage}".`);
+                }
+            });
+
+            if (document.getElementById('promo-banner')) document.getElementById('promo-banner').textContent = lang.promoBanner;
+            const shopLinkNode = document.querySelector('nav ul li:nth-child(2) a');
+            if (shopLinkNode && shopLinkNode.childNodes.length > 0) {
+                 // Update only the text node, preserve the icon
+                 shopLinkNode.childNodes[0].nodeValue = lang.shop + ' '; 
+            }
+            
+            populateCategoryMenu();
+
+            if (currentPage === 'home') {
+                renderHome(); // Re-render to update carousel content if necessary
+            }
+            // Manually re-render Shop and Product detail if they are current pages to ensure button text updates
+            if (currentPage === 'shop') {
+                renderShop(null, document.getElementById('sort-options')?.value || 'relevance', true);
+            } else if (currentPage === 'product') {
+                const productId = window.location.hash.substring(1).split('-')[1];
+                renderProductDetail(productId);
+            } else if (currentPage === 'combo') {
+                const comboId = window.location.hash.substring(1).split('-')[1];
+                renderComboDetail(comboId);
+            }
+            // Ensure wishlist page also re-renders to update text
+            if (currentPage === 'wishlist') {
+                renderWishlist();
+            }
+        }
+
+        function openFichaTecnicaModal(productId) {
+            const product = products.find(p => p.id === productId);
+            const lang = translations[currentLanguage];
+
+            if (!product) return;
+
+            const fichaTecnicaContent = product[`fichaTecnica_${currentLanguage}`] || product.fichaTecnica_es;
+
+            if (document.getElementById("modalTituloProducto")) document.getElementById("modalTituloProducto").innerHTML = product.name;
+            if (document.getElementById("modalCuerpoFicha")) document.getElementById("modalCuerpoFicha").innerHTML = `
+                <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/D3D3D3/000000?text=NP';" class="w-36 h-36 object-contain rounded-lg shadow-sm flex-shrink-0">
+                <div class="ficha-contenido flex-grow text-sm leading-relaxed text-gray-700">
+                    <p class="mb-2"><strong>${lang.description}:</strong> ${product[`description_${currentLanguage}`] || product.description_es}</p>
+                    ${fichaTecnicaContent}
+                </div>
+            `;
+            if (fichaTecnicaModal) fichaTecnicaModal.classList.remove('hidden');
+        }
+
+        function closeFichaTecnicaModal() {
+            if (fichaTecnicaModal) fichaTecnicaModal.classList.add('hidden');
+        }
+
+        function getPricePerUnit(itemData, quantity, isComboItem) {
+            if (isComboItem) {
+                return parseFloat(itemData.price) || 0;
+            } else {
+                const detailPrice = parseFloat(itemData.priceDetail) || 0;
+                const wholesalePrice = parseFloat(itemData.priceWholesale) || 0;
+                const WHOLESALE_QUANTITY_THRESHOLD = 6;
+                if (wholesalePrice > 0 && quantity >= WHOLESALE_QUANTITY_THRESHOLD) {
+                    return wholesalePrice;
+                }
+                return detailPrice;
+            }
+        }
+
+        function addToCart(itemId, type = 'product') {
+            let itemData;
+            let isCombo = type === 'combo';
+
+            if (isCombo) {
+                itemData = combos.find(c => c.id === itemId);
+                if (!itemData) {
+                    console.error(`Combo with ID ${itemId} not found. Cannot add to cart.`);
+                    return;
+                }
+            } else {
+                itemData = products.find(p => p.id === itemId);
+                if (!itemData) {
+                    console.error(`Product with ID ${itemId} not found. Cannot add to cart.`);
+                    return;
+                }
+            }
+
+            const existingItemIndex = cart.findIndex(item => item.productId === itemId);
+            let newQuantity;
+
+            if (existingItemIndex > -1) {
+                newQuantity = cart[existingItemIndex].quantity + 1;
+                cart[existingItemIndex].quantity = newQuantity;
+            } else {
+                newQuantity = 1;
+                cart.push({ productId: itemId, quantity: newQuantity, type: type });
+            }
+
+            const itemInCart = cart.find(item => item.productId === itemId);
+            if (itemInCart) {
+                itemInCart.pricePerUnit = getPricePerUnit(itemData, newQuantity, isCombo);
+            }
+
+            saveCart();
+            updateCartCount();
+            showModal(translations[currentLanguage].productAdded, translations[currentLanguage].addedSuccessfully);
+            // No need to re-render the whole page here unless a visual update is critical.
+            // The cart count is already updated.
+            // if (['shop', 'offers', 'home', 'wishlist', 'product'].includes(currentPage)) {
+            //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]); 
+            // }
+        }
+
+        function addToCartCombo(comboId) {
+            addToCart(comboId, 'combo');
+        }
+
+        function updateQuantity(itemId, change) {
+            console.log(`Attempting to update quantity for item: ${itemId} with change: ${change}`);
+            const itemIndex = cart.findIndex(item => item.productId === itemId);
+            if (itemIndex > -1) {
+                const itemInCart = cart[itemIndex];
+                const isCombo = itemInCart.type === 'combo';
+                let itemData = isCombo ? combos.find(c => c.id === itemId) : products.find(p => p.id === itemId);
+
+                if (!itemData) {
+                    console.error(`Item with ID ${itemId} not found in data arrays for quantity update.`);
+                    return;
+                }
+
+                let newQuantity = itemInCart.quantity + change;
+                if (newQuantity < 0) newQuantity = 0;
+
+                if (newQuantity === 0) {
+                    cart.splice(itemIndex, 1);
+                    console.log(`Removed item ${itemId} from cart. New cart:`, cart);
+                } else {
+                    itemInCart.quantity = newQuantity;
+                    itemInCart.pricePerUnit = getPricePerUnit(itemData, newQuantity, isCombo);
+                    if (isNaN(itemInCart.pricePerUnit)) {
+                        console.warn(`Calculated pricePerUnit for item ${itemId} is not a number: ${itemInCart.pricePerUnit}. Defaulting to 0.`);
+                        itemInCart.pricePerUnit = 0;
+                    }
+                    console.log(`Updated item ${itemId} quantity to ${newQuantity}. New price per unit: ${itemInCart.pricePerUnit}. New cart:`, cart);
+                }
+                saveCart();
+                updateCartCount();
+                renderCart();
+                console.log(`Cart re-rendered after quantity update.`);
+            } else {
+                console.warn(`Item ${itemId} not found in cart for quantity update. Current cart:`, cart);
+            }
+        }
+
+        function updateProductQuantityInCartFromInput(inputElement, productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            let newQuantity = parseInt(inputElement.value) || 0;
+            if (newQuantity < 0) newQuantity = 0;
+
+            const itemIndex = cart.findIndex(item => item.productId === productId);
+
+            if (newQuantity > 0) {
+                if (itemIndex > -1) {
+                    cart[itemIndex].quantity = newQuantity;
+                } else {
+                    cart.push({
+                        productId: productId,
+                        quantity: newQuantity,
+                        type: 'product',
+                        pricePerUnit: getPricePerUnit(product, newQuantity, false)
+                    });
+                }
+                const updatedItem = cart.find(item => item.productId === productId);
+                if (updatedItem) {
+                    updatedItem.pricePerUnit = getPricePerUnit(product, newQuantity, false);
+                    if (isNaN(updatedItem.pricePerUnit)) {
+                        console.warn(`Calculated pricePerUnit for product ${productId} is not a number: ${updatedItem.pricePerUnit}. Defaulting to 0.`);
+                        updatedItem.pricePerUnit = 0;
+                    }
+                }
+            } else {
+                if (itemIndex > -1) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            saveCart();
+            updateCartCount();
+            if (['shop', 'home', 'product', 'offers', 'wishlist'].includes(currentPage)) {
+                renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
+            }
+        }
+
+        function updateProductQuantityInCart(productId, change) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const inputElement = document.querySelector(`input[data-product-id="${productId}"]`);
+            if (!inputElement) return;
+
+            let currentQuantity = parseInt(inputElement.value) || 0;
+            let newQuantity = currentQuantity + change;
+
+            if (newQuantity < 0) newQuantity = 0;
+
+            const itemIndex = cart.findIndex(item => item.productId === productId);
+            if (newQuantity > 0) {
+                if (itemIndex > -1) {
+                    cart[itemIndex].quantity = newQuantity;
+                } else {
+                    cart.push({ productId, quantity: newQuantity, type: 'product', pricePerUnit: getPricePerUnit(product, newQuantity, false) });
+                }
+                const updatedItem = cart.find(item => item.productId === productId);
+                if (updatedItem) {
+                    updatedItem.pricePerUnit = getPricePerUnit(product, newQuantity, false);
+                    if (isNaN(updatedItem.pricePerUnit)) {
+                        console.warn(`Calculated pricePerUnit for product ${productId} is not a number: ${updatedItem.pricePerUnit}. Defaulting to 0.`);
+                        updatedItem.pricePerUnit = 0;
+                    }
+                }
+            } else {
+                if (itemIndex > -1) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+
+            inputElement.value = newQuantity > 0 ? newQuantity : 0;
+            saveCart();
+            updateCartCount();
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.productId !== itemId);
+            saveCart();
+            updateCartCount();
+            renderCart();
+        }
+
+        function calculateCartTotals() {
+            console.log("Calculating cart totals...");
+            let subtotal = 0;
+            cart.forEach(item => {
+                let itemData;
+                if (item.type === 'combo') {
+                    itemData = combos.find(c => c.id === item.productId);
+                } else {
+                    itemData = products.find(p => p.id === item.productId);
+                }
+                
+                if (itemData) {
+                    item.pricePerUnit = getPricePerUnit(itemData, item.quantity, item.type === 'combo');
+                    subtotal += item.quantity * (item.pricePerUnit || 0); 
+                }
+            });
+
+            let discount = 0;
+            if (subtotal >= 2000) {
+                discount = subtotal * 0.10;
+            } else if (subtotal >= 1000) {
+                discount = subtotal * 0.05;
+            }
+
+            let shippingCost = 0;
+            const deliveryMethodRadio = document.querySelector('input[name="delivery-method"]:checked');
+            const deliveryMethod = deliveryMethodRadio ? deliveryMethodRadio.value : '';
+            const customerAddressInput = document.getElementById('customer-address');
+            const customerAddress = customerAddressInput ? customerAddressInput.value.toLowerCase().trim() : '';
+
+            if (deliveryMethod === "A Domicilio") {
+                if (customerAddress.includes("santo domingo") || customerAddress.includes("dn") || customerAddress.includes("distrito nacional")) {
+                    shippingCost = 300;
+                } else if (customerAddress !== '') {
+                    shippingCost = 600;
+                } else {
+                    shippingCost = 0;
+                }
+            } else if (deliveryMethod === "Recoger en Tienda") {
+                shippingCost = 0;
+            }
+
+            const total = subtotal - discount + shippingCost;
+
+            const subtotalDisplay = document.getElementById('display-subtotal');
+            const discountDisplay = document.getElementById('display-discount');
+            const shippingDisplay = document.getElementById('display-shippingCost');
+            const totalDisplay = document.getElementById('display-total');
+            const subtotalLabel = document.getElementById('display-subtotal-label');
+            const discountLabel = document.getElementById('display-discount-label');
+            const shippingLabel = document.getElementById('display-shippingCost-label');
+            const totalLabel = document.getElementById('display-total-label');
+
+
+            if (subtotalDisplay) subtotalDisplay.textContent = formatPrice(subtotal);
+            if (discountDisplay) discountDisplay.textContent = `-${formatPrice(discount)}`;
+            if (shippingDisplay) shippingDisplay.textContent = `+${formatPrice(shippingCost)}`;
+            if (totalDisplay) totalDisplay.textContent = formatPrice(total);
+
+            if (subtotalLabel) subtotalLabel.textContent = translations[currentLanguage].subtotal;
+            if (discountLabel) discountLabel.textContent = translations[currentLanguage].discount;
+            if (shippingLabel) shippingLabel.textContent = translations[currentLanguage].shippingCost;
+            if (totalLabel) totalLabel.textContent = translations[currentLanguage].total;
+
+            console.log("Cart totals calculated and updated:", { subtotal, discount, shippingCost, total });
+
+            return { subtotal, discount, shippingCost, total };
+        }
+
+        function getSelectedRadioValue(name) {
+            const radios = document.querySelectorAll(`input[name="${name}"]:checked`);
+            return radios.length > 0 ? radios[0].value : null;
+        }
+
+        function toggleBankDetails() {
+            const paymentTransferRadio = document.getElementById('payment-transfer');
+            const bankDetailsDiv = document.getElementById('bank-accounts-details');
+            if (paymentTransferRadio && bankDetailsDiv) {
+                if (paymentTransferRadio.checked) {
+                    bankDetailsDiv.classList.remove('hidden');
+                } else {
+                    bankDetailsDiv.classList.add('hidden');
+                }
+            }
+        }
+
+        function initCartFormListeners() {
+            const customerAddressInput = document.getElementById('customer-address');
+            if (customerAddressInput) {
+                customerAddressInput.removeEventListener('input', calculateCartTotals);
+                customerAddressInput.addEventListener('input', calculateCartTotals);
+            }
+
+            const deliveryHomeRadio = document.getElementById('delivery-home');
+            if (deliveryHomeRadio) {
+                deliveryHomeRadio.removeEventListener('change', calculateCartTotals);
+                deliveryHomeRadio.addEventListener('change', calculateCartTotals);
+            }
+
+            const deliveryStoreRadio = document.getElementById('delivery-store');
+            if (deliveryStoreRadio) {
+                deliveryStoreRadio.removeEventListener('change', calculateCartTotals);
+                deliveryStoreRadio.addEventListener('change', calculateCartTotals);
+            }
+
+            const paymentCashRadio = document.getElementById('payment-cash');
+            if (paymentCashRadio) {
+                paymentCashRadio.removeEventListener('change', toggleBankDetails);
+                paymentCashRadio.addEventListener('change', toggleBankDetails);
+            }
+
+            const paymentTransferRadio = document.getElementById('payment-transfer');
+            if (paymentTransferRadio) {
+                paymentTransferRadio.removeEventListener('change', toggleBankDetails);
+                paymentTransferRadio.addEventListener('change', toggleBankDetails);
+            }
+        }
+
+        function checkoutOrder() {
+            const lang = translations[currentLanguage];
+            console.log("Attempting checkout.");
+
+            if (cart.length === 0) {
+                showModal(lang.cartEmpty, lang.cartEmpty);
+                console.warn("Checkout aborted: Cart is empty.");
+                return;
+            }
+
+            const customerNameInput = document.getElementById('customer-name');
+            const customerAddressInput = document.getElementById('customer-address');
+            const customerPhoneInput = document.getElementById('customer-phone-order');
+
+            const customerName = customerNameInput ? customerNameInput.value.trim() : '';
+            const customerAddress = customerAddressInput ? customerAddressInput.value.trim() : '';
+            const customerPhone = customerPhoneInput ? customerPhoneInput.value.trim() : '';
+            
+            const deliveryMethod = getSelectedRadioValue('delivery-method');
+            const paymentMethod = getSelectedRadioValue('payment-method');
+
+            let allFieldsValid = true;
+
+            if (!customerName) { customerNameInput?.classList.add('border-red-500'); allFieldsValid = false; } else { customerNameInput?.classList.remove('border-red-500'); }
+            if (!customerPhone || !/^\d{7,}$/.test(customerPhone)) { 
+                customerPhoneInput?.classList.add('border-red-500'); allFieldsValid = false; 
+            } else { 
+                customerPhoneInput?.classList.remove('border-red-500'); 
+            }
+            
+            if (!deliveryMethod) { 
+                document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.closest('label').classList.add('text-red-500'));
+                allFieldsValid = false; 
+            } else {
+                document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.closest('label').classList.remove('text-red-500'));
+            }
+
+            if (deliveryMethod === "A Domicilio" && customerAddress === '') {
+                customerAddressInput?.classList.add('border-red-500'); allFieldsValid = false; 
+            } else {
+                customerAddressInput?.classList.remove('border-red-500');
+            }
+
+            if (!paymentMethod) { 
+                document.querySelectorAll('input[name="payment-method"]').forEach(el => el.closest('label').classList.add('text-red-500'));
+                allFieldsValid = false; 
+            } else {
+                document.querySelectorAll('input[name="payment-method"]').forEach(el => el.closest('label').classList.remove('text-red-500'));
+            }
+
+            if (!allFieldsValid) {
+                showModal(lang.requiredFields, lang.completeYourDetails);
+                console.warn("Checkout aborted: Validation failed.");
+                return;
+            }
+
+            const { subtotal, discount, shippingCost, total } = calculateCartTotals();
+            console.log("Checkout: Totals for WhatsApp message:", { subtotal, discount, shippingCost, total });
+
+            let whatsappMessage = `¡Hola! Me gustaría hacer un pedido de R&F Productos Integrales.\n\n`;
+            whatsappMessage += `*--- Datos del Cliente ---*\n`;
+            whatsappMessage += `🙋 *Nombre:* ${customerName}\n`;
+            whatsappMessage += `📞 *Teléfono:* ${customerPhone}\n`;
+            whatsappMessage += `📍 *Dirección:* ${deliveryMethod === "A Domicilio" ? customerAddress : "Recoger en Tienda"}\n`;
+            whatsappMessage += `🚚 *Método de Entrega:* ${deliveryMethod}\n`;
+            whatsappMessage += `💰 *Método de Pago:* ${paymentMethod}\n`;
+            if (paymentMethod === "Transferencia Bancaria") {
+                whatsappMessage += `🏦 *Cuentas para Transferencia:*\n`;
+                whatsappMessage += `   - ${lang.bankPopular}\n`;
+                whatsappMessage += `   - ${lang.banreservas}\n`;
+                whatsappMessage += `   - ${lang.bhd}\n`;
+            }
+            whatsappMessage += `\n*--- Detalles del Pedido ---*\n`;
+            
+            cart.forEach(item => {
+                const isCombo = item.type === 'combo';
+                let name, pricePerUnit;
+
+                if (isCombo) {
+                    const combo = combos.find(c => c.id === item.productId);
+                    name = combo ? combo.name : 'Combo Desconocido';
+                    pricePerUnit = combo ? combo.price : 0;
+                } else {
+                    const product = products.find(p => p.id === item.productId);
+                    name = product ? product.name : 'Producto Desconocido';
+                    pricePerUnit = product ? getPricePerUnit(product, item.quantity, false) : 0;
+                }
+                whatsappMessage += `- ${name} x${item.quantity} (RD$${(pricePerUnit || 0).toFixed(2)} c/u)\n`;
+            });
+
+            whatsappMessage += `\n*🧾 ${translations[currentLanguage].subtotal}* ${formatPrice(subtotal)}`;
+            whatsappMessage += `\n*🎁 ${translations[currentLanguage].discount}* -${formatPrice(discount)}`;
+            whatsappMessage += `\n*🚚 ${translations[currentLanguage].shippingCost}* +${formatPrice(shippingCost)}`;
+            whatsappMessage += `\n*💳 ${translations[currentLanguage].total}* ${formatPrice(total)}`;
+            whatsappMessage += `\n\n*Nota Importante sobre Descuentos:*\n${lang.discountNote}\n\n`;
+
+            whatsappMessage += `Por favor, envíame los detalles para completar la compra. ¡Gracias!`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappNumber = '18094254540';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            window.open(whatsappUrl, '_blank');
+            console.log("WhatsApp URL opened:", whatsappUrl);
+
+            cart = [];
+            saveCart();
+            updateCartCount();
+            showModal(lang.orderSent, lang.orderSentMessage);
+            if (customerNameInput) customerNameInput.value = '';
+            if (customerAddressInput) customerAddressInput.value = '';
+            if (customerPhoneInput) customerPhoneInput.value = '';
+            document.querySelectorAll('input[name="delivery-method"]').forEach(el => el.checked = false);
+            document.querySelectorAll('input[name="payment-method"]').forEach(el => el.checked = false);
+            toggleBankDetails();
+
+            setTimeout(() => navigateTo('home', null, event), 3000);
+        }
+
+        function addToWishlist(itemId, type = 'product') {
+            if (!wishlist.includes(itemId)) {
+                wishlist.push(itemId);
+                saveWishlist();
+                updateWishlistCount();
+                showWishlistModal(translations[currentLanguage].addedToWishlist, translations[currentLanguage].addedSuccessfully);
+                // No need to re-render the whole page here unless a visual update is critical.
+                // The wishlist count is already updated.
+                // if (['shop', 'home', 'product', 'offers'].includes(currentPage)) {
+                //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
+                // }
+            } else {
+                showWishlistModal(translations[currentLanguage].wishlistPageTitle, `¡Este producto ya está en tu Lista de Deseos!`);
+            }
+        }
+
+        function removeFromWishlist(itemId) {
+            wishlist = wishlist.filter(id => id !== itemId);
+            saveWishlist();
+            updateWishlistCount();
+            renderWishlist();
+            showWishlistModal(translations[currentLanguage].removedFromWishlist, `El producto ha sido eliminado de tu Lista de Deseos.`);
+            // No need to re-render the whole page here unless a visual update is critical.
+            // if (['shop', 'home', 'product', 'offers'].includes(currentPage)) {
+            //     renderPage(currentPage, window.location.hash.substring(1).split('-')[1]);
+            // }
+        }
+
+        function navigateTo(page, param = null, event = null) {
+            console.log(`[navigateTo] Attempting navigation to page: ${page} with param: ${param}`);
+            if (event) {
+                event.preventDefault();
+                console.log(`[navigateTo] Event prevented for: ${event.type}`);
+            }
+            
+            const newHash = page + (param ? `-${param}` : '');
+            
+            if (window.location.hash.substring(1) !== newHash) {
+                window.location.hash = newHash;
+                console.log(`[navigateTo] Hash updated to: ${newHash}`);
+            } else {
+                console.log(`[navigateTo] Hash already is: ${newHash}. Not updating hash.`);
+            }
+            
+            renderPage(page, param);
+        }
+
+        // --- Main Rendering Functions ---
+        function renderGenericPage(titleKey, contentKey) {
+            const lang = translations[currentLanguage];
+            if (appContent) {
+                appContent.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto border border-gray-200">
+                        <h1 class="text-3xl font-bold text-primary mb-6 text-center">${lang[titleKey]}</h1>
+                        <div class="text-gray-800 leading-relaxed">
+                            ${lang[contentKey]}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        const renderContact = () => renderGenericPage('contact', 'contactPageContent');
+        const renderHelpFAQ = () => renderGenericPage('helpFAQ', 'helpFAQPageContent');
+        const renderBlog = () => renderGenericPage('blog', 'blogPageContent');
+        const renderPrivacyPolicy = () => renderGenericPage('privacyPolicy', 'privacyPolicyPageContent');
+        const renderTermsOfUse = () => renderGenericPage('termsOfUse', 'termsOfUsePageContent');
+        const renderShippingPolicy = () => renderGenericPage('shippingPolicy', 'shippingPolicyPageContent');
+        const renderReturnPolicy = () => renderGenericPage('returnPolicy', 'returnPolicyPageContent');
+        const renderPaymentMethods = () => renderGenericPage('paymentMethods', 'paymentMethodsPageContent');
+        const renderAboutUs = () => renderGenericPage('aboutUs', 'aboutUsPageContent');
+
+
+        function renderHome() {
+            const lang = translations[currentLanguage];
+            if (!appContent) return; // Safeguard
+
+            appContent.innerHTML = `
+                <section class="relative h-[250px] md:h-[350px] lg:h-[450px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
+                    <div id="hero-carousel" class="absolute inset-0">
+                        ${carouselImages.map((item, index) => `
+                            <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${item.src}');">
+                                <div class="carousel-content bg-black bg-opacity-40 p-6 rounded-lg mx-4">
+                                    <h1 class="text-3xl md:text-5xl font-extrabold mb-2 animate-fade-in">${item[`title_${currentLanguage}`]}</h1>
+                                    <p class="text-lg md:text-xl mb-6 opacity-90 animate-fade-in-delay">${item[`subtitle_${currentLanguage}`]}</p>
+                                    ${item.buttonText_es ? `<a href="${item.buttonLink}" onclick="navigateTo('${item.buttonLink.substring(1)}', null, event)" class="bg-white text-primary px-6 py-3 rounded-full text-md md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
+                                        ${item[`buttonText_${currentLanguage}`]}
+                                    </a>` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="carousel-control-btn left-4" onclick="changeSlide(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-control-btn right-4" onclick="changeSlide(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="carousel-dots">
+                        ${carouselImages.map((_, index) => `
+                            <span class="carousel-dot ${index === 0 ? 'active' : ''}" onclick="currentSlide(${index})"></span>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <section class="new-products-home mb-12">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.newProducts}</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        ${products.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)).slice(0, 4).map(p => `
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
+                                <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)" class="block">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
+                                    <h3 class="text-lg font-semibold text-gray-800 mb-2 px-4 pt-2">${p.name}</h3>
+                                </a>
+                                <p class="text-gray-600 text-sm mb-4">${p.brand}</p>
+                                <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
+                                <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
+                                    ${lang.addToCart}
+                                </button>
+                                <button onclick="addToWishlist('${p.id}', 'product')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-200 mt-2" data-translate="addToWishlist">
+                                    <i class="fas fa-heart ${wishlist.includes(p.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <section class="best-sellers-home mb-12">
+                    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.bestSellers}</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        ${products.sort((a, b) => b.salesCount - a.salesCount).slice(0, 4).map(p => `
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
+                                <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)" class="block">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
+                                    <h3 class="text-lg font-semibold text-gray-800 mb-2 px-4 pt-2">${p.name}</h3>
+                                </a>
+                                <p class="text-gray-600 text-sm mb-4">${p.brand}</p>
+                                <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
+                                <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
+                                    ${lang.addToCart}
+                                </button>
+                                <button onclick="addToWishlist('${p.id}', 'product')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-200 mt-2" data-translate="addToWishlist">
+                                    <i class="fas fa-heart ${wishlist.includes(p.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+            initCarousel();
+        }
+
+        function initCarousel() {
+            showSlides(slideIndex);
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        function showSlides(n) {
+            const slides = document.getElementsByClassName("carousel-item");
+            const dots = document.getElementsByClassName("carousel-dot");
+            if (slides.length === 0) return;
+
+            if (n >= slides.length) { slideIndex = 0 }
+            if (n < 0) { slideIndex = slides.length - 1 }
+
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+            clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        function renderShop(filter = {}, sort = 'relevance', displaySidebar = true) {
+            const lang = translations[currentLanguage];
+            let filteredProducts = [...products];
+
+            const currentSearchQuery = searchInput ? searchInput.value.toLowerCase() : ''; // Safeguard
+            if (currentSearchQuery) {
+                filteredProducts = filteredProducts.filter(p =>
+                    p.name.toLowerCase().includes(currentSearchQuery) ||
+                    p[`description_${currentLanguage}`].toLowerCase().includes(currentSearchQuery) ||
+                    (p.brand && p.brand.toLowerCase().includes(currentSearchQuery)) ||
+                    (p.category && p.category.toLowerCase().includes(currentSearchQuery)) ||
+                    (p.normalizedCategory && p.normalizedCategory.toLowerCase().includes(currentSearchQuery)) ||
+                    (p.subcategory && p.subcategory.toLowerCase().includes(currentSearchQuery))
+                );
+            }
+
+            const brandFilter = document.getElementById('filter-brand')?.value;
+            const categoryFilterFromUI = document.getElementById('filter-category')?.value;
+            const benefitFilter = document.getElementById('filter-benefit')?.value;
+            const certificationFilter = document.getElementById('filter-certification')?.value;
+            const minPriceFilter = parseFloat(document.getElementById('filter-price-min')?.value);
+            const maxPriceFilter = parseFloat(document.getElementById('filter-price-max')?.value);
+
+            const activeCategoryFilter = filter.category || categoryFilterFromUI || '';
+
+            if (brandFilter) { filteredProducts = filteredProducts.filter(p => p.brand === brandFilter); }
+            if (activeCategoryFilter) { filteredProducts = filteredProducts.filter(p => p.normalizedCategory === activeCategoryFilter); }
+            if (filter.subcategory) { filteredProducts = filteredProducts.filter(p => p.subcategory === filter.subcategory); }
+            if (benefitFilter) { filteredProducts = filteredProducts.filter(p => p.benefits.includes(benefitFilter)); }
+            if (certificationFilter) { filteredProducts = filteredProducts.filter(p => p.certifications.includes(certificationFilter)); }
+            if (minPriceFilter !== undefined && !isNaN(minPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail >= minPriceFilter); }
+            if (maxPriceFilter !== undefined && !isNaN(maxPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail <= maxPriceFilter); }
+
+            if (filter.isOffer) {
+                filteredProducts = filteredProducts.filter(p => p.isOffer === true);
+            }
+            
+            switch (sort) {
+                case 'priceAsc':
+                    filteredProducts.sort((a, b) => a.priceDetail - b.priceDetail);
+                    break;
+                case 'priceDesc':
+                    filteredProducts.sort((a, b) => b.priceDetail - a.priceDetail);
+                    break;
+                case 'new':
+                    filteredProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+                    break;
+                case 'bestsellers':
+                    filteredProducts.sort((a, b) => b.salesCount - a.salesCount);
+                    break;
+                case 'customerRating':
+                    break;
+                case 'relevance':
+                default:
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+            }
+
+            let individualOffersHtml = '';
+            if (filter.isOffer) {
+                filteredProducts = filteredProducts.slice(0, 4);
+                if (filteredProducts.length > 0) {
+                     individualOffersHtml = `<h3 class="text-2xl font-bold text-primary mb-6 mt-8">${lang.individualOffers}</h3>`;
+                }
+            }
+
+            const categories = getUniqueCategories();
+            const brands = getUniqueBrands();
+            const certifications = getUniqueCertifications();
+            const benefits = getUniqueBenefits();
+
+            let sidebarHtml = '';
+            let mainContentWidthClass = 'lg:w-3/4';
+
+            if (displaySidebar) {
+                mainContentWidthClass = 'lg:w-3/4';
+                sidebarHtml = `
+                    <aside class="lg:w-1/4 bg-white p-6 rounded-lg shadow-md mb-8 lg:mb-0">
+                        <h3 class="text-xl font-bold text-primary mb-6" data-translate="filterBy">${lang.filterBy}</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="filter-brand" class="block text-gray-700 font-semibold mb-2" data-translate="brand">${lang.brand}</label>
+                                <select id="filter-brand" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="" data-translate="all">${lang.all}</option>
+                                    ${brands.map(b => `<option value="${b}" ${brandFilter === b ? 'selected' : ''}>${b}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="filter-category" class="block text-gray-700 font-semibold mb-2" data-translate="productType">${lang.productType}</label>
+                                <select id="filter-category" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="" data-translate="all">${lang.all}</option>
+                                    ${categories.map(c => `
+                                        <option value="${toKebabCase(c)}" ${activeCategoryFilter === toKebabCase(c) ? 'selected' : ''} data-translate="${toKebabCase(c)}">
+                                            ${translations[currentLanguage][toKebabCase(c)] || c}
+                                        </option>
+                                    `).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="filter-benefit" class="block text-gray-700 font-semibold mb-2" data-translate="healthBenefit">${lang.healthBenefit}</label>
+                                <select id="filter-benefit" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="" data-translate="all">${lang.all}</option>
+                                    ${benefits.map(b => `<option value="${b}" ${benefitFilter === b ? 'selected' : ''}>${b}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="filter-certification" class="block text-gray-700 font-semibold mb-2" data-translate="certifications">${lang.certifications}</label>
+                                <select id="filter-certification" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <option value="" data-translate="all">${lang.all}</option>
+                                    ${certifications.map(c => `<option value="${c}" ${certificationFilter === c ? 'selected' : ''}>${c}</option>`).join('')}
+                                    </select>
+                            </div>
+                            <div>
+                                <label for="filter-price-min" class="block text-gray-700 font-semibold mb-2" data-translate="price">${lang.price} (Min)</label>
+                                <input type="number" id="filter-price-min" placeholder="0" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" value="${minPriceFilter !== undefined ? minPriceFilter : ''}">
+                            </div>
+                            <div>
+                                <label for="filter-price-max" class="block text-gray-700 font-semibold mb-2" data-translate="price">${lang.price} (Max)</label>
+                                <input type="number" id="filter-price-max" placeholder="10000" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" value="${maxPriceFilter !== undefined ? maxPriceFilter : ''}">
+                            </div>
+                            <button onclick="applyFiltersAndSort()" class="w-full bg-primary text-white py-2 rounded-md hover:bg-green-700 transition duration-200" data-translate="applyFilters">${lang.applyFilters}</button>
+                        </div>
+                    </aside>
+                `;
+            } else {
+                mainContentWidthClass = 'lg:w-full';
+                sidebarHtml = '';
+            }
+
+            if (appContent) { // Safeguard
+                appContent.innerHTML = `
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        ${sidebarHtml}
+                        <section class="${mainContentWidthClass}">
+                            <div class="flex justify-between items-center mb-6 flex-wrap">
+                                <h2 class="text-3xl font-bold text-primary">
+                                    ${filter.isOffer ? lang.offers : lang.shop}
+                                </h2>
+                                ${displaySidebar ? `
+                                <div class="flex items-center space-x-2 mt-4 lg:mt-0">
+                                    <label for="sort-options" class="text-gray-700" data-translate="sortBy">${lang.sortBy}:</label>
+                                    <select id="sort-options" onchange="applyFiltersAndSort()" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
+                                        <option value="relevance" ${sort === 'relevance' ? 'selected' : ''} data-translate="relevance">${lang.relevance}</option>
+                                        <option value="priceAsc" ${sort === 'priceAsc' ? 'selected' : ''} data-translate="priceAsc">${lang.priceAsc}</option>
+                                        <option value="priceDesc" ${sort === 'priceDesc' ? 'selected' : ''} data-translate="priceDesc">${lang.priceDesc}</option>
+                                        <option value="new" ${sort === 'new' ? 'selected' : ''} data-translate="newest">${lang.newest}</option>
+                                        <option value="bestsellers" ${sort === 'bestsellers' ? 'selected' : ''} data-translate="mostSold">${lang.mostSold}</option>
+                                        <option value="customerRating" ${sort === 'customerRating' ? 'selected' : ''} data-translate="customerRating">${lang.customerRating}</option>
+                                    </select>
+                                </div>
+                                ` : ''}
+                            </div>
+
+                            ${filter.isOffer ? `
+                                <h3 class="text-2xl font-bold text-primary mb-6">${lang.comboOffers}</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 mb-12">
+                                    ${combos.map(combo => `
+                                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
+                                            <a href="#combo-${combo.id}" onclick="navigateTo('combo', '${combo.id}', event)" class="block">
+                                                <img src="${combo.image}" alt="${combo.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x200/D3D3D3/000000?text=Combo+Image';" class="w-full h-48 object-cover p-4 rounded-t-lg">
+                                                <h3 class="text-xl font-semibold text-gray-800 mb-2 px-4 pt-2">${combo.name}</h3>
+                                            </a>
+                                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                                <p class="text-gray-600 text-sm mb-3">${combo[`description_${currentLanguage}`]}</p>
+                                                <p class="text-2xl font-bold text-red-600 mb-4">${formatPrice(combo.price)} <span class="text-sm text-gray-500 line-through">${formatPrice(combo.originalPrice)}</span></p>
+                                                <button onclick="addToCartCombo('${combo.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
+                                                    ${lang.addToCart}
+                                                </button>
+                                                <button onclick="addToWishlist('${combo.id}', 'combo')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-200 mt-2" data-translate="addToWishlist">
+                                                    <i class="fas fa-heart ${wishlist.includes(combo.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                ${individualOffersHtml}
+                            ` : ''}
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 ${filter.isOffer ? 'xl:grid-cols-4' : 'lg:grid-cols-3'} gap-6">
+                                ${filteredProducts.length > 0 ?
+                                    filteredProducts.map(p => `
+                                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
+                                            <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)" class="block">
+                                                <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain p-4 rounded-t-lg">
+                                                <h3 class="text-lg font-semibold text-gray-800 mb-1 px-4 pt-2">${p.name}</h3>
+                                            </a>
+                                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                                <p class="text-gray-600 text-sm mb-2">${p.brand}</p>
+                                                <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)} ${p.priceWholesale && p.priceWholesale !== p.priceDetail ? `<span class="text-sm text-gray-500">(RD$${(p.priceWholesale || 0).toFixed(2)} Mayor)</span>` : ''}</p>
+                                                <div class="flex items-center justify-center space-x-2 mt-2">
+                                                    <button onclick="updateProductQuantityInCart('${p.id}', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
+                                                    <input type="number" min="0" value="${(cart.find(item => item.productId === p.id)?.quantity || 0)}" 
+                                                           data-product-id="${p.id}" 
+                                                           onchange="updateProductQuantityInCartFromInput(this, '${p.id}')"
+                                                           onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                                           class="w-16 text-center border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-primary">
+                                                    <button onclick="updateProductQuantityInCart('${p.id}', 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
+                                                </div>
+                                                <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200 mt-4">
+                                                    ${lang.addToCart}
+                                                </button>
+                                                <button onclick="addToWishlist('${p.id}', 'product')" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-200 mt-2" data-translate="addToWishlist">
+                                                    <i class="fas fa-heart ${wishlist.includes(p.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                                                </button>
+                                                <button onclick="openFichaTecnicaModal('${p.id}')" class="bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-700 transition duration-200 mt-2 text-sm">
+                                                    Ver Ficha Técnica
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('') :
+                                    `<p class="col-span-full text-center text-gray-600 text-lg" data-translate="noProductsFound">${lang.noProductsFound || 'No se encontraron productos con los filtros seleccionados.'}</p>`
+                                }
+                            </div>
+                        </section>
+                    </div>
+                `;
+            }
+
+            if (displaySidebar) {
+                document.getElementById('filter-brand')?.addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-category')?.addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-benefit')?.addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-certification')?.addEventListener('change', applyFiltersAndSort);
+                document.getElementById('filter-price-min')?.addEventListener('input', applyFiltersAndSort);
+                document.getElementById('filter-price-max')?.addEventListener('input', applyFiltersAndSort);
+                document.getElementById('sort-options')?.addEventListener('change', applyFiltersAndSort);
+            }
+            updateContentLanguage();
+        }
+
+        function renderProductDetail(productId) {
+            console.log(`Attempting to render product detail for ID: ${productId}`);
+            const product = products.find(p => p.id === productId);
+            const lang = translations[currentLanguage];
+
+            if (!product) {
+                if (appContent) appContent.innerHTML = `<p class="text-center text-red-500 text-xl">Producto no encontrado.</p>`;
+                console.error(`Product with ID: ${productId} not found.`);
+                return;
+            }
+            console.log(`Product found: ${product.name}`);
+
+            const descriptionText = product[`description_${currentLanguage}`] || product.description_es;
+            const ingredientsText = product[`ingredients_${currentLanguage}`] || product.ingredients_es;
+            const usageText = product[`usage_${currentLanguage}`] || product.usage_es;
+            const warningsText = product[`warnings_${currentLanguage}`] || product.warnings_es;
+            const fichaTecnicaContent = product[`fichaTecnica_${currentLanguage}`] || product.fichaTecnica_es;
+
+            if (appContent) { // Safeguard
+                appContent.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/2 flex justify-center items-center">
+                            <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x600/D3D3D3/000000?text=Imagen+No+Disp';" class="max-w-full h-auto rounded-lg shadow-md object-contain">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h1 class="text-4xl font-bold text-primary mb-2">${product.name}</h1>
+                            <p class="text-xl text-gray-700 mb-4">${product.brand}</p>
+                            <p class="text-5xl font-extrabold text-green-600 mb-6">${formatPrice(product.priceDetail)} ${product.priceWholesale && product.priceWholesale !== p.priceDetail ? `<span class="text-sm text-gray-500">(RD$${(product.priceWholesale || 0).toFixed(2)} Mayor)</span>` : ''}</p>
+                            
+                            <div class="flex items-center justify-start space-x-2 mb-4">
+                                <button onclick="updateProductQuantityInCart('${product.id}', -1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">-</button>
+                                <input type="number" min="0" value="${(cart.find(item => item.productId === product.id)?.quantity || 0)}" 
+                                       data-product-id="${product.id}" 
+                                       onchange="updateProductQuantityInCartFromInput(this, '${product.id}')"
+                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                                       class="w-20 text-center border border-gray-300 rounded-md p-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                                <button onclick="updateProductQuantityInCart('${product.id}', 1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">+</button>
+                            </div>
+                            <button onclick="addToCart('${product.id}')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4" data-translate="addToCart">
+                                <i class="fas fa-cart-plus mr-2"></i> ${lang.addToCart}
+                            </button>
+                            <button onclick="addToWishlist('${product.id}', 'product')" class="w-full bg-gray-200 text-gray-700 text-xl py-3 rounded-full hover:bg-gray-300 transition duration-200 mb-4" data-translate="addToWishlist">
+                                <i class="fas fa-heart ${wishlist.includes(p.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                            </button>
+                            <button onclick="openFichaTecnicaModal('${p.id}')" class="w-full bg-gray-600 text-white text-xl py-3 rounded-full hover:bg-gray-700 transition duration-200 mb-8">
+                                                Ver Ficha Técnica
+                                            </button>
+
+
+                            <!-- Tabs for Description, Ingredients, Usage, Warnings, Reviews -->
+                            <div class="border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
+                                    <button class="tab-button text-primary whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-lg" data-tab="description" data-translate="description">${lang.description}</button>
+                                    <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="ingredients" data-translate="ingredients">${lang.ingredients}</button>
+                                    <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="usage" data-translate="usage">${lang.usage}</button>
+                                    <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="warnings" data-translate="warnings">${lang.warnings}</button>
+                                    <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="fichaTecnica">Ficha Técnica</button>
+                                    <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="reviews" data-translate="reviews">${lang.reviews}</button>
+                                </nav>
+                            </div>
+
+                            <div id="tab-content" class="mt-6 text-gray-800 leading-relaxed">
+                                <div id="tab-description" class="tab-pane active">${descriptionText}</div>
+                                <div id="tab-ingredients" class="tab-pane hidden">${ingredientsText}</div>
+                                <div id="tab-usage" class="tab-pane hidden">${usageText}</div>
+                                <div id="tab-warnings" class="tab-pane hidden">${warningsText}</div>
+                                <div id="tab-fichaTecnica" class="tab-pane hidden">${fichaTecnicaContent}</div>
+                                <div id="tab-reviews" class="tab-pane hidden">
+                                    <p class="mb-2">Aún no hay opiniones para este producto. ¡Sé el primero en dejar una!</p>
+                                    <div class="flex items-center text-yellow-500 mb-4">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> (4/5)
+                                    </div>
+                                    <p class="text-sm text-gray-600">"Excelente producto, he notado una gran mejora en mi energía." - Cliente Satisfecho</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold text-primary mb-3">Certificaciones:</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    ${product.certifications.map(cert => `
+                                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">${cert}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold text-primary mb-4" data-translate="relatedProducts">${lang.relatedProducts}</h3>
+                                <div class="grid grid-cols-2 gap-4">
+                                    ${products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 2).map(p => `
+                                        <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)" class="block bg-gray-50 rounded-lg p-3 text-center hover:bg-gray-100 transition duration-200">
+                                            <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/100x100/D3D3D3/000000?text=Imagen+No+Disp';" class="w-24 h-24 object-contain mx-auto mb-2">
+                                            <p class="text-sm font-medium text-gray-700">${p.name}</p>
+                                            <p class="text-md font-bold text-primary">${formatPrice(p.priceDetail)}</p>
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('text-primary', 'border-primary');
+                        btn.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
+                    });
+                    this.classList.add('text-primary', 'border-primary');
+                    this.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
+
+                    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+                    document.getElementById(`tab-${this.dataset.tab}`).classList.remove('hidden');
+                });
+            });
+        }
+
+        function renderComboDetail(comboId) {
+            const combo = combos.find(c => c.id === comboId);
+            const lang = translations[currentLanguage];
+
+            if (!combo) {
+                if (appContent) appContent.innerHTML = `<p class="text-center text-red-500 text-xl">Combo no encontrado.</p>`;
+                return;
+            }
+
+            const descriptionText = combo[`description_${currentLanguage}`] || combo.description_es;
+
+            const productsInComboHtml = combo.productsIncluded.map(item => {
+                const product = products.find(p => p.id === item.id);
+                if (!product) return '';
+
+                const productBenefits = item[`benefits_${currentLanguage}`] || item.benefits_es;
+
+                return `
+                    <div class="flex items-start gap-4 p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/100x100/D3D3D3/000000?text=NP';" class="w-24 h-24 object-contain rounded-md flex-shrink-0">
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-1">${product.name} (x${item.quantity})</h4>
+                            <p class="text-gray-600 text-sm mb-2">${product[`description_${currentLanguage}`] || product.description_es}</p>
+                            ${productBenefits && productBenefits.length > 0 ? `
+                                <p class="text-gray-700 font-medium mt-2">${lang.benefits}:</p>
+                                <ul class="list-disc list-inside text-sm text-gray-600 ml-4">
+                                    ${productBenefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                                </ul>
+                            ` : ''}
+                            <a href="#product-${product.id}" onclick="navigateTo('product', '${product.id}', event)" class="text-primary text-sm hover:underline mt-2 inline-block">Ver más detalles del producto</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (appContent) { // Safeguard
+                appContent.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/2 flex justify-center items-center">
+                            <img src="${combo.image}" alt="${combo.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x600/D3D3D3/000000?text=Combo+Image';" class="max-w-full h-auto rounded-lg shadow-md object-contain">
+                        </div>
+                        <div class="lg:w-1/2">
+                            <h1 class="text-4xl font-bold text-primary mb-2">${combo.name}</h1>
+                            <p class="text-xl text-gray-700 mb-4">${descriptionText}</p>
+                            <p class="text-5xl font-extrabold text-red-600 mb-6">${formatPrice(combo.price)} <span class="text-sm text-gray-500 line-through">${formatPrice(combo.originalPrice)}</span></p>
+                            
+                            <button onclick="addToCartCombo('${combo.id}')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4" data-translate="addToCart">
+                                <i class="fas fa-cart-plus mr-2"></i> ${lang.addToCart}
+                            </button>
+                            <button onclick="addToWishlist('${combo.id}', 'combo')" class="w-full bg-gray-200 text-gray-700 text-xl py-3 rounded-full hover:bg-gray-300 transition duration-200 mb-8" data-translate="addToWishlist">
+                                <i class="fas fa-heart ${wishlist.includes(combo.id) ? 'text-red-500' : ''}"></i> ${lang.addToWishlist}
+                            </button>
+
+                            <div class="mt-8">
+                                <h3 class="text-2xl font-semibold text-primary mb-4" data-translate="productsInCombo">${lang.productsInCombo}</h3>
+                                <div class="space-y-4">
+                                    ${productsInComboHtml}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+
+        /**
+         * Renders the cart page, displaying items, quantities, and totals.
+         */
+        function renderCart() {
+            console.log("Starting renderCart function.");
+            const lang = translations[currentLanguage];
+            let cartContent = '';
+
+            if (cart.length === 0) {
+                cartContent = `<p class="text-center text-gray-600 text-xl py-10" data-translate="cartEmpty">${lang.cartEmpty}</p>`;
+            } else {
+                cartContent = `
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg shadow-md mb-8">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                    <th class="py-3 px-6 text-left" data-translate="item">${lang.item}</th>
+                                    <th class="py-3 px-6 text-center" data-translate="price">${lang.price}</th>
+                                    <th class="py-3 px-6 text-center" data-translate="quantity">${lang.quantity}</th>
+                                    <th class="py-3 px-6 text-center" data-translate="subtotal">${lang.subtotal}</th>
+                                    <th class="py-3 px-6 text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 text-sm font-light">
+                                ${cart.map(item => {
+                                    const isCombo = item.type === 'combo';
+                                    let name, image, pricePerUnit;
+
+                                    if (isCombo) {
+                                        const combo = combos.find(c => c.id === item.productId);
+                                        name = combo ? combo.name : 'Combo Desconocido';
+                                        image = combo ? combo.image : '';
+                                        pricePerUnit = combo ? combo.price : 0;
+                                    } else {
+                                        const product = products.find(p => p.id === item.productId);
+                                        name = product ? product.name : 'Producto Desconocido';
+                                        image = product ? product.image : '';
+                                        pricePerUnit = product ? getPricePerUnit(product, item.quantity) : 0;
+                                    }
+
+                                    const itemSubtotal = pricePerUnit * item.quantity; 
+                                    return `
+                                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="mr-3">
+                                                        <img class="w-10 h-10 rounded-full object-contain" src="${image}" alt="${name}" onerror="this.onerror=null;this.src='https://placehold.co/40x40/D3D3D3/000000?text=NP';">
+                                                    </div>
+                                                    <span class="font-medium">${name}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-center">${formatPrice(pricePerUnit)}</td>
+                                            <td class="py-3 px-6 text-center">
+                                                <div class="flex items-center justify-center space-x-2">
+                                                    <button onclick="updateQuantity('${item.productId}', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
+                                                    <span class="text-base font-semibold">${item.quantity}</span>
+                                                    <button onclick="updateQuantity('${item.productId}', 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-6 text-center font-semibold">${formatPrice(itemSubtotal)}</td>
+                                            <td class="py-3 px-6 text-center">
+                                                <button onclick="removeFromCart('${item.productId}')" class="text-red-500 hover:text-red-700 transition duration-200" data-translate="removeItem">
+                                                    <i class="fas fa-trash"></i> ${lang.removeItem}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex flex-col items-end space-y-4 w-full">
+                        <!-- Totals Summary -->
+                        <div class="bg-gray-100 p-4 rounded-lg w-full md:w-1/2 lg:w-1/3 shadow-inner">
+                            <div class="flex justify-between text-lg font-semibold text-gray-700 mb-2">
+                                <span id="display-subtotal-label" data-translate="subtotal">${lang.subtotal}</span>
+                                <span id="display-subtotal">${formatPrice(0)}</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-semibold text-gray-700 mb-2">
+                                <span id="display-discount-label" data-translate="discount">${lang.discount}</span>
+                                <span id="display-discount">-${formatPrice(0)}</span>
+                            </div>
+                            <div class="flex justify-between text-lg font-semibold text-gray-700 mb-4 border-b pb-2">
+                                <span id="display-shippingCost-label" data-translate="shippingCost">${lang.shippingCost}</span>
+                                <span id="display-shippingCost"></span>
+                            </div>
+                            <div class="flex justify-between text-2xl font-bold text-primary">
+                                <span id="display-total-label" data-translate="total">${lang.total}</span>
+                                <span id="display-total"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Details Form -->
+                        <div class="w-full lg:w-1/2 p-4 bg-gray-50 rounded-lg shadow-inner mt-6">
+                            <h3 class="text-xl font-semibold text-primary mb-4" data-translate="contactDetails">${lang.contactDetails}</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="customer-name" class="block text-gray-700 text-sm font-medium mb-1" data-translate="fullName">${lang.fullName} <span class="text-red-500">*</span></label>
+                                    <input type="text" id="customer-name" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="${lang.yourNamePlaceholder}" required>
+                                </div>
+                                <div>
+                                    <label for="customer-address" class="block text-gray-700 text-sm font-medium mb-1" data-translate="deliveryAddress">${lang.deliveryAddress} <span class="text-red-500">*</span></label>
+                                    <input type="text" id="customer-address" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="${lang.yourAddressPlaceholder}" required>
+                                </div>
+                                <div>
+                                    <label for="customer-phone-order" class="block text-gray-700 text-sm font-medium mb-1" data-translate="yourPhoneNumber">${lang.yourPhoneNumber} <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="customer-phone-order" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="${lang.yourPhonePlaceholder}" required>
+                                </div>
+                            </div>
+
+                            <!-- Delivery Method -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3" data-translate="deliveryMethod">${lang.deliveryMethod} <span class="text-red-500">*</span></h4>
+                                <div class="flex flex-col space-y-2">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-primary h-5 w-5" name="delivery-method" value="A Domicilio" id="delivery-home">
+                                        <span class="ml-2 text-gray-700" data-translate="homeDelivery">${lang.homeDelivery}</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-primary h-5 w-5" name="delivery-method" value="Recoger en Tienda" id="delivery-store">
+                                        <span class="ml-2 text-gray-700" data-translate="storePickup">${lang.storePickup}</span>
+                                    </label>
+                                </div>
+                                <!-- Delivery Cost Notes -->
+                                <div id="delivery-cost-notes" class="mt-3 text-sm text-gray-600 p-3 bg-gray-100 rounded-md">
+                                    <p data-translate="deliveryCostNoteSantoDomingo">${lang.deliveryCostNoteSantoDomingo}</p>
+                                    <p data-translate="deliveryCostNoteOutside">${lang.deliveryCostNoteOutside}</p>
+                                </div>
+                            </div>
+
+                            <!-- Payment Method -->
+                            <div class="mt-6">
+                                <h4 class="text-lg font-semibold text-gray-800 mb-3" data-translate="paymentMethod">${lang.paymentMethod} <span class="text-red-500">*</span></h4>
+                                <div class="flex flex-col space-y-2">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-primary h-5 w-5" name="payment-method" value="Efectivo" id="payment-cash">
+                                        <span class="ml-2 text-gray-700" data-translate="cash">${lang.cash}</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-primary h-5 w-5" name="payment-method" value="Transferencia Bancaria" id="payment-transfer">
+                                        <span class="ml-2 text-gray-700" data-translate="bankTransfer">${lang.bankTransfer}</span>
+                                    </label>
+                                </div>
+                                <!-- Bank Account Details (Initially hidden, shown on Transferencia Bancaria selection) -->
+                                <div id="bank-accounts-details" class="mt-3 text-sm text-gray-600 p-3 bg-gray-100 rounded-md hidden">
+                                    <p class="font-semibold mb-2" data-translate="bankAccounts">${lang.bankAccounts}:</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li data-translate="bankPopular">${lang.bankPopular}</li>
+                                        <li data-translate="banreservas">${lang.banreservas}</li>
+                                        <li data-translate="bhd">${lang.bhd}</li>
+                                    </ul>
+                                </div>
+                                <!-- Payment Confirmation Note -->
+                                <p id="payment-confirmation-note" class="mt-4 text-sm text-red-600 font-medium" data-translate="paymentConfirmationNote">
+                                    ${lang.paymentConfirmationNote}
+                                </p>
+                            </div>
+                            <!-- New Discount Note -->
+                            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800">
+                                <p class="text-sm" data-translate="discountNote">
+                                    ${lang.discountNote}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4 mt-6">
+                            <button onclick="navigateTo('shop', null, event)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition duration-200" data-translate="continueShopping">
+                                ${lang.continueShopping}
+                            </button>
+                            <!-- Updated: Checkout button now calls the checkoutOrder function -->
+                            <button onclick="checkoutOrder()" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-green-700 transition duration-200" data-translate="checkout">
+                                ${lang.checkout}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (appContent) { // Safeguard
+                appContent.innerHTML = `
+                    <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="yourCart">${lang.yourCart}</h1>
+                    ${cartContent}
+                `;
+            }
+            
+            updateContentLanguage(); 
+            toggleBankDetails(); 
+            initCartFormListeners();
+            calculateCartTotals();
+            console.log("Finished renderCart function.");
+        }
+
+        /**
+         * Renders the wishlist page, displaying items saved by the user.
+         */
+        function renderWishlist() {
+            const lang = translations[currentLanguage];
+            let wishlistContent = '';
+
+            if (wishlist.length === 0) {
+                wishlistContent = `<p class="text-center text-gray-600 text-xl py-10" data-translate="noProductsInWishlist">${lang.noProductsInWishlist}</p>`;
+            } else {
+                wishlistContent = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        ${wishlist.map(itemId => {
+                            const product = products.find(p => p.id === itemId);
+                            const combo = combos.find(c => c.id === itemId);
+                            const item = product || combo; // Could be a product or a combo
+
+                            if (!item) return ''; // Skip if item not found
+
+                            const isCombo = !!combo; // Check if it's a combo
+
+                            return `
+                                <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
+                                    <a href="#${isCombo ? 'combo' : 'product'}-${item.id}" onclick="navigateTo('${isCombo ? 'combo' : 'product'}', '${item.id}', event)" class="block">
+                                        <img src="${item.image}" alt="${item.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain p-4 rounded-t-lg">
+                                        <h3 class="text-lg font-semibold text-gray-800 mb-1 px-4 pt-2">${item.name}</h3>
+                                    </a>
+                                    <div class="p-4 flex-grow flex flex-col justify-between">
+                                        <p class="text-xl font-bold text-primary mb-3">${formatPrice(item.price || item.priceDetail)}</p>
+                                        <button onclick="addToCart('${item.id}', '${isCombo ? 'combo' : 'product'}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200 mt-2">
+                                            ${lang.addToCart}
+                                        </button>
+                                        <button onclick="removeFromWishlist('${item.id}')" class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-700 transition duration-200 mt-2">
+                                            <i class="fas fa-trash"></i> ${lang.removeItem}
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            if (appContent) { // Safeguard
+                appContent.innerHTML = `
+                    <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="wishlistPageTitle">${lang.wishlistPageTitle}</h1>
+                    ${wishlistContent}
+                `;
+            }
+            updateContentLanguage(); // Apply language after rendering content
+        }
+
+
+        // --- Event Listeners and Initial Setup ---
+
+        // Event listener for hash changes in the URL (for navigation)
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            const parts = hash.split('-');
+            const page = parts[0];
+            const param = parts.slice(1).join('-'); // Reconstruct param if it contains hyphens
+            console.log(`[hashchange] Hash change detected: page=${page}, param=${param}`);
+            
+            // This condition prevents re-rendering if the hash is the same, but allows
+            // re-rendering if a param changes while the page (e.g., 'shop') remains the same.
+            // Also ensures a render if the page itself changes.
+            if (currentPage !== page || (param && window.location.hash.substring(1) !== `${page}-${param}`) || (!param && window.location.hash.substring(1) !== page)) {
+                 renderPage(page, param);
+            }
+           
+        });
+
+        /**
+         * Renders the content for the current page based on its name and optional parameter.
+         * This function should be the SOLE entry point for rendering content based on navigation.
+         * @param {string} page - The name of the page to render.
+         * @param {string} [param=null] - An optional parameter for the page.
+         */
+        function renderPage(page, param = null) {
+            console.log(`[renderPage] Rendering page: ${page} with param: ${param}`); // Debugging: Page render start
+            currentPage = page; // Keep track of the current page
+            // Clear any active carousel interval when navigating away from home
+            if (page !== 'home') {
+                clearInterval(carouselInterval);
+            }
+            switch (page) {
+                case 'home':
+                    renderHome();
+                    break;
+                case 'shop':
+                    let shopFilter = {};
+                    let sortOption = 'relevance'; // Default sort
+                    let displaySidebar = true; // Default to showing sidebar for shop page
+
+                    if (param) {
+                        const parts = param.split('-');
+                        if (parts[0] === 'category' && parts[1]) {
+                            shopFilter.category = parts[1]; // Use the normalized/kebab-case category for filtering
+                        }
+                    }
+                    renderShop(shopFilter, sortOption, displaySidebar);
+                    break;
+                case 'product':
+                    renderProductDetail(param);
+                    break;
+                case 'combo': // NEW case for combo detail page
+                    renderComboDetail(param);
+                    break;
+                case 'cart':
+                    renderCart();
+                    break;
+                case 'offers': // The offers page directly sets isOffer filter
+                    renderShop({ isOffer: true }, 'relevance', false); // No sidebar for offers
+                    break;
+                case 'wishlist': // New case for 'Lista de Deseos'
+                    renderWishlist();
+                    break;
+                // Pages that use renderGenericPage (from footer-logic, now also About Us)
+                case 'contact':
+                case 'help-faq':
+                case 'blog':
+                case 'privacy-policy':
+                case 'terms-of-use':
+                case 'shipping-policy':
+                case 'return-policy':
+                case 'payment-methods':
+                case 'about-us': // Added case for "about-us"
+                    renderGenericPage(page, `${page}PageContent`);
+                    break;
+                default:
+                    renderHome(); // Fallback to home page
+            }
+            // Ensure search input is cleared/reset when navigating away from shop/search results
+            if (searchInput && page !== 'shop') { // Safeguard searchInput
+                searchInput.value = '';
+            }
+            console.log(`[renderPage] Page ${page} rendered successfully.`); // Debugging: Page render end
+        }
+
+        /**
+         * Populates the shop dropdown menu with dynamic categories.
+         */
+        function populateCategoryMenu() {
+            const shopDropdown = document.querySelector('nav .group div.header-shop-dropdown');
+            if (!shopDropdown) {
+                console.error("Shop dropdown element not found.");
+                return;
+            }
+
+            shopDropdown.innerHTML = ''; // Clear existing content
+
+            const categories = getUniqueCategories();
+            categories.forEach(category => {
+                const normalizedCategory = toKebabCase(category);
+                const categoryLink = document.createElement('a');
+                
+                categoryLink.href = `#shop-category-${normalizedCategory}`;
+                
+                const translatedCategoryName = translations[currentLanguage][normalizedCategory] || category;
+                categoryLink.textContent = translatedCategoryName;
+                categoryLink.classList.add('block', 'px-4', 'py-2', 'text-sm', 'text-gray-700', 'hover:bg-gray-100', 'rounded-md');
+                categoryLink.onclick = (e) => {
+                    e.preventDefault();
+                    navigateTo('shop', `category-${normalizedCategory}`, e);
+                };
+                shopDropdown.appendChild(categoryLink);
+            });
+        }
+
+        /**
+         * Applies filters and sorting to the shop page.
+         * This function reads current filter/sort selections from the DOM and calls renderShop.
+         * @param {Object} [additionalFilter={}] - Optional additional filter parameters (e.g., from search or category links).
+         */
+        function applyFiltersAndSort(additionalFilter = {}) {
+            const brandFilter = document.getElementById('filter-brand')?.value || '';
+            const categoryFilterFromUI = document.getElementById('filter-category')?.value || '';
+            const benefitFilter = document.getElementById('filter-benefit')?.value || '';
+            const certificationFilter = document.getElementById('filter-certification')?.value || '';
+            const minPriceFilter = parseFloat(document.getElementById('filter-price-min')?.value) || undefined;
+            const maxPriceFilter = parseFloat(document.getElementById('filter-price-max')?.value) || undefined;
+            const sortOption = document.getElementById('sort-options')?.value || 'relevance';
+
+            const shouldDisplaySidebar = true; 
+
+            const currentFilters = {
+                brand: brandFilter,
+                category: categoryFilterFromUI,
+                benefit: benefitFilter,
+                certification: certificationFilter,
+                minPrice: minPriceFilter,
+                maxPrice: maxPriceFilter,
+                ...additionalFilter
+            };
+            
+            renderShop(currentFilters, sortOption, shouldDisplaySidebar);
+        }
+
+        // DOMContentLoaded ensures all HTML is parsed before running the script
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            updateWishlistCount();
+            populateCategoryMenu();
+            // Moved initial renderPage call inside DOMContentLoaded but after all setup
+            const initialHash = window.location.hash.substring(1);
+            const initialParts = initialHash.split('-');
+            const initialPage = initialParts[0] || 'home';
+            const initialParam = initialParts.slice(1).join('-');
+            renderPage(initialPage, initialParam);
+            updateContentLanguage(); // Call this AFTER initial renderPage for existing content
+            console.log("[DOMContentLoaded] Initial page rendered.");
+
+            // Event listener for language toggle buttons
+            document.getElementById('language-toggle')?.parentNode?.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    currentLanguage = e.target.dataset.lang;
+                    updateContentLanguage();
+                    console.log(`Language changed to: ${currentLanguage}`);
+                });
+            });
+
+            // Event listener for search button click
+            document.getElementById('search-button')?.addEventListener('click', (event) => {
+                const searchQuery = searchInput ? searchInput.value : '';
+                console.log(`Search button clicked. Query: ${searchQuery}`);
+                navigateTo('shop', null, event); 
+                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0);
+            });
+
+            // Event listener for Enter key in search input
+            searchInput?.addEventListener('keypress', (e) => { // Safeguard searchInput
+                if (e.key === 'Enter') {
+                    const searchQuery = searchInput ? searchInput.value : '';
+                    console.log(`Search input Enter pressed. Query: ${searchQuery}`);
+                    navigateTo('shop', null, e);
+                    setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0);
+                }
+            });
+
+            // NEW: Event listener for Newsletter form submission
+            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { // Safeguard form
+                event.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                if (emailInput && emailInput.value.trim() !== '') { // Safeguard emailInput
+                    showModal(translations[currentLanguage].newsletter, translations[currentLanguage].subscribedNewsletter || '¡Gracias por suscribirte a nuestro newsletter!');
+                    emailInput.value = '';
+                } else {
+                    showModal(translations[currentLanguage].newsletter, translations[currentLanguage].invalidEmail || 'Por favor, introduce un correo electrónico válido.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
