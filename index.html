@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R&F Productos Integrales</title>
     <!-- Favicon: Ruta corregida a 'images/favicon.jpg' y tipo MIME 'image/jpeg'. Asegúrate que la carpeta de imágenes se llame 'images' (sin acento) -->
-    <link rel="icon" href="images/favicon.jpg" type="image/png">
+    <link rel="icon" href="images/favicon.jpg" type="image/jpeg">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom Font */
+        /* Fuentes personalizadas */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f8f8;
             color: #333;
         }
-        /* Custom Colors */
-        .text-primary { color: #228B22; /* Forest Green */ }
+        /* Colores personalizados de Tailwind */
+        .text-primary { color: #228B22; /* Verde Bosque */ }
         .bg-primary { background-color: #228B22; }
+        /* Efecto de escala al pasar el ratón */
         .hover-scale:hover { transform: scale(1.05); transition: transform 0.2s ease-in-out; }
-        /* Custom scrollbar for better aesthetics */
+        /* Barra de desplazamiento personalizada para mejor estética */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -38,7 +39,7 @@
             background: #555;
         }
         
-        /* Fade-in animations */
+        /* Animaciones de aparición gradual */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -51,7 +52,7 @@
             animation-delay: 0.2s;
         }
 
-        /* Carousel specific styles */
+        /* Estilos específicos del carrusel */
         .carousel-item {
             display: none;
             position: absolute;
@@ -63,7 +64,7 @@
             opacity: 0;
             background-size: cover;
             background-position: center;
-            display: flex; /* Always flex for content positioning */
+            display: flex; /* Siempre flex para posicionar contenido */
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -122,7 +123,7 @@
             transform: scale(1.2);
         }
 
-        /* Dropdown content (for footer collapsible) */
+        /* Contenido desplegable (para el pie de página plegable) */
         .collapsible-content {
             max-height: 0;
             overflow: hidden;
@@ -132,7 +133,7 @@
             max-height: 200px; /* Ajusta según el contenido */
         }
 
-        /* Specific style for Shop dropdown menu */
+        /* Estilo específico para el menú desplegable de la Tienda */
         .header-shop-dropdown {
             width: max-content; /* Asegura que el ancho del desplegable se adapte al contenido */
             min-width: 150px; /* Ancho mínimo para evitar menús muy estrechos */
@@ -141,23 +142,21 @@
     </style>
 </head>
 <body>
-    <!-- Header Section -->
+    <!-- Sección de Encabezado -->
     <header class="bg-white shadow-md py-4">
-        <!-- Top Promotional Banner -->
+        <!-- Banner promocional superior -->
         <div id="promo-banner" class="bg-primary text-white text-center py-2 text-sm">
             Envío GRATIS por el consumo mínimo de RD$2,000 | Entrega en 24/48 horas | Confianza y pago seguro
         </div>
         <div class="container mx-auto px-4 flex items-center justify-between flex-wrap">
             <!-- Logo -->
             <a href="#home" class="flex items-center space-x-2 mr-6" onclick="navigateTo('home', null, event)">
-                <!-- Ruta corregida directamente a 'images/logo.jpg' -->
-                <img src="images/logo.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
-                <span class="text-2xl font-bold text-primary">R&F Productos Integrales <br>
-			<p>🍃 La naturaleza tiene la solucion a tus problemas de salud</p></span>
-		    
+                <!-- Ruta corregida directamente a 'images/favicon.jpg' -->
+                <img src="images/favicon.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
+                <span class="text-2xl font-bold text-primary">R&F Productos Integrales</span>
             </a>
 
-            <!-- Search Bar -->
+            <!-- Barra de búsqueda -->
             <div class="flex-grow max-w-lg mx-auto order-last md:order-none w-full md:w-auto mt-4 md:mt-0">
                 <div class="relative flex items-center w-full">
                     <input type="text" id="search-input" placeholder="Buscar productos..."
@@ -168,19 +167,19 @@
                 </div>
             </div>
 
-            <!-- Utility Icons/Links (Cart, Wishlist, Language) -->
+            <!-- Iconos/Enlaces de utilidad (Carrito, Lista de Deseos, Idioma) -->
             <div class="flex items-center space-x-4 ml-auto">
-                <!-- Cart Link -->
+                <!-- Enlace al carrito -->
                 <a href="#cart" id="cart-link" class="relative p-2 text-gray-600 hover:text-primary transition duration-200" onclick="navigateTo('cart', null, event)">
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
-                <!-- Wishlist Link (replaces Account) -->
+                <!-- Enlace a la Lista de Deseos -->
                 <a href="#wishlist" id="wishlist-link" class="relative p-2 text-gray-600 hover:text-primary transition duration-200" onclick="navigateTo('wishlist', null, event)">
                     <i class="fas fa-heart text-xl"></i>
                     <span id="wishlist-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center" data-translate="wishlist">0</span>
                 </a>
-                <!-- Language Selector -->
+                <!-- Selector de Idioma -->
                 <div class="relative group">
                     <button id="language-toggle" class="p-2 text-gray-600 hover:text-primary transition duration-200">
                         <i class="fas fa-globe text-xl"></i>
@@ -191,14 +190,14 @@
                     </div>
                 </div>
             </div>
-            <!-- Contact Info (hidden on small screens, shown on medium and up) -->
+            <!-- Información de Contacto (oculta en pantallas pequeñas, mostrada en medianas y grandes) -->
             <div class="hidden md:flex items-center space-x-2 ml-4">
                 <i class="fas fa-phone text-primary"></i>
                 <!-- Modificado: El número de teléfono ahora enlaza a WhatsApp -->
                 <a href="https://wa.me/18094254540" target="_blank" class="text-gray-600 text-sm hover:text-primary transition duration-200" data-translate="phone">809-425-4540</a>
             </div>
         </div>
-        <!-- Main Navigation -->
+        <!-- Navegación Principal -->
         <nav class="bg-gray-100 py-3 mt-4 shadow-sm">
             <div class="container mx-auto px-4">
                 <ul class="flex justify-center space-x-8 text-gray-700 font-medium text-lg flex-wrap">
@@ -207,24 +206,23 @@
                         <a href="#shop" class="hover:text-primary transition duration-200 inline-flex items-center" onclick="navigateTo('shop', null, event)" data-translate="shop">
                             Tienda <i class="fas fa-chevron-down text-xs ml-1"></i>
                         </a>
-                        <!-- Added custom class for shop dropdown for easier styling -->
+                        <!-- Se añadió una clase personalizada para el desplegable de la tienda para facilitar el estilo -->
                         <div class="header-shop-dropdown absolute left-0 mt-2 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                            <!-- Dynamically populated categories here -->
+                            <!-- Categorías pobladas dinámicamente aquí -->
                         </div>
                     </li>
                     <li><a href="#offers" class="hover:text-primary transition duration-200" onclick="navigateTo('offers', null, event)" data-translate="offers">Ofertas</a></li>
-                    <!-- Eliminados "Nuevos Productos" y "Más Vendidos" de la navegación principal -->
                 </ul>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content Area -->
+    <!-- Área de Contenido Principal -->
     <main id="app-content" class="flex-grow container mx-auto px-4 py-8">
-        <!-- Content will be dynamically loaded here by JavaScript -->
+        <!-- El contenido se cargará dinámicamente aquí por JavaScript -->
     </main>
 
-    <!-- Footer Section - Integrated from the clean footer logic -->
+    <!-- Sección de Pie de Página -->
     <footer class="bg-gray-800 text-white py-10 mt-8 rounded-t-lg shadow-lg">
         <div class="container mx-auto px-4 grid grid-cols-1 gap-8">
             <!-- Sección de Redes Sociales y Newsletter -->
@@ -253,8 +251,8 @@
         </div>
     </footer>
 
-    <!-- Modals -->
-    <!-- Cart Confirmation Modal -->
+    <!-- Modales -->
+    <!-- Modal de confirmación de carrito -->
     <div id="cart-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
             <h3 class="text-xl font-semibold mb-4" id="modal-title" data-translate="productAdded">Producto Añadido al Carrito</h3>
@@ -263,7 +261,7 @@
         </div>
     </div>
 
-    <!-- Wishlist Confirmation Modal (re-using cart-modal structure) -->
+    <!-- Modal de confirmación de Lista de Deseos -->
     <div id="wishlist-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
             <h3 class="text-xl font-semibold mb-4" id="wishlist-modal-title" data-translate="productAdded">Producto Añadido a Lista de Deseos</h3>
@@ -272,7 +270,7 @@
         </div>
     </div>
 
-    <!-- Ficha Técnica Modal -->
+    <!-- Modal de Ficha Técnica -->
     <div id="fichaTecnicaModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-11/12 md:w-3/4 lg:w-1/2 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeFichaTecnicaModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
@@ -285,276 +283,357 @@
 
 
     <script>
-        // --- Funciones de Ayuda (Independientes/Utilidad - sin dependencia inicial de estado global/datos/elementos DOM) ---
+        // --- Funciones de Ayuda (Utilidades) ---
+        // Convierte una cadena a kebab-case (ej. "Nombre Producto" -> "nombre-producto")
         function toKebabCase(string) {
             return string.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-.]/g, '');
         }
 
+        // Capitaliza la primera letra de cada palabra en una cadena
         function capitalizeEachWord(str) {
             return str.replace(/\b\w/g, char => char.toUpperCase());
         }
-
-        function getRandomPrice(min, max) {
-            return parseFloat((Math.random() * (max - min) + min).toFixed(2));
-        }
-
+        
+        // Obtiene una fecha aleatoria para simular "productos nuevos"
         function getRandomDate(start, end) {
             const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-            return date.toISOString().split('T')[0]; //YYYY-MM-DD
+            return date.toISOString().split('T')[0]; // Formato YYYY-MM-DD
         }
 
-        // Función para asignar categorías y beneficios basados en el nombre del producto
-        function assignCategoryAndBenefits(name) {
-            let category = 'Otros'; // Por defecto a 'Otros' si no hay coincidencia de categoría específica
-            let benefits = ['En construcción.'];
+        // --- Datos Globales y Constantes (¡Aquí es donde manejarás tus productos!) ---
 
-            const lowerName = name.toLowerCase();
-
-            // Suplementos Naturales
-            if (lowerName.includes("aceite de copaiba") || lowerName.includes("aceite de linaza") || lowerName.includes("aceite de oregano") || lowerName.includes("aceite de ricino") ||
-                lowerName.includes("adipo-cf") || lowerName.includes("adipofin") || lowerName.includes("alcachofa") || lowerName.includes("amargo sueco") || lowerName.includes("ashwagandha") ||
-                lowerName.includes("ayurcolon") || lowerName.includes("ayurmona") || lowerName.includes("broncovedi jarabe") || lowerName.includes("cardo mariano") ||
-                lowerName.includes("chanca piedra") || lowerName.includes("citrato de potasio polvo") || lowerName.includes("citrato magnesio") || lowerName.includes("cola de caballo") ||
-                lowerName.includes("crema relabir antiestres") || lowerName.includes("curcuma en polvo") || lowerName.includes("curcumin") || lowerName.includes("damiana") || lowerName.includes("diabenol") || lowerName.includes("dianin") ||
-                lowerName.includes("diente de leon") || lowerName.includes("fennel") || lowerName.includes("fenugreek capsula") || lowerName.includes("fenugreek polvo") ||
-                lowerName.includes("ganoderma") || lowerName.includes("ginkgo biloba") || lowerName.includes("ginseng") || lowerName.includes("hojas zapote blanco") ||
-                lowerName.includes("ionteracare") || lowerName.includes("jenjibre") || lowerName.includes("kelp") || lowerName.includes("levadura nutricional") || lowerName.includes("licorice") ||
-                lowerName.includes("maca en capsula") || lowerName.includes("maca en polvo") || lowerName.includes("miel en panal") || lowerName.includes("moringa en polvo") || lowerName.includes("parasito jarabe") ||
-                lowerName.includes("progesterona") || lowerName.includes("propoleo tintura") || lowerName.includes("prostazan") || lowerName.includes("quercetin y bromelain") ||
-                lowerName.includes("sangre de drago") || lowerName.includes("triple magnesio complex") || lowerName.includes("valeriana y pasiflora") || lowerName.includes("xanthin")
-            ) {
-                category = 'Suplementos Naturales';
-                if (lowerName.includes("curcuma")) benefits = ["Potente antiinflamatorio", "Antioxidante"];
-                else if (lowerName.includes("magnesio")) benefits = ["Mejora la función muscular y nerviosa", "Reduce la fatiga"];
-                else if (lowerName.includes("ginkgo biloba")) benefits = ["Mejora la memoria y concentración", "Apoya la circulación"];
-                else if (lowerName.includes("maca")) benefits = ["Aumenta la energía", "Equilibrio hormonal"];
-                else if (lowerName.includes("ginseng")) benefits = ["Aumenta la resistencia al estrés", "Mejora el rendimiento"];
-                else benefits = ["Apoyo a la salud general", "Mejora el bienestar"];
-            }
-            // Alimentación Saludable
-            else if (lowerName.includes("aceite de ajonjoli") || lowerName.includes("harina de almendras") || lowerName.includes("flor de jamaica") || lowerName.includes("miel en panal") || lowerName.includes("te matcha") || lowerName.includes("almendras") || lowerName.includes("te de manzanilla organico")) {
-                category = 'Alimentación saludable';
-                if (lowerName.includes("aceite de ajonjoli")) benefits = ["Rico en antioxidantes", "Promueve la salud ósea"];
-                else if (lowerName.includes("harina de almendras")) benefits = ["Alternativa sin gluten", "Fuente de proteínas"];
-                else if (lowerName.includes("flor de jamaica")) benefits = ["Diurético natural", "Rica en vitamina C"];
-                else if (lowerName.includes("miel en panal")) benefits = ["Fuente de energía natural", "Propiedades antibacterianas"];
-                else if (lowerName.includes("te matcha")) benefits = ["Aumenta el metabolismo", "Rico en L-teanina para la calma"];
-                else if (lowerName.includes("almendras")) benefits = ["Fuente de grasas saludables", "Ricas en vitamina E"];
-                else if (lowerName.includes("te de manzanilla organico")) benefits = ["Promueve la relajación y el sueño", "Alivia el estrés"];
-            }
-            // Cosmética Natural y Cuidado Personal
-            else if (lowerName.includes("aceite de batana") || lowerName.includes("crema relabir antiestres") || lowerName.includes("serum facial") || lowerName.includes("mascarilla capilar") || lowerName.includes("barro (arcilla)") || (lowerName.includes("aceite de coco") && (lowerName.includes("8 oz") || lowerName.includes("gl") || lowerName.includes("medio gl")))) {
-                category = 'Cosmética natural y Cuidado Personal';
-                if (lowerName.includes("aceite de batana")) benefits = ["Promueve el crecimiento del cabello", "Hidrata la piel"];
-                else if (lowerName.includes("crema relabir antiestres")) benefits = ["Alivia la tensión muscular", "Promueve la relajación"];
-                else if (lowerName.includes("serum facial")) benefits = ["Ilumina la piel", "Reduce arrugas"];
-                else if (lowerName.includes("mascarilla capilar")) benefits = ["Repara el cabello dañado", "Aporta brillo"];
-                else if (lowerName.includes("barro (arcilla)")) benefits = ["Desintoxica la piel", "Purifica los poros"];
-                else if (lowerName.includes("aceite de coco")) benefits = ["Hidratante natural", "Antibacterial"];
-            }
-            // Dispositivos para la Salud
-            else if (lowerName.includes("generador desinfectante") || lowerName.includes("ionteracare")) {
-                category = 'Dispositivos para la salud';
-                if (lowerName.includes("generador desinfectante")) benefits = ["Elimina bacterias y virus", "Desinfecta superficies"];
-                else if (lowerName.includes("ionteracare")) benefits = ["Mejora la circulación", "Alivia el dolor"];
-            }
-            // Otros (ya es el valor por defecto, pero buena regla explícita)
-            else if (lowerName.includes("zeolita") || lowerName.includes("palo de arco")) {
-                category = 'Otros';
-                if (lowerName.includes("zeolita")) benefits = ["Desintoxicación natural", "Soporte digestivo"];
-                else if (lowerName.includes("palo de arco")) benefits = ["Apoyo al sistema inmune", "Propiedades antifúngicas"];
-            }
-
-            return { category, benefits };
-        }
-
-        // --- Datos Globales y Constantes ---
-        // Se define la RUTA BASE para todas las imágenes.
-        // ********************************************************************************
-        // ¡IMPORTANTE! Basado en el pantallazo, si 'index.html' está directamente dentro
-        // de 'Tienda-RYFPFI', y la carpeta de imágenes se llama 'images' (sin acento)
-        // DENTRO de 'Tienda-RYFPFI', entonces la ruta es 'images/'.
-        // POR FAVOR, ASEGÚRATE de que tu carpeta de imágenes se llame 'images'
-        // (todo en minúsculas y sin acento) en tu proyecto.
+        // La RUTA BASE para todas las imágenes. Asegúrate de que tu carpeta de imágenes
+        // se llame 'images' (sin acento y todo en minúsculas) y esté en el mismo
+        // nivel que tu archivo 'index.html'.
         const IMAGE_BASE_PATH = 'images/';
-        // ********************************************************************************
 
-        const productNames = [
-            "aceite de ajonjoli", "aceite de batana", "aceite de coco 8 oz.", "aceite de coco gl.", "aceite de coco medio gl",
-            "aceite de copaiba", "aceite de linaza", "aceite de oregano", "aceite de ricino", "adipo-cf",
-            "adipofin", "alcachofa", "almendras", "amargo sueco", "ashwagandha",
-            "ayurcolon", "ayurmona", "barro (arcilla)", "broncovedi jarabe", "cardo mariano",
-            "chanca piedra", "citrato de potasio polvo", "citrato magnesio", "cola de caballo", "crema relabir antiestres",
-            "curcuma en polvo", "curcumin", "damiana", "diabenol", "dianin",
-            "diente de leon", "fennel", "fenugreek capsula", "fenugreek polvo", "flor de jamaica",
-            "flor de lavanda", "ganoderma", "generador desinfectante", "ginkgo biloba", "ginseng",
-            "harina de almendras", "hojas zapote blanco", "ionteracare", "jenjibre", "kelp",
-            "levadura nutricional", "licorice", "maca en capsula", "maca en polvo", "miel en panal",
-            "moringa en polvo", "palo de arco", "parasito jarabe", "progesterona", "propoleo tintura",
-            "prostazan", "quercetin y bromelain", "sacha inchi", "sangre de drago", "te matcha", "triple magnesio complex",
-            "valeriana y pasiflora", "xanthin", "zeolita"
-        ];
-        
         /**
-         * ¡IMPORTANTE! Este mapa DEBE contener una entrada para CADA imagen cuyo nombre de archivo
-         * (incluyendo mayúsculas/minúsculas y extensión) NO COINCIDA EXACTAMENTE con el formato
-         * de ID en kebab-case MÁS la extensión por defecto (.jpg).
+         * ¡IMPORTANTE!: Este es el LUGAR PRINCIPAL para gestionar la información de TUS PRODUCTOS.
+         * Cada objeto en este arreglo representa un producto completo con TODOS sus datos.
          *
-         * Si el ID del producto es 'mi-producto' y tu archivo se llama 'mi-producto.jpg',
-         * NO necesitas una entrada aquí.
+         * Para AÑADIR un nuevo producto:
+         * 1. Copia una de las plantillas vacías al final de este arreglo.
+         * 2. Pega el nuevo objeto.
+         * 3. Rellena TODAS las propiedades con la información de tu producto.
+         * 4. Asegúrate de que 'id' sea único y en kebab-case.
+         * 5. Asegúrate de que 'imageFile' sea el NOMBRE EXACTO del archivo en tu carpeta 'images/' (ej. 'mi-foto.jpg').
          *
-         * Si el ID del producto es 'mi-producto' pero tu archivo se llama 'Mi Producto.png',
-         * entonces NECESITARÁS una entrada aquí: `'mi-producto': 'Mi Producto.png',`.
+         * Para EDITAR un producto existente:
+         * 1. Busca el producto por su 'name' o 'id' en este arreglo.
+         * 2. Modifica directamente las propiedades que necesites (descripción, precios, etc.).
          *
-         * Se han añadido entradas basadas en los nombres de archivo exactos proporcionados en 'nombres.jpg'.
-         * Si tu intención es estandarizar todos los nombres a 'kebab-case.jpg' en tu repositorio,
-         * podrás ELIMINAR la mayoría de estas entradas, dejando el mapa lo más vacío posible.
-         * Por ahora, estas entradas aseguran que el código buscará tus imágenes con los nombres actuales.
+         * Para ELIMINAR un producto:
+         * 1. Simplemente borra el objeto completo del producto de este arreglo.
          */
-        const imageFileNameMap = {
-            'adipofin': 'Adipofin.jpg',
-            'aceite-de-copaiba': 'Copaiba.jpg',
-            'ginseng': 'Ginseng.jpg',
-            'flor-de-lavanda': 'lavanda.jpg',
-            'aceite-de-ajonjoli': 'ajonjoli.jpg',
-	    'aceite-de-linaza': 'linaza.jpg',
-            'amargo-sueco': 'amargo sueco.jpg',
-            'barro-arcilla': 'arcilla.jpg', // Mapea "barro (arcilla)"
-            'aceite-de-batana': 'batana.jpg',
-            'broncovedi-jarabe': 'broncovedi.jpg', // Posible error tipográfico en el nombre de archivo del usuario, pero se respeta.
-            'cardo-mariano': 'cardomariano.jpg',
-            'citrato-magnesio': 'citratomagnesio.jpg',
-            'aceite-de-coco-gl': 'cocogalon.jpg',
-            'aceite-de-coco-medio-gl': 'cocomediogalon.jpg',
-            'aceite-de-coco-8-oz': 'cocopequeño.jpg',
-            'cola-de-caballo': 'colacaballo.jpg',
-            'curcuma-en-polvo': 'curcumapolvo.jpg',
-            'curcumin': 'curcumin.jpg',
-            'diente-de-leon': 'dienteleon.jpg',
-            'fenugreek-capsula': 'fenugreekcapsula.jpg', // Mapea "fenugreek capsula"
-            'fenugreek-polvo': 'fenugreekpolvo.jpg', // Mapea "fenugreek polvo"
-            'generador-desinfectante': 'generador.jpg', // Mapea "generador desinfectante"
-            'ginkgo-biloba': 'ginkgobiloba.jpg',
-            'harina-de-almendras': 'harinaalmendras.jpg',
-            'fennel': 'fennel.jpg', // Mapea "fennel"
-            'flor-de-jamaica': 'jamaica.jpg',
-            'kelp': 'kelp.jpg', // Mapea "kelp"
-            'levadura-nutricional': 'levaduranutricional.jpg',
-            'licorice': 'licorice.jpg', // Mapea "licorice"
-            'maca-en-capsula': 'macacapsula.jpg',
-            'maca-en-polvo': 'macapolvo.jpg',
-            'te-matcha': 'matchat.jpg', // Mapea "te matcha"
-            'miel-en-panal': 'mielpanal.jpg',
-            'moringa-en-polvo': 'moringapolvo.jpg',
-            'aceite-de-oregano': 'oregano.jpg',
-            'palo-de-arco': 'paloarco.jpg',
-            'parasito-jarabe': 'parasito.jpg',
-            'chanca-piedra': 'piedra.jpg', // Mapea "chanca piedra"
-            'citrato-de-potasio-polvo': 'potasio polvo.jpg', // Mapea "citrato de potasio polvo"
-            'propoleo-tintura': 'propoleo.jpg',
-            'quercetin-y-bromelain': 'quercetinbromelain.jpg',
-            'crema-relabir-antiestres': 'relabir.jpg',
-            'aceite-de-ricino': 'ricino.jpg',
-	    'te-matcha': 'matcha.jpg',
-	    'sacha-inchi': 'sacha.jpg',
-            'sangre-de-drago': 'sangre drago.jpg',
-            'triple-magnesio-complex': 'triplemagnesio.jpg',
-            'valeriana-y-pasiflora': 'valerianaypasiflora.jpg',
-            'xanthin': 'xanthin.jpg',
-            'hojas-zapote-blanco': 'zapoteblanco.jpg', // Mapea "hojas zapote blanco"
-            // Las siguientes líneas son ejemplos de imágenes subidas previamente que no aparecen en nombres.jpg
-            // Si has renombrado estas imágenes para que coincidan con los IDs en kebab-case.jpg,
-            // PUEDES ELIMINARLAS de este mapa. Si no, déjalas para que el código las encuentre.
-            // 'combo-bienestar-total': 'combo1.jpg',
-            // 'combo-belleza-natural': 'combo2.jpg',
-        };
-
-        // Función que devuelve la ruta completa y correcta de la imagen
-        function getImagePath(productId) {
-            console.log(`[getImagePath] Buscando imagen para productId: ${productId}`);
-            let filePath = '';
-
-            // 1. Primero, verifica si hay un mapeo específico para este ID de producto en el imageFileNameMap
-            if (imageFileNameMap[productId]) {
-                filePath = IMAGE_BASE_PATH + imageFileNameMap[productId];
-                console.log(`[getImagePath] Mapeo encontrado y ruta completa: ${filePath}`);
-                return filePath;
-            }
-
-            // 2. Si no hay un mapeo específico, intenta con el nombre en kebab-case y la extensión .jpg por defecto.
-            // Esta es la opción preferida si vas a estandarizar a JPG.
-            filePath = IMAGE_BASE_PATH + productId + '.jpg';
-            console.log(`[getImagePath] No se encontró mapeo específico. Intentando con ruta por defecto (.jpg): ${filePath}`);
-            
-            return filePath;
-        }
-
-
-        const products = productNames.map((name, index) => {
-            const id = toKebabCase(name);
-            const basePrice = getRandomPrice(300, 1900);
-            const priceDetail = basePrice;
-            const priceWholesale = basePrice > 600 ? parseFloat((basePrice * 0.8).toFixed(2)) : basePrice;
-            const salesCount = Math.floor(Math.random() * 300) + 20;
-            const dateAdded = getRandomDate(new Date(2024, 0, 1), new Date());
-
-            const { category, benefits } = assignCategoryAndBenefits(name);
-            const capitalizedName = capitalizeEachWord(name);
-
-            return {
-                id: id,
-                name: capitalizedName,
-                brand: 'R&F Productos Integrales',
-                category: category,
-                normalizedCategory: toKebabCase(category),
-                subcategory: 'General',
-                type: 'General',
-                price: priceDetail,
-                priceDetail: priceDetail,
-                priceWholesale: priceWholesale,
-                // Usa la función getImagePath para obtener la ruta correcta de la imagen
-                image: getImagePath(id), 
-                description_es: 'Este producto está actualmente en desarrollo de descripción. Pronto tendrás toda la información detallada que necesitas para conocer sus beneficios y usos.',
-                description_en: 'This product\'s description is currently under development. Soon you will have all the detailed information you need to know about its benefits and uses.',
-                ingredients_es: 'Ingredientes: En construcción. Consulte la etiqueta del producto para más detalles.',
-                ingredients_en: 'Ingredients: Under construction. Consult product label for more details.',
-                usage_es: 'Uso Sugerido: En construcción. Siga las indicaciones de un profesional de la salud o la etiqueta del producto.',
-                usage_en: 'Suggested Use: Under construction. Follow health professional\'s directions or product label.',
-                warnings_es: 'Advertencias: En construcción. Mantener fuera del alcance de los niños. Consulte a su médico antes de usar si está embarazada, lactando o tiene alguna condición médica.',
-                warnings_en: 'Warnings: Under construction. Keep out of reach of children. Consult your doctor before use if pregnant, nursing, or have any medical condition.',
-                certifications: ['En construcción'],
-                benefits: benefits,
-                dateAdded: dateAdded,
-                salesCount: salesCount,
-                isOffer: index < 4 && !id.startsWith('combo-'),
+        const ALL_PRODUCTS_DATA = [
+            // --- EJEMPLO DE PRODUCTO COMPLETO: ACEITE DE AJONJOLÍ ---
+            {
+                id: 'aceite-de-ajonjoli',
+                name: 'Aceite De Ajonjolí',
+                imageFile: 'ajonjoli.jpg', // ¡Nombre EXACTO del archivo en tu carpeta 'images/'!
+                category: 'Alimentación Saludable',
+                brand: 'R&F Integrales',
+                priceDetail: 1364.48, // Precio de detalle
+                priceWholesale: 1090.55, // Precio al por mayor (si aplica)
+                isOffer: false, // true si es una oferta destacada
+                dateAdded: '2025-06-01', // Fecha de adición para "Nuevos Productos"
+                salesCount: 250, // Conteo de ventas para "Más Vendidos"
+                description_es: 'El aceite de ajonjolí es un potente antioxidante y antiinflamatorio, ideal para la salud interna y externa. Favorece la salud ósea y cardiovascular. Extraído en frío para preservar todas sus propiedades.',
+                description_en: 'Sesame oil is a powerful antioxidant and anti-inflammatory, ideal for internal and external health. It promotes bone and cardiovascular health. Cold-pressed to preserve all its properties.',
+                ingredients_es: 'Ingredientes: Aceite de semillas de ajonjolí (sésamo) 100% puro, prensado en frío.',
+                ingredients_en: 'Ingredients: 100% pure cold-pressed sesame seed oil.',
+                usage_es: 'Uso Sugerido: Consumir una cucharada al día. Puede usarse en ensaladas, aderezos o como suplemento directo. También apto para uso tópico en piel y cabello.',
+                usage_en: 'Suggested Use: Consume one tablespoon daily. Can be used in salads, dressings, or as a direct supplement. Also suitable for topical use on skin and hair.',
+                warnings_es: 'Advertencias: Mantener en un lugar fresco y oscuro. No superar la dosis recomendada. Consulte a un profesional de la salud si tiene alguna condición médica o está embarazada/lactando. Puede contener trazas de otros frutos secos.',
+                warnings_en: 'Warnings: Store in a cool, dark place. Do not exceed recommended dose. Consult a healthcare professional if you have any medical condition or are pregnant/nursing. May contain traces of other nuts.',
+                benefits_es: ["Rico en antioxidantes (sesamol y sesamolina)", "Promueve la salud ósea por su contenido de calcio y magnesio", "Apoya la salud cardiovascular", "Propiedades antiinflamatorias", "Hidratante natural para piel y cabello"],
+                benefits_en: ["Rich in antioxidants (sesamol and sesamolin)", "Promotes bone health due to calcium and magnesium content", "Supports cardiovascular health", "Anti-inflammatory properties", "Natural moisturizer for skin and hair"],
+                certifications: ['Orgánico', 'Prensado en Frío'],
                 fichaTecnica_es: `
-                    <h4>Ficha Técnica de ${capitalizedName}</h4>
-                    <p>En construcción: Detalles específicos y propiedades del producto.</p>
+                    <h4>Ficha Técnica de Aceite De Ajonjolí</h4>
+                    <p><strong>Origen:</strong> Semillas de ajonjolí (sésamo).</p>
+                    <p><strong>Proceso:</strong> Prensado en frío para asegurar la máxima pureza y conservación de nutrientes.</p>
+                    <p><strong>Características:</strong> Alto contenido de ácidos grasos insaturados (Omega-6), Vitamina E, calcio, magnesio y zinc. Sabor suave y aroma distintivo.</p>
                     <h4>Usos/Beneficios Principales:</h4>
                     <ul>
-                        ${benefits.map(b => `<li>${b}</li>`).join('')}
+                        <li>Rico en antioxidantes (sesamol y sesamolina)</li>
+                        <li>Promueve la salud ósea por su contenido de calcio y magnesio</li>
+                        <li>Apoya la salud cardiovascular</li>
+                        <li>Propiedades antiinflamatorias</li>
+                        <li>Hidratante natural para piel y cabello</li>
                     </ul>
                     <h4>Advertencias/Notas:</h4>
-                    <p>En construcción: Información adicional y precauciones.</p>
+                    <p>Consulte a su médico antes de usar si tiene alguna condición médica.</p>
+                    <p>Alérgenos: Contiene sésamo. Puede contener trazas de otros frutos secos.</p>
                 `,
                 fichaTecnica_en: `
-                    <h4>Technical Sheet for ${capitalizeEachWord(name)}</h4>
-                    <p>Under construction: Specific details and product properties.</p>
+                    <h4>Technical Sheet for Sesame Oil</h4>
+                    <p><strong>Origin:</strong> Sesame seeds.</p>
+                    <p><strong>Process:</strong> Cold-pressed to ensure maximum purity and nutrient retention.</p>
+                    <p><strong>Characteristics:</strong> High in Omega-6 and Omega-9 fatty acids, Vitamin E, calcium, magnesium, and zinc. Mild flavor and distinctive aroma.</p>
                     <h4>Main Uses/Benefits:</h4>
                     <ul>
-                        ${benefits.map(b => `<li>${b}</li>`).join('')}
+                        <li>Rich in antioxidants (sesamol and sesamolin)</li>
+                        <li>Promotes bone health due to calcium and magnesium content</li>
+                        <li>Supports cardiovascular health</li>
+                        <li>Anti-inflammatory properties</li>
+                        <li>Natural moisturizer for skin and hair</li>
                     </ul>
                     <h4>Warnings/Notes:</h4>
-                    <p>Under construction: Additional information and precautions.</p>
+                    <p>Consult your doctor before use if you have any medical condition.</p>
+                    <p>Allergens: Contains sesame. May contain traces of other nuts.</p>
                 `
-            };
-        });
+            },
+            // --- EJEMPLO DE PRODUCTO: ACEITE DE BATANA (Basado en tu imagen) ---
+            {
+                id: 'aceite-de-batana',
+                name: 'Aceite De Batana',
+                imageFile: 'batana.jpg',
+                category: 'Cosmética natural y Cuidado Personal',
+                brand: 'R&F Integrales',
+                priceDetail: 1090.55,
+                priceWholesale: 872.44,
+                isOffer: true, // Asumido como oferta según tu screenshot
+                dateAdded: '2025-05-20',
+                salesCount: 300,
+                description_es: 'El Aceite de Batana es un secreto natural para el cabello y la piel. Promueve el crecimiento capilar, fortalece los folículos y nutre profundamente, dejando un cabello brillante y saludable. También es excelente para hidratar y revitalizar la piel.',
+                description_en: 'Batana Oil is a natural secret for hair and skin. It promotes hair growth, strengthens follicles, and deeply nourishes, leaving hair shiny and healthy. It is also excellent for moisturizing and revitalizing the skin.',
+                ingredients_es: 'Ingredientes: Aceite puro de Batana.',
+                ingredients_en: 'Ingredients: Pure Batana oil.',
+                usage_es: 'Uso Sugerido: Para el cabello, aplicar de raíz a puntas, masajear y dejar actuar por al menos 30 minutos o toda la noche antes de lavar. Para la piel, aplicar una pequeña cantidad y masajear hasta absorber.',
+                usage_en: 'Suggested Use: For hair, apply from roots to ends, massage, and leave on for at least 30 minutes or overnight before washing. For skin, apply a small amount and massage until absorbed.',
+                warnings_es: 'Advertencias: Solo para uso externo. Evitar el contacto con los ojos. En caso de irritación, suspender su uso.',
+                warnings_en: 'Warnings: For external use only. Avoid contact with eyes. In case of irritation, discontinue use.',
+                benefits_es: ["Promueve el crecimiento del cabello", "Fortalece los folículos pilosos", "Aporta brillo y suavidad al cabello", "Hidrata profundamente la piel", "Ayuda a reducir la caída del cabello"],
+                benefits_en: ["Promotes hair growth", "Strengthens hair follicles", "Adds shine and softness to hair", "Deeply moisturizes the skin", "Helps reduce hair loss"],
+                certifications: ['Natural'],
+                fichaTecnica_es: `
+                    <h4>Ficha Técnica de Aceite De Batana</h4>
+                    <p><strong>Origen:</strong> Procede de la nuez del árbol American Oil Palm (Elaeis oleifera).</p>
+                    <p><strong>Proceso:</strong> Extraído de forma tradicional, rico en lípidos y antioxidantes.</p>
+                    <p><strong>Características:</strong> Con alto contenido de ácidos grasos Omega-6 y Omega-9, tocotrienoles (Vitamina E) y carotenoides. Aspecto denso y aroma terroso.</p>
+                    <h4>Usos/Beneficios Principales:</h4>
+                    <ul>
+                        <li>Promueve el crecimiento del cabello</li>
+                        <li>Fortalece los folículos pilosos</li>
+                        <li>Aporta brillo y suavidad al cabello</li>
+                        <li>Hidrata profundamente la piel</li>
+                        <li>Ayuda a reducir la caída del cabello</li>
+                    </ul>
+                    <h4>Advertencias/Notas:</h4>
+                    <p>Solo para uso externo. Almacenar en lugar fresco y oscuro.</p>
+                `,
+                fichaTecnica_en: `
+                    <h4>Technical Sheet for Batana Oil</h4>
+                    <p><strong>Origin:</strong> Derived from the nut of the American Oil Palm tree (Elaeis oleifera).</p>
+                    <p><strong>Process:</strong> Traditionally extracted, rich in lipids and antioxidants.</p>
+                    <p><strong>Characteristics:</strong> High in Omega-6 and Omega-9 fatty acids, tocotrienols (Vitamin E), and carotenoids. Dense appearance and earthy aroma.</p>
+                    <h4>Main Uses/Benefits:</h4>
+                    <ul>
+                        <li>Promotes hair growth</li>
+                        <li>Strengthens hair follicles</li>
+                        <li>Adds shine and softness to hair</li>
+                        <li>Deeply moisturizes the skin</li>
+                        <li>Helps reduce hair loss</li>
+                    </ul>
+                    <h4>Warnings/Notes:</h4>
+                    <p>For external use only. Store in a cool, dark place.</p>
+                `
+            },
+            // --- EJEMPLO DE PRODUCTO: ACEITE DE COCO 8 OZ. (Basado en tu imagen) ---
+            {
+                id: 'aceite-de-coco-8-oz',
+                name: 'Aceite De Coco 8 Oz.',
+                imageFile: 'cocopequeño.jpg', // Asegúrate de que este sea el nombre exacto de tu archivo
+                category: 'Cosmética natural y Cuidado Personal',
+                brand: 'R&F Integrales',
+                priceDetail: 1869.56,
+                priceWholesale: 1495.65,
+                isOffer: false,
+                dateAdded: '2025-06-10',
+                salesCount: 180,
+                description_es: 'El Aceite de Coco virgen orgánico de 8 oz. es un multiusos esencial para tu rutina diaria. Ideal para hidratación profunda de piel y cabello, desmaquillante natural y como suplemento para apoyar el metabolismo y la energía. Extraído en frío para conservar todas sus propiedades.',
+                description_en: 'Organic Virgin Coconut Oil 8 oz. is an essential multi-purpose product for your daily routine. Ideal for deep skin and hair hydration, natural makeup remover, and as a supplement to support metabolism and energy. Cold-pressed to preserve all its properties.',
+                ingredients_es: 'Ingredientes: Aceite de coco virgen orgánico 100%.',
+                ingredients_en: 'Ingredients: 100% organic virgin coconut oil.',
+                usage_es: 'Uso Sugerido: Para la piel y el cabello, aplicar directamente. Para consumo, iniciar con 1 cucharadita al día e incrementar gradualmente. Se puede usar en la cocina.',
+                usage_en: 'Suggested Use: For skin and hair, apply directly. For consumption, start with 1 teaspoon daily and gradually increase. Can be used in cooking.',
+                warnings_es: 'Advertencias: Almacenar en un lugar fresco, seco y oscuro. Puede solidificarse a bajas temperaturas, lo cual es normal. Calentar suavemente para licuar si es necesario.',
+                warnings_en: 'Warnings: Store in a cool, dry, and dark place. May solidify at low temperatures, which is normal. Gently warm to liquefy if needed.',
+                benefits_es: ["Hidratante natural para piel y cabello", "Antibacterial y antifúngico natural", "Fuente de energía rápida (MCTs)", "Apoya la salud digestiva", "Ayuda a la absorción de nutrientes"],
+                benefits_en: ["Natural moisturizer for skin and hair", "Natural antibacterial and antifungal", "Quick energy source (MCTs)", "Supports digestive health", "Aids nutrient absorption"],
+                certifications: ['Orgánico', 'Virgen'],
+                fichaTecnica_es: `
+                    <h4>Ficha Técnica de Aceite De Coco 8 Oz.</h4>
+                    <p><strong>Origen:</strong> Coco fresco (Cocos nucifera).</p>
+                    <p><strong>Proceso:</strong> Prensado en frío sin refinar ni blanquear. Conserva su aroma y sabor natural a coco.</p>
+                    <p><strong>Características:</strong> Rico en ácidos grasos de cadena media (MCTs), especialmente ácido láurico. Soluble en agua. Alto punto de humo para cocinar.</p>
+                    <h4>Usos/Beneficios Principales:</h4>
+                    <ul>
+                        <li>Hidratante natural para piel y cabello</li>
+                        <li>Antibacterial y antifúngico natural</li>
+                        <li>Fuente de energía rápida (MCTs)</li>
+                        <li>Apoya la salud digestiva</li>
+                        <li>Ayuda a la absorción de nutrientes</li>
+                    </ul>
+                    <h4>Advertencias/Notas:</h4>
+                    <p>Puede solidificarse a temperaturas inferiores a 24°C (76°F).</p>
+                    <p>Producto natural. El color y la consistencia pueden variar ligeramente.</p>
+                `,
+                fichaTecnica_en: `
+                    <h4>Technical Sheet for Coconut Oil 8 Oz.</h4>
+                    <p><strong>Origin:</strong> Fresh coconut (Cocos nucifera).</p>
+                    <p><strong>Process:</strong> Cold-pressed, unrefined, and unbleached. Retains its natural coconut aroma and flavor.</p>
+                    <p><strong>Characteristics:</strong> High in Omega-6 and Omega-9 fatty acids, tocotrienols (Vitamin E), and carotenoids. Dense appearance and earthy aroma.</p>
+                    <h4>Main Uses/Benefits:</h4>
+                    <ul>
+                        <li>Hidratante natural para piel y cabello</li>
+                        <li>Antibacterial y antifúngico natural</li>
+                        <li>Fuente de energía rápida (MCTs)</li>
+                        <li>Apoya la salud digestiva</li>
+                        <li>Ayuda a la absorción de nutrientes</li>
+                    </ul>
+                    <h4>Warnings/Notes:</h4>
+                    <p>May solidify at temperatures below 24°C (76°F).</p>
+                    <p>Natural product. Color and consistency may vary slightly.</p>
+                `
+            },
+            // --- PLANTILLA DE PRODUCTO (Copia y pega para añadir más productos) ---
+            /*
+            {
+                id: 'id-unico-del-producto-en-kebab-case', // EJ: 'aceite-de-linaza', 'harina-de-almendras'
+                name: 'Nombre Visible del Producto', // EJ: 'Aceite de Linaza', 'Harina de Almendras'
+                imageFile: 'nombre-de-archivo.jpg', // EJ: 'linaza.jpg'. ¡Debe ser el nombre EXACTO en tu carpeta 'images/'!
+                category: 'Nombre de Categoría', // EJ: 'Suplementos Naturales', 'Alimentación Saludable', 'Cosmética natural y Cuidado Personal', 'Dispositivos para la salud', 'Otros'
+                brand: 'R&F Integrales', // Por defecto, o tu marca específica
+                priceDetail: 0.00, // Precio de venta normal
+                priceWholesale: 0.00, // Precio al por mayor (si es diferente, si no, pon el mismo que priceDetail)
+                isOffer: false, // true si quieres que aparezca en la sección de ofertas
+                dateAdded: '2025-06-01', // Para mostrar en "Nuevos Productos"
+                salesCount: 100, // Para mostrar en "Más Vendidos" (número aleatorio o real)
+                description_es: 'Descripción detallada en español de tu producto.',
+                description_en: 'Detailed description in English for your product.',
+                ingredients_es: 'Ingredientes: Lista de ingredientes en español.',
+                ingredients_en: 'Ingredients: List of ingredients in English.',
+                usage_es: 'Uso Sugerido: Indicaciones de uso en español.',
+                usage_en: 'Suggested Use: Usage instructions in English.',
+                warnings_es: 'Advertencias: Precauciones y contraindicaciones en español.',
+                warnings_en: 'Warnings: Precautions and contraindications in English.',
+                benefits_es: ['Beneficio 1 en español', 'Beneficio 2 en español'], // Lista de beneficios clave
+                benefits_en: ['Benefit 1 in English', 'Benefit 2 in English'],
+                certifications: ['Certificación 1', 'Certificación 2'], // Lista de certificaciones
+                fichaTecnica_es: `
+                    <h4>Ficha Técnica de Nombre Visible del Producto</h4>
+                    <p><strong>Origen:</strong> Información de origen en español.</p>
+                    <p><strong>Proceso:</strong> Detalles del proceso de elaboración en español.</p>
+                    <p><strong>Características:</strong> Propiedades y características clave en español.</p>
+                    <h4>Usos/Beneficios Principales:</h4>
+                    <ul>
+                        <li>Beneficio 1 en español</li>
+                        <li>Beneficio 2 en español</li>
+                    </ul>
+                    <h4>Advertencias/Notas:</h4>
+                    <p>Notas adicionales o precauciones específicas de la ficha técnica en español.</p>
+                `,
+                fichaTecnica_en: `
+                    <h4>Technical Sheet for Product Visible Name</h4>
+                    <p><strong>Origin:</strong> Origin information in English.</p>
+                    <p><strong>Process:</strong> Manufacturing process details in English.</p>
+                    <p><strong>Characteristics:</strong> Key properties and characteristics in English.</p>
+                    <h4>Main Uses/Benefits:</h4>
+                    <ul>
+                        <li>Benefit 1 in English</li>
+                        <li>Benefit 2 in English</li>
+                    </ul>
+                    <h4>Warnings/Notes:</h4>
+                    <p>Additional notes or specific technical sheet precautions in English.</p>
+                `
+            },
+            */
+            // --- Otros productos (Plantillas para que las llenes) ---
+            // Asegúrate de que los IDs aquí coincidan con el productNames original para que no falte ninguno si no los borraste
+            { id: 'aceite-de-linaza', name: 'Aceite De Linaza', imageFile: 'linaza.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 600, priceWholesale: 500, isOffer: false, dateAdded: '2025-06-05', salesCount: 120, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Aceite De Linaza</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Linseed Oil</h4><p>Under construction.</p>` },
+            { id: 'aceite-de-oregano', name: 'Aceite De Oregano', imageFile: 'orégano.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 850, priceWholesale: 750, isOffer: true, dateAdded: '2025-06-02', salesCount: 200, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Aceite De Orégano</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Oregano Oil</h4><p>Under construction.</p>` },
+            { id: 'aceite-de-ricino', name: 'Aceite De Ricino', imageFile: 'ricino.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 400, priceWholesale: 350, isOffer: false, dateAdded: '2025-06-15', salesCount: 90, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Aceite De Ricino</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Castor Oil</h4><p>Under construction.</p>` },
+            { id: 'adipo-cf', name: 'Adipo-Cf', imageFile: 'adipo-cf.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1200, priceWholesale: 1000, isOffer: false, dateAdded: '2025-06-08', salesCount: 160, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Adipo-Cf</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Adipo-Cf</h4><p>Under construction.</p>` },
+            { id: 'adipofin', name: 'Adipofin', imageFile: 'Adipofina.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1300, priceWholesale: 1100, isOffer: true, dateAdded: '2025-05-25', salesCount: 280, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Adipofin</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Adipofin</h4><p>Under construction.</p>` },
+            { id: 'alcachofa', name: 'Alcachofa', imageFile: 'alcachofa.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 750, priceWholesale: 650, isOffer: false, dateAdded: '2025-06-12', salesCount: 110, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Alcachofa</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Artichoke</h4><p>Under construction.</p>` },
+            { id: 'almendras', name: 'Almendras', imageFile: 'almendras.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 500, priceWholesale: 450, isOffer: false, dateAdded: '2025-06-03', salesCount: 220, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Almendras</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Almonds</h4><p>Under construction.</p>` },
+            { id: 'amargo-sueco', name: 'Amargo Sueco', imageFile: 'amargo sueco.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 900, priceWholesale: 800, isOffer: true, dateAdded: '2025-05-18', salesCount: 190, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Amargo Sueco</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Swedish Bitters</h4><p>Under construction.</p>` },
+            { id: 'ashwagandha', name: 'Ashwagandha', imageFile: 'ashwagandha.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1100, priceWholesale: 950, isOffer: false, dateAdded: '2025-06-07', salesCount: 140, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ashwagandha</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ashwagandha</h4><p>Under construction.</p>` },
+            { id: 'ayurcolon', name: 'Ayurcolon', imageFile: 'ayurcolon.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1050, priceWholesale: 900, isOffer: false, dateAdded: '2025-06-09', salesCount: 130, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ayurcolon</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ayurcolon</h4><p>Under construction.</p>` },
+            { id: 'ayurmona', name: 'Ayurmona', imageFile: 'ayurmona.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1150, priceWholesale: 980, isOffer: false, dateAdded: '2025-06-11', salesCount: 105, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ayurmona</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ayurmona</h4><p>Under construction.</p>` },
+            { id: 'barro-arcilla', name: 'Barro (Arcilla)', imageFile: 'arcilla.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 350, priceWholesale: 300, isOffer: false, dateAdded: '2025-06-18', salesCount: 80, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Barro (Arcilla)</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Clay Mud</h4><p>Under construction.</p>` },
+            { id: 'broncovedi-jarabe', name: 'Broncovedi Jarabe', imageFile: 'bronvcovedi.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 700, priceWholesale: 600, isOffer: false, dateAdded: '2025-06-13', salesCount: 170, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Broncovedi Jarabe</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Broncovedi Syrup</h4><p>Under construction.</p>` },
+            { id: 'cardo-mariano', name: 'Cardo Mariano', imageFile: 'cardomariano.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 950, priceWholesale: 820, isOffer: false, dateAdded: '2025-06-04', salesCount: 165, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Cardo Mariano</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Milk Thistle</h4><p>Under construction.</p>` },
+            { id: 'chanca-piedra', name: 'Chanca Piedra', imageFile: 'piedra.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 800, priceWholesale: 700, isOffer: false, dateAdded: '2025-06-16', salesCount: 100, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Chanca Piedra</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Chanca Piedra</h4><p>Under construction.</p>` },
+            { id: 'citrato-de-potasio-polvo', name: 'Citrato De Potasio Polvo', imageFile: 'Polvo de potasio.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1400, priceWholesale: 1200, isOffer: false, dateAdded: '2025-06-19', salesCount: 95, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Citrato De Potasio Polvo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Potassium Citrate Powder</h4><p>Under construction.</p>` },
+            { id: 'citrato-magnesio', name: 'Citrato Magnesio', imageFile: 'citratomagnesio.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 900, priceWholesale: 780, isOffer: false, dateAdded: '2025-06-06', salesCount: 210, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Citrato Magnesio</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Magnesium Citrate</h4><p>Under construction.</p>` },
+            { id: 'cola-de-caballo', name: 'Cola De Caballo', imageFile: 'colacaballo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 550, priceWholesale: 480, isOffer: false, dateAdded: '2025-06-20', salesCount: 75, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Cola De Caballo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Horsetail</h4><p>Under construction.</p>` },
+            { id: 'crema-relabir-antiestres', name: 'Crema Relabir Antiestres', imageFile: 'relabir.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 780, priceWholesale: 680, isOffer: false, dateAdded: '2025-06-21', salesCount: 115, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Crema Relabir Antiestres</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Relabir Anti-stress Cream</h4><p>Under construction.</p>` },
+            { id: 'curcuma-en-polvo', name: 'Curcuma En Polvo', imageFile: 'cúrcuma en polvo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 650, priceWholesale: 550, isOffer: false, dateAdded: '2025-06-22', salesCount: 135, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Curcuma En Polvo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Turmeric Powder</h4><p>Under construction.</p>` },
+            { id: 'curcumin', name: 'Curcumin', imageFile: 'curcumina.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1500, priceWholesale: 1300, isOffer: true, dateAdded: '2025-05-28', salesCount: 270, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Curcumin</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Curcumin</h4><p>Under construction.</p>` },
+            { id: 'damiana', name: 'Damiana', imageFile: 'damiana.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 720, priceWholesale: 620, isOffer: false, dateAdded: '2025-06-23', salesCount: 85, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Damiana</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Damiana</h4><p>Under construction.</p>` },
+            { id: 'diabenol', name: 'Diabenol', imageFile: 'diabenol.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1600, priceWholesale: 1400, isOffer: false, dateAdded: '2025-06-24', salesCount: 98, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Diabenol</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Diabenol</h4><p>Under construction.</p>` },
+            { id: 'dianin', name: 'Dianin', imageFile: 'dianin.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1700, priceWholesale: 1500, isOffer: false, dateAdded: '2025-06-25', salesCount: 90, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Dianin</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Dianin</h4><p>Under construction.</p>` },
+            { id: 'diente-de-leon', name: 'Diente De Leon', imageFile: 'dienteleon.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 600, priceWholesale: 520, isOffer: false, dateAdded: '2025-06-26', salesCount: 110, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Diente De Leon</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Dandelion</h4><p>Under construction.</p>` },
+            { id: 'fennel', name: 'Fennel', imageFile: 'hinojo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 580, priceWholesale: 500, isOffer: false, dateAdded: '2025-06-27', salesCount: 80, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Fennel</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Fennel</h4><p>Under construction.</p>` },
+            { id: 'fenugreek-capsula', name: 'Fenugreek Capsula', imageFile: 'cápsula de fenogreco.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 920, priceWholesale: 800, isOffer: false, dateAdded: '2025-06-28', salesCount: 105, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Fenugreek Capsula</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Fenugreek Capsule</h4><p>Under construction.</p>` },
+            { id: 'fenugreek-polvo', name: 'Fenugreek Polvo', imageFile: 'polvo de fenogreco.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 700, priceWholesale: 600, isOffer: false, dateAdded: '2025-06-29', salesCount: 90, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Fenugreek Polvo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Fenugreek Powder</h4><p>Under construction.</p>` },
+            { id: 'flor-de-jamaica', name: 'Flor De Jamaica', imageFile: 'jamaica.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 450, priceWholesale: 380, isOffer: false, dateAdded: '2025-06-30', salesCount: 180, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Flor De Jamaica</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Hibiscus Flower</h4><p>Under construction.</p>` },
+            { id: 'flor-de-lavanda', name: 'Flor De Lavanda', imageFile: 'LAVANDA.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 600, priceWholesale: 520, isOffer: false, dateAdded: '2025-07-01', salesCount: 70, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Flor De Lavanda</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Lavender Flower</h4><p>Under construction.</p>` },
+            { id: 'ganoderma', name: 'Ganoderma', imageFile: 'ganoderma.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1800, priceWholesale: 1600, isOffer: false, dateAdded: '2025-07-02', salesCount: 145, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ganoderma</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ganoderma</h4><p>Under construction.</p>` },
+            { id: 'generador-desinfectante', name: 'Generador Desinfectante', imageFile: 'generador.jpg', category: 'Dispositivos para la salud', brand: 'R&F Integrales', priceDetail: 2500, priceWholesale: 2200, isOffer: false, dateAdded: '2025-07-03', salesCount: 50, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Generador Desinfectante</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Disinfectant Generator</h4><p>Under construction.</p>` },
+            { id: 'ginkgo-biloba', name: 'Ginkgo Biloba', imageFile: 'ginkgobiloba.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1000, priceWholesale: 880, isOffer: false, dateAdded: '2025-07-04', salesCount: 190, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ginkgo Biloba</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ginkgo Biloba</h4><p>Under construction.</p>` },
+            { id: 'ginseng', name: 'Ginseng', imageFile: 'Ginseng.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1500, priceWholesale: 1300, isOffer: true, dateAdded: '2025-05-15', salesCount: 320, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ginseng</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ginseng</h4><p>Under construction.</p>` },
+            { id: 'harina-de-almendras', name: 'Harina De Almendras', imageFile: 'harinaalmendras.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 700, priceWholesale: 600, isOffer: false, dateAdded: '2025-07-05', salesCount: 175, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Harina De Almendras</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Almond Flour</h4><p>Under construction.</p>` },
+            { id: 'hojas-zapote-blanco', name: 'Hojas Zapote Blanco', imageFile: 'zapoteblanco.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 400, priceWholesale: 350, isOffer: false, dateAdded: '2025-07-06', salesCount: 65, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Hojas Zapote Blanco</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for White Sapote Leaves</h4><p>Under construction.</p>` },
+            { id: 'ionteracare', name: 'Ionteracare', imageFile: 'ionteracare.jpg', category: 'Dispositivos para la salud', brand: 'R&F Integrales', priceDetail: 3000, priceWholesale: 2800, isOffer: false, dateAdded: '2025-07-07', salesCount: 30, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Ionteracare</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ionteracare</h4><p>Under construction.</p>` },
+            { id: 'jenjibre', name: 'Jenjibre', imageFile: 'jenjibre.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 300, priceWholesale: 250, isOffer: false, dateAdded: '2025-07-08', salesCount: 200, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Jenjibre</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Ginger</h4><p>Under construction.</p>` },
+            { id: 'kelp', name: 'Kelp', imageFile: 'algas marinas.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 800, priceWholesale: 700, isOffer: false, dateAdded: '2025-07-09', salesCount: 90, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Kelp</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Kelp</h4><p>Under construction.</p>` },
+            { id: 'levadura-nutricional', name: 'Levadura Nutricional', imageFile: 'levaduranutricional.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 500, priceWholesale: 450, isOffer: false, dateAdded: '2025-07-10', salesCount: 150, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Levadura Nutricional</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Nutritional Yeast</h4><p>Under construction.</p>` },
+            { id: 'licorice', name: 'Licorice', imageFile: 'regaliz.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 750, priceWholesale: 650, isOffer: false, dateAdded: '2025-07-11', salesCount: 100, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Licorice</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Licorice</h4><p>Under construction.</p>` },
+            { id: 'maca-en-capsula', name: 'Maca En Capsula', imageFile: 'macacapsula.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1200, priceWholesale: 1000, isOffer: false, dateAdded: '2025-07-12', salesCount: 180, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Maca En Capsula</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Maca Capsule</h4><p>Under construction.</p>` },
+            { id: 'maca-en-polvo', name: 'Maca En Polvo', imageFile: 'macapolvo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 900, priceWholesale: 780, isOffer: false, dateAdded: '2025-07-13', salesCount: 220, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Maca En Polvo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Maca Powder</h4><p>Under construction.</p>` },
+            { id: 'miel-en-panal', name: 'Miel En Panal', imageFile: 'mielpanal.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 1100, priceWholesale: 950, isOffer: false, dateAdded: '2025-07-14', salesCount: 190, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Miel En Panal</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Honeycomb</h4><p>Under construction.</p>` },
+            { id: 'moringa-en-polvo', name: 'Moringa En Polvo', imageFile: 'moringapolvo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 600, priceWholesale: 500, isOffer: false, dateAdded: '2025-07-15', salesCount: 160, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Moringa En Polvo</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Moringa Powder</h4><p>Under construction.</p>` },
+            { id: 'palo-de-arco', name: 'Palo De Arco', imageFile: 'paloarco.jpg', category: 'Otros', brand: 'R&F Integrales', priceDetail: 450, priceWholesale: 380, isOffer: false, dateAdded: '2025-07-16', salesCount: 85, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Palo De Arco</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Pau D'Arco</h4><p>Under construction.</p>` },
+            { id: 'parasito-jarabe', name: 'Parasito Jarabe', imageFile: 'parásito.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 800, priceWholesale: 700, isOffer: false, dateAdded: '2025-07-17', salesCount: 100, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Parasito Jarabe</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Parasite Syrup</h4><p>Under construction.</p>` },
+            { id: 'progesterona', name: 'Progesterona', imageFile: 'progesterona.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1900, priceWholesale: 1700, isOffer: false, dateAdded: '2025-07-18', salesCount: 60, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Progesterona</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Progesterone</h4><p>Under construction.</p>` },
+            { id: 'propoleo-tintura', name: 'Propoleo Tintura', imageFile: 'propóleo.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 700, priceWholesale: 600, isOffer: false, dateAdded: '2025-07-19', salesCount: 130, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Propoleo Tintura</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Propolis Tincture</h4><p>Under construction.</p>` },
+            { id: 'prostazan', name: 'Prostazan', imageFile: 'prostazan.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1400, priceWholesale: 1200, isOffer: false, dateAdded: '2025-07-20', salesCount: 80, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Prostazan</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Prostazan</h4><p>Under construction.</p>` },
+            { id: 'quercetin-y-bromelain', name: 'Quercetin Y Bromelain', imageFile: 'quercetinabromelaina.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1600, priceWholesale: 1400, isOffer: false, dateAdded: '2025-07-21', salesCount: 95, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Quercetin Y Bromelain</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Quercetin and Bromelain</h4><p>Under construction.</p>` },
+            { id: 'sangre-de-drago', name: 'Sangre De Drago', imageFile: 'sangre drago.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 850, priceWholesale: 750, isOffer: false, dateAdded: '2025-07-22', salesCount: 110, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Sangre De Drago</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Dragon's Blood</h4><p>Under construction.</p>` },
+            { id: 'te-matcha', name: 'Te Matcha', imageFile: 'matchat.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 1200, priceWholesale: 1000, isOffer: false, dateAdded: '2025-07-23', salesCount: 210, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Te Matcha</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Matcha Tea</h4><p>Under construction.</p>` },
+            { id: 'triple-magnesio-complex', name: 'Triple Magnesio Complex', imageFile: 'triplemagnesio.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1300, priceWholesale: 1100, isOffer: false, dateAdded: '2025-07-24', salesCount: 150, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Triple Magnesio Complex</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Triple Magnesium Complex</h4><p>Under construction.</p>` },
+            { id: 'valeriana-y-pasiflora', name: 'Valeriana Y Pasiflora', imageFile: 'valerianaypasiflora.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 900, priceWholesale: 780, isOffer: false, dateAdded: '2025-07-25', salesCount: 120, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Valeriana Y Pasiflora</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Valerian and Passionflower</h4><p>Under construction.</p>` },
+            { id: 'xanthin', name: 'Xanthin', imageFile: 'xantina.jpg', category: 'Suplementos Naturales', brand: 'R&F Integrales', priceDetail: 1800, priceWholesale: 1600, isOffer: false, dateAdded: '2025-07-26', salesCount: 70, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Xanthin</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Xanthin</h4><p>Under construction.</p>` },
+            { id: 'zeolita', name: 'Zeolita', imageFile: 'zeolita.jpg', category: 'Otros', brand: 'R&F Integrales', priceDetail: 950, priceWholesale: 850, isOffer: false, dateAdded: '2025-07-27', salesCount: 105, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Zeolita</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Zeolite</h4><p>Under construction.</p>` },
+            { id: 'te-de-manzanilla-organico', name: 'Te De Manzanilla Organico', imageFile: 'te de manzanilla organico.jpg', category: 'Alimentación Saludable', brand: 'R&F Integrales', priceDetail: 400, priceWholesale: 350, isOffer: false, dateAdded: '2025-07-28', salesCount: 140, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Te De Manzanilla Organico</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Organic Chamomile Tea</h4><p>Under construction.</p>` },
+            { id: 'serum-facial-con-vitamina-c', name: 'Serum Facial Con Vitamina C', imageFile: 'serum facial con vitamina c.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 1500, priceWholesale: 1300, isOffer: false, dateAdded: '2025-07-29', salesCount: 110, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Serum Facial Con Vitamina C</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Vitamin C Facial Serum</h4><p>Under construction.</p>` },
+            { id: 'mascarilla-capilar-de-argan', name: 'Mascarilla Capilar De Argan', imageFile: 'mascarilla capilar de argan.jpg', category: 'Cosmética natural y Cuidado Personal', brand: 'R&F Integrales', priceDetail: 800, priceWholesale: 700, isOffer: false, dateAdded: '2025-07-30', salesCount: 95, description_es: 'En desarrollo.', description_en: 'Under development.', ingredients_es: 'En desarrollo.', ingredients_en: 'Under development.', usage_es: 'En desarrollo.', usage_en: 'Under development.', warnings_es: 'En desarrollo.', warnings_en: 'Under development.', benefits_es: ['En construcción.'], benefits_en: ['Under construction.'], certifications: ['En construcción'], fichaTecnica_es: `<h4>Ficha Técnica de Mascarilla Capilar De Argan</h4><p>En construcción.</p>`, fichaTecnica_en: `<h4>Technical Sheet for Argan Hair Mask</h4><p>Under construction.</p>` },
+        ];
+
+        // Se genera el arreglo 'products' a partir de ALL_PRODUCTS_DATA,
+        // añadiendo propiedades derivadas como 'image' y 'normalizedCategory'.
+        // ESTE ARREGLO 'products' ES EL QUE SE UTILIZA EN TODO EL CÓDIGO
+        // PARA MOSTRAR LOS PRODUCTOS EN LA TIENDA, DETALLES, ETC.
+        const products = ALL_PRODUCTS_DATA.map(product => ({
+            ...product, // Copia todas las propiedades del producto original
+            // Añade la ruta completa de la imagen
+            image: IMAGE_BASE_PATH + product.imageFile,
+            // Añade la categoría normalizada para filtros
+            normalizedCategory: toKebabCase(product.category),
+            // Asegura que priceWholesale esté presente y sea un número, si no, usa priceDetail
+            priceWholesale: product.priceWholesale !== undefined ? parseFloat(product.priceWholesale) : parseFloat(product.priceDetail)
+        }));
+
 
         const combos = [
             {
                 id: 'combo-bienestar-total',
                 name: 'Combo Bienestar Total',
-                image: IMAGE_BASE_PATH + 'combo1.jpg', // Usando IMAGE_BASE_PATH
+                image: IMAGE_BASE_PATH + 'combo-bienestar.jpg', // Usando IMAGE_BASE_PATH
                 description_es: 'Este combo está diseñado para brindarte un bienestar integral, combinando productos que te ayudarán a mantener la energía y la calma en tu día a día.',
                 description_en: 'This combo is designed to provide you with complete wellness, combining products that will help you maintain energy and calm in your daily life.',
                 price: 1500.00,
@@ -568,13 +647,13 @@
             {
                 id: 'combo-belleza-natural',
                 name: 'Combo Belleza Natural',
-                image: IMAGE_BASE_PATH + 'combo2.jpg', // Usando IMAGE_BASE_PATH
+                image: IMAGE_BASE_PATH + 'combo-belleza.jpg', // Usando IMAGE_BASE_PATH
                 description_es: 'Logra una piel radiante y un cabello saludable con este combo esencial, formulado con ingredientes naturales para realzar tu belleza.',
                 description_en: 'Achieve radiant skin and healthy hair with this essential combo, formulated with natural ingredients to enhance your beauty.',
                 price: 2200.00,
                 originalPrice: 2800.00,
                 productsIncluded: [
-                    { id: 'serum-facial-con-vitaminac', quantity: 1, benefits_es: ["Ilumina y unifica el tono de la piel", "Reduce líneas finas"], benefits_en: ["Brightens and evens skin tone", "Reduces fine lines"] },
+                    { id: 'serum-facial-con-vitamina-c', quantity: 1, benefits_es: ["Ilumina y unifica el tono de la piel", "Reduce líneas finas"], benefits_en: ["Brightens and evens skin tone", "Reduces fine lines"] },
                     { id: 'mascarilla-capilar-de-argan', quantity: 1, benefits_es: ["Nutre e hidrata el cabello", "Aporta brillo y suavidad"], benefits_en: ["Nourishes and hydrates hair", "Adds shine and softness"] }
                 ]
             }
@@ -582,7 +661,7 @@
 
         const carouselImages = [
             {
-                src: IMAGE_BASE_PATH + 'carrusel1.jpg', // Usando IMAGE_BASE_PATH
+                src: IMAGE_BASE_PATH + 'carousel-bienvenida.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Bienvenido a R&F Productos Integrales',
                 alt_en: 'Welcome to R&F Integral Products',
                 title_es: 'Descubre el Poder de lo Natural',
@@ -594,7 +673,7 @@
                 buttonLink: '#shop'
             },
             {
-                src: IMAGE_BASE_PATH + 'carrusel3.jpg', // Usando IMAGE_BASE_PATH
+                src: 'https://placehold.co/1200x450/B8D8D8/000000?text=R%26F+Productos+Integrales', // Esta es una URL externa, no necesita IMAGE_BASE_PATH
                 alt_es: 'R&F Productos Integrales - Tu fuente de bienestar natural',
                 alt_en: 'R&F Productos Integrales - Your source for natural wellness',
                 title_es: '',
@@ -606,7 +685,7 @@
                 buttonLink: ''
             },
             {
-                src: IMAGE_BASE_PATH + 'carrusel2.jpg', // Usando IMAGE_BASE_PATH
+                src: IMAGE_BASE_PATH + 'carousel-ofertas.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Ofertas Exclusivas',
                 alt_en: 'Exclusive Offers',
                 title_es: 'Ofertas Imperdibles',
@@ -702,13 +781,15 @@
                 warnings: "Warnings / Contraindications", reviews: "Reviews and Ratings", relatedProducts: "Related Products",
                 yourCart: "Your Shopping Cart", item: "Item", quantity: "Quantity", subtotal: "Subtotal:", discount: "Discount:", shippingCost: "Shipping:", total: "Total to pay:",
                 checkout: "Checkout", continueShopping: "Continue Shopping", cartEmpty: "Your cart is empty.", removeItem: "Remove",
-                productAdded: "Product Added to Cart", addedSuccessfully: "The product has been successfully added to your shopping cart!", close: "Close",
+                productAdded: "Product Added to Cart", 
+                addedSuccessfully: "The product has been successfully added to your shopping cart!", 
+                close: "Close",
                 addedToWishlist: "Product Added to Wishlist", 
                 removedFromWishlist: "Product Removed from Wishlist", 
                 wishlistPageTitle: "Your Wishlist", 
                 noProductsInWishlist: "No products in your wishlist.", 
-                wishlist: "Wishlist", // This key is specifically for the header link text
-                addToWishlist: "Add to Wishlist", // Translation for the button text
+                wishlist: "Wishlist", 
+                addToWishlist: "Add to Wishlist", 
 
                 aboutUsText: "R&F Productos Integrales is your trusted online store for natural products in the Dominican Republic. We are dedicated to offering you the best for your well-being.",
                 infoTitle: "Information", contact: "Contact", helpFAQ: "Help & FAQ", blog: "Blog", privacyPolicy: "Privacy Policy", termsOfUse: "Terms of Use",
@@ -767,8 +848,7 @@
         let carouselInterval;
 
         // --- Referencias de Elementos DOM ---
-        // Se colocan aquí intencionadamente, ya que se acceden después de DOMContentLoaded
-        // y antes de cualquier manipulación directa por las funciones de renderizado.
+        // Estas referencias se acceden después de DOMContentLoaded.
         const appContent = document.getElementById('app-content');
         const cartCountElement = document.getElementById('cart-count');
         const wishlistCountElement = document.getElementById('wishlist-count');
@@ -777,64 +857,70 @@
         const searchInput = document.getElementById('search-input');
         const fichaTecnicaModal = document.getElementById('fichaTecnicaModal');
 
-        // --- Funciones de Ayuda Centrales (que dependen de datos/estado/referencias DOM globales) ---
+        // --- Funciones de Ayuda Centrales (dependen de datos/estado/DOM globales) ---
+        // Formatea un precio a la moneda local
         function formatPrice(price) { return `RD$${(price || 0).toFixed(2)}`; }
 
+        // Actualiza el contador de artículos en el carrito
         function updateCartCount() {
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             if (cartCountElement) cartCountElement.textContent = totalItems;
         }
 
+        // Actualiza el contador de artículos en la lista de deseos
         function updateWishlistCount() {
             if (wishlistCountElement) wishlistCountElement.textContent = wishlist.length;
         }
 
+        // Muestra un modal de confirmación (para carrito o newsletter)
         function showModal(title, message) {
             if (document.getElementById('modal-title')) document.getElementById('modal-title').textContent = title;
             if (document.getElementById('modal-message')) document.getElementById('modal-message').textContent = message;
             if (cartModal) cartModal.classList.remove('hidden');
         }
 
+        // Cierra el modal de confirmación del carrito
         function closeModal() {
             if (cartModal) cartModal.classList.add('hidden');
         }
 
+        // Muestra un modal de confirmación para la lista de deseos
         function showWishlistModal(title, message) {
             if (document.getElementById('wishlist-modal-title')) document.getElementById('wishlist-modal-title').textContent = title;
             if (document.getElementById('wishlist-modal-message')) document.getElementById('wishlist-modal-message').textContent = message;
             if (wishlistModal) wishlistModal.classList.remove('hidden');
         }
 
+        // Cierra el modal de confirmación de la lista de deseos
         function closeWishlistModal() {
             if (wishlistModal) wishlistModal.classList.add('hidden');
         }
 
+        // Guarda el estado actual del carrito en el almacenamiento local
         function saveCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
+        // Guarda el estado actual de la lista de deseos en el almacenamiento local
         function saveWishlist() {
             localStorage.setItem('wishlist', JSON.stringify(wishlist));
         }
 
+        // Obtiene una lista de categorías únicas de los productos
         function getUniqueCategories() {
             const categories = new Set();
             products.forEach(p => categories.add(p.category));
             return Array.from(categories);
         }
 
-        function getUniqueSubcategories(category) {
-            const subcategories = new Set();
-            products.filter(p => p.category === category).forEach(p => subcategories.add(p.subcategory));
-            return Array.from(subcategories);
-        }
-
+        // Obtiene una lista de marcas únicas de los productos
         function getUniqueBrands() {
             const brands = new Set();
             products.forEach(p => brands.add(p.brand));
             return Array.from(brands);
         }
 
+        // Obtiene una lista de certificaciones únicas de los productos
         function getUniqueCertifications() {
             const certs = new Set();
             products.forEach(p => {
@@ -843,20 +929,24 @@
             return Array.from(certs);
         }
 
+        // Obtiene una lista de beneficios únicos de los productos
         function getUniqueBenefits() {
             const benefits = new Set();
             products.forEach(p => {
-                p.benefits.forEach(benefit => benefits.add(benefit));
+                // Asumimos que los beneficios están en `benefits_es` si existe, sino en `benefits` (antiguo)
+                const currentBenefits = p.benefits_es || p.benefits || [];
+                currentBenefits.forEach(benefit => benefits.add(benefit));
             });
             return Array.from(benefits);
         }
 
+        // Actualiza el contenido de la página según el idioma actual
         function updateContentLanguage() {
             const lang = translations[currentLanguage];
 
             document.querySelectorAll('[data-translate]').forEach(element => {
                 const key = element.getAttribute('data-translate');
-                if (lang[key] !== undefined) { // Verifica específicamente si no es indefinido
+                if (lang[key] !== undefined) { 
                     if (key === 'copyright') {
                         element.innerHTML = lang[key];
                     } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
@@ -878,11 +968,10 @@
             
             populateCategoryMenu();
 
+            // Re-renderiza la página actual si es necesario para aplicar el idioma al contenido dinámico
             if (currentPage === 'home') {
-                renderHome(); // Vuelve a renderizar para actualizar el contenido del carrusel si es necesario
-            }
-            // Vuelve a renderizar manualmente la Tienda y el detalle del Producto si son las páginas actuales para asegurar que el texto del botón se actualice
-            if (currentPage === 'shop') {
+                renderHome(); 
+            } else if (currentPage === 'shop') {
                 renderShop(null, document.getElementById('sort-options')?.value || 'relevance', true);
             } else if (currentPage === 'product') {
                 const productId = window.location.hash.substring(1).split('-')[1];
@@ -890,43 +979,48 @@
             } else if (currentPage === 'combo') {
                 const comboId = window.location.hash.substring(1).split('-')[1];
                 renderComboDetail(comboId);
-            }
-            // Asegura que la página de la lista de deseos también se vuelva a renderizar para actualizar el texto
-            if (currentPage === 'wishlist') {
+            } else if (currentPage === 'wishlist') {
                 renderWishlist();
             }
         }
 
+        // Abre el modal de la ficha técnica de un producto
         function openFichaTecnicaModal(productId) {
             const product = products.find(p => p.id === productId);
             const lang = translations[currentLanguage];
 
             if (!product) return;
 
+            // Usa la ficha técnica en el idioma actual o la versión en español por defecto
             const fichaTecnicaContent = product[`fichaTecnica_${currentLanguage}`] || product.fichaTecnica_es;
+            // Usa la descripción en el idioma actual o la versión en español por defecto
+            const descriptionText = product[`description_${currentLanguage}`] || product.description_es;
+
 
             if (document.getElementById("modalTituloProducto")) document.getElementById("modalTituloProducto").innerHTML = product.name;
             if (document.getElementById("modalCuerpoFicha")) document.getElementById("modalCuerpoFicha").innerHTML = `
                 <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/D3D3D3/000000?text=NP';" class="w-36 h-36 object-contain rounded-lg shadow-sm flex-shrink-0">
                 <div class="ficha-contenido flex-grow text-sm leading-relaxed text-gray-700">
-                    <p class="mb-2"><strong>${lang.description}:</strong> ${product[`description_${currentLanguage}`] || product.description_es}</p>
+                    <p class="mb-2"><strong>${lang.description}:</strong> ${descriptionText}</p>
                     ${fichaTecnicaContent}
                 </div>
             `;
             if (fichaTecnicaModal) fichaTecnicaModal.classList.remove('hidden');
         }
 
+        // Cierra el modal de la ficha técnica
         function closeFichaTecnicaModal() {
             if (fichaTecnicaModal) fichaTecnicaModal.classList.add('hidden');
         }
 
+        // Calcula el precio por unidad, considerando precios al por mayor
         function getPricePerUnit(itemData, quantity, isComboItem) {
             if (isComboItem) {
                 return parseFloat(itemData.price) || 0;
             } else {
                 const detailPrice = parseFloat(itemData.priceDetail) || 0;
                 const wholesalePrice = parseFloat(itemData.priceWholesale) || 0;
-                const WHOLESALE_QUANTITY_THRESHOLD = 6;
+                const WHOLESALE_QUANTITY_THRESHOLD = 6; // Cantidad para aplicar precio al por mayor
                 if (wholesalePrice > 0 && quantity >= WHOLESALE_QUANTITY_THRESHOLD) {
                     return wholesalePrice;
                 }
@@ -934,6 +1028,7 @@
             }
         }
 
+        // Añade un artículo (producto o combo) al carrito
         function addToCart(itemId, type = 'product') {
             let itemData;
             let isCombo = type === 'combo';
@@ -941,13 +1036,13 @@
             if (isCombo) {
                 itemData = combos.find(c => c.id === itemId);
                 if (!itemData) {
-                    console.error(`Combo with ID ${itemId} not found. Cannot add to cart.`);
+                    console.error(`Combo con ID ${itemId} no encontrado. No se puede añadir al carrito.`);
                     return;
                 }
             } else {
                 itemData = products.find(p => p.id === itemId);
                 if (!itemData) {
-                    console.error(`Product with ID ${itemId} not found. Cannot add to cart.`);
+                    console.error(`Producto con ID ${itemId} no encontrado. No se puede añadir al carrito.`);
                     return;
                 }
             }
@@ -973,10 +1068,12 @@
             showModal(translations[currentLanguage].productAdded, translations[currentLanguage].addedSuccessfully);
         }
 
+        // Añade un combo específico al carrito
         function addToCartCombo(comboId) {
             addToCart(comboId, 'combo');
         }
 
+        // Actualiza la cantidad de un artículo en el carrito (usado en la página del carrito)
         function updateQuantity(itemId, change) {
             console.log(`[updateQuantity] Intentando actualizar cantidad para item: ${itemId} con cambio: ${change}`);
             const itemIndex = cart.findIndex(item => item.productId === itemId);
@@ -1015,6 +1112,7 @@
             }
         }
 
+        // Actualiza la cantidad de un producto en el carrito desde un input numérico
         function updateProductQuantityInCartFromInput(inputElement, productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -1056,6 +1154,7 @@
             }
         }
 
+        // Actualiza la cantidad de un producto en el carrito (usado en tarjetas de producto)
         function updateProductQuantityInCart(productId, change) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
@@ -1094,6 +1193,7 @@
             updateCartCount();
         }
 
+        // Elimina un artículo del carrito
         function removeFromCart(itemId) {
             cart = cart.filter(item => item.productId !== itemId);
             saveCart();
@@ -1101,6 +1201,7 @@
             renderCart();
         }
 
+        // Calcula los totales del carrito (subtotal, descuento, envío, total)
         function calculateCartTotals() {
             console.log("Calculando totales del carrito...");
             let subtotal = 0;
@@ -1171,11 +1272,13 @@
             return { subtotal, discount, shippingCost, total };
         }
 
+        // Obtiene el valor seleccionado de un grupo de radio buttons
         function getSelectedRadioValue(name) {
             const radios = document.querySelectorAll(`input[name="${name}"]:checked`);
             return radios.length > 0 ? radios[0].value : null;
         }
 
+        // Muestra/oculta los detalles bancarios según el método de pago
         function toggleBankDetails() {
             const paymentTransferRadio = document.getElementById('payment-transfer');
             const bankDetailsDiv = document.getElementById('bank-accounts-details');
@@ -1188,6 +1291,7 @@
             }
         }
 
+        // Inicializa los listeners de eventos para el formulario del carrito
         function initCartFormListeners() {
             // Asegúrate de que estos elementos existan antes de añadir listeners
             const customerAddressInput = document.getElementById('customer-address');
@@ -1221,6 +1325,7 @@
             }
         }
 
+        // Procesa el pedido y envía los detalles por WhatsApp
         function checkoutOrder() {
             const lang = translations[currentLanguage];
             console.log("Intentando finalizar compra.");
@@ -1246,7 +1351,7 @@
 
             // Validación de campos: añade/elimina borde rojo
             if (!customerName) { customerNameInput?.classList.add('border-red-500'); allFieldsValid = false; } else { customerNameInput?.classList.remove('border-red-500'); }
-            if (!customerPhone || !/^\d{7,}$/.test(customerPhone)) { // Valida que sea un número de al menos 7 dígitos
+            if (!customerPhone || !/^\d{7,}$/.test(customerPhone)) { 
                 customerPhoneInput?.classList.add('border-red-500'); allFieldsValid = false; 
             } else { 
                 customerPhoneInput?.classList.remove('border-red-500'); 
@@ -1347,6 +1452,7 @@
             setTimeout(() => navigateTo('home', null, event), 3000);
         }
 
+        // Añade un artículo (producto o combo) a la lista de deseos
         function addToWishlist(itemId, type = 'product') {
             if (!wishlist.includes(itemId)) {
                 wishlist.push(itemId);
@@ -1358,6 +1464,7 @@
             }
         }
 
+        // Elimina un artículo de la lista de deseos
         function removeFromWishlist(itemId) {
             wishlist = wishlist.filter(id => id !== itemId);
             saveWishlist();
@@ -1366,10 +1473,11 @@
             showWishlistModal(translations[currentLanguage].removedFromWishlist, `El producto ha sido eliminado de tu Lista de Deseos.`);
         }
 
+        // Función central para la navegación entre páginas
         function navigateTo(page, param = null, event = null) {
             console.log(`[navigateTo] Intentando navegación a la página: ${page} con parámetro: ${param}`);
             if (event) {
-                event.preventDefault(); // Previene la acción predeterminada del evento (ej. el salto de un enlace)
+                event.preventDefault(); 
                 console.log(`[navigateTo] Evento prevenido para: ${event.type}`);
             }
             
@@ -1387,9 +1495,10 @@
         }
 
         // --- Funciones Principales de Renderizado ---
+        // Renderiza páginas genéricas (Acerca de Nosotros, Contacto, etc.)
         function renderGenericPage(titleKey, contentKey) {
             const lang = translations[currentLanguage];
-            if (appContent) { // Verificación de seguridad
+            if (appContent) { 
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto border border-gray-200">
                         <h1 class="text-3xl font-bold text-primary mb-6 text-center">${lang[titleKey]}</h1>
@@ -1401,6 +1510,7 @@
             }
         }
 
+        // Renderiza páginas específicas del footer (para mantener el código limpio)
         const renderContact = () => renderGenericPage('contact', 'contactPageContent');
         const renderHelpFAQ = () => renderGenericPage('helpFAQ', 'helpFAQPageContent');
         const renderBlog = () => renderGenericPage('blog', 'blogPageContent');
@@ -1412,9 +1522,10 @@
         const renderAboutUs = () => renderGenericPage('aboutUs', 'aboutUsPageContent');
 
 
+        // Renderiza la página de inicio
         function renderHome() {
             const lang = translations[currentLanguage];
-            if (!appContent) return; // Verificación de seguridad
+            if (!appContent) return; 
 
             appContent.innerHTML = `
                 <section class="relative h-[250px] md:h-[350px] lg:h-[450px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
@@ -1491,21 +1602,23 @@
             initCarousel(); // Inicializa el carrusel al renderizar la página de inicio
         }
 
+        // Inicializa la lógica del carrusel (muestra diapositivas y establece el intervalo)
         function initCarousel() {
             showSlides(slideIndex);
             clearInterval(carouselInterval); // Limpia cualquier intervalo existente
             carouselInterval = setInterval(() => {
-                changeSlide(1); // Cambia de diapositiva automáticamente cada 2 segundos
+                changeSlide(1); // Cambia de diapositiva automáticamente cada 5 segundos
             }, 5000);
         }
 
+        // Muestra una diapositiva específica del carrusel
         function showSlides(n) {
             const slides = document.getElementsByClassName("carousel-item");
             const dots = document.getElementsByClassName("carousel-dot");
-            if (slides.length === 0) return; // Salir si no hay diapositivas
+            if (slides.length === 0) return; 
 
-            if (n >= slides.length) { slideIndex = 0 } // Si se supera el final, vuelve al principio
-            if (n < 0) { slideIndex = slides.length - 1 } // Si se va al principio, ve al final
+            if (n >= slides.length) { slideIndex = 0 } 
+            if (n < 0) { slideIndex = slides.length - 1 }
 
             // Oculta todas las diapositivas y desactiva todos los puntos
             for (let i = 0; i < slides.length; i++) {
@@ -1519,6 +1632,7 @@
             dots[slideIndex].classList.add('active');
         }
 
+        // Cambia la diapositiva del carrusel (adelante/atrás)
         function changeSlide(n) {
             showSlides(slideIndex += n);
             clearInterval(carouselInterval); // Reinicia el intervalo al cambiar manualmente
@@ -1527,6 +1641,7 @@
             }, 5000);
         }
 
+        // Navega a una diapositiva específica del carrusel
         function currentSlide(n) {
             showSlides(slideIndex = n);
             clearInterval(carouselInterval); // Reinicia el intervalo al ir a una diapositiva específica
@@ -1535,20 +1650,20 @@
             }, 5000);
         }
 
+        // Renderiza la página de la tienda, aplicando filtros y ordenamiento
         function renderShop(filter = {}, sort = 'relevance', displaySidebar = true) {
             const lang = translations[currentLanguage];
             let filteredProducts = [...products];
 
             // Aplica el filtro de búsqueda si existe
-            const currentSearchQuery = searchInput ? searchInput.value.toLowerCase() : ''; // Verificación de seguridad
+            const currentSearchQuery = searchInput ? searchInput.value.toLowerCase() : ''; 
             if (currentSearchQuery) {
                 filteredProducts = filteredProducts.filter(p =>
                     p.name.toLowerCase().includes(currentSearchQuery) ||
-                    p[`description_${currentLanguage}`].toLowerCase().includes(currentSearchQuery) ||
+                    (p.description_es && p.description_es.toLowerCase().includes(currentSearchQuery)) ||
                     (p.brand && p.brand.toLowerCase().includes(currentSearchQuery)) ||
                     (p.category && p.category.toLowerCase().includes(currentSearchQuery)) ||
-                    (p.normalizedCategory && p.normalizedCategory.toLowerCase().includes(currentSearchQuery)) ||
-                    (p.subcategory && p.subcategory.toLowerCase().includes(currentSearchQuery))
+                    (p.normalizedCategory && p.normalizedCategory.toLowerCase().includes(currentSearchQuery))
                 );
             }
 
@@ -1566,9 +1681,18 @@
             // Aplica los filtros
             if (brandFilter) { filteredProducts = filteredProducts.filter(p => p.brand === brandFilter); }
             if (activeCategoryFilter) { filteredProducts = filteredProducts.filter(p => p.normalizedCategory === activeCategoryFilter); }
-            if (filter.subcategory) { filteredProducts = filteredProducts.filter(p => p.subcategory === filter.subcategory); }
-            if (benefitFilter) { filteredProducts = filteredProducts.filter(p => p.benefits.includes(benefitFilter)); }
-            if (certificationFilter) { filteredProducts = filteredProducts.filter(p => p.certifications.includes(certificationFilter)); }
+            if (benefitFilter) { 
+                filteredProducts = filteredProducts.filter(p => {
+                    const productBenefits = p.benefits_es || p.benefits || [];
+                    return productBenefits.includes(benefitFilter);
+                }); 
+            }
+            if (certificationFilter) { 
+                filteredProducts = filteredProducts.filter(p => {
+                    const productCerts = p.certifications || [];
+                    return productCerts.includes(certificationFilter);
+                }); 
+            }
             if (minPriceFilter !== undefined && !isNaN(minPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail >= minPriceFilter); }
             if (maxPriceFilter !== undefined && !isNaN(maxPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail <= maxPriceFilter); }
 
@@ -1603,7 +1727,8 @@
             let individualOffersHtml = '';
             // Si es la página de ofertas, solo muestra un subconjunto y añade un título de ofertas individuales
             if (filter.isOffer) {
-                filteredProducts = filteredProducts.slice(0, 4); // Limita los productos individuales en ofertas
+                // Aquí podrías querer mostrar más productos en la sección de ofertas si tienes muchos
+                filteredProducts = filteredProducts.slice(0, 8); // Ajustado para mostrar más ofertas individuales
                 if (filteredProducts.length > 0) {
                      individualOffersHtml = `<h3 class="text-2xl font-bold text-primary mb-6 mt-8">${lang.individualOffers}</h3>`;
                 }
@@ -1668,11 +1793,11 @@
                     </aside>
                 `;
             } else {
-                mainContentWidthClass = 'lg:w-full'; // Ancho completo si no hay barra lateral
+                mainContentWidthClass = 'lg:w-full'; 
                 sidebarHtml = '';
             }
 
-            if (appContent) { // Verificación de seguridad
+            if (appContent) { 
                 appContent.innerHTML = `
                     <div class="flex flex-col lg:flex-row gap-8">
                         ${sidebarHtml}
@@ -1771,9 +1896,10 @@
                 document.getElementById('filter-price-max')?.addEventListener('input', applyFiltersAndSort);
                 document.getElementById('sort-options')?.addEventListener('change', applyFiltersAndSort);
             }
-            updateContentLanguage(); // Aplica el lenguaje después de renderizar el contenido
+            updateContentLanguage(); 
         }
 
+        // Renderiza la página de detalle de un producto
         function renderProductDetail(productId) {
             console.log(`[renderProductDetail] Intentando renderizar el detalle del producto para el ID: ${productId}`);
             const product = products.find(p => p.id === productId);
@@ -1786,13 +1912,17 @@
             }
             console.log(`[renderProductDetail] Producto encontrado: ${product.name}`);
 
+            // Obtiene los textos en el idioma actual, o en español por defecto
             const descriptionText = product[`description_${currentLanguage}`] || product.description_es;
             const ingredientsText = product[`ingredients_${currentLanguage}`] || product.ingredients_es;
             const usageText = product[`usage_${currentLanguage}`] || product.usage_es;
             const warningsText = product[`warnings_${currentLanguage}`] || product.warnings_es;
             const fichaTecnicaContent = product[`fichaTecnica_${currentLanguage}`] || product.fichaTecnica_es;
+            // Obtiene los beneficios en el idioma actual, o en español por defecto
+            const benefitsList = product[`benefits_${currentLanguage}`] || product.benefits_es || [];
 
-            if (appContent) { // Verificación de seguridad
+
+            if (appContent) { 
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
                         <div class="lg:w-1/2 flex justify-center items-center">
@@ -1853,7 +1983,7 @@
                             <div class="mt-8">
                                 <h3 class="text-xl font-semibold text-primary mb-3">Certificaciones:</h3>
                                 <div class="flex flex-wrap gap-3">
-                                    ${product.certifications.map(cert => `
+                                    ${(product.certifications || []).map(cert => `
                                         <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">${cert}</span>
                                     `).join('')}
                                 </div>
@@ -1895,6 +2025,7 @@
             });
         }
 
+        // Renderiza la página de detalle de un combo
         function renderComboDetail(comboId) {
             const combo = combos.find(c => c.id === comboId);
             const lang = translations[currentLanguage];
@@ -1910,14 +2041,14 @@
                 const product = products.find(p => p.id === item.id);
                 if (!product) return ''; // Salta si el producto no se encuentra
 
-                const productBenefits = item[`benefits_${currentLanguage}`] || item.benefits_es;
+                const productBenefits = item[`benefits_${currentLanguage}`] || item.benefits_es || [];
 
                 return `
                     <div class="flex items-start gap-4 p-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
                         <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/100x100/D3D3D3/000000?text=NP';" class="w-24 h-24 object-contain rounded-md flex-shrink-0">
                         <div class="flex-grow">
                             <h4 class="text-lg font-semibold text-gray-800 mb-1">${product.name} (x${item.quantity})</h4>
-                            <p class="text-gray-600 text-sm mb-2">${product[`description_${currentLanguage}`] || product.description_es}</p>
+                            <p class="text-gray-600 text-sm mb-2">${product[`description_${currentLanguage}`] || product.description_es || 'Descripción no disponible.'}</p>
                             ${productBenefits && productBenefits.length > 0 ? `
                                 <p class="text-gray-700 font-medium mt-2">${lang.benefits}:</p>
                                 <ul class="list-disc list-inside text-sm text-gray-600 ml-4">
@@ -1930,7 +2061,7 @@
                 `;
             }).join('');
 
-            if (appContent) { // Verificación de seguridad
+            if (appContent) { 
                 appContent.innerHTML = `
                     <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
                         <div class="lg:w-1/2 flex justify-center items-center">
@@ -2140,18 +2271,11 @@
                     </div>
                 `;
             }
-
-            if (appContent) { // Verificación de seguridad
-                appContent.innerHTML = `
-                    <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="yourCart">${lang.yourCart}</h1>
-                    ${cartContent}
-                `;
-            }
             
-            updateContentLanguage(); // Aplica la traducción después de renderizar el contenido
-            toggleBankDetails(); // Asegura que los detalles bancarios se muestren/oculten correctamente al cargar el carrito
-            initCartFormListeners(); // Reinicializa los listeners del formulario del carrito
-            calculateCartTotals(); // Recalcula los totales al renderizar el carrito
+            updateContentLanguage(); 
+            toggleBankDetails(); 
+            initCartFormListeners();
+            calculateCartTotals();
             console.log("[renderCart] Función renderCart finalizada.");
         }
 
@@ -2198,29 +2322,26 @@
                 `;
             }
 
-            if (appContent) { // Verificación de seguridad
+            if (appContent) { 
                 appContent.innerHTML = `
                     <h1 class="text-4xl font-bold text-primary mb-8 text-center" data-translate="wishlistPageTitle">${lang.wishlistPageTitle}</h1>
                     ${wishlistContent}
                 `;
             }
-            updateContentLanguage(); // Aplica el lenguaje después de renderizar el contenido
+            updateContentLanguage(); 
         }
 
 
-        // --- Event Listeners e Configuración Inicial ---
+        // --- Event Listeners y Configuración Inicial ---
 
         // Event listener para cambios en el hash de la URL (para navegación)
         window.addEventListener('hashchange', () => {
             const hash = window.location.hash.substring(1);
             const parts = hash.split('-');
             const page = parts[0];
-            const param = parts.slice(1).join('-'); // Reconstruye el parámetro si contiene guiones
+            const param = parts.slice(1).join('-'); 
             console.log(`[hashchange] Cambio de hash detectado: page=${page}, param=${param}`);
             
-            // Esta condición evita el re-renderizado si el hash es el mismo, pero permite
-            // el re-renderizado si un parámetro cambia mientras la página (ej. 'shop') sigue siendo la misma.
-            // También asegura un renderizado si la página misma cambia.
             if (currentPage !== page || (param && window.location.hash.substring(1) !== `${page}-${param}`) || (!param && window.location.hash.substring(1) !== page)) {
                  renderPage(page, param);
             }
@@ -2234,8 +2355,8 @@
          * @param {string} [param=null] - Un parámetro opcional para la página.
          */
         function renderPage(page, param = null) {
-            console.log(`[renderPage] Renderizando página: ${page} con parámetro: ${param}`); // Depuración: Inicio del renderizado de página
-            currentPage = page; // Mantener un registro de la página actual
+            console.log(`[renderPage] Renderizando página: ${page} con parámetro: ${param}`); 
+            currentPage = page; 
             // Limpia cualquier intervalo de carrusel activo al navegar fuera de la página de inicio
             if (page !== 'home') {
                 clearInterval(carouselInterval);
@@ -2252,7 +2373,7 @@
                     if (param) {
                         const parts = param.split('-');
                         if (parts[0] === 'category' && parts[1]) {
-                            shopFilter.category = parts[1]; // Usa la categoría normalizada/kebab-case para filtrar
+                            shopFilter.category = parts[1]; 
                         }
                     }
                     renderShop(shopFilter, sortOption, displaySidebar);
@@ -2260,19 +2381,19 @@
                 case 'product':
                     renderProductDetail(param);
                     break;
-                case 'combo': // Nuevo caso para la página de detalle del combo
+                case 'combo': 
                     renderComboDetail(param);
                     break;
                 case 'cart':
                     renderCart();
                     break;
-                case 'offers': // La página de ofertas establece directamente el filtro isOffer
-                    renderShop({ isOffer: true }, 'relevance', false); // No hay barra lateral para las ofertas
+                case 'offers': 
+                    renderShop({ isOffer: true }, 'relevance', false); 
                     break;
-                case 'wishlist': // Nuevo caso para 'Lista de Deseos'
+                case 'wishlist': 
                     renderWishlist();
                     break;
-                // Páginas que usan renderGenericPage (desde la lógica del pie de página, ahora también Acerca de Nosotros)
+                // Páginas que usan renderGenericPage 
                 case 'contact':
                 case 'help-faq':
                 case 'blog':
@@ -2281,17 +2402,17 @@
                 case 'shipping-policy':
                 case 'return-policy':
                 case 'payment-methods':
-                case 'about-us': // Se añadió el caso para "about-us"
+                case 'about-us': 
                     renderGenericPage(page, `${page}PageContent`);
                     break;
                 default:
-                    renderHome(); // Vuelve a la página de inicio por defecto
+                    renderHome(); 
             }
             // Asegura que el campo de búsqueda se borre/reinicie al navegar fuera de la tienda/resultados de búsqueda
-            if (searchInput && page !== 'shop') { // Verificación de seguridad para searchInput
+            if (searchInput && page !== 'shop') { 
                 searchInput.value = '';
             }
-            console.log(`[renderPage] Página ${page} renderizada exitosamente.`); // Depuración: Fin del renderizado de página
+            console.log(`[renderPage] Página ${page} renderizada exitosamente.`); 
         }
 
         /**
@@ -2338,7 +2459,7 @@
             const maxPriceFilter = parseFloat(document.getElementById('filter-price-max')?.value) || undefined;
             const sortOption = document.getElementById('sort-options')?.value || 'relevance';
 
-            const shouldDisplaySidebar = true; // Por ahora, la barra lateral siempre se muestra en la tienda
+            const shouldDisplaySidebar = true; 
 
             const currentFilters = {
                 brand: brandFilter,
@@ -2364,7 +2485,7 @@
             const initialPage = initialParts[0] || 'home';
             const initialParam = initialParts.slice(1).join('-');
             renderPage(initialPage, initialParam);
-            updateContentLanguage(); // Llama a esto DESPUÉS del renderizado inicial de la página para el contenido existente
+            updateContentLanguage(); 
             console.log("[DOMContentLoaded] Página inicial renderizada.");
 
             // Event listener para los botones de cambio de idioma
@@ -2381,26 +2502,26 @@
                 const searchQuery = searchInput ? searchInput.value : '';
                 console.log(`Botón de búsqueda clickeado. Consulta: ${searchQuery}`);
                 navigateTo('shop', null, event); 
-                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); // Aplica el filtro después de que el DOM esté listo
+                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); 
             });
 
             // Event listener para la tecla Enter en el campo de búsqueda
-            searchInput?.addEventListener('keypress', (e) => { // Verificación de seguridad para searchInput
+            searchInput?.addEventListener('keypress', (e) => { 
                 if (e.key === 'Enter') {
                     const searchQuery = searchInput ? searchInput.value : '';
                     console.log(`Se presionó Enter en el campo de búsqueda. Consulta: ${searchQuery}`);
-                    navigateTo('shop', null, e); // Navega y dispara el renderizado
-                    setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); // Aplica el filtro
+                    navigateTo('shop', null, e); 
+                    setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); 
                 }
             });
 
-            // NUEVO: Event listener para el envío del formulario de Newsletter
-            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { // Verificación de seguridad para el formulario
-                event.preventDefault(); // Previene el envío predeterminado del formulario
+            // Event listener para el envío del formulario de Newsletter
+            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { 
+                event.preventDefault(); 
                 const emailInput = this.querySelector('input[type="email"]');
-                if (emailInput && emailInput.value.trim() !== '') { // Verificación de seguridad para emailInput
+                if (emailInput && emailInput.value.trim() !== '') { 
                     showModal(translations[currentLanguage].newsletter, translations[currentLanguage].subscribedNewsletter || '¡Gracias por suscribirte a nuestro newsletter!');
-                    emailInput.value = ''; // Limpia el campo después de la suscripción
+                    emailInput.value = ''; 
                 } else {
                     showModal(translations[currentLanguage].newsletter, translations[currentLanguage].invalidEmail || 'Por favor, introduce un correo electrónico válido.');
                 }
