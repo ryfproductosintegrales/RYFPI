@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R&F Productos Integrales</title>
-    <!-- Favicon: Ruta corregida a 'images/favicon.jpg' y tipo MIME 'image/jpeg'. Asegúrate que la carpeta de imágenes se llame 'images' (sin acento) -->
+    <!-- Favicon: Asegúrate de que la ruta y el nombre del archivo coincida EXACTAMENTE con tu repositorio en GitHub (incluyendo mayúsculas/minúsculas) -->
     <link rel="icon" href="images/favicon.jpg" type="image/jpeg">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -152,7 +152,7 @@
             <!-- Logo -->
             <a href="#home" class="flex items-center space-x-2 mr-6" onclick="navigateTo('home', null, event)">
                 <!-- Ruta corregida directamente a 'images/favicon.jpg' -->
-                <img src="images/logo.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
+                <img src="images/favicon.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
                 <span class="text-2xl font-bold text-primary">R&F Productos Integrales</span>
             </a>
 
@@ -498,17 +498,16 @@
                 usage_es: 'Uso Sugerido: Indicaciones de uso en español.',
                 usage_en: 'Suggested Use: Usage instructions in English.',
                 warnings_es: 'Advertencias: Precauciones y contraindicaciones en español.',
-                warnings_en: 'Warnings: Precautions and contraindications in English.',
+                warnings_en: 'Warnings: Precauciones y contraindicaciones en inglés.',
                 benefits_es: ['Beneficio 1 en español', 'Beneficio 2 en español'], // Lista de beneficios clave
                 benefits_en: ['Benefit 1 in English', 'Benefit 2 in English'],
                 certifications: ['Certificación 1', 'Certificación 2'], // Lista de certificaciones
-                // Nuevas propiedades para detalles técnicos adicionales que aparecerán en la pestaña "Descripción Detallada"
-                origin_es: 'Información de origen en español (ej. planta, país).',
-                origin_en: 'Origin information in English (e.g. plant, country).',
-                process_es: 'Detalles del proceso de elaboración en español (ej. prensado en frío).',
-                process_en: 'Manufacturing process details in English (e.g. cold-pressed).',
-                characteristics_es: 'Propiedades y características clave del producto en español.',
-                characteristics_en: 'Key properties and characteristics of the product in English.'
+                origin_es: '', // Asegurarse de que exista, incluso si está vacío
+                origin_en: '',
+                process_es: '',
+                process_en: '',
+                characteristics_es: '',
+                characteristics_en: ''
             },
             */
             // --- Otros productos (Plantillas para que las llenes) ---
@@ -622,7 +621,7 @@
 
         const carouselImages = [
             {
-                src: IMAGE_BASE_PATH + 'carrusel1.jpg', // Usando IMAGE_BASE_PATH
+                src: IMAGE_BASE_PATH + 'carousel-bienvenida.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Bienvenido a R&F Productos Integrales',
                 alt_en: 'Welcome to R&F Integral Products',
                 title_es: 'Descubre el Poder de lo Natural',
@@ -634,7 +633,7 @@
                 buttonLink: '#shop'
             },
             {
-                src: IMAGE_BASE_PATH + 'carrusel3.jpg', // Usando IMAGE_BASE_PATH
+                src: 'https://placehold.co/1200x450/B8D8D8/000000?text=R%26F+Productos+Integrales', // Esta es una URL externa, no necesita IMAGE_BASE_PATH
                 alt_es: 'R&F Productos Integrales - Tu fuente de bienestar natural',
                 alt_en: 'R&F Productos Integrales - Your source for natural wellness',
                 title_es: '',
@@ -646,7 +645,7 @@
                 buttonLink: ''
             },
             {
-                src: IMAGE_BASE_PATH + 'carrusel2.jpg', // Usando IMAGE_BASE_PATH
+                src: IMAGE_BASE_PATH + 'carousel-ofertas.jpg', // Usando IMAGE_BASE_PATH
                 alt_es: 'Ofertas Exclusivas',
                 alt_en: 'Exclusive Offers',
                 title_es: 'Ofertas Imperdibles',
@@ -731,7 +730,15 @@
                 keyDetails: "Detalles Clave del Producto",
                 origin: "Origen",
                 process: "Proceso",
-                characteristics: "Características"
+                characteristics: "Características",
+                contactPageContent: "Puedes contactarnos a través de WhatsApp al 809-425-4540 o enviarnos un correo electrónico a info@ryfintegrales.com. Nuestro equipo está disponible para ayudarte de lunes a viernes, de 9:00 AM a 5:00 PM.",
+                helpFAQPageContent: "Encuentra respuestas a las preguntas más frecuentes sobre nuestros productos, envíos, pagos y más. Si no encuentras lo que buscas, no dudes en contactarnos directamente.",
+                blogPageContent: "Visita nuestro blog para conocer las últimas novedades en bienestar natural, consejos de salud, guías de uso de productos y recetas saludables. Mantente informado sobre cómo mejorar tu calidad de vida de forma natural.",
+                privacyPolicyPageContent: "Nuestra política de privacidad detalla cómo R&F Productos Integrales recopila, usa y protege tu información personal. Nos comprometemos a salvaguardar tus datos y respetar tu privacidad en todo momento.",
+                termsOfUsePageContent: "Lee nuestros términos y condiciones de uso. Estos rigen tu acceso y uso de nuestro sitio web, incluyendo la compra de productos y servicios. Al utilizar nuestro sitio, aceptas estos términos.",
+                shippingPolicyPageContent: "Nuestra política de envíos explica los plazos de entrega, costos y áreas de cobertura. Ofrecemos envío gratuito por un consumo mínimo y entregas rápidas en la República Dominicana.",
+                returnPolicyPageContent: "Consulta nuestra política de devoluciones para conocer los procedimientos y condiciones para devolver o cambiar productos. Tu satisfacción es nuestra prioridad y buscamos soluciones justas y rápidas.",
+                paymentMethodsPageContent: "Aceptamos pagos en efectivo y transferencias bancarias. Próximamente, ampliaremos nuestras opciones de pago para tu mayor comodidad. Todos los pagos son seguros y transparentes."
             },
             en: {
                 promoBanner: "FREE shipping for minimum consumption of RD$2,000 | Delivery in 24/48 hours | Trust and secure payment",
@@ -806,7 +813,15 @@
                 keyDetails: "Key Product Details",
                 origin: "Origin",
                 process: "Process",
-                characteristics: "Characteristics"
+                characteristics: "Characteristics",
+                contactPageContent: "You can contact us via WhatsApp at 809-425-4540 or send us an email at info@ryfintegrales.com. Our team is available to assist you Monday through Friday, from 9:00 AM to 5:00 PM.",
+                helpFAQPageContent: "Find answers to frequently asked questions about our products, shipping, payments, and more. If you can't find what you're looking for, feel free to contact us directly.",
+                blogPageContent: "Visit our blog for the latest news in natural wellness, health tips, product usage guides, and healthy recipes. Stay informed on how to improve your quality of life naturally.",
+                privacyPolicyPageContent: "Our privacy policy details how R&F Integral Products collects, uses, and protects your personal information. We are committed to safeguarding your data and respecting your privacy at all times.",
+                termsOfUsePageContent: "Read our terms and conditions of use. These govern your access and use of our website, including the purchase of products and services. By using our site, you agree to these terms.",
+                shippingPolicyPageContent: "Our shipping policy explains delivery times, costs, and coverage areas. We offer free shipping for a minimum purchase and fast deliveries in the Dominican Republic.",
+                returnPolicyPageContent: "Consult our return policy for procedures and conditions for returning or exchanging products. Your satisfaction is our priority, and we seek fair and quick solutions.",
+                paymentMethodsPageContent: "We accept cash and bank transfer payments. We will soon expand our payment options for your convenience. All payments are secure and transparent."
             }
         };
 
@@ -895,7 +910,10 @@
         function getUniqueCertifications() {
             const certs = new Set();
             products.forEach(p => {
-                p.certifications.forEach(cert => certs.add(cert));
+                // Asegurarse de que p.certifications es un array antes de iterar
+                if (Array.isArray(p.certifications)) {
+                    p.certifications.forEach(cert => certs.add(cert));
+                }
             });
             return Array.from(certs);
         }
@@ -906,7 +924,10 @@
             products.forEach(p => {
                 // Asumimos que los beneficios están en `benefits_es` si existe, sino en `benefits` (antiguo)
                 const currentBenefits = p.benefits_es || p.benefits || [];
-                currentBenefits.forEach(benefit => benefits.add(benefit));
+                // Asegurarse de que currentBenefits es un array antes de iterar
+                if (Array.isArray(currentBenefits)) {
+                    currentBenefits.forEach(benefit => benefits.add(benefit));
+                }
             });
             return Array.from(benefits);
         }
@@ -940,11 +961,12 @@
             populateCategoryMenu();
 
             // Re-renderiza la página actual si es necesario para aplicar el idioma al contenido dinámico
+            // Mejorar esto para no recrear DOM si no es estrictamente necesario, solo actualizar textos
+            // Por simplicidad en este ejemplo, re-renderizamos la página completa si es una de las principales
             if (currentPage === 'home') {
                 renderHome(); 
             } else if (currentPage === 'shop') {
                 // Si estamos en la página de tienda, re-renderiza con los filtros y ordenamiento actuales
-                // Para evitar resetear los filtros al cambiar de idioma, lee del DOM
                 const currentSort = document.getElementById('sort-options')?.value || 'relevance';
                 const currentBrand = document.getElementById('filter-brand')?.value || '';
                 const currentCategory = document.getElementById('filter-category')?.value || '';
@@ -970,35 +992,33 @@
             } else if (currentPage === 'wishlist') {
                 renderWishlist();
             } else if (currentPage === 'cart') {
-                renderCart();
+                renderCart(); // Asegura que el carrito se actualice con el idioma
             }
-            // Para otras páginas genéricas, solo actualiza los atributos data-translate
-            // renderGenericPage maneja su propio contenido
+            // Para otras páginas genéricas, ya se maneja directamente al renderizarse
         }
 
         // Abre el modal de la ficha técnica de un producto
-        // NOTA: Esta función se mantiene, pero la ficha técnica no es una pestaña separada.
-        // Se puede usar para mostrar detalles MUY específicos o un resumen si se desea,
-        // aparte de la información ya distribuida en las pestañas.
         function openFichaTecnicaModal(productId) {
             const product = products.find(p => p.id === productId);
             const lang = translations[currentLanguage];
 
             if (!product) return;
 
-            // Construye el contenido del modal con los nuevos campos de detalles clave
-            // Puedes personalizar cómo se muestra esta información aquí.
+            // Construye el contenido del modal con los detalles clave
+            const origin = product[`origin_${currentLanguage}`] || product.origin_es;
+            const process = product[`process_${currentLanguage}`] || product.process_es;
+            const characteristics = product[`characteristics_${currentLanguage}`] || product.characteristics_es;
+
             const modalContent = `
                 <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/D3D3D3/000000?text=NP';" class="w-36 h-36 object-contain rounded-lg shadow-sm flex-shrink-0">
                 <div class="ficha-contenido flex-grow text-sm leading-relaxed text-gray-700">
-                    <h4 class="font-bold text-lg mb-2">${lang.keyDetails}</h4>
-                    ${product.origin_es ? `<p><strong>${lang.origin}:</strong> ${product[`origin_${currentLanguage}`] || product.origin_es}</p>` : ''}
-                    ${product.process_es ? `<p><strong>${lang.process}:</strong> ${product[`process_${currentLanguage}`] || product.process_es}</p>` : ''}
-                    ${product.characteristics_es ? `<p><strong>${lang.characteristics}:</strong> ${product[`characteristics_${currentLanguage}`] || product.characteristics_es}</p>` : ''}
-                    ${(!product.origin_es && !product.process_es && !product.characteristics_es) ? '<p>No hay detalles clave adicionales disponibles.</p>' : ''}
+                    <h4 class="font-bold text-lg mb-2">${lang.keyDetails}:</h4>
+                    ${origin ? `<p><strong>${lang.origin}:</strong> ${origin}</p>` : ''}
+                    ${process ? `<p><strong>${lang.process}:</strong> ${process}</p>` : ''}
+                    ${characteristics ? `<p><strong>${lang.characteristics}:</strong> ${characteristics}</p>` : ''}
+                    ${(!origin && !process && !characteristics) ? '<p>No hay detalles clave adicionales disponibles para este producto.</p>' : ''}
                 </div>
             `;
-
 
             if (document.getElementById("modalTituloProducto")) document.getElementById("modalTituloProducto").innerHTML = product.name;
             if (document.getElementById("modalCuerpoFicha")) document.getElementById("modalCuerpoFicha").innerHTML = modalContent;
@@ -1481,12 +1501,13 @@
             const newHash = page + (param ? `-${param}` : '');
             
             // Solo actualiza el hash si es diferente para evitar entradas duplicadas en el historial del navegador
-            if (window.location.hash.substring(1) !== newHash) {
+            // O si el hash es el mismo pero forzamos el renderizado (ej. al cambiar de idioma)
+            if (window.location.hash.substring(1) !== newHash || (event && event.type === 'click')) { // Added click check
                 window.location.hash = newHash;
                 console.log(`[navigateTo] Hash actualizado a: ${newHash}`);
             } else {
                 console.log(`[navigateTo] El hash ya es: ${newHash}. Forzando renderizado de la página.`);
-                renderPage(page, param); // Forzar renderizado incluso si el hash es el mismo
+                renderPage(page, param); // Forzar renderizado incluso if the hash is the same
             }
         }
 
@@ -1504,6 +1525,7 @@
                     </div>
                 `;
             }
+            updateContentLanguage(); // Asegura que los textos dentro de la página genérica se traduzcan
         }
 
         // Renderiza páginas específicas del footer (para mantener el código limpio)
@@ -1530,8 +1552,8 @@
                         ${carouselImages.map((item, index) => `
                             <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${item.src}');">
                                 <div class="carousel-content bg-black bg-opacity-40 p-6 rounded-lg mx-4">
-                                    <h1 class="text-3xl md:text-5xl font-extrabold mb-2 animate-fade-in">${item[`title_${currentLanguage}`]}</h1>
-                                    <p class="text-lg md:text-xl mb-6 opacity-90 animate-fade-in-delay">${item[`subtitle_${currentLanguage}`]}</p>
+                                    <h1 class="text-3xl md:text-5xl font-extrabold mb-2 animate-fade-in">${item[`title_${currentLanguage}`] || ''}</h1>
+                                    <p class="text-lg md:text-xl mb-6 opacity-90 animate-fade-in-delay">${item[`subtitle_${currentLanguage}`] || ''}</p>
                                     ${item.buttonText_es ? `<a href="${item.buttonLink}" onclick="navigateTo('${item.buttonLink.substring(1)}', null, event)" class="bg-white text-primary px-6 py-3 rounded-full text-md md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
                                         ${item[`buttonText_${currentLanguage}`]}
                                     </a>` : ''}
@@ -1681,13 +1703,13 @@
             if (benefitFilter) { 
                 filteredProducts = filteredProducts.filter(p => {
                     const productBenefits = p.benefits_es || p.benefits || [];
-                    return productBenefits.includes(benefitFilter);
+                    return Array.isArray(productBenefits) && productBenefits.includes(benefitFilter);
                 }); 
             }
             if (certificationFilter) { 
                 filteredProducts = filteredProducts.filter(p => {
                     const productCerts = p.certifications || [];
-                    return productCerts.includes(certificationFilter);
+                    return Array.isArray(productCerts) && productCerts.includes(certificationFilter);
                 }); 
             }
             if (minPriceFilter !== undefined && !isNaN(minPriceFilter)) { filteredProducts = filteredProducts.filter(p => p.priceDetail >= minPriceFilter); }
@@ -1715,7 +1737,8 @@
                 case 'customerRating':
                     // NOTA: La calificación de clientes no está implementada con datos reales de momento.
                     // El ordenamiento no tendrá un efecto significativo sin esos datos.
-                    filteredProducts.sort((a, b) => 0); // O mantener un orden predeterminado
+                    // Por ahora, no hace nada o mantiene el orden actual/alfabético.
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name)); // Mantener orden alfabético
                     break;
                 case 'relevance':
                 default:
@@ -1895,6 +1918,8 @@
                 document.getElementById('filter-price-max')?.addEventListener('input', applyFiltersAndSort);
                 document.getElementById('sort-options')?.addEventListener('change', applyFiltersAndSort);
             }
+            // Solo actualizamos el contenido de lenguaje aquí para los elementos estáticos del shop
+            // y para asegurar que los selectores de filtro se traduzcan
             updateContentLanguage(); 
         }
 
@@ -1912,14 +1937,15 @@
             console.log(`[renderProductDetail] Producto encontrado: ${product.name}`);
 
             // Obtiene los textos en el idioma actual, o en español por defecto
-            const descriptionText = product[`description_${currentLanguage}`] || product.description_es;
-            const ingredientsText = product[`ingredients_${currentLanguage}`] || product.ingredients_es;
-            const usageText = product[`usage_${currentLanguage}`] || product.usage_es;
-            const warningsText = product[`warnings_${currentLanguage}`] || product.warnings_es;
-            // Los detalles clave (origen, proceso, características) ahora se renderizan directamente en la descripción
-            const originText = product[`origin_${currentLanguage}`] || product.origin_es;
-            const processText = product[`process_${currentLanguage}`] || product.process_es;
-            const characteristicsText = product[`characteristics_${currentLanguage}`] || product.characteristics_es;
+            const descriptionText = product[`description_${currentLanguage}`] || product.description_es || 'No description available.';
+            const ingredientsText = product[`ingredients_${currentLanguage}`] || product.ingredients_es || 'No ingredients listed.';
+            const usageText = product[`usage_${currentLanguage}`] || product.usage_es || 'No usage instructions provided.';
+            const warningsText = product[`warnings_${currentLanguage}`] || product.warnings_es || 'No warnings available.';
+            
+            // Los detalles clave (origen, proceso, características)
+            const originText = product[`origin_${currentLanguage}`] || product.origin_es || '';
+            const processText = product[`process_${currentLanguage}`] || product.process_es || '';
+            const characteristicsText = product[`characteristics_${currentLanguage}`] || product.characteristics_es || '';
 
             // Obtiene los beneficios en el idioma actual, o en español por defecto
             const benefitsList = product[`benefits_${currentLanguage}`] || product.benefits_es || [];
@@ -1969,19 +1995,25 @@
 
                             <div id="tab-content" class="mt-6 text-gray-800 leading-relaxed">
                                 <div id="tab-description" class="tab-pane active">
-                                    ${descriptionText}
+                                    <p class="mb-4">${descriptionText}</p>
                                     ${(originText || processText || characteristicsText) ? `
-                                        <h4 class="text-xl font-semibold text-primary mt-6 mb-2" data-translate="keyDetails">${lang.keyDetails}</h4>
+                                        <h4 class="text-xl font-semibold text-primary mt-6 mb-2" data-translate="keyDetails">${lang.keyDetails}:</h4>
                                         ${originText ? `<p><strong>${lang.origin}:</strong> ${originText}</p>` : ''}
                                         ${processText ? `<p><strong>${lang.process}:</strong> ${processText}</p>` : ''}
                                         ${characteristicsText ? `<p><strong>${lang.characteristics}:</strong> ${characteristicsText}</p>` : ''}
+                                    ` : ''}
+                                    ${benefitsList && benefitsList.length > 0 ? `
+                                        <h4 class="text-xl font-semibold text-primary mt-6 mb-2" data-translate="benefits">${lang.benefits}:</h4>
+                                        <ul class="list-disc list-inside ml-4 space-y-1">
+                                            ${benefitsList.map(benefit => `<li>${benefit}</li>`).join('')}
+                                        </ul>
                                     ` : ''}
                                 </div>
                                 <div id="tab-ingredients" class="tab-pane hidden">${ingredientsText}</div>
                                 <div id="tab-usage" class="tab-pane hidden">${usageText}</div>
                                 <div id="tab-warnings" class="tab-pane hidden">${warningsText}</div>
                                 <div id="tab-reviews" class="tab-pane hidden">
-                                    <p class="mb-2 text-gray-600" data-translate="reviewsDisclaimer">${lang.reviewsDisclaimer}</p>
+                                    <p class="mb-4 text-gray-600" data-translate="reviewsDisclaimer">${lang.reviewsDisclaimer}</p>
                                 </div>
                             </div>
 
@@ -2017,17 +2049,18 @@
                     // Desactiva todas las pestañas
                     document.querySelectorAll('.tab-button').forEach(btn => {
                         btn.classList.remove('text-primary', 'border-primary');
-                        btn.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
+                        btn.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300'); // Corrected hover class
                     });
                     // Activa la pestaña clickeada
                     this.classList.add('text-primary', 'border-primary');
-                    this.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300');
+                    this.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent', 'hover:border-gray-300'); // Corrected hover class
 
                     // Oculta todos los paneles de contenido y muestra el correspondiente a la pestaña clickeada
                     document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
                     document.getElementById(`tab-${this.dataset.tab}`).classList.remove('hidden');
                 });
             });
+            updateContentLanguage(); // Asegura que los textos dentro del detalle del producto se traduzcan
         }
 
         // Renderiza la página de detalle de un combo
@@ -2094,6 +2127,7 @@
                     </div>
                 `;
             }
+            updateContentLanguage(); // Asegura que los textos dentro del detalle del combo se traduzcan
         }
 
 
@@ -2277,7 +2311,7 @@
                 `;
             }
             
-            updateContentLanguage(); 
+            updateContentLanguage(); // Asegura que todos los elementos se traduzcan
             toggleBankDetails(); 
             initCartFormListeners();
             calculateCartTotals();
@@ -2333,7 +2367,7 @@
                     ${wishlistContent}
                 `;
             }
-            updateContentLanguage(); 
+            updateContentLanguage(); // Asegura que todos los elementos se traduzcan
         }
 
 
@@ -2371,7 +2405,7 @@
                     break;
                 case 'shop':
                     let shopFilter = {};
-                    let sortOption = 'relevance'; // Orden predeterminado
+                    let sortOption = document.getElementById('sort-options')?.value || 'relevance'; // Obtener el valor actual
                     let displaySidebar = true; // Por defecto, muestra la barra lateral para la página de la tienda
 
                     if (param) {
@@ -2399,15 +2433,31 @@
                     break;
                 // Páginas que usan renderGenericPage 
                 case 'contact':
+                    renderContact();
+                    break;
                 case 'help-faq':
+                    renderHelpFAQ();
+                    break;
                 case 'blog':
+                    renderBlog();
+                    break;
                 case 'privacy-policy':
+                    renderPrivacyPolicy();
+                    break;
                 case 'terms-of-use':
+                    renderTermsOfUse();
+                    break;
                 case 'shipping-policy':
+                    renderShippingPolicy();
+                    break;
                 case 'return-policy':
+                    renderReturnPolicy();
+                    break;
                 case 'payment-methods':
+                    renderPaymentMethods();
+                    break;
                 case 'about-us': 
-                    renderGenericPage(page, `${page}PageContent`);
+                    renderAboutUs();
                     break;
                 default:
                     renderHome(); 
@@ -2480,56 +2530,69 @@
 
         // DOMContentLoaded asegura que todo el HTML se haya analizado antes de ejecutar el script
         document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            updateWishlistCount();
-            populateCategoryMenu();
-            // Llamada inicial a renderPage dentro de DOMContentLoaded pero después de toda la configuración
-            const initialHash = window.location.hash.substring(1);
-            const initialParts = initialHash.split('-');
-            const initialPage = initialParts[0] || 'home';
-            const initialParam = initialParts.slice(1).join('-');
-            renderPage(initialPage, initialParam);
-            updateContentLanguage(); 
-            console.log("[DOMContentLoaded] Página inicial renderizada.");
+            console.log("Script loaded and DOM ready.");
+            try {
+                updateCartCount();
+                updateWishlistCount();
+                populateCategoryMenu();
+                // Llamada inicial a renderPage dentro de DOMContentLoaded pero después de toda la configuración
+                const initialHash = window.location.hash.substring(1);
+                const initialParts = initialHash.split('-');
+                const initialPage = initialParts[0] || 'home';
+                const initialParam = initialParts.slice(1).join('-');
+                renderPage(initialPage, initialParam);
+                updateContentLanguage(); 
+                console.log("[DOMContentLoaded] Página inicial renderizada.");
 
-            // Event listener para los botones de cambio de idioma
-            document.getElementById('language-toggle')?.parentNode?.querySelectorAll('button').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    currentLanguage = e.target.dataset.lang;
-                    updateContentLanguage();
-                    console.log(`Idioma cambiado a: ${currentLanguage}`);
+                // Event listener para los botones de cambio de idioma
+                document.getElementById('language-toggle')?.parentNode?.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        currentLanguage = e.target.dataset.lang;
+                        updateContentLanguage();
+                        console.log(`Idioma cambiado a: ${currentLanguage}`);
+                    });
                 });
-            });
 
-            // Event listener para el clic del botón de búsqueda
-            document.getElementById('search-button')?.addEventListener('click', (event) => {
-                const searchQuery = searchInput ? searchInput.value : '';
-                console.log(`Botón de búsqueda clickeado. Consulta: ${searchQuery}`);
-                navigateTo('shop', null, event); 
-                setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); 
-            });
-
-            // Event listener para la tecla Enter en el campo de búsqueda
-            searchInput?.addEventListener('keypress', (e) => { 
-                if (e.key === 'Enter') {
+                // Event listener para el clic del botón de búsqueda
+                document.getElementById('search-button')?.addEventListener('click', (event) => {
                     const searchQuery = searchInput ? searchInput.value : '';
-                    console.log(`Se presionó Enter en el campo de búsqueda. Consulta: ${searchQuery}`);
-                    navigateTo('shop', null, e); 
+                    console.log(`Botón de búsqueda clickeado. Consulta: ${searchQuery}`);
+                    navigateTo('shop', null, event); 
                     setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); 
-                }
-            });
+                });
 
-            // Event listener para el envío del formulario de Newsletter
-            document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { 
-                event.preventDefault(); 
-                const emailInput = this.querySelector('input[type="email"]');
-                if (emailInput && emailInput.value.trim() !== '') { 
-                    showModal(translations[currentLanguage].newsletter, translations[currentLanguage].subscribedNewsletter || '¡Gracias por suscribirte a nuestro newsletter!');
-                    emailInput.value = ''; 
-                } else {
-                    showModal(translations[currentLanguage].newsletter, translations[currentLanguage].invalidEmail || 'Por favor, introduce un correo electrónico válido.');
+                // Event listener para la tecla Enter en el campo de búsqueda
+                searchInput?.addEventListener('keypress', (e) => { 
+                    if (e.key === 'Enter') {
+                        const searchQuery = searchInput ? searchInput.value : '';
+                        console.log(`Se presionó Enter en el campo de búsqueda. Consulta: ${searchQuery}`);
+                        navigateTo('shop', null, e); 
+                        setTimeout(() => applyFiltersAndSort({ searchQuery: searchQuery }), 0); 
+                    }
+                });
+
+                // Event listener para el envío del formulario de Newsletter
+                document.getElementById('newsletter-form')?.addEventListener('submit', function(event) { 
+                    event.preventDefault(); 
+                    const emailInput = this.querySelector('input[type="email"]');
+                    if (emailInput && emailInput.value.trim() !== '') { 
+                        showModal(translations[currentLanguage].newsletter, translations[currentLanguage].subscribedNewsletter || '¡Gracias por suscribirte a nuestro newsletter!');
+                        emailInput.value = ''; 
+                    } else {
+                        showModal(translations[currentLanguage].newsletter, translations[currentLanguage].invalidEmail || 'Por favor, introduce un correo electrónico válido.');
+                    }
+                });
+            } catch (error) {
+                console.error("Uncaught error during DOMContentLoaded:", error);
+                // Muestra un mensaje de error amigable en la página si algo sale mal
+                if (appContent) {
+                    appContent.innerHTML = `<div class="text-center text-red-500 text-xl py-10">
+                        <h1 class="text-3xl font-bold mb-4">¡Oops! Algo salió mal.</h1>
+                        <p>Parece que ha ocurrido un error al cargar la página. Por favor, intenta recargar.</p>
+                        <p class="text-sm text-gray-500 mt-2">Detalles técnicos: ${error.message}</p>
+                    </div>`;
                 }
-            });
+            }
         });
     </script>
 </body>
