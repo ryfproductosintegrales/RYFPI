@@ -120,6 +120,35 @@
             background-color: rgba(255,255,255,1);
             transform: scale(1.2);
         }
+
+
+  /* Estilos para el botón "Volver Arriba" */
+        #scrollToTopBtn {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en la pantalla */
+            bottom: 20px; /* 20px desde la parte inferior */
+            right: 20px; /* 20px desde la derecha */
+            z-index: 99; /* Asegura que esté encima de otros elementos */
+            border: none; /* Sin borde */
+            outline: none; /* Sin contorno */
+            background-color: #228B22; /* Color de fondo primario */
+            color: white; /* Color del texto/icono */
+            cursor: pointer; /* Cursor de puntero al pasar el ratón */
+            padding: 15px; /* Relleno */
+            border-radius: 50%; /* Redondo */
+            font-size: 22px; /* Tamaño del icono */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombra */
+            transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #1a6b1a; /* Un verde más oscuro al pasar el ratón */
+            transform: translateY(-3px); /* Pequeño efecto de elevación */
+        }
+
+
+
+
     </style>
 
    <script>
@@ -130,6 +159,27 @@
             if (!str) return '';
             return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         };
+
+
+
+    // ... otras funciones de ayuda como capitalizeWords ...
+
+    /**
+     * Parsea la cadena de precio de un combo para extraer el valor numérico.
+     * @param {string} priceString - La cadena de precio del combo (ej. "Precio Especial: RD$3,500").
+     * @returns {number} El precio numérico del combo.
+     */
+    const parseComboPrice = (priceString) => {
+        const match = priceString.match(/RD\$([\d,\.]+)/);
+        if (match && match[1]) {
+            // Eliminar comas y convertir a flotante
+            return parseFloat(match[1].replace(/,/g, ''));
+        }
+        return 0; // Devolver 0 si no se puede parsear
+    };
+
+
+
 
         // AQUÍ ES DONDE DEBES PEGAR EL CONTENIDO DE TU ARCHIVO CSVJSON.JSON
         // Reemplaza el array de ejemplo con el contenido completo de tu JSON.
@@ -1852,93 +1902,96 @@
             }
         ];
 
-        // NUEVO: Datos para publicaciones del blog
-        const blogPosts = [
-            {
-                id: 'blog1',
-                title_es: 'Los Increíbles Beneficios del Magnesio para tu Salud',
-                image: 'https://placehold.co/800x400/F0F8FF/000000?text=Beneficios+Magnesio',
-                excerpt_es: 'Descubre por qué el magnesio es un mineral esencial y cómo puede mejorar tu sueño, reducir el estrés y más.',
-                content_es: `
-                    <h2 class="text-3xl font-bold text-primary mb-4">La Importancia del Magnesio en tu Cuerpo</h2>
-                    <p class="mb-4">El magnesio es un mineral vital que participa en más de 300 reacciones bioquímicas en el cuerpo. Es crucial para el funcionamiento adecuado de músculos y nervios, la regulación de los niveles de azúcar en la sangre, la presión sanguínea, y la formación de proteínas, masa ósea y ADN.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Beneficios Clave del Magnesio:</h3>
-                    <ul class="list-disc list-inside ml-6 mb-4">
-                        <li><strong>Salud Ósea:</strong> Contribuye a la formación ósea y previene la osteoporosis.</li>
-                        <li><strong>Función Muscular:</strong> Ayuda en la contracción y relajación muscular, aliviando calambres.</li>
-                        <li><strong>Sistema Nervioso:</strong> Reduce el estrés, la ansiedad y mejora la calidad del sueño.</li>
-                        <li><strong>Producción de Energía:</strong> Es esencial para la conversión de alimentos en energía.</li>
-                        <li><strong>Salud Cardiovascular:</strong> Ayuda a mantener un ritmo cardíaco normal y la presión arterial.</li>
-                    </ul>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">¿Cómo Obtener Suficiente Magnesio?</h3>
-                    <p class="mb-4">Puedes encontrar magnesio en alimentos como vegetales de hoja verde (espinacas, kale), frutos secos (almendras, anacardos), semillas (chía, calabaza), legumbres, cereales integrales y chocolate negro. Sin embargo, debido al agotamiento del suelo y los hábitos alimenticios modernos, muchas personas no obtienen suficiente magnesio solo con la dieta.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Suplementación con Magnesio</h3>
-                    <p class="mb-4">Si consideras la suplementación, el Glicinato de Magnesio es una de las formas más biodisponibles y menos propensas a causar efectos laxantes. Es ideal para aquellos que buscan apoyo para la relajación y el sueño.</p>
-                    <p class="text-sm text-gray-600 mt-6">Recuerda siempre consultar a un profesional de la salud antes de iniciar cualquier suplemento.</p>
-                `,
-                date: '2025-06-20',
-                author: 'Equipo: "Productos Integrales R&F"',
-                tags: ['Magnesio', 'Suplementos', 'Salud']
-            },
-            {
-                id: 'blog2',
-                title_es: 'Guía Completa para una Rutina de Belleza Natural',
-                image: 'https://placehold.co/800x400/F0F8FF/000000?text=Belleza+Natural',
-                excerpt_es: 'Aprende a cuidar tu piel y cabello con productos naturales, paso a paso.',
-                content_es: `
-                    <h2 class="text-3xl font-bold text-primary mb-4">Despierta la Belleza que Hay en Ti con la Naturaleza</h2>
-                    <p class="mb-4">Cada vez más personas se están volcando hacia la cosmética natural, y por una buena razón. Los productos naturales son a menudo más suaves con la piel, libres de químicos agresivos y, en muchos casos, más sostenibles. Aquí te presentamos una guía sencilla para construir tu rutina de belleza natural.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 1: Limpieza Consciente</h3>
-                    <p class="mb-4">Comienza tu rutina con una limpieza suave. Busca limpiadores faciales a base de aceites naturales (como el aceite de jojoba o almendras) o geles con extractos de plantas como el aloe vera.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 2: Tonificación y Equilibrio</h3>
-                    <p class="mb-4">Un buen tónico natural, como el agua de rosas o un hidrolato de lavanda, ayuda a equilibrar el pH de la piel y prepararla para los siguientes pasos. Rocía suavemente sobre el rostro limpio.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 3: Nutrición con Sueros y Aceites</h3>
-                    <p class="mb-4">Aquí es donde los ingredientes activos naturales brillan. Un <strong>Serum Facial con Vitamina C</strong> puede iluminar tu piel y reducir manchas. Para una hidratación profunda, los aceites faciales como el <strong>Aceite de Coco Extra Virgen</strong> o el aceite de argán son excelentes.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 4: Hidratación Diaria</h3>
-                    <p class="mb-4">Sella todos los beneficios con una crema hidratante natural. Busca ingredientes como la manteca de karité, la glicerina vegetal o el ácido hialurónico de origen natural.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Cuidado Capilar Natural</h3>
-                    <p class="mb-4">Para tu cabello, opta por champús y acondicionadores sin sulfatos ni parabenos. Una vez a la semana, mima tu cabello con una <strong>Mascarilla Capilar de Argán</strong> para nutrirlo intensamente y devolverle el brillo.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Desodorantes Naturales</h3>
-                    <p class="mb-4">Completa tu rutina con un desodorante que respete tu cuerpo, como el <strong>Desodorante Natural Piedra Alumbre</strong>, libre de químicos agresivos y aluminio.</p>
-                    <p class="text-sm text-gray-600 mt-6">Adoptar una rutina de belleza natural es un viaje. Escucha a tu cuerpo y piel, y disfruta de los resultados que la naturaleza puede ofrecerte.</p>
-                `,
-                date: '2025-06-25',
-                author: 'Equipo: "Productos Integrales R&F"',
-                tags: ['Belleza', 'Cuidado Personal', 'Cosmética Natural']
-            },
-            {
-                id: 'blog3',
-                title_es: 'Alimentación Consciente: Cómo Empezar y Mantenerla',
-                image: 'https://placehold.co/800x400/F0F8FF/000000?text=Alimentacion+Consciente',
-                excerpt_es: 'Consejos prácticos para integrar una alimentación saludable y consciente en tu día a día.',
-                content_es: `
-                    <h2 class="text-3xl font-bold text-primary mb-4">Comiendo con Intención: Un Camino hacia el Bienestar</h2>
-                    <p class="mb-4">La alimentación consciente, o "mindful eating", va más allá de lo que comemos; se trata de cómo comemos. Implica prestar atención a las sensaciones físicas, las emociones y los pensamientos que surgen antes, durante y después de comer.</p>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Principios Clave de la Alimentación Consciente:</h3>
-                    <ul class="list-disc list-inside ml-6 mb-4">
-                        <li><strong>Come Despacio:</strong> Tómate tu tiempo para masticar bien los alimentos y saborear cada bocado.</li>
-                        <li><strong>Escucha a tu Cuerpo:</strong> Presta atención a las señales de hambre y saciedad. Come cuando tengas hambre real y detente cuando estés satisfecho, no cuando estés completamente lleno.</li>
-                        <li><strong>Sin Distracciones:</strong> Evita comer frente a la televisión, el teléfono o el ordenador. Concéntrate en tu comida.</li>
-                        <li><strong>Reconoce tus Emociones:</strong> ¿Comes por aburrimiento, estrés o tristeza? Aprende a identificar estos patrones.</li>
-                        <li><strong>Aprecia tu Comida:</strong> Reflexiona sobre el origen de tus alimentos y el proceso que los llevó a tu plato.</li>
-                    </ul>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Integrando Alimentos Naturales</h3>
-                    <p class="mb-4">La alimentación consciente se complementa perfectamente con el consumo de alimentos naturales e integrales. Incorpora más:</p>
-                    <ul class="list-disc list-inside ml-6 mb-4">
-                        <li><strong>Frutas y Verduras:</strong> Son la base de una dieta saludable, ricas en vitaminas, minerales y fibra.</li>
-                        <li><strong>Cereales Integrales:</strong> Como la <strong>Harina de Yuca Orgánica</strong>, proporcionan energía sostenida y fibra.</li>
-                        <li><strong>Grasas Saludables:</strong> El <strong>Aceite de Coco Extra Virgen</strong> es una excelente fuente de MCTs.</li>
-                        <li><strong>Bebidas Naturales:</strong> Infusiones como el <strong>Té de Manzanilla Orgánico</strong> pueden ayudar a la digestión y la relajación.</li>
-                    </ul>
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-3">Beneficios a Largo Plazo:</h3>
-                    <p class="mb-4">Practicar la alimentación consciente puede llevar a una mejor digestión, un control de peso más saludable, una relación más positiva con la comida y una mayor sensación de bienestar general.</p>
-                    <p class="text-sm text-gray-600 mt-6">Empieza hoy mismo con pequeños pasos. Cada comida es una oportunidad para nutrir tu cuerpo y mente de forma consciente.</p>
-                `,
-                date: '2025-06-18',
-                author: 'Equipo: "Productos Integrales R&F"',
-                tags: ['Alimentación', 'Bienestar', 'Nutrición']
-            }
-        ];
+       // NUEVO: Datos para publicaciones del blog
+const blogPosts = [
+    {
+        id: 'blog1',
+        title_es: 'Los Increíbles Beneficios del Magnesio para tu Salud',
+        image: 'https://placehold.co/800x400/F0F8FF/000000?text=Beneficios+Magnesio',
+        excerpt_es: 'Descubre por qué el magnesio es un mineral esencial y cómo puede mejorar tu sueño, reducir el estrés y más.',
+        content_es: `
+            <h2 class="text-3xl font-bold text-primary mb-4">La Importancia del Magnesio en tu Cuerpo</h2>
+            <p class="mb-4">El magnesio es un mineral vital que participa en más de 300 reacciones bioquímicas en el cuerpo. Es crucial para el funcionamiento adecuado de músculos y nervios, la regulación de los niveles de azúcar en la sangre, la presión sanguínea, y la formación de proteínas, masa ósea y ADN.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Beneficios Clave del Magnesio:</h3>
+            <ul class="list-disc list-inside ml-6 mb-4">
+                <li><strong>Salud Ósea:</strong> Contribuye a la formación ósea y previene la osteoporosis.</li>
+                <li><strong>Función Muscular:</strong> Ayuda en la contracción y relajación muscular, aliviando calambres.</li>
+                <li><strong>Sistema Nervioso:</strong> Reduce el estrés, la ansiedad y mejora la calidad del sueño.</li>
+                <li><strong>Producción de Energía:</strong> Es esencial para la conversión de alimentos en energía.</li>
+                <li><strong>Salud Cardiovascular:</strong> Ayuda a mantener un ritmo cardíaco normal y la presión arterial.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">¿Cómo Obtener Suficiente Magnesio?</h3>
+            <p class="mb-4">Puedes encontrar magnesio en alimentos como vegetales de hoja verde (espinacas, kale), frutos secos (almendras, anacardos), semillas (chía, calabaza), legumbres, cereales integrales y chocolate negro. Sin embargo, debido al agotamiento del suelo y los hábitos alimenticios modernos, muchas personas no obtienen suficiente magnesio solo con la dieta.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Suplementación con Magnesio</h3>
+            <p class="mb-4">Si consideras la suplementación, el Glicinato de Magnesio es una de las formas más biodisponibles y menos propensas a causar efectos laxantes. Es ideal para aquellos que buscan apoyo para la relajación y el sueño.</p>
+            <p class="text-sm text-gray-600 mt-6">Recuerda siempre consultar a un profesional de la salud antes de iniciar cualquier suplemento.</p>
+        `,
+        date: '2025-06-20',
+        author: 'Equipo: "Productos Integrales R&F"',
+        tags: ['Magnesio', 'Suplementos', 'Salud'],
+        relatedProducts: ['p27', 'p75'] // Ejemplo: Citrato de Magnesio, Triple Magnesio Complex
+    },
+    {
+        id: 'blog2',
+        title_es: 'Guía Completa para una Rutina de Belleza Natural',
+        image: 'https://placehold.co/800x400/F0F8FF/000000?text=Belleza+Natural',
+        excerpt_es: 'Aprende a cuidar tu piel y cabello con productos naturales, paso a paso.',
+        content_es: `
+            <h2 class="text-3xl font-bold text-primary mb-4">Despierta la Belleza que Hay en Ti con la Naturaleza</h2>
+            <p class="mb-4">Cada vez más personas se están volcando hacia la cosmética natural, y por una buena razón. Los productos naturales son a menudo más suaves con la piel, libres de químicos agresivos y, en muchos casos, más sostenibles. Aquí te presentamos una guía sencilla para construir tu rutina de belleza natural.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 1: Limpieza Consciente</h3>
+            <p class="mb-4">Comienza tu rutina con una limpieza suave. Busca limpiadores faciales a base de aceites naturales (como el aceite de jojoba o almendras) o geles con extractos de plantas como el aloe vera.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 2: Tonificación y Equilibrio</h3>
+            <p class="mb-4">Un buen tónico natural, como el agua de rosas o un hidrolato de lavanda, ayuda a equilibrar el pH de la piel y prepararla para los siguientes pasos. Rocía suavemente sobre el rostro limpio.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 3: Nutrición con Sueros y Aceites</h3>
+            <p class="mb-4">Aquí es donde los ingredientes activos naturales brillan. Un <strong>Serum Facial con Vitamina C</strong> puede iluminar tu piel y reducir manchas. Para una hidratación profunda, los aceites faciales como el <strong>Aceite de Coco Extra Virgen</strong> o el aceite de argán son excelentes.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Paso 4: Hidratación Diaria</h3>
+            <p class="mb-4">Sella todos los beneficios con una crema hidratante natural. Busca ingredientes como la manteca de karité, la glicerina vegetal o el ácido hialurónico de origen natural.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Cuidado Capilar Natural</h3>
+            <p class="mb-4">Para tu cabello, opta por champús y acondicionadores sin sulfatos ni parabenos. Una vez a la semana, mima tu cabello con una <strong>Mascarilla Capilar de Argán</strong> para nutrirlo intensamente y devolverle el brillo.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Desodorantes Naturales</h3>
+            <p class="mb-4">Completa tu rutina con un desodorante que respete tu cuerpo, como el <strong>Desodorante Natural Piedra Alumbre</strong>, libre de químicos agresivos y aluminio.</p>
+            <p class="text-sm text-gray-600 mt-6">Adoptar una rutina de belleza natural es un viaje. Escucha a tu cuerpo y piel, y disfruta de los resultados que la naturaleza puede ofrecerte.</p>
+        `,
+        date: '2025-06-25',
+        author: 'Equipo: "Productos Integrales R&F"',
+        tags: ['Belleza', 'Cuidado Personal', 'Cosmética Natural'],
+        relatedProducts: ['p2', 'p3', 'p9', 'p19', 'p30'] // Ejemplo: Aceite de Batana, Aceite de Coco, Aceite de Ricino, Barro, Colágeno
+    },
+    {
+        id: 'blog3',
+        title_es: 'Alimentación Consciente: Cómo Empezar y Mantenerla',
+        image: 'https://placehold.co/800x400/F0F8FF/000000?text=Alimentacion+Consciente',
+        excerpt_es: 'Consejos prácticos para integrar una alimentación saludable y consciente en tu día a día.',
+        content_es: `
+            <h2 class="text-3xl font-bold text-primary mb-4">Comiendo con Intención: Un Camino hacia el Bienestar</h2>
+            <p class="mb-4">La alimentación consciente, o "mindful eating", va más allá de lo que comemos; se trata de cómo comemos. Implica prestar atención a las sensaciones físicas, las emociones y los pensamientos que surgen antes, durante y después de comer.</p>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Principios Clave de la Alimentación Consciente:</h3>
+            <ul class="list-disc list-inside ml-6 mb-4">
+                <li><strong>Come Despacio:</strong> Tómate tu tiempo para masticar bien los alimentos y saborear cada bocado.</li>
+                <li><strong>Escucha a tu Cuerpo:</strong> Presta atención a las señales de hambre y saciedad. Come cuando tengas hambre real y detente cuando estés satisfecho, no cuando estés completamente lleno.</li>
+                <li><strong>Sin Distracciones:</strong> Evita comer frente a la televisión, el teléfono o el ordenador. Concéntrate en tu comida.</li>
+                <li><strong>Reconoce tus Emociones:</strong> ¿Comes por aburrimiento, estrés o tristeza? Aprende a identificar estos patrones.</li>
+                <li><strong>Aprecia tu Comida:</strong> Reflexiona sobre el origen de tus alimentos y el proceso que los llevó a tu plato.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Integrando Alimentos Naturales</h3>
+            <p class="mb-4">La alimentación consciente se complementa perfectamente con el consumo de alimentos naturales e integrales. Incorpora más:</p>
+            <ul class="list-disc list-inside ml-6 mb-4">
+                <li><strong>Frutas y Verduras:</strong> Son la base de una dieta saludable, ricas en vitaminas, minerales y fibra.</li>
+                <li><strong>Cereales Integrales:</strong> Como la <strong>Harina de Yuca Orgánica</strong>, proporcionan energía sostenida y fibra.</li>
+                <li><strong>Grasas Saludables:</strong> El <strong>Aceite de Coco Extra Virgen</strong> es una excelente fuente de MCTs.</li>
+                <li><strong>Bebidas Naturales:</strong> Infusiones como el <strong>Té de Manzanilla Orgánico</strong> pueden ayudar a la digestión y la relajación.</li>
+            </ul>
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">Beneficios a Largo Plazo:</h3>
+            <p class="mb-4">Practicar la alimentación consciente puede llevar a una mejor digestión, un control de peso más saludable, una relación más positiva con la comida y una mayor sensación de bienestar general.</p>
+            <p class="text-sm text-gray-600 mt-6">Empieza hoy mismo con pequeños pasos. Cada comida es una oportunidad para nutrir tu cuerpo y mente de forma consciente.</p>
+        `,
+        date: '2025-06-18',
+        author: 'Equipo: "Productos Integrales R&F"',
+        tags: ['Alimentación', 'Bienestar', 'Nutrición'],
+        relatedProducts: ['p3', 'p4', 'p5', 'p48', 'p54'] // Ejemplo: Aceite de Coco, Harina de Almendras, Levadura Nutricional
+    }
+];
 
 
         // Objeto de traducciones para soporte multilingüe (solo español)
@@ -2543,13 +2596,13 @@
                                             <p class="text-gray-600 text-sm mb-2">${p.brand || 'Marca Desconocida'}</p>
                                             <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)} ${p.priceWholesale ? `<span class="text-sm text-gray-500">(RD$${p.priceWholesale.toFixed(2)} Mayor)</span>` : ''}</p>
                                             <div class="flex items-center justify-center space-x-2 mt-2">
-                                                <button onclick="updateProductQuantityInCart('${p.id}', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
-                                                <input type="number" min="0" value="${(cart.find(item => item.productId === p.id)?.quantity || 0)}"
-                                                       data-product-id="${p.id}"
-                                                       onchange="updateProductQuantityInCartFromInput(this, '${p.id}')"
-                                                       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                                       class="w-16 text-center border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-primary">
-                                                <button onclick="updateProductQuantityInCart('${p.id}', 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
+                                                <button onclick="updateQuantity('${p.id}', -1, false)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
+                                                <input type="number" min="0" value="${(cart.find(item => item.productId === p.id && !item.isCombo)?.quantity || 0)}"
+       data-product-id="${p.id}"
+       onchange="updateProductQuantityInCartFromInput(this, '${p.id}', false)"
+       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+       class="w-16 text-center border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-primary">
+                                                <button onclick="updateQuantity('${p.id}', 1, false)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
                                             </div>
                                             <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200 mt-4">
                                                 ${lang.addToCart}
@@ -2643,13 +2696,13 @@
                         <p class="text-5xl font-extrabold text-green-600 mb-6">${formatPrice(product.priceDetail)} ${product.priceWholesale ? `<span class="text-sm text-gray-500">(RD$${product.priceWholesale.toFixed(2)} Mayor)</span>` : ''}</p>
 
                         <div class="flex items-center justify-start space-x-2 mb-4">
-                            <button onclick="updateProductQuantityInCart('${product.id}', -1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">-</button>
-                            <input type="number" min="0" value="${(cart.find(item => item.productId === product.id)?.quantity || 0)}"
-                                   data-product-id="${product.id}"
-                                   onchange="updateProductQuantityInCartFromInput(this, '${product.id}')"
-                                   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-                                   class="w-20 text-center border border-gray-300 rounded-md p-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                            <button onclick="updateProductQuantityInCart('${product.id}', 1)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">+</button>
+                            <button onclick="updateQuantity('${product.id}', -1, false)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">-</button>
+                            <input type="number" min="0" value="${(cart.find(item => item.productId === product.id && !item.isCombo)?.quantity || 0)}"
+   data-product-id="${product.id}"
+   onchange="updateProductQuantityInCartFromInput(this, '${product.id}', false)"
+   onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+   class="w-20 text-center border border-gray-300 rounded-md p-2 text-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <button onclick="updateQuantity('${product.id}', 1, false)" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full hover:bg-gray-300 transition duration-200 text-lg">+</button>
                         </div>
                         <button onclick="addToCart('${product.id}')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-8">
                             <i class="fas fa-cart-plus mr-2"></i> ${lang.addToCart}
@@ -2777,13 +2830,13 @@
                         ${combos.map(combo => `
                             <div class="bg-white rounded-lg shadow-md p-6 hover-scale flex flex-col">
                                 <a href="#combo-${combo.id}" onclick="navigateTo('combo', '${combo.id}', event)">
-                                    <img src="${combo.image}" alt="${combo[`name_es`]}" onerror="this.onerror=null;this.src='https://placehold.co/400x200/D3D3D3/000000?text=Combo';" class="w-full h-48 object-cover mb-4 rounded-md">
+                                    <img src="${combo.image}" alt="Imagen del ${combo.name_es}" onerror="this.onerror=null;this.src='https://placehold.co/400x200/D3D3D3/000000?text=Combo';" class="w-full h-48 object-cover mb-4 rounded-md">
                                 </a>
                                 <h3 class="text-2xl font-bold text-gray-800 mb-2">${combo[`name_es`]}</h3>
                                 <p class="text-gray-600 text-sm mb-4">${combo[`description_es`]}</p>
                                 <p class="text-2xl font-bold text-green-600 mb-4">${combo[`price_es`]}</p>
-                                <button onclick="showModal('${lang.productAdded}', 'Añadir combo ${combo.id} al carrito - funcionalidad a implementar')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4">
-                                    Añadir Combo al Carrito
+                                <button onclick="navigateTo('combo', '${combo.id}', event)" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-200">
+                                    ${lang.viewDetails}
                                 </button>
                             </div>
                         `).join('')}
@@ -2796,10 +2849,10 @@
         /**
          * Renderiza la página del carrito, mostrando los artículos, cantidades y totales.
          */
-        const renderCartPage = () => {
+        const renderCartPage = () => { // Renombrado para evitar conflictos si `renderCart` se usa internamente
             console.log("Iniciando la función renderCartPage.");
             const lang = translations[currentLanguage];
-            if (!appContent) return;
+            if (!appContent) return; // Guardia para asegurar que appContent existe
             let cartContent = '';
 
             if (cart.length === 0) {
@@ -2817,39 +2870,69 @@
                                     <th class="py-3 px-6 text-center"></th>
                                 </tr>
                             </thead>
-                            <tbody class="text-gray-600 text-sm font-light">
-                                ${cart.map(item => {
-                                    const product = products.find(p => p.id === item.productId);
-                                    if (!product) return '';
-                                    const itemSubtotal = item.pricePerUnit * item.quantity;
-                                    return `
-                                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                            <td class="py-3 px-6 text-left whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div class="mr-3">
-                                                        <img class="w-10 h-10 rounded-full object-contain" src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='https://placehold.co/40x40/D3D3D3/000000?text=NP';">
-                                                    </div>
-                                                    <span class="font-medium">${product.name}</span>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center">${formatPrice(item.pricePerUnit)}</td>
-                                            <td class="py-3 px-6 text-center">
-                                                <div class="flex items-center justify-center space-x-2">
-                                                    <button onclick="updateQuantity('${item.productId}', -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
-                                                    <span class="text-base font-semibold">${item.quantity}</span>
-                                                    <button onclick="updateQuantity('${item.productId}', 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
-                                                </div>
-                                            </td>
-                                            <td class="py-3 px-6 text-center font-semibold">${formatPrice(itemSubtotal)}</td>
-                                            <td class="py-3 px-6 text-center">
-                                                <button onclick="removeFromCart('${item.productId}')" class="text-red-500 hover:text-red-700 transition duration-200">
-                                                    <i class="fas fa-trash"></i> ${lang.removeItem}
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
+                            
+<tbody class="text-gray-600 text-sm font-light">
+    ${cart.map(item => {
+        let itemName;
+        let itemImage;
+        let unitPrice;
+        let itemProductsHtml = ''; // NUEVO: Para listar productos dentro de un combo
+
+        if (item.isCombo) {
+            const combo = combos.find(c => c.id === item.productId);
+            itemName = combo ? combo.name_es : 'Combo Desconocido';
+            itemImage = combo ? combo.image : 'https://placehold.co/40x40/D3D3D3/000000?text=NP';
+            unitPrice = item.pricePerUnit; // Esto ya es el precio total del combo
+
+            // NUEVO: Generar la lista de productos dentro del combo
+            const comboProducts = combo.products.map(pId => products.find(p => p.id === pId)).filter(Boolean);
+            itemProductsHtml = `
+                <ul class="text-xs text-gray-500 mt-1">
+                    ${comboProducts.map(p => `<li>- ${p.name}</li>`).join('')}
+                </ul>
+            `;
+
+        } else {
+            const product = products.find(p => p.id === item.productId);
+            itemName = product ? product.name : 'Producto Desconocido';
+            itemImage = product ? product.image : 'https://placehold.co/40x40/D3D3D3/000000?text=NP';
+            unitPrice = item.pricePerUnit; // Este es el precio del producto individual
+        }
+
+        const itemSubtotal = unitPrice * item.quantity;
+
+        return `
+            <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="mr-3">
+                            <img class="w-10 h-10 rounded-full object-contain" src="${itemImage}" alt="Imagen de ${itemName}" onerror="this.onerror=null;this.src='https://placehold.co/40x40/D3D3D3/000000?text=NP';">
+                        </div>
+                        <div>
+                            <span class="font-medium">${itemName}</span>
+                            ${itemProductsHtml} <!-- NUEVO: Insertar la lista de productos del combo aquí -->
+                        </div>
+                    </div>
+                </td>
+                <td class="py-3 px-6 text-center">${formatPrice(unitPrice)}</td>
+                <td class="py-3 px-6 text-center">
+                    <div class="flex items-center justify-center space-x-2">
+                        <button onclick="updateQuantity('${item.productId}', -1, ${item.isCombo})" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
+                        <span class="text-base font-semibold">${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.productId}', 1, ${item.isCombo})" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
+                    </div>
+                </td>
+                <td class="py-3 px-6 text-center font-semibold">${formatPrice(itemSubtotal)}</td>
+                <td class="py-3 px-6 text-center">
+                    <button onclick="removeFromCart('${item.productId}', ${item.isCombo})" class="text-red-500 hover:text-red-700 transition duration-200">
+                        <i class="fas fa-trash"></i> ${lang.removeItem}
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('')}
+</tbody>
+
                         </table>
                     </div>
 
@@ -3129,69 +3212,103 @@
             `;
         };
 
-        /**
-         * Renderiza la página "Blog".
-         */
-        const renderBlog = () => {
-            const lang = translations[currentLanguage];
-            if (!appContent) return;
-            appContent.innerHTML = `
-                <section class="bg-white rounded-lg shadow-lg p-8 mb-12">
-                    <h1 class="text-4xl font-bold text-primary mb-6 text-center">${lang.ourBlogTitle}</h1>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                        ${lang.blogIntro}
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        ${blogPosts.map(post => `
-                            <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden">
-                                <img src="${post.image}" alt="Imagen de ${post.title_es}" class="w-full h-48 object-cover">
+       /**
+ * Renderiza la página "Blog".
+ */
+const renderBlog = () => {
+    const lang = translations[currentLanguage];
+    if (!appContent) return; // Guardia para asegurar que appContent existe
+    appContent.innerHTML = `
+            <section class="bg-white rounded-lg shadow-lg p-8 mb-12">
+                <h1 class="text-4xl font-bold text-primary mb-6 text-center">${lang.ourBlogTitle}</h1>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    ${lang.blogIntro}
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    ${blogPosts.map(post => `
+                        <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden hover-scale">
+                            <!-- Enlace que cubre toda la tarjeta para hacerla clicable -->
+                            <a href="#blog-post-${post.id}" onclick="navigateTo('blog-post', '${post.id}', event)" class="block w-full h-full">
+                                <img src="${post.image}" alt="Imagen de la publicación de blog: ${post.title_es}" class="w-full h-48 object-cover">
                                 <div class="p-6">
                                     <h3 class="text-xl font-semibold text-gray-800 mb-2">${post.title_es}</h3>
                                     <p class="text-gray-600 text-sm mb-4">${post.excerpt_es}</p>
-                                    <a href="#blog-post-${post.id}" onclick="navigateTo('blog-post', '${post.id}', event)" class="text-primary hover:underline font-medium">Leer Más</a>
+                                    <span class="text-primary hover:underline font-medium">Leer Más</span>
                                 </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-            `;
-        };
+                            </a>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+        `;
+};
 
         /**
          * NUEVO: Renderiza la página de detalles de una publicación de blog específica.
          * @param {string} blogPostId - El ID de la publicación del blog a mostrar.
          */
-        const renderBlogPost = (blogPostId) => {
-            const post = blogPosts.find(p => p.id === blogPostId);
-            const lang = translations[currentLanguage];
+        /**
+ * NUEVO: Renderiza la página de detalles de una publicación de blog específica.
+ * @param {string} blogPostId - El ID de la publicación del blog a mostrar.
+ */
+const renderBlogPost = (blogPostId) => {
+    const post = blogPosts.find(p => p.id === blogPostId);
+    const lang = translations[currentLanguage];
 
-            if (!post) {
-                if (appContent) {
-                    appContent.innerHTML = `<p class="text-center text-red-500 text-xl">Publicación de blog no encontrada.</p>`;
-                }
-                return;
-            }
-            if (!appContent) return;
+    if (!post) {
+        if (appContent) {
+            appContent.innerHTML = `<p class="text-center text-red-500 text-xl">Publicación de blog no encontrada.</p>`;
+        }
+        return;
+    }
+    if (!appContent) return;
 
-            appContent.innerHTML = `
-                <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
-                    <h1 class="text-4xl font-bold text-primary mb-6 text-center">${post.title_es}</h1>
-                    <div class="text-center mb-6">
-                        <p class="text-gray-600 text-sm">Por ${post.author} el ${new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                        <div class="flex flex-wrap justify-center gap-2 mt-2">
-                            ${post.tags.map(tag => `<span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                    <img src="${post.image}" alt="Imagen de ${post.title_es}" class="w-full h-64 object-cover rounded-lg shadow-md mb-8">
-                    <div class="text-gray-800 leading-relaxed mb-8">
-                        ${post.content_es}
-                    </div>
-                    <div class="text-center mt-8">
-                        <button onclick="navigateTo('blog', null, event)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition duration-200">Volver al Blog</button>
-                    </div>
+    // Filtrar productos relacionados basados en la nueva propiedad `relatedProducts`
+    const relatedProducts = (post.relatedProducts || []) // Asegurarse de que sea un array, incluso si no está definido
+                            .map(pId => products.find(p => p.id === pId))
+                            .filter(Boolean); // Filtrar cualquier producto que no se encuentre
+
+    appContent.innerHTML = `
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <h1 class="text-4xl font-bold text-primary mb-6 text-center">${post.title_es}</h1>
+            <div class="text-center mb-6">
+                <p class="text-gray-600 text-sm">Por ${post.author} el ${new Date(post.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <div class="flex flex-wrap justify-center gap-2 mt-2">
+                    ${post.tags.map(tag => `<span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">${tag}</span>`).join('')}
                 </div>
-            `;
-        };
+            </div>
+            <img src="${post.image}" alt="Imagen de ${post.title_es}" class="w-full h-64 object-cover rounded-lg shadow-md mb-8">
+            <div class="text-gray-800 leading-relaxed mb-8">
+                ${post.content_es}
+            </div>
+
+            ${relatedProducts.length > 0 ? `
+            <div class="mt-8">
+                <h2 class="text-3xl font-bold text-primary mb-6 text-center">${lang.productsForThis}</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${relatedProducts.map(p => `
+                        <div class="bg-gray-50 rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
+                            <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
+                                <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
+                            </a>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
+                            <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                            <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
+                            <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
+                                ${lang.addToCart}
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            ` : `<p class="text-center text-gray-600 text-lg mt-8">No hay productos directamente relacionados con este artículo en este momento.</p>`}
+
+            <div class="text-center mt-8">
+                <button onclick="navigateTo('blog', null, event)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition duration-200">Volver al Blog</button>
+            </div>
+        </div>
+    `;
+};
 
         /**
          * Renderiza la página "Métodos de Pago".
@@ -3462,7 +3579,7 @@
                                 <p>${comboDescription}</p>
                             </div>
                             <p class="text-3xl font-extrabold text-green-600 mb-6">${combo[`price_es`]}</p>
-                            <button onclick="showModal('${lang.productAdded}', 'Añadir combo ${combo.id} al carrito - funcionalidad a implementar')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4">
+                           <button onclick="addComboToCart('${combo.id}')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4">
                                 Añadir Combo al Carrito
                             </button>
                         </div>
@@ -3509,120 +3626,239 @@
         };
 
         /**
-         * Agrega un producto al carrito o incrementa su cantidad si ya está presente.
-         * Recalcula pricePerUnit en función de la cantidad actual.
-         * @param {string} productId - El ID del producto a agregar.
-         */
-        const addToCart = (productId) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+ * Agrega un producto al carrito o incrementa su cantidad si ya está presente.
+ * Recalcula pricePerUnit en función de la cantidad actual.
+ * @param {string} productId - El ID del producto a agregar.
+ */
+const addToCart = (productId) => {
+    // Llamamos a updateQuantity para manejar la adición/incremento del producto.
+    // Asumimos que addToCart es para productos individuales, por lo que isCombo es false.
+    updateQuantity(productId, 1, false); // Incrementa la cantidad en 1, no es un combo.
+    showModal(translations[currentLanguage].productAdded, translations[currentLanguage].addedSuccessfully);
 
-            const existingItemIndex = cart.findIndex(item => item.productId === productId);
-            let newQuantity;
+    // Si el usuario está en la página de la tienda o detalles del producto,
+    // actualizamos la visualización de la cantidad en el input.
+    if (currentPage === 'shop' || currentPage === 'product') {
+        const productQuantityInput = document.querySelector(`input[data-product-id="${productId}"]`);
+        if (productQuantityInput) {
+            const itemInCart = cart.find(item => item.productId === productId && !item.isCombo);
+            productQuantityInput.value = itemInCart ? itemInCart.quantity : 0;
+        }
+    }
+    // No necesitamos llamar a saveCart(), updateCartCount() o renderShop()/renderProductDetail() aquí,
+    // ya que updateQuantity ya se encarga de eso.
+};
+
+
+
+/**
+         * NUEVO: Agrega un combo al carrito como un único artículo.
+         * @param {string} comboId - El ID del combo a agregar.
+         */
+        const addComboToCart = (comboId) => {
+            const combo = combos.find(c => c.id === comboId);
+            if (!combo) return;
+
+            const comboPrice = parseComboPrice(combo.price_es);
+
+            // Check if the combo already exists in the cart as a combo item
+            const existingItemIndex = cart.findIndex(item => item.productId === combo.id && item.isCombo);
 
             if (existingItemIndex > -1) {
-                newQuantity = cart[existingItemIndex].quantity + 1;
-                cart[existingItemIndex].quantity = newQuantity;
+                // If combo exists, just increment its quantity (meaning adding another combo package)
+                cart[existingItemIndex].quantity += 1;
+                // The pricePerUnit for a combo should remain its total price, not change with quantity.
+                // We assume a combo is always bought as 1 unit of the combo, not multiple units of the combo itself impacting its internal price.
+                // If the user adds the combo twice, it's two combos, each at its special price.
             } else {
-                newQuantity = 1;
-                cart.push({ productId, quantity: newQuantity });
-            }
-
-            // Actualizar pricePerUnit en función de la nueva cantidad para el artículo
-            const itemInCart = cart.find(item => item.productId === productId);
-            if (itemInCart) {
-                itemInCart.pricePerUnit = getProductPrice(product, newQuantity);
+                // Add the combo as a single item with its total price
+                cart.push({
+                    productId: combo.id,
+                    name: combo.name_es, // Store the combo name
+                    quantity: 1,
+                    pricePerUnit: comboPrice, // Store the combo's total price as its unit price
+                    isCombo: true // Flag to identify it as a combo
+                });
             }
 
             saveCart();
             updateCartCount();
-            showModal(translations[currentLanguage].productAdded, translations[currentLanguage].addedSuccessfully);
-            // Volver a renderizar la página de la tienda para actualizar las entradas de cantidad si se encuentra en la página de la tienda
-            if (currentPage === 'shop') {
-                renderShop();
-            } else if (currentPage === 'product') {
-                // También actualizar el campo de entrada en la página de detalles del producto si el usuario está allí
-                const productQuantityInput = document.querySelector(`input[data-product-id="${productId}"]`);
-                 if (productQuantityInput) {
-                    productQuantityInput.value = newQuantity;
-                 }
+            showModal(translations[currentLanguage].comboAdded, translations[currentLanguage].comboAddedSuccessfully);
+            // If the user is on the cart page, re-render it to show the updated cart.
+            if (currentPage === 'cart') {
+                renderCartPage();
             }
         };
 
-        /**
-         * Actualiza la cantidad de un producto en el carrito. Elimina el artículo si la cantidad baja a 0 o menos.
-         * Recalcula pricePerUnit en función de la cantidad actualizada.
-         * @param {string} productId - El ID del producto a actualizar.
+
+
+
+       /**
+         * Actualiza la cantidad de un producto o combo en el carrito. Elimina el artículo si la cantidad baja a 0 o menos.
+         * Recalcula pricePerUnit solo para productos individuales si es necesario.
+         * @param {string} itemId - El ID del producto o combo a actualizar.
          * @param {number} change - La cantidad para cambiar la cantidad (ej., 1 para incrementar, -1 para decrementar).
          */
-        const updateQuantity = (productId, change) => {
-            console.log(`Intentando actualizar la cantidad para el producto: ${productId} con cambio: ${change}`);
-            const itemIndex = cart.findIndex(item => item.productId === productId);
-            if (itemIndex > -1) {
-                // Corregido: Usar productId directamente para encontrar el producto en el array de productos
+       /**
+ * Actualiza la cantidad de un producto o combo en el carrito. Elimina el artículo si la cantidad baja a 0 o menos.
+ * Recalcula pricePerUnit solo para productos individuales si es necesario.
+ * @param {string} itemId - El ID del producto o combo a actualizar.
+ * @param {number} change - La cantidad para cambiar la cantidad (ej., 1 para incrementar, -1 para decrementar).
+ * @param {boolean} [isCombo=false] - Indica si el artículo es un combo. Por defecto es falso.
+ */
+const updateQuantity = (itemId, change, isCombo = false) => {
+    console.log(`Intentando actualizar la cantidad para el artículo: ${itemId} con cambio: ${change}, esCombo: ${isCombo}`);
+    // Buscar el elemento en el carrito usando productId Y isCombo
+    const itemIndex = cart.findIndex(item => item.productId === itemId && item.isCombo === isCombo);
+
+    if (itemIndex > -1) {
+        // Si el artículo ya está en el carrito, actualiza su cantidad
+        let item = cart[itemIndex];
+        let newQuantity = item.quantity + change;
+        if (newQuantity < 0) newQuantity = 0; // Evitar cantidad negativa
+
+        if (newQuantity === 0) {
+            cart.splice(itemIndex, 1); // Eliminar si la cantidad es 0
+            console.log(`Artículo ${itemId} (esCombo: ${isCombo}) eliminado del carrito. Nuevo carrito:`, cart);
+        } else {
+            item.quantity = newQuantity;
+            // SOLO RECALCULAR pricePerUnit para productos individuales (no combos)
+            if (!item.isCombo) {
                 const product = products.find(p => p.id === item.productId);
-                if (!product) {
-                    console.error(`Producto con ID ${item.productId} no encontrado en el array de productos para la actualización de cantidad.`);
+                if (product) {
+                    item.pricePerUnit = getProductPrice(product, newQuantity);
+                }
+            }
+            console.log(`Cantidad del artículo ${itemId} (esCombo: ${isCombo}) actualizada a ${newQuantity}. Nuevo precio por unidad: ${item.pricePerUnit}. Nuevo carrito:`, cart);
+        }
+    } else {
+        // Si el artículo NO está en el carrito y el cambio es para AÑADIR (change > 0)
+        if (change > 0) {
+            let itemToAdd;
+            let priceToUse;
+            let nameToUse;
+
+            if (isCombo) {
+                itemToAdd = combos.find(c => c.id === itemId);
+                if (!itemToAdd) {
+                    console.error('Combo no encontrado:', itemId);
                     return;
                 }
-
-                let newQuantity = cart[itemIndex].quantity + change;
-                if (newQuantity < 0) newQuantity = 0;
-
-                if (newQuantity === 0) {
-                    cart.splice(itemIndex, 1);
-                    console.log(`Producto ${productId} eliminado del carrito. Nuevo carrito:`, cart);
-                } else {
-                    cart[itemIndex].quantity = newQuantity;
-                    // Recalcular el precio por unidad en función de la nueva cantidad
-                    cart[itemIndex].pricePerUnit = getProductPrice(product, newQuantity);
-                    console.log(`Cantidad del producto ${productId} actualizada a ${newQuantity}. Nuevo precio por unidad: ${cart[itemIndex].pricePerUnit}. Nuevo carrito:`, cart);
-                }
-                saveCart();
-                updateCartCount();
-                renderCartPage();
-                console.log(`Carrito re-renderizado después de la actualización de cantidad.`);
+                // Extraer el precio numérico del combo
+                const comboPriceMatch = itemToAdd.price_es.match(/RD\$([\d,\.]+)/);
+                priceToUse = comboPriceMatch ? parseFloat(comboPriceMatch[1].replace(/,/g, '')) : 0;
+                nameToUse = itemToAdd.name_es;
             } else {
-                console.warn(`Producto ${productId} no encontrado en el carrito para la actualización de cantidad. Carrito actual:`, cart);
+                itemToAdd = products.find(p => p.id === itemId);
+                if (!itemToAdd) {
+                    console.error('Producto no encontrado:', itemId);
+                    return;
+                }
+                // Obtener el precio del producto individual (considerando precio al por mayor)
+                priceToUse = getProductPrice(itemToAdd, change); // 'change' será 1 al añadir por primera vez
+                nameToUse = itemToAdd.name;
             }
-        };
+
+            // Añadir el nuevo artículo al carrito
+            cart.push({
+                productId: itemId,
+                quantity: change, // La cantidad inicial será el 'change' (normalmente 1)
+                pricePerUnit: priceToUse,
+                isCombo: isCombo,
+                name: nameToUse // Almacenar el nombre para facilitar la visualización en el carrito
+            });
+            console.log(`Artículo ${itemId} (esCombo: ${isCombo}) añadido al carrito. Nuevo carrito:`, cart);
+        } else {
+            console.warn(`Artículo ${itemId} (esCombo: ${isCombo}) no encontrado en el carrito para la actualización de cantidad y no se añadió porque el cambio no fue positivo. Carrito actual:`, cart);
+        }
+    }
+
+    // Estas acciones se realizan SIEMPRE después de cualquier cambio en el carrito
+    saveCart();
+    updateCartCount();
+    // Solo volver a renderizar la página del carrito si el usuario está en ella
+    if (currentPage === 'cart') {
+        renderCartPage();
+    } else if (currentPage === 'shop' || currentPage === 'product') {
+        // Si estamos en la tienda o en la página de producto, actualizar el input de cantidad
+        const quantityInput = document.querySelector(`input[data-product-id="${itemId}"]`);
+        if (quantityInput) {
+            const itemInCart = cart.find(item => item.productId === itemId && item.isCombo === isCombo);
+            quantityInput.value = itemInCart ? itemInCart.quantity : 0;
+        }
+    }
+    console.log(`Carrito actualizado y re-renderizado/inputs actualizados después de la operación.`);
+};
 
         /**
          * Actualiza la cantidad del producto en el carrito directamente desde un campo de entrada (ej., en la página de la tienda).
          * @param {HTMLInputElement} inputElement - El elemento de entrada que activó el cambio.
          * @param {string} productId - El ID del producto.
          */
-        const updateProductQuantityInCartFromInput = (inputElement, productId) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+        const updateProductQuantityInCartFromInput = (inputElement, id, isCombo = false) => { // AÑADIDO: isCombo = false por defecto
+    let newQuantity = parseInt(inputElement.value, 10);
+    if (isNaN(newQuantity) || newQuantity < 0) {
+        newQuantity = 0;
+    }
 
-            let newQuantity = parseInt(inputElement.value) || 0;
-            if (newQuantity < 0) newQuantity = 0;
+    // MODIFICADO: Buscar el elemento en el carrito usando productId Y isCombo
+    const itemIndex = cart.findIndex(item => item.productId === id && item.isCombo === isCombo);
 
-            const itemIndex = cart.findIndex(item => item.productId === productId);
-
-            if (newQuantity > 0) {
-                if (itemIndex > -1) {
-                    cart[itemIndex].quantity = newQuantity;
+    if (newQuantity > 0) {
+        if (itemIndex > -1) {
+            cart[itemIndex].quantity = newQuantity;
+            // SOLO RECALCULAR pricePerUnit para productos individuales
+            if (!isCombo) {
+                const product = products.find(p => p.id === id);
+                if (product) {
                     cart[itemIndex].pricePerUnit = getProductPrice(product, newQuantity);
-                } else {
-                    cart.push({
-                        productId: productId,
-                        quantity: newQuantity,
-                        pricePerUnit: getProductPrice(product, newQuantity)
-                    });
                 }
+            }
+        } else {
+            // Si el producto/combo no está en el carrito y la nueva cantidad es > 0, añadirlo
+            let itemToAdd;
+            let priceToUse;
+            let nameToUse;
+
+            if (isCombo) {
+                itemToAdd = combos.find(c => c.id === id);
+                if (!itemToAdd) {
+                    console.error('Combo no encontrado:', id);
+                    return;
+                }
+                const comboPriceMatch = itemToAdd.price_es.match(/RD\$([\d,\.]+)/);
+                priceToUse = comboPriceMatch ? parseFloat(comboPriceMatch[1].replace(',', '')) : 0;
+                nameToUse = itemToAdd.name_es;
+
             } else {
-                if (itemIndex > -1) {
-                    cart.splice(itemIndex, 1);
+                itemToAdd = products.find(p => p.id === id);
+                if (!itemToAdd) {
+                    console.error('Producto no encontrado:', id);
+                    return;
                 }
+                priceToUse = getProductPrice(itemToAdd, newQuantity); // Usar getProductPrice para inicializar
+                nameToUse = itemToAdd.name;
             }
-            saveCart();
-            updateCartCount();
-            if (currentPage === 'cart') {
-                renderCartPage();
-            }
-        };
+
+            cart.push({
+                productId: id,
+                quantity: newQuantity,
+                pricePerUnit: priceToUse,
+                isCombo: isCombo,
+                name: nameToUse
+            });
+        }
+    } else {
+        if (itemIndex > -1) {
+            cart.splice(itemIndex, 1);
+        }
+    }
+    saveCart();
+    updateCartCount();
+    if (currentPage === 'cart') { // Solo volver a renderizar el carrito si está en la propia página del carrito
+        renderCartPage();
+    }
+};
 
         /**
          * Esta función es específicamente para cambios de cantidad desde la tienda o la página de detalles del producto.
@@ -3630,53 +3866,20 @@
          * @param {string} productId - El ID del producto.
          * @param {number} change - La cantidad para cambiar la cantidad (ej., 1 para incrementar, -1 para decrementar).
          */
-        const updateProductQuantityInCart = (productId, change) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-
-            const inputElement = document.querySelector(`input[data-product-id="${productId}"]`);
-            if (!inputElement) return;
-
-            let currentQuantity = parseInt(inputElement.value) || 0;
-            let newQuantity = currentQuantity + change;
-
-            if (newQuantity < 0) newQuantity = 0;
-
-            // Actualizar el array del carrito directamente
-            const itemIndex = cart.findIndex(item => item.productId === productId);
-            if (newQuantity > 0) {
-                if (itemIndex > -1) {
-                    cart[itemIndex].quantity = newQuantity;
-                } else {
-                    cart.push({ productId, quantity: newQuantity, pricePerUnit: product.priceDetail });
-                }
-                // Siempre recalcular pricePerUnit en función de la nueva cantidad
-                const updatedItem = cart.find(item => item.productId === productId);
-                if (updatedItem) {
-                    updatedItem.pricePerUnit = getProductPrice(product, newQuantity);
-                }
-            } else {
-                if (itemIndex > -1) {
-                    cart.splice(itemIndex, 1);
-                }
-            }
-
-            inputElement.value = newQuantity > 0 ? newQuantity : 0;
-            saveCart();
-            updateCartCount();
-        };
+        
 
 
-        /**
-         * Elimina un producto completamente del carrito.
-         * @param {string} productId - El ID del producto a eliminar.
+       /**
+         * Elimina un producto o combo completamente del carrito.
+         * @param {string} itemId - El ID del producto o combo a eliminar.
          */
-        const removeFromCart = (productId) => {
-            cart = cart.filter(item => item.productId !== productId);
-            saveCart();
-            updateCartCount();
-            renderCartPage();
-        };
+        const removeFromCart = (itemId, isCombo = false) => { // AÑADIDO: isCombo = false por defecto
+    // MODIFICADO: Filtrar el elemento usando productId Y isCombo
+    cart = cart.filter(item => !(item.productId === itemId && item.isCombo === isCombo));
+    saveCart();
+    updateCartCount();
+    renderCartPage(); // Volver a renderizar el carrito
+};
 
         /**
          * Calcula el subtotal, el descuento, el costo de envío y el total para el carrito actual.
@@ -3685,14 +3888,24 @@
          */
         const calculateCartTotals = () => {
             console.log("Calculando totales del carrito...");
-            let subtotal = 0;
-            cart.forEach(item => {
-                const product = products.find(p => p.id === item.productId);
-                if (product) {
-                    item.pricePerUnit = getProductPrice(product, item.quantity);
-                    subtotal += item.quantity * item.pricePerUnit;
-                }
-            });
+            // ... código anterior de calculateCartTotals ...
+let subtotal = 0;
+cart.forEach(item => {
+    let itemPricePerUnit = 0;
+    if (item.isCombo) {
+        // Si es un combo, el pricePerUnit ya debe estar correcto desde addComboToCart
+        itemPricePerUnit = item.pricePerUnit;
+    } else {
+        // Si es un producto, recalcular el precio por unidad (detalle/mayorista)
+        const product = products.find(p => p.id === item.productId);
+        if (product) {
+            itemPricePerUnit = getProductPrice(product, item.quantity);
+            item.pricePerUnit = itemPricePerUnit; // Actualizar el carrito con el precio recalculado
+        }
+    }
+    subtotal += item.quantity * itemPricePerUnit;
+});
+// ... resto de calculateCartTotals ...
 
             let discount = 0;
             if (subtotal >= 2000) {
@@ -3890,14 +4103,27 @@
             if (customerComment) {
                 whatsappMessage += `✏️ *Nota:* ${customerComment}\n`;
             }
-            whatsappMessage += `\n*--- Detalles del Pedido ---*\n`;
+            // ... código anterior de checkoutOrder ...
 
-            cart.forEach(item => {
-                const product = products.find(p => p.id === item.productId);
-                if (product) {
-                    whatsappMessage += `- ${product.name} x${item.quantity} (RD$${item.pricePerUnit.toFixed(2)} c/u)\n`;
-                }
-            });
+whatsappMessage += `\n*--- Detalles del Pedido ---*\n`;
+cart.forEach(item => {
+    let itemName;
+    let itemUnitPrice;
+    if (item.isCombo) {
+        itemName = item.name; // Usamos el nombre del combo que ya está almacenado en el objeto del carrito
+        itemUnitPrice = item.pricePerUnit; // Usamos el precio total del combo que ya está almacenado
+        // NO listamos los productos internos del combo aquí, ya que se vende como una unidad.
+    } else {
+        const product = products.find(p => p.id === item.productId);
+        itemName = product ? product.name : 'Producto Desconocido';
+        // Aseguramos que el precio unitario del producto individual se use correctamente,
+        // considerando si se aplicó precio al por mayor.
+        itemUnitPrice = item.pricePerUnit;
+    }
+    whatsappMessage += `- ${itemName} x${item.quantity} (${formatPrice(itemUnitPrice)} c/u)\n`;
+});
+
+// ... resto de la función checkoutOrder ...
 
             whatsappMessage += `\n*🧾 ${translations[currentLanguage].subtotal}* ${formatPrice(subtotal)}`;
             whatsappMessage += `\n*🎁 ${translations[currentLanguage].discount}* -${formatPrice(discount)}`;
@@ -4108,6 +4334,25 @@
             cartCountElement = document.getElementById('cart-count');
             cartModal = document.getElementById('cart-modal');
             searchInput = document.getElementById('search-input');
+	    headerElement = document.querySelector('header'); // Obtener el elemento del encabezado
+            scrollToTopBtn = document.getElementById('scrollToTopBtn'); // Obtener el botón de volver arriba
+
+
+	   // Ajustar el padding del body para el encabezado fijo
+            const adjustBodyPadding = () => {
+                if (headerElement) {
+                    document.body.style.paddingTop = `${headerElement.offsetHeight}px`;
+                }
+            };
+
+            // Llamar al ajuste de padding inicialmente y en cada redimensionamiento de ventana
+            adjustBodyPadding();
+            window.addEventListener('resize', adjustBodyPadding);
+
+
+
+
+
 
             // Procesar los productos después de que estén definidos
             products = products.map(p => {
@@ -4216,12 +4461,35 @@
                     }
                 });
             }
+
+
+
+
+            // Lógica para el botón de volver arriba
+            if (scrollToTopBtn) {
+                window.onscroll = function() {
+                    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                        scrollToTopBtn.style.display = "block";
+                    } else {
+                        scrollToTopBtn.style.display = "none";
+                    }
+                };
+
+                scrollToTopBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Desplazamiento suave
+                });
+            }
         });
+
+      
+
+        
     </script>
 </head>
-<body>
-    <!-- Sección de encabezado -->
-    <header class="bg-white shadow-md py-4">
+
+<body class="flex flex-col min-h-screen">
+        <!-- Sección de encabezado -->
+    <header class="bg-white shadow-md py-4 fixed top-0 left-0 right-0 z-50 w-full">
         <!-- Banner promocional superior -->
         <div id="promo-banner" class="bg-primary text-white text-center py-2 text-sm">
             La Naturaleza tiene sus metodos para curarte | Entrega en 24/48 horas | Confianza y pago seguro
@@ -4230,7 +4498,7 @@
             <!-- Logo -->
             <a href="#home" class="flex items-center space-x-2 mr-6" onclick="navigateTo('home', null, event)">
                 <img src="./images/logo.jpg" alt="Logo R&F Productos Integrales" class="rounded-full w-10 h-10 object-contain">
-                <span class="text-2xl font-bold text-primary">R&F Productos Integrales</span>
+                <span class="text-2xl font-bold text-primary">Productos Integrales R&F</span>
             </a>
 
             <!-- Barra de búsqueda -->
@@ -4249,7 +4517,7 @@
                 <!-- Enlace al carrito -->
                 <a href="#cart" id="cart-link" class="relative p-2 text-gray-600 hover:text-primary transition duration-200" onclick="navigateTo('cart', null, event)">
                     <i class="fas fa-shopping-cart text-xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center"></span>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </a>
                 <!-- Menú desplegable de cuenta -->
                 <div class="relative group">
@@ -4331,6 +4599,13 @@
             </p>
         </div>
     </footer>
+
+
+ <!-- Botón flotante para volver arriba -->
+    <button id="scrollToTopBtn" title="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
 
     <!-- Modal de confirmación del carrito -->
     <div id="cart-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
