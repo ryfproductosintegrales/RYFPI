@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/tienda</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/ofertas</loc>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/enfermedades-y-soluciones</loc>
+    <priority>0.84</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/sobre-nosotros</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/blog</loc>
+    <priority>0.68</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/contacto</loc>
+    <priority>0.65</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/metodos-de-pago</loc>
+    <priority>0.60</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/carrito</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/mi-cuenta</loc>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/mis-pedidos</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/mi-informacion</loc>
+    <priority>0.68</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/mis-direcciones</loc>
+    <priority>0.68</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/iniciar-sesion</loc>
+    <priority>0.60</priority>
+  </url>
+
+  <url>
+    <loc>https://ryfproductosintegrales.com/registrarse</loc>
+    <priority>0.60</priority>
+  </url>
+
+</urlset>
+
