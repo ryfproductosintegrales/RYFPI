@@ -4,8 +4,8 @@
     <meta name="google-site-verification" content="GIQXFZFxW4wimdIzD4pRYruuHOIvxn_qMMhk5CeG-vc" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-<title>Productos Integrales R&F | Alimentos Saludables y Naturales</title>
+
+<title>Productos Integrales R&F | Productos y Alimentos Saludables y Naturales</title>
 <meta name="description" content="Descubre Productos Integrales R&F: alimentos saludables, integrales y naturales para mejorar tu bienestar. Compra online con confianza.">
 <meta name="keywords" content="productos integrales, alimentos saludables, tienda natural, comida saludable, bienestar, salud, ryf">
 
@@ -29,7 +29,7 @@
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
 <style>
         /* Custom Font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -87,7 +87,7 @@
             justify-content: center;
             text-align: center;
             color: white;
-            padding: 2rem;
+            padding: 0;
             box-sizing: border-box;
         }
         .carousel-item.active {
@@ -240,7 +240,11 @@
     ],
     "dateAdded": "2025-07-01",
     "salesCount": 0,
-    "isOffer": true
+    "isOffer": true,
+"opinions": [
+            { "id": "rev001", "author": "Ana G.", "rating": 5, "comment": "¡Excelente aceite, me encanta para masajes! Mi piel se siente muy suave.", "date": "2024-01-15" },
+            { "id": "rev002", "author": "Juan P.", "rating": 4, "comment": "Buen producto, aunque el olor es un poco fuerte para mi gusto.", "date": "2024-02-20" }
+        ]
   },
   {
     "id": "p2",
@@ -272,7 +276,8 @@
     ],
     "dateAdded": "2025-07-01",
     "salesCount": 0,
-    "isOffer": true
+    "isOffer": true,
+"opinions": [] // Este producto no tiene opiniones aún
   },
   {
     "id": "p3",
@@ -554,7 +559,7 @@
     "id": "p14",
     "name": "almendras",
     "presentation": "227 grs.",
-    "category": "semillas",
+    "category": "nueces",
     "type": "semillas",
     "price": 300,
     "priceDetail": 300,
@@ -1790,10 +1795,30 @@
     "dateAdded": "2025-07-01",
     "salesCount": 0,
     "isOffer": false
+  },
+{
+    "id": "p79",
+    "name": "Huanarpo Macho",
+    "presentation": "500 mg, 90 caps.",
+    "category": "suplemento nutricional",
+    "type": "capsula",
+    "price": 600,
+    "priceDetail": 600,
+    "priceWholesale": 450,
+    "image": "huanarpomacho.jpg",
+    "description_es": "En la medicina tradicional del Peru, el Huanarpo, es considerado como estimulante sexual, antiasmatico, antidiabetico, antitusivo y antiulceroso. Es ampliamente usado para restaurar la potencia sexual masculina, para la eyaculacion precoz, la disfuncion erectil, como un tonico y estimulante sexual masculino. Tambien es usada en medicina herbaria peruana para el asma, bronquitis, tos y diabetes.",
+    "benefits": "[\"Estimula El Sistema Nervioso: Mejora La Concentración\", \"El Estado De Alerta Y El Rendimiento Mental\", \"Afrodisiaco: Estimulante Sexual Masculino\", \"Mejora El Rendimiento Físico: Disminuye La Fatiga Y Aumenta La Resistencia\", ]",
+    "mode of use": "[\"La dosis diaria recomendada es 1 o 2 capsulas 3 veces al dia. Se puede tomar con agua o zuma de frutas natural. Se recomienda tomarla por las mañanas en ayunas\", ]",
+    "ailments": [\"Impotencia Sexual\", \"Eyaculacion Precoz\", \"Disfuncion Erectil\", \"Asma\", \"Bronquitis\",],
+    "dateAdded": "2025-07-01",
+    "salesCount": 0,
+    "isOffer": true
   }
             // ... Y ASÍ SUCESIVAMENTE CON TODOS TUS PRODUCTOS ...
             // RECUERDA: La última entrada de producto en esta lista NO DEBE TENER UNA COMA AL FINAL
         ];
+
+
 
         // --- Definición de Productos Combinados (Combos) ---
         // ESTOS DATOS NO NECESITAN CAMBIARSE A MENOS QUE MODIFIQUES TUS COMBOS
@@ -1846,8 +1871,14 @@
                 buttonText_es: 'Ver Ofertas',
                 buttonLink: '#offers'
             }
-            
+
         ];
+
+
+// Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
 
         // Datos para Enfermedades y Soluciones
         const diseases = [
@@ -1914,6 +1945,12 @@
                 relatedProducts: ['p30', 'p33', 'p47', 'p68'] // Colageno Hidrolizado, Curcumin, Glucosamina Sulfato, Quercetin & Bromelain
             }
         ];
+
+
+// Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
 
        // NUEVO: Datos para publicaciones del blog
 const blogPosts = [
@@ -2117,6 +2154,18 @@ const blogPosts = [
 
         // --- Funciones de ayuda ---
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... otras llamadas a funciones
+    populateDiseasesDropdown(); // Añade esta línea
+    // ...
+});
+
+
+
+
+
+
         /**
          * Formatea un número como una cadena de moneda de pesos dominicanos (RD$).
          * @param {number} price - El precio a formatear.
@@ -2281,119 +2330,162 @@ const blogPosts = [
          * Renderiza el contenido de la página de inicio, incluyendo el carrusel.
          */
         const renderHome = () => {
-            const lang = translations[currentLanguage];
-            if (!appContent) return;
-            appContent.innerHTML = `
-                <section class="relative h-[250px] md:h-[350px] lg:h-[450px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
-                    <div id="hero-carousel" class="absolute inset-0">
-                        ${carouselImages.map((item, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${item.src}');">
-                                <div class="carousel-content bg-black bg-opacity-40 p-6 rounded-lg mx-4">
-                                    <h1 class="text-3xl md:text-5xl font-extrabold mb-2 animate-fade-in">${item[`title_${currentLanguage}`]}</h1>
-                                    <p class="text-lg md:text-xl mb-6 opacity-90 animate-fade-in-delay">${item[`subtitle_${currentLanguage}`]}</p>
-                                    ${item.buttonLink ? `
-                                    <a href="${item.buttonLink}" onclick="navigateTo('${item.buttonLink.substring(1)}', null, event)" class="bg-white text-primary px-6 py-3 rounded-full text-md md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
-                                        ${item[`buttonText_${currentLanguage}`]}
-                                    </a>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <!-- Controles del carrusel -->
-                    <button class="carousel-control-btn left-4" onclick="changeSlide(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-control-btn right-4" onclick="changeSlide(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <!-- Puntos del carrusel -->
-                    <div class="carousel-dots">
-                        ${carouselImages.map((_, index) => `
-                            <span class="carousel-dot ${index === 0 ? 'active' : ''}" onclick="currentSlide(${index})"></span>
-                        `).join('')}
-                    </div>
-                </section>
-
-                <section class="new-products mb-12">
-                    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.homePageNewProducts}</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        ${products.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)).slice(0, 4).map(p => `
-                            <div class="bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
-                                <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
-                                </a>
-                                <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
-                                <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
-                                <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
-                                <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
-                                    ${lang.addToCart}
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
-                </section>
-
-                <section class="common-diseases mb-12">
-                    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commonDiseases}</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        ${diseases.map(d => `
-                            <a href="#disease-${d.id}" onclick="navigateTo('disease', '${d.id}', event)" class="block bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col items-center justify-center">
-                                <img src="${d.image}" alt="${d[`name_es`]}" onerror="this.onerror=null;this.src='https://placehold.co/300x200/D3D3D3/000000?text=Enfermedad';" class="w-full h-48 object-cover mb-4 rounded-md">
-                                <h3 class="text-2xl font-semibold text-gray-800 mb-2">${d[`name_es`]}</h3>
-                                <p class="text-gray-600">${lang.viewDetails}</p>
-                            </a>
-                        `).join('')}
-                    </div>
-                </section>
-
-                <section id="comments-ratings-section" class="comments-ratings mb-12 bg-gray-100 rounded-lg p-8 shadow-inner">
-                    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commentsRatings}</h2>
-                    <div class="space-y-6">
-                        <!-- Comentario de ejemplo 1 -->
-                        <div class="bg-white p-6 rounded-lg shadow-md">
-                            <div class="flex items-center mb-2">
-                                <div class="text-yellow-500">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="ml-2 text-gray-600 font-semibold">Ana P.</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">"¡Estoy fascinada con los productos de R&F! El aceite de coco es increíble, lo uso para todo. Y la atención al cliente es de primera. ¡Recomendadísimos!"</p>
-                        </div>
-                        <!-- Comentario de ejemplo 2 -->
-                        <div class="bg-white p-6 rounded-lg shadow-md">
-                            <div class="flex items-center mb-2">
-                                <div class="text-yellow-500">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                                </div>
-                                <span class="ml-2 text-gray-600 font-semibold">Carlos R.</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">"Compré la Vitamina C Pura y he sentido una mejora notable en mi energía. La entrega fue rápida y el empaque muy cuidadoso. Gracias por estos productos naturales de calidad."</p>
-                        </div>
-                        <!-- Comentario de ejemplo 3 -->
-                        <div class="bg-white p-6 rounded-lg shadow-md">
-                            <div class="flex items-center mb-2">
-                                <div class="text-yellow-500">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                </div>
-                                <span class="ml-2 text-gray-600 font-semibold">Sofía M.</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">"Excelente servicio y productos! La mascarilla de argán dejó mi cabello increíble. Definitivamente seguiré comprando aquí."</p>
+    const lang = translations[currentLanguage];
+    if (!appContent) return;
+    appContent.innerHTML = `
+        <section id="home" class="relative h-[200px] md:h-[280px] lg:h-[350px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
+            <div id="hero-carousel" class="absolute inset-0">
+                ${carouselImages.map((item, index) => `
+                    <div class="carousel-item ${index === 0 ? 'active' : ''}" style="background-image: url('${item.src}');">
+                        <div class="carousel-content bg-black bg-opacity-40 py-2 px-4 md:p-6 rounded-lg mx-4">
+                            <h1 class="text-2xl md:text-5xl font-extrabold mb-2 animate-fade-in">${item[`title_${currentLanguage}`]}</h1>
+                            <p class="text-base md:text-xl mb-6 opacity-90 animate-fade-in-delay">${item[`subtitle_${currentLanguage}`]}</p>
+                            ${item.buttonLink ? `
+                            <a href="${item.buttonLink}" onclick="navigateTo('${item.buttonLink.substring(1)}', null, event)" class="bg-white text-primary px-6 py-2 rounded-full text-xs md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
+    ${item[`buttonText_${currentLanguage}`]}
+</a>
+                            ` : ''}
                         </div>
                     </div>
-                    <div class="text-center mt-8">
-                        <button onclick="document.getElementById('comments-ratings-section').scrollIntoView({ behavior: 'smooth' });" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-200">Ver Más Comentarios</button>
-                    </div>
-                </section>
+                `).join('')}
+            </div>
+            <button class="carousel-control-btn left-4" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-control-btn right-4" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="carousel-dots">
+                ${carouselImages.map((_, index) => `
+                    <span class="carousel-dot ${index === 0 ? 'active' : ''}" onclick="currentSlide(${index})"></span>
+                `).join('')}
+            </div>
+        </section>
 
-                <section class="about-us-mini bg-gray-100 rounded-lg p-8 text-center shadow-inner">
-                    <h2 class="text-3xl font-bold mb-4 text-primary">${lang.aboutUsPageTitle}</h2>
-                    <p class="text-gray-700 text-lg leading-relaxed">${lang.aboutUsPageContent}</p>
-                    <a href="#about-us" onclick="navigateTo('about-us', null, event)" class="text-primary hover:underline mt-4 inline-block font-semibold">Leer más</a>
-                </section>
-            `;
-            initCarousel(); // Inicializar el carrusel después de renderizar
-        };
+        <section class="new-products mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.homePageNewProducts}</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                ${products.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)).slice(0, 4).map(p => `
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
+                        <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
+                        </a>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                        <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
+                        <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
+                            ${lang.addToCart}
+                        </button>
+                    </div>
+                `).join('')}
+            </div>
+        </section>
+
+        <section class="common-diseases mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commonDiseases}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                ${diseases.map(d => `
+                    <a href="#disease-${d.id}" onclick="navigateTo('disease', '${d.id}', event)" class="block bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col items-center justify-center">
+                        <img src="${d.image}" alt="${d[`name_es`]}" onerror="this.onerror=null;this.src='https://placehold.co/300x200/D3D3D3/000000?text=Enfermedad';" class="w-full h-48 object-cover mb-4 rounded-md">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">${d[`name_es`]}</h3>
+                        <p class="text-gray-600">${lang.viewDetails}</p>
+                    </a>
+                `).join('')}
+            </div>
+        </section>
+
+
+
+        <section id="comments-ratings-section" class="comments-ratings mb-12 bg-gray-100 rounded-lg p-8 shadow-inner">
+  <h2 class="text-3xl font-bold text-center mb-8 text-primary">Lo que opinan nuestros clientes</h2>
+  <div id="contenedorOpiniones" class="space-y-6"></div>
+
+</section>
+
+<!-- Contenedor dinámico de Firestore -->
+<div id="contenedorOpinionesFirestore">
+  <div id="comentariosList"></div>
+<div class="text-center mt-8">
+    <button id="verMasComentarios" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-200">
+      Ver más comentarios
+    </button>
+  </div>
+
+
+  <div id="formOpiniones"></div>
+</div>
+
+
+
+    `; // <--- Esta es la llave de CIERRE de `appContent.innerHTML`
+
+
+
+    initCarousel(); // Inicializar el carrusel después de renderizar
+
+    // === PEGA EL CÓDIGO DE DESPLAZAMIENTO AQUÍ ABAJO, JUSTO ANTES DE LA ÚLTIMA LLAVE ===
+    const homeSection = document.getElementById('home'); // Asegúrate que tu sección principal de inicio tiene id="home"
+    if (homeSection) {
+        setTimeout(() => {
+            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+
+
+
+
+}; // <--- ESTA ES LA ÚLTIMA LLAVE DE CIERRE DE LA FUNCIÓN renderHome
+
+
+
+function cargarComentariosDesdeFirestore() {
+  const contenedor = document.getElementById("contenedorOpiniones");
+  const btnMas = document.getElementById("verMasComentarios");
+
+  const opinionesRef = collection(db, "opiniones");
+  const batchSize = 3;
+  let ultimo = null;
+
+  async function cargarLote() {
+    let q = query(opinionesRef, orderBy("fecha", "desc"), limit(batchSize));
+    if (ultimo) {
+      q = query(opinionesRef, orderBy("fecha", "desc"), startAfter(ultimo), limit(batchSize));
+    }
+
+    const snap = await getDocs(q);
+    snap.forEach(doc => {
+      const d = doc.data();
+      const div = document.createElement("div");
+      div.className = "bg-white p-6 rounded-lg shadow-md";
+      div.innerHTML = `
+        <div class="flex items-center mb-2">
+          <div class="text-yellow-500">${"★".repeat(d.puntuacion || 0)}${"☆".repeat(5 - (d.puntuacion || 0))}</div>
+          <span class="ml-2 text-gray-600 font-semibold">${d.autor || "Anónimo"}</span>
+        </div>
+        <p class="text-gray-700 leading-relaxed">"${d.comentario}"</p>
+      `;
+      contenedor.appendChild(div);
+    });
+
+    if (snap.empty || snap.docs.length < batchSize) {
+      btnMas.style.display = "none";
+    }
+
+    if (!snap.empty) {
+      ultimo = snap.docs[snap.docs.length - 1];
+    }
+  }
+
+  // Primera carga
+  cargarLote();
+  btnMas.addEventListener("click", cargarLote);
+}
+
+
+
+
+
+
 
         let slideIndex = 0;
         let carouselInterval;
@@ -2406,7 +2498,7 @@ const blogPosts = [
             clearInterval(carouselInterval); // Limpiar cualquier intervalo existente
             carouselInterval = setInterval(() => {
                 changeSlide(1);
-            }, 5000); // Cambiar diapositiva cada 5 segundos
+            }, 5000); // Cambiar diapositiva cada 2 segundos
         };
 
         /**
@@ -2535,7 +2627,7 @@ const blogPosts = [
             const benefits = getUniqueBenefits();
 
             appContent.innerHTML = `
-                <div class="flex flex-col lg:flex-row gap-8">
+                <div id="shop" class="flex flex-col lg:flex-row gap-8">
                     <!-- Barra lateral de filtro -->
                     <aside class="lg:w-1/4 bg-white p-6 rounded-lg shadow-md mb-8 lg:mb-0">
                         <h3 class="text-xl font-bold text-primary mb-6">${lang.filterBy}</h3>
@@ -2638,7 +2730,13 @@ const blogPosts = [
             document.getElementById('filter-price-min')?.addEventListener('change', applyFiltersAndSort);
             document.getElementById('filter-price-max')?.addEventListener('change', applyFiltersAndSort);
             document.getElementById('sort-options')?.addEventListener('change', applyFiltersAndSort);
-        };
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+  };
 
 
         /**
@@ -2805,6 +2903,9 @@ const blogPosts = [
                     document.getElementById(`tab-${this.dataset.tab}`).classList.remove('hidden');
                 });
             });
+
+
+
         };
 
         /**
@@ -2817,7 +2918,6 @@ const blogPosts = [
 
             appContent.innerHTML = `
                 <h1 class="text-4xl font-bold text-primary mb-8 text-center">${lang.offers}</h1>
-
                 <section class="offer-products mb-12">
                     <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.homePageNewProducts} en Oferta</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -2856,6 +2956,14 @@ const blogPosts = [
                     </div>
                 </section>
             `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
+
         };
 
 
@@ -2883,7 +2991,7 @@ const blogPosts = [
                                     <th class="py-3 px-6 text-center"></th>
                                 </tr>
                             </thead>
-                            
+
 <tbody class="text-gray-600 text-sm font-light">
     ${cart.map(item => {
         let itemName;
@@ -3087,39 +3195,210 @@ const blogPosts = [
                         ${lang.aboutUsPageContent}
                     </p>
                     <div class="text-center mt-8">
-                        <img src="./images/logo.jpg" 
+                        <img src="./images/logo.jpg"
                     </div>
                 </section>
             `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
         };
 
         /**
          * Renderiza la página "Enfermedades y Soluciones".
          * Esta página ahora lista todas las enfermedades como tarjetas clicables.
          */
-        const renderEnfermedadesSoluciones = () => {
-            const lang = translations[currentLanguage];
-            if (!appContent) return;
-            appContent.innerHTML = `
-                <section class="bg-white rounded-lg shadow-lg p-8 mb-12">
-                    <h1 class="text-4xl font-bold text-primary mb-6 text-center">${lang.diseasesSolutions}</h1>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                        Aquí encontrarás información valiosa sobre enfermedades comunes y cómo nuestros productos naturales pueden ofrecerte soluciones y apoyo para tu bienestar.
-                        Recuerda que esta información es complementaria y no sustituye el consejo médico profesional.
-                    </p>
+        const renderEnfermedadesSoluciones = (targetId = null) => {
+    const lang = translations[currentLanguage];
+    if (!appContent) return;
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        ${diseases.map(d => `
-                            <a href="#disease-${d.id}" onclick="navigateTo('disease', '${d.id}', event)" class="block bg-gray-50 p-6 rounded-lg shadow-md flex flex-col items-center text-center hover-scale">
-                                <img src="${d.image}" alt="${d[`name_es`]}" onerror="this.onerror=null;this.src='https://placehold.co/150x100/D3D3D3/000000?text=Enfermedad';" class="w-36 h-24 object-cover rounded-md mb-4">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${d[`name_es`]}</h3>
-                                <p class="text-gray-600 text-sm">${lang.viewDetails}</p>
-                            </a>
-                        `).join('')}
+    // IMPORTANTE: Asegúrate de que esta sección tenga el ID "enfermedades-soluciones"
+    // y que tenga el contenido HTML de todas las dolencias dentro.
+    // El "hidden" se manejará por la lógica general de renderPage/navigateTo
+    appContent.innerHTML = `
+        <section id="enfermedades-soluciones" class="container mx-auto p-4">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Dolencias mas comunes y Soluciones efectivas</h2>
+
+            <div id="estres-ansiedad" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Estrés y Ansiedad</h3>
+                <p class="text-gray-700 mb-4">El estrés y la ansiedad son respuestas naturales del cuerpo al desafío. Nuestros productos ofrecen apoyo natural para la calma y el equilibrio. Explora opciones para reducir la tensión y fomentar la tranquilidad.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p16')} ${renderProductCard('p63')} ${renderProductCard('p64')} ${renderProductCard('p6')} </div>
+            </div>
+
+            <div id="salud-digestiva" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Digestiva</h3>
+                <p class="text-gray-700 mb-4">Una digestión saludable es fundamental para el bienestar general. Nuestros productos naturales están diseñados para apoyar el equilibrio de tu sistema digestivo. Descubre probióticos, enzimas y más.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p13')} ${renderProductCard('p17')} ${renderProductCard('p8')} </div>
+            </div>
+
+            <div id="salud-articular" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Articular</h3>
+                <p class="text-gray-700 mb-4">Mantén tus articulaciones saludables y flexibles con nuestros productos naturales. Apoya la movilidad y reduce la incomodidad con opciones ricas en colágeno, glucosamina y más.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p33')} ${renderProductCard('p1')} </div>
+            </div>
+
+            <div id="diabetes" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Diabetes</h3>
+                <p class="text-gray-700 mb-4">Ofrecemos productos naturales seleccionados para apoyar la gestión de la diabetes y mantener niveles de azúcar en sangre saludables. Complementa tu dieta con opciones integrales y nutritivas.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p35')} ${renderProductCard('p14')} </div>
+            </div>
+
+            <div id="azucar-alta-baja" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Azúcar Alta/Baja</h3>
+                <p class="text-gray-700 mb-4">Productos diseñados para ayudar a regular los niveles de azúcar en la sangre, tanto en casos de hiperglucemia como hipoglucemia. Apoya un equilibrio energético estable y evita fluctuaciones extremas.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p35')} </div>
+            </div>
+
+            <div id="dolor-cabeza" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Dolor de Cabeza</h3>
+                <p class="text-gray-700 mb-4">Encuentra alivio natural para los dolores de cabeza con nuestra selección de productos. Opciones a base de hierbas y nutrientes que pueden ayudar a reducir la frecuencia e intensidad del malestar.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p64')} </div>
+            </div>
+
+            <div id="caida-pelo" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Caída del Pelo</h3>
+                <p class="text-gray-700 mb-4">Nuestros productos naturales ofrecen soluciones para fortalecer el cabello y reducir su caída, promoviendo un crecimiento saludable desde la raíz.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p2')} ${renderProductCard('p9')} </div>
+            </div>
+
+            <div id="piel-cabello-unas" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Piel, Cabello y Uñas</h3>
+                <p class="text-gray-700 mb-4">Descubre productos que nutren y revitalizan tu piel, fortalecen tu cabello y mejoran la salud de tus uñas desde adentro y hacia afuera.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p1')} ${renderProductCard('p2')} ${renderProductCard('p9')} ${renderProductCard('p3')} </div>
+            </div>
+
+            <div id="salud-femenina" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Femenina</h3>
+                <p class="text-gray-700 mb-4">Productos diseñados para apoyar el equilibrio hormonal y el bienestar integral de la mujer en todas las etapas de la vida.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p18')} ${renderProductCard('p34')} </div>
+            </div>
+
+            <div id="salud-masculina" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Masculina</h3>
+                <p class="text-gray-700 mb-4">Suplementos y productos naturales para mantener la vitalidad masculina, la salud prostática y el rendimiento general.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p72')} </div>
+            </div>
+
+            <div id="salud-osea" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Ósea</h3>
+                <p class="text-gray-700 mb-4">Fortalece tus huesos con nuestra selección de calcio, vitamina D y otros minerales esenciales para mantener una estructura ósea fuerte y sana.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p1')} </div>
+            </div>
+
+            <div id="control-peso" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Control de Peso</h3>
+                <p class="text-gray-700 mb-4">Apoya tus objetivos de control de peso de manera natural con productos que ayudan al metabolismo, la saciedad y la quema de grasas.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p11')} ${renderProductCard('p12')} ${renderProductCard('p3')} </div>
+            </div>
+
+            <div id="desintoxicacion" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Desintoxicación</h3>
+                <p class="text-gray-700 mb-4">Limpia y purifica tu cuerpo con nuestros productos naturales diseñados para apoyar los procesos de desintoxicación del hígado, riñones y colon.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p15')} ${renderProductCard('p13')} </div>
+            </div>
+
+            <div id="sistema-inmune" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Sistema Inmune</h3>
+                <p class="text-gray-700 mb-4">Fortalece tus defensas naturales con una gama de vitaminas, minerales y hierbas que apoyan un sistema inmunológico robusto.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p8')} ${renderProductCard('p65')} </div>
+            </div>
+
+            <div id="salud-cardiovascular" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Salud Cardiovascular</h3>
+                <p class="text-gray-700 mb-4">Cuida tu corazón con productos naturales que apoyan la circulación, regulan el colesterol y mantienen la presión arterial saludable.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p7')} ${renderProductCard('p1')} </div>
+            </div>
+
+            <div id="energia-vitalidad" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Energía y Vitalidad</h3>
+                <p class="text-gray-700 mb-4">Potencia tu energía y mejora tu vitalidad con suplementos y alimentos que combaten la fatiga y promueven el bienestar general.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${renderProductCard('p16')} </div>
+            </div>
+
+            <div id="memoria-concentracion" class="mb-12 p-6 bg-white rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold text-primary mb-4">Memoria y Concentración</h3>
+                <p class="text-gray-700 mb-4">Mejora tu enfoque mental y capacidad de memoria con nutrientes específicos que apoyan la salud cerebral y la función cognitiva.</p>
+                <h4 class="text-xl font-semibold text-gray-800 mb-3">Productos Relacionados:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     </div>
-                </section>
-            `;
-        };
+            </div>
+
+            </section>
+    `;
+
+    // Lógica para hacer scroll a la dolencia específica si se proporciona un targetId
+    if (targetId) {
+        const dolenciaSection = document.getElementById(targetId);
+        if (dolenciaSection) {
+            // Un pequeño retardo para asegurar que el DOM esté completamente renderizado
+            // antes de intentar hacer scroll.
+            setTimeout(() => {
+                dolenciaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }
+};
+
+// Función auxiliar para renderizar una tarjeta de producto dentro de las secciones de dolencias
+// Asume que tienes una función similar para renderizar productos en la página de la tienda
+const renderProductCard = (productId) => {
+    const p = products.find(prod => prod.id === productId);
+    if (!p) return ''; // No renderiza si el producto no se encuentra
+
+    const lang = translations[currentLanguage]; // Asegúrate de que lang esté definido aquí
+    // Puedes ajustar esta plantilla para que coincida con tus tarjetas de producto
+    return `
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
+            <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
+                <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain p-4 rounded-t-lg">
+            </a>
+            <div class="p-4 flex-grow flex flex-col justify-between">
+                <h3 class="text-lg font-semibold text-gray-800 mb-1">${p.name}</h3>
+                <p class="text-gray-600 text-sm mb-2">${p.presentation || ''}</p>
+                <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)}</p>
+                <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200 mt-auto">
+                    ${lang.addToCart}
+                </button>
+            </div>
+        </div>
+    `;
+};
 
         /**
          * Renderiza una página detallada para una enfermedad específica.
@@ -3181,6 +3460,14 @@ const blogPosts = [
                     ` : `<p class="text-center text-gray-600 text-lg mt-8">No hay productos directamente relacionados en este momento.</p>`}
                 </div>
             `;
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
+
+
         };
 
         /**
@@ -3223,6 +3510,13 @@ const blogPosts = [
                     </div>
                 </section>
             `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
         };
 
        /**
@@ -3254,6 +3548,12 @@ const renderBlog = () => {
                 </div>
             </section>
         `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
 };
 
         /**
@@ -3321,6 +3621,13 @@ const renderBlogPost = (blogPostId) => {
             </div>
         </div>
     `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
 };
 
         /**
@@ -3353,6 +3660,12 @@ const renderBlogPost = (blogPostId) => {
                     </div>
                 </section>
             `;
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
+
         };
 
         /**
@@ -3618,6 +3931,12 @@ const renderBlogPost = (blogPostId) => {
                     </div>
                 </div>
             `;
+
+
+ // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
         };
 
 
@@ -3879,7 +4198,7 @@ const updateQuantity = (itemId, change, isCombo = false) => {
          * @param {string} productId - El ID del producto.
          * @param {number} change - La cantidad para cambiar la cantidad (ej., 1 para incrementar, -1 para decrementar).
          */
-        
+
 
 
        /**
@@ -4223,7 +4542,7 @@ cart.forEach(item => {
                     renderAboutUs();
                     break;
                 case 'enfermedades-soluciones':
-                    renderEnfermedadesSoluciones();
+                    renderEnfermedadesSoluciones(param);
                     break;
                 case 'disease':
                     renderDiseaseDetail(param);
@@ -4494,10 +4813,22 @@ cart.forEach(item => {
             }
         });
 
-      
 
-        
+
+
     </script>
+
+<style>
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 200px; /* ¡Hemos aumentado este valor! Puedes probar con 200px también */
+    }
+</style>
+
+
+
+
+
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -4545,35 +4876,55 @@ cart.forEach(item => {
                 </div>
             </div>
             <!-- Información de contacto (oculta en pantallas pequeñas, visible en medianas y grandes) -->
-            <div class="hidden md:flex items-center space-x-2 ml-4">
+            <div class="flex items-center space-x-2 ml-4">
                 <i class="fab fa-whatsapp text-primary text-lg"></i>
                 <a href="https://wa.me/18094254540" target="_blank" class="text-gray-600 text-sm hover:text-primary transition duration-200" data-translate="phoneLabel">Escríbenos: 809-425-4540</a>
             </div>
         </div>
-        <!-- Navegación principal -->
-        <nav class="bg-gray-100 py-3 mt-4 shadow-sm">
-            <div class="container mx-auto px-4">
-                <ul class="flex justify-center space-x-8 text-gray-700 font-medium text-lg flex-wrap">
-                    <li><a href="#home" class="hover:text-primary transition duration-200" onclick="navigateTo('home', null, event)">Inicio</a></li>
-                    <li class="relative group">
-                        <a href="#shop" class="hover:text-primary transition duration-200 inline-flex items-center" onclick="navigateTo('shop', null, event)">
-                            Tienda <i class="fas fa-chevron-down text-xs ml-1"></i>
-                        </a>
-                        <div class="absolute left-0 mt-2 w-60 bg-white rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                            <!-- Categorías pobladas dinámicamente aquí -->
-                        </div>
-                    </li>
-                    <li><a href="#offers" class="hover:text-primary transition duration-200" onclick="navigateTo('offers', null, event)">Ofertas</a></li>
-                    <li><a href="#enfermedades-soluciones" class="hover:text-primary transition duration-200" onclick="navigateTo('enfermedades-soluciones', null, event)">Enfermedades y Soluciones</a></li>
-                </ul>
-            </div>
-        </nav>
+
+<nav class="bg-gray-100 py-3 mt-4 shadow-sm">
+    <div class="container mx-auto px-4">
+        <ul class="flex flex-col items-center space-y-3 md:flex-row md:justify-center md:space-x-8 text-gray-700 font-medium text-lg flex-wrap navbar-ul">
+            <li class="flex items-center justify-center">
+                <a href="#home" class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav" onclick="navigateTo('home', null, event)">Inicio</a>
+            </li>
+            <li class="relative group flex items-center justify-center">
+                <a href="#shop" class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav" onclick="navigateTo('shop', null, event)">Tienda <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+                <div id="shop-dropdown" class="absolute left-0 top-full mt-2 w-60 bg-white rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 max-h-60 overflow-y-auto">
+                    </div>
+            </li>
+            <li class="flex items-center justify-center">
+                <a href="#offers" class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav" onclick="navigateTo('offers', null, event)">Ofertas</a>
+            </li>
+            <li class="relative group flex items-center justify-center">
+                <a href="#enfermedades-soluciones" class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav" onclick="navigateTo('enfermedades-soluciones', null, event)">Enfermedades y Soluciones <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+                <div id="diseases-dropdown" class="absolute left-0 top-full mt-2 w-60 bg-white rounded-md shadow-lg py-1 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 max-h-60 overflow-y-auto">
+                    </div>
+            </li>
+            </ul>
+    </div>
+</nav>
     </header>
 
-    <!-- Área de contenido principal -->
+
+
+
+
+
+   <!-- Área de contenido principal -->
     <main id="app-content" class="flex-grow container mx-auto px-4 py-8">
         <!-- El contenido se cargará dinámicamente aquí mediante JavaScript -->
-    </main>
+
+<!-- Aquí se inyectarán comentarios y formulario, solo en inicio -->
+<div id="contenedorInicio"></div>
+
+
+</main>
+
+
+
+
+
 
     <!-- Sección de pie de página -->
     <footer class="bg-gray-800 text-white py-10 mt-8">
@@ -4614,6 +4965,10 @@ cart.forEach(item => {
     </footer>
 
 
+
+
+
+
  <!-- Botón flotante para volver arriba -->
     <button id="scrollToTopBtn" title="Volver arriba">
         <i class="fas fa-arrow-up"></i>
@@ -4628,5 +4983,173 @@ cart.forEach(item => {
             <button onclick="closeModal()" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-green-700 transition duration-200">Cerrar</button>
         </div>
     </div>
+
+
+<script>
+// ===========================================
+// DATOS PARA DESPLEGABLES (asegúrate de que estén aquí)
+// ===========================================
+
+const diseasesAndSolutions = [
+    { id: 'estres-ansiedad', name_es: 'Estrés y Ansiedad', name_en: 'Stress and Anxiety' },
+    { id: 'salud-digestiva', name_es: 'Salud Digestiva', name_en: 'Digestive Health' },
+    { id: 'salud-articular', name_es: 'Salud Articular', name_en: 'Joint Health' },
+    { id: 'diabetes', name_es: 'Diabetes', name_en: 'Diabetes' },
+    { id: 'azucar-alta-baja', name_es: 'Azúcar Alta/Baja', name_en: 'High/Low Blood Sugar' },
+    { id: 'dolor-cabeza', name_es: 'Dolor de Cabeza', name_en: 'Headache' },
+    { id: 'salud-cardiovascular', name_es: 'Salud Cardiovascular', name_en: 'Cardiovascular Health' },
+    { id: 'energia-vitalidad', name_es: 'Energía y Vitalidad', name_en: 'Energy and Vitality' },
+    { id: 'control-peso', name_es: 'Control de Peso', name_en: 'Weight Management' },
+    { id: 'piel-cabello-unas', name_es: 'Piel, Cabello y Uñas', name_en: 'Skin, Hair & Nails' },
+    { id: 'sistema-inmune', name_es: 'Sistema Inmune', name_en: 'Immune System' },
+];
+
+// Si tienes datos para el desplegable de Tienda (categorías), deberían ir aquí también:
+// const categories = [ ... ]; // Ejemplo
+
+
+// ===========================================
+// FUNCIONES PARA POBLAR DESPLEGABLES (asegúrate de que estén aquí)
+// ===========================================
+
+const populateDiseasesDropdown = () => {
+    const diseasesDropdown = document.getElementById('diseases-dropdown');
+    if (!diseasesDropdown) {
+        console.error("Error: Elemento con ID 'diseases-dropdown' no encontrado. Asegúrate de que el HTML sea correcto.");
+        return;
+    }
+
+    const dropdownContent = diseasesAndSolutions.map(disease => `
+        <a href="#enfermedades-soluciones-${disease.id}"
+           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+           onclick="navigateTo('enfermedades-soluciones', '${disease.id}', event)">
+            ${disease.name_es}
+        </a>
+    `).join('');
+
+    diseasesDropdown.innerHTML = dropdownContent;
+};
+
+// Si tienes una función similar para poblar el desplegable de Tienda, debería estar aquí también:
+// const populateCategoryMenu = () => { ... }; // Ejemplo
+
+
+// ===========================================
+// INICIALIZACIÓN (Asegúrate de que esta sección exista y llame a las funciones)
+// ===========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // LLAMADAS CRÍTICAS PARA POBLAR LOS DESPLEGABLES:
+    populateDiseasesDropdown(); // ESTA LÍNEA DEBE ESTAR AQUÍ
+
+    // Si tienes una función para Tienda, también debería ir aquí:
+    // populateCategoryMenu(); // Ejemplo para Tienda si es dinámica
+
+    // ... cualquier otra función que ya tengas que se ejecute al cargar el DOM (ej. para productos, blog, etc.)
+    // renderProducts();
+    // renderBlog();
+    // setupCartFunctionality();
+});
+
+</script>
+
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import {
+    getFirestore, collection, query,
+    orderBy, limit, getDocs,
+    addDoc, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+  // — Inicializar Firebase —
+  const firebaseConfig = {
+    apiKey: "AIzaSyAtHqNcQ3XkJTSEBbuw_FNPcntHyOns4vw",
+    authDomain: "productos-integrales-ryf.firebaseapp.com",
+    projectId: "productos-integrales-ryf",
+    storageBucket: "productos-integrales-ryf.firebasestorage.app",
+    messagingSenderId: "608589002219",
+    appId: "1:608589002219:web:980c9203d23f1d838255ae"
+  };
+  initializeApp(firebaseConfig);
+  const db = getFirestore();
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("contenedorOpinionesFirestore");
+    if (!container) return; // Sólo en Inicio
+
+    const lista = document.getElementById("comentariosList");
+    const formWrapper = document.getElementById("formOpiniones");
+
+    // 1) Función para cargar comentarios
+    async function loadComments() {
+      lista.innerHTML = ""; // limpia solo la lista
+      const snap = await getDocs(
+        query(collection(db, "opiniones"), orderBy("fecha","desc"), limit(5))
+      );
+      snap.forEach(doc => {
+        const d = doc.data();
+        const div = document.createElement("div");
+        div.className = "mb-4 p-4 bg-white rounded shadow";
+        div.innerHTML = `
+          <p><strong>${d.autor}</strong> (${new Date(d.fecha.seconds*1000).toLocaleString()}):</p>
+          <p>${d.comentario}</p>
+          <p>⭐ ${d.puntuacion}</p>
+        `;
+        lista.appendChild(div);
+      });
+    }
+
+    // 2) Crear e inyectar formulario UNA VEZ
+    if (!formWrapper.innerHTML.trim()) {
+      formWrapper.innerHTML = `
+        <div class="mt-8 p-6 bg-gray-100 rounded shadow">
+          <h3 class="text-xl font-semibold mb-4">¿Quieres dejarnos tu opinión?</h3>
+          <form id="formOpinionFirestore" class="space-y-4">
+            <input name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
+            <textarea name="comentario" placeholder="Tu opinión" required class="w-full p-2 border rounded"></textarea>
+            <select name="puntuacion" required class="w-full p-2 border rounded">
+              <option value="">Puntuación</option>
+              <option value="5">⭐⭐⭐⭐⭐</option>
+              <option value="4">⭐⭐⭐⭐</option>
+              <option value="3">⭐⭐⭐</option>
+              <option value="2">⭐⭐</option>
+              <option value="1">⭐</option>
+            </select>
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
+          </form>
+        </div>
+      `;
+
+      // 3) Listener del formulario
+      document.getElementById("formOpinionFirestore")
+        .addEventListener("submit", async e => {
+          e.preventDefault();
+          const f = e.target;
+          const autor = f.nombre.value.trim();
+          const comentario = f.comentario.value.trim();
+          const puntuacion = parseInt(f.puntuacion.value, 10);
+          if (!autor || !comentario || !puntuacion) {
+            return alert("Completa todos los campos.");
+          }
+          await addDoc(collection(db, "opiniones"), {
+            autor, comentario, puntuacion, fecha: serverTimestamp()
+          });
+          f.reset();
+          await loadComments();
+        });
+    }
+
+    // 5) Carga inicial de comentarios
+    await loadComments();
+  });
+</script>
+
+
+
+
+
+
 </body>
 </html>
