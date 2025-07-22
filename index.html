@@ -2722,7 +2722,7 @@ function cargarComentariosDesdeFirestore() {
                                         </a>
                                         <div class="p-4 flex-grow flex flex-col justify-between">
                                             <h3 class="text-lg font-semibold text-gray-800 mb-1">${p.name}</h3>
-                                            <p class="text-gray-600 text-sm mb-2">${p.brand || 'Marca Desconocida'}</p>
+                                            <p class="text-gray-600 text-sm mb-2">${p.brand || 'Productos Integrales R&F'}</p>
                                             <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)} ${p.priceWholesale ? `<span class="text-sm text-gray-500">(RD$${p.priceWholesale.toFixed(2)} Mayor)</span>` : ''}</p>
                                             <div class="flex items-center justify-center space-x-2 mt-2">
                                                 <button onclick="updateQuantity('${p.id}', -1, false)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
@@ -2827,7 +2827,7 @@ function cargarComentariosDesdeFirestore() {
                     </div>
                     <div class="lg:w-1/2">
                         <h1 class="text-4xl font-bold text-primary mb-2">${product.name}</h1>
-                        <p class="text-xl text-gray-700 mb-4">${product.brand || 'Marca Desconocida'}</p>
+                        <p class="text-xl text-gray-700 mb-4">${product.brand || 'Productos Integrales R&F'}</p>
                         <p class="text-5xl font-extrabold text-green-600 mb-6">${formatPrice(product.priceDetail)} ${product.priceWholesale ? `<span class="text-sm text-gray-500">(RD$${product.priceWholesale.toFixed(2)} Mayor)</span>` : ''}</p>
 
                         <div class="flex items-center justify-start space-x-2 mb-4">
@@ -3472,7 +3472,7 @@ const renderProductCard = (productId) => {
                                         <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                                     </a>
                                     <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
-                                    <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                                    <p class="text-gray-600 text-sm mb-4">${p.brand || 'Productos Integrales R&F'}</p>
                                     <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
                                     <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
                                         ${lang.addToCart}
