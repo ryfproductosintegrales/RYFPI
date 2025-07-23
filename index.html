@@ -636,7 +636,7 @@
     "type": "jarabe",
     "price": 500,
     "priceDetail": 500,
-    "priceWholesale": 400,
+    "priceWholesale": 375,
     "image": "ayurcolon.jpg",
     "description_es": "Suplemento natural formulado para apoyar la salud del colon y la digestión. Ayuda a mantener la regularidad de las evacuaciones.   Mezcla de hierbas ayurvédicas que promueven la limpieza intestinal.",
     "benefits": [
@@ -2423,9 +2423,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <section id="comments-ratings-section" class="comments-ratings mb-12 bg-gray-100 rounded-lg p-8 shadow-inner">
   <h2 class="text-3xl font-bold text-center mb-8 text-primary">Lo que opinan nuestros clientes</h2>
   <div id="contenedorOpiniones" class="space-y-6"></div>
-
 </section>
-
 <!-- Contenedor dinámico de Firestore -->
 <div id="contenedorOpinionesFirestore">
   <div id="comentariosList"></div>
@@ -2434,18 +2432,71 @@ document.addEventListener('DOMContentLoaded', () => {
       Ver más comentarios
     </button>
   </div>
-
-
-  <div id="formOpiniones"></div>
-</div>
-
-
-
-    `; // <--- Esta es la llave de CIERRE de `appContent.innerHTML`
-
-
+  <div id="formOpiniones" class="mt-8 p-6 bg-white rounded-lg shadow">
+                <h3 class="text-2xl font-bold text-center mb-6 text-primary">Deja tu opinión</h3>
+                <form id="formOpinionFirestore" class="space-y-4">
+                    <input type="text" name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
+                    <textarea name="comentario" placeholder="Tu opinión" required class="w-full p-2 border rounded"></textarea>
+                    <select name="puntuacion" required class="w-full p-2 border rounded">
+                        <option value="">Puntuación</option>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                    </select>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
+                </form>
+            </div>
+      </div>
+      `;
+   
 
     initCarousel(); // Inicializar el carrusel después de renderizar
+
+// Después de renderizar el HTML, obtenemos las referencias a los nuevos elementos
+    // Es CRUCIAL obtener estas referencias *después* de que el HTML haya sido insertado.
+    const opinionesListHome = document.getElementById("contenedorOpiniones");
+    const verMasComentariosBtn = document.getElementById("verMasComentarios");
+    const formOpinionFirestore = document.getElementById("formOpinionFirestore");
+
+    // Reiniciar lastVisible para asegurar que siempre cargamos desde el principio en cada renderizado de Home
+    // Esto evita que la paginación de comentarios se "quede" en un estado anterior.
+    lastVisible = null;
+    cargarComentariosDesdeFirestore(opinionesListHome, verMasComentariosBtn);
+
+    // Listener para el botón "Ver más comentarios"
+    if (verMasComentariosBtn) {
+        verMasComentariosBtn.onclick = () => { // Usamos onclick para evitar múltiples listeners
+            cargarComentariosDesdeFirestore(opinionesListHome, verMasComentariosBtn);
+        };
+    }
+
+    // Listener para el formulario de opinión global
+    if (formOpinionFirestore) {
+        formOpinionFirestore.onsubmit = async (e) => { // Usamos onsubmit para evitar múltiples listeners
+            e.preventDefault();
+            const f = e.target;
+            const autor = f.nombre.value.trim();
+            const comentario = f.comentario.value.trim();
+            const puntuacion = parseInt(f.puntuacion.value, 10);
+
+            if (!autor || !comentario || !puntuacion) {
+                return alert("Completa todos los campos.");
+            }
+
+            await addDoc(collection(db, "opiniones"), {
+                autor, comentario, puntuacion, fecha: serverTimestamp()
+            });
+            f.reset();
+            // Al enviar un nuevo comentario, reiniciamos la lista y la recargamos.
+            // Esto asegura que el nuevo comentario aparezca y la paginación funcione correctamente.
+            lastVisible = null; // Para que se carguen desde el principio
+            opinionesListHome.innerHTML = ''; // Limpiar comentarios existentes para evitar duplicados
+            cargarComentariosDesdeFirestore(opinionesListHome, verMasComentariosBtn);
+        };
+    }
+
 
     // === PEGA EL CÓDIGO DE DESPLAZAMIENTO AQUÍ ABAJO, JUSTO ANTES DE LA ÚLTIMA LLAVE ===
     const homeSection = document.getElementById('home'); // Asegúrate que tu sección principal de inicio tiene id="home"
@@ -3385,6 +3436,11 @@ function cargarComentariosDesdeFirestore() {
 
             </section>
     `;
+
+// Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+
+
 
     // Lógica para hacer scroll a la dolencia específica si se proporciona un targetId
     if (targetId) {
@@ -4708,8 +4764,6 @@ cart.forEach(item => {
 
 
 
-
-
             // Procesar los productos después de que estén definidos
             products = products.map(p => {
                 // Asegurar que la ruta de la imagen sea relativa
@@ -4836,6 +4890,7 @@ cart.forEach(item => {
                 });
             }
         });
+
 
 
 
