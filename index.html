@@ -5152,6 +5152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     appId: "1:608589002219:web:980c9203d23f1d838255ae"
   };
   initializeApp(firebaseConfig);
+  const auth = getAuth();
   const db = getFirestore();
 
   window.addEventListener("DOMContentLoaded", async () => {
@@ -5223,6 +5224,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5) Carga inicial de comentarios
     await loadComments();
   });
+
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+
+
+
 </script>
 
 </body>
