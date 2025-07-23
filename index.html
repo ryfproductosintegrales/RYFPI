@@ -2395,7 +2395,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                         </a>
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
-                        <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                        <p class="text-gray-600 text-sm mb-4">${p.brand || 'Productos Integrales R&F'}</p>
                         <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
                         <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
                             ${lang.addToCart}
@@ -2951,7 +2951,7 @@ function cargarComentariosDesdeFirestore() {
                                     <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                                 </a>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
-                                <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                                <p class="text-gray-600 text-sm mb-4">${p.brand || 'Productos Integrales R&F'}</p>
                                 <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)} ${p.priceWholesale ? `<span class="text-sm text-gray-500 line-through">${formatPrice(p.priceDetail * 1.2)}</span>` : ''}</p>
                                 <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
                                     ${lang.addToCart}
@@ -3629,7 +3629,7 @@ const renderBlogPost = (blogPostId) => {
                                 <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                             </a>
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">${p.name}</h3>
-                            <p class="text-gray-600 text-sm mb-4">${p.brand || 'Marca Desconocida'}</p>
+                            <p class="text-gray-600 text-sm mb-4">${p.brand || 'Productos Integrales R&F'}</p>
                             <p class="text-xl font-bold text-primary mb-4">${formatPrice(p.priceDetail)}</p>
                             <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200">
                                 ${lang.addToCart}
@@ -3944,7 +3944,7 @@ const renderBlogPost = (blogPostId) => {
                                         <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-32 object-contain mb-4 mx-auto rounded-md">
                                     </a>
                                     <h3 class="text-lg font-semibold text-gray-800 mb-1">${p.name}</h3>
-                                    <p class="text-gray-600 text-sm mb-2">${p.brand || 'Marca Desconocida'}</p>
+                                    <p class="text-gray-600 text-sm mb-2">${p.brand || 'Productos Integrales R&F'}</p>
                                     <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)}</p>
                                     <button onclick="navigateTo('product', '${p.id}', event)" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-200 text-sm">
                                         ${lang.goToProduct}
