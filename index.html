@@ -2527,7 +2527,7 @@
         (p) => `
         <div class="bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col justify-between">
           <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
-            <img src="./images/${p.image}" alt="${p.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
+            <img src="./images/${p.image}"  alt="${p.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
             <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
           </a>
           <p class="text-primary font-bold">RD$${p.price}</p>
@@ -6397,6 +6397,7 @@ const addCustomItemToCart = (item) => {
     </script>
   </body>
 </html>
+
 
 
 
