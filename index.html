@@ -2796,17 +2796,22 @@
         let filteredProducts = [...products];
 
         // Aplicar primero el filtro de consulta de búsqueda
-        if (searchInput && searchInput.value) {
-          const query = searchInput.value.toLowerCase();
-          filteredProducts = filteredProducts.filter(
-            (p) =>
-              p.name.toLowerCase().includes(query) ||
-              p[`description_es`].toLowerCase().includes(query) ||
-              (p.brand && p.brand.toLowerCase().includes(query)) || // Check for brand existence
-              p.category.toLowerCase().includes(query) ||
-              (p.type && p.type.toLowerCase().includes(query)) // Check for type existence
-          );
-        }
+        const rawQuery =
+  (filter && typeof filter.searchQuery === "string" && filter.searchQuery) ||
+  (searchInput && searchInput.value) ||
+  "";
+const query = rawQuery.toLowerCase().trim();
+
+if (query) {
+  filteredProducts = filteredProducts.filter((p) =>
+    (p.name && p.name.toLowerCase().includes(query)) ||
+    (p.description_es && p.description_es.toLowerCase().includes(query)) ||
+    (p.brand && p.brand.toLowerCase().includes(query)) ||
+    (p.category && p.category.toLowerCase().includes(query)) ||
+    (p.type && p.type.toLowerCase().includes(query))
+  );
+}
+
 
         // Aplicar otros filtros
         if (filter.category) {
@@ -3411,7 +3416,7 @@
                                 }" onclick="navigateTo('product', '${
                               p.id
                             }', event)">
-                                    <img src="./images/${p.image}" alt="${
+                                    <img src="${p.image}" alt="${
                               p.name
                             }" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain mb-4 mx-auto rounded-md">
                                 </a>
@@ -6412,6 +6417,3 @@ const addCustomItemToCart = (item) => {
     </script>
   </body>
 </html>
-
-
-
