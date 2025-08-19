@@ -1,4 +1,384 @@
-<!DOCTYPE html>
+
+<!-- DESPLEGABLE ENFERMEDADES Y SOLUCIONES EN EL MENÚ DE NAVEGACIÓN -->
+<!-- El filtrado y orden de la página TIENDA ha sido eliminado. Solo queda el buscador interno y la cuadrícula de productos. -->
+<style>
+  .nav-dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 220px;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    z-index: 20;
+    display: none;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .nav-dropdown.show {
+    display: block;
+  }
+  .nav-arrow {
+    margin-left: 6px;
+    font-size: 0.8em;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .navbar-ul > li.enfermedades-group:hover .nav-dropdown {
+    display: block;
+  }
+  .navbar-ul > li.enfermedades-group:hover .nav-arrow {
+    transform: rotate(180deg);
+  }
+  /* Estilos para el menú móvil: mostrar flecha y dropdown */
+  #mobile-menu .dropdown-arrow {
+    margin-left: 6px;
+    font-size: 0.9em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  #mobile-menu .dropdown-list {
+    display: none;
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    margin-top: 4px;
+    padding: 4px 0;
+    position: static;
+    z-index: 10;
+    max-height: 220px;
+    overflow-y: auto;
+    }
+    #mobile-menu .dropdown-list.show {
+    display: block;
+    }
+    #mobile-menu .dropdown-search {
+    padding: 6px 12px;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // DESKTOP: Enfermedades y Soluciones
+    const navLinks = document.querySelectorAll('nav .navbar-ul > li > a');
+    let enfermedadesLink = null;
+    navLinks.forEach(a => {
+      if (a.textContent.trim().toLowerCase().includes('enfermedades')) {
+      enfermedadesLink = a;
+      }
+    });
+
+    if (enfermedadesLink) {
+      // Crear flecha abajo
+      let arrow = document.createElement('span');
+      arrow.className = 'nav-arrow';
+      arrow.innerHTML = '▼';
+      enfermedadesLink.appendChild(arrow);
+
+      // Crear el contenedor del dropdown si no existe
+      let dropdown = document.createElement('div');
+      dropdown.className = 'nav-dropdown';
+      dropdown.id = 'diseases-dropdown-nav';
+
+      // Rellenar el dropdown con las dolencias
+      if (typeof diseasesAndSolutions !== "undefined") {
+      dropdown.innerHTML = diseasesAndSolutions.map(d =>
+        `<a href="#enfermedades-soluciones-${d.id}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        onclick="navigateTo('enfermedades-soluciones', '${d.id}', event);">
+        ${d.name_es}
+        </a>`
+      ).join('');
+      }
+
+      // Agrupar para hover
+      enfermedadesLink.parentElement.classList.add("enfermedades-group");
+      enfermedadesLink.parentElement.style.position = "relative";
+      enfermedadesLink.parentElement.appendChild(dropdown);
+
+      // Al hacer clic, redirige normalmente
+      enfermedadesLink.addEventListener('click', function(e) {
+      navigateTo('enfermedades-soluciones', null, e);
+      });
+    }
+
+    // MOBILE: Añadir desplegable para Enfermedades y Soluciones
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (mobileMenu) {
+      // Buscar el enlace de Enfermedades y Soluciones en el menú móvil
+      const mobileLinks = mobileMenu.querySelectorAll("ul li a");
+      mobileLinks.forEach(link => {
+      if (link.textContent.trim().toLowerCase().includes("enfermedades")) {
+        // Añadir flecha
+        const arrow = document.createElement("span");
+        arrow.className = "dropdown-arrow";
+        arrow.innerHTML = "▼";
+        link.appendChild(arrow);
+
+        // Crear dropdown
+        const dropdown = document.createElement("div");
+        dropdown.className = "dropdown-list";
+        dropdown.id = "mobile-diseases-dropdown";
+
+        // Añadir buscador arriba del dropdown
+        const searchDiv = document.createElement("div");
+        searchDiv.className = "dropdown-search";
+        searchDiv.innerHTML = `<input type="text" placeholder="Buscar..." class="w-full px-2 py-1 border rounded text-sm" id="mobile-diseases-search">`;
+        dropdown.appendChild(searchDiv);
+
+        // Lista de dolencias
+        const listDiv = document.createElement("div");
+        listDiv.id = "mobile-diseases-list";
+        if (typeof diseasesAndSolutions !== "undefined") {
+        listDiv.innerHTML = diseasesAndSolutions.map(d =>
+          `<a href="#enfermedades-soluciones-${d.id}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          onclick="closeMobileDropdown(this); navigateTo('enfermedades-soluciones', '${d.id}', event);">
+          ${d.name_es}
+          </a>`
+        ).join('');
+        }
+        dropdown.appendChild(listDiv);
+        link.parentElement.appendChild(dropdown);
+
+        // Mostrar/ocultar al hacer clic SOLO en la flecha
+        arrow.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdown.classList.toggle("show");
+        arrow.style.transform = dropdown.classList.contains("show") ? "rotate(180deg)" : "";
+        // Focus en el buscador si se abre
+        if (dropdown.classList.contains("show")) {
+          setTimeout(() => {
+          const input = dropdown.querySelector("#mobile-diseases-search");
+          if (input) input.focus();
+          }, 100);
+        }
+        });
+
+        // Si el usuario hace clic en el texto, ir a la página principal
+        link.addEventListener("click", function(e) {
+        if (e.target === arrow) return;
+        e.preventDefault();
+        closeMobileDropdown(dropdown);
+        navigateTo('enfermedades-soluciones', null, e);
+        });
+
+        // Filtro de búsqueda en el desplegable
+        searchDiv.querySelector("input").addEventListener("input", function() {
+        const val = this.value.toLowerCase();
+        Array.from(listDiv.querySelectorAll("a")).forEach(a => {
+          a.style.display = a.textContent.toLowerCase().includes(val) ? "" : "none";
+        });
+        });
+      }
+      });
+
+      // MOBILE: Añadir desplegable para Tienda (categorías)
+      const tiendaLink = Array.from(mobileLinks).find(link =>
+      link.textContent.trim().toLowerCase().includes("tienda")
+      );
+      if (tiendaLink && typeof getUniqueCategories === "function") {
+      // Añadir flecha
+      const arrow = document.createElement("span");
+      arrow.className = "dropdown-arrow";
+      arrow.innerHTML = "▼";
+      tiendaLink.appendChild(arrow);
+
+      // Crear dropdown
+      const dropdown = document.createElement("div");
+      dropdown.className = "dropdown-list";
+      dropdown.id = "mobile-shop-dropdown";
+
+      // Buscador arriba
+      const searchDiv = document.createElement("div");
+      searchDiv.className = "dropdown-search";
+      searchDiv.innerHTML = `<input type="text" placeholder="Buscar categoría..." class="w-full px-2 py-1 border rounded text-sm" id="mobile-shop-search">`;
+      dropdown.appendChild(searchDiv);
+
+      // Lista de categorías
+      const listDiv = document.createElement("div");
+      listDiv.id = "mobile-shop-list";
+      const categories = getUniqueCategories();
+      listDiv.innerHTML = categories.map(cat =>
+        `<a href="#shop" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        onclick="closeMobileDropdown(this); navigateTo('shop', null, event); setTimeout(function(){ applyFiltersAndSort({ category: '${cat}' }); }, 0);">
+        ${cat}
+        </a>`
+      ).join('');
+      dropdown.appendChild(listDiv);
+      tiendaLink.parentElement.appendChild(dropdown);
+
+      // Mostrar/ocultar al hacer clic SOLO en la flecha
+      arrow.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdown.classList.toggle("show");
+        arrow.style.transform = dropdown.classList.contains("show") ? "rotate(180deg)" : "";
+        if (dropdown.classList.contains("show")) {
+        setTimeout(() => {
+          const input = dropdown.querySelector("#mobile-shop-search");
+          if (input) input.focus();
+        }, 100);
+        }
+      });
+
+      // Si el usuario hace clic en el texto, ir a la página principal de tienda
+      tiendaLink.addEventListener("click", function(e) {
+        if (e.target === arrow) return;
+        e.preventDefault();
+        closeMobileDropdown(dropdown);
+        navigateTo('shop', null, e);
+      });
+
+      // Filtro de búsqueda en el desplegable
+      searchDiv.querySelector("input").addEventListener("input", function() {
+        const val = this.value.toLowerCase();
+        Array.from(listDiv.querySelectorAll("a")).forEach(a => {
+        a.style.display = a.textContent.toLowerCase().includes(val) ? "" : "none";
+        });
+      });
+      }
+
+      // Cerrar dropdown al navegar
+      window.closeMobileDropdown = function(el) {
+      // El parámetro puede ser el <a> o el dropdown
+      let dropdown = el;
+      if (dropdown && !dropdown.classList.contains("dropdown-list")) {
+        dropdown = dropdown.closest(".dropdown-list");
+      }
+      if (dropdown) {
+        dropdown.classList.remove("show");
+        const arrow = dropdown.parentElement.querySelector(".dropdown-arrow");
+        if (arrow) arrow.style.transform = "";
+      }
+      };
+
+      // Cerrar todos los dropdowns al hacer clic fuera
+      document.addEventListener("click", function(e) {
+      if (!mobileMenu.contains(e.target)) {
+        Array.from(mobileMenu.querySelectorAll(".dropdown-list.show")).forEach(d => {
+        d.classList.remove("show");
+        const arrow = d.parentElement.querySelector(".dropdown-arrow");
+        if (arrow) arrow.style.transform = "";
+        });
+      }
+      });
+    }
+    });
+
+    // ======= MODIFICACIÓN DE LA PÁGINA DE TIENDA =======
+    // Sobrescribe la función renderShop para mostrar solo el buscador interno y la cuadrícula de productos
+    window.renderShop = function(filter = {}, sort = "relevance") {
+    const lang = translations[currentLanguage];
+    if (!appContent) return;
+    let filteredProducts = [...products];
+
+    // Buscador interno (similar al general)
+    const rawQuery =
+      (filter && typeof filter.searchQuery === "string" && filter.searchQuery) ||
+      (searchInput && searchInput.value) ||
+      "";
+    const query = rawQuery.toLowerCase().trim();
+
+    if (query) {
+      filteredProducts = filteredProducts.filter((p) =>
+      (p.name && p.name.toLowerCase().includes(query)) ||
+      (p.description_es && p.description_es.toLowerCase().includes(query)) ||
+      (p.brand && p.brand.toLowerCase().includes(query)) ||
+      (p.category && p.category.toLowerCase().includes(query)) ||
+      (p.type && p.type.toLowerCase().includes(query))
+      );
+    }
+
+    appContent.innerHTML = `
+      <div id="shop" class="flex flex-col gap-8">
+      <!-- Buscador interno de tienda -->
+      <div class="w-full max-w-xl mx-auto mb-8">
+        <div class="relative flex items-center w-full">
+        <input
+          type="text"
+          id="shop-search-input"
+          placeholder="${lang.searchPlaceholder}"
+          class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+          value="${query}"
+        />
+        <button
+          id="shop-search-button"
+          class="absolute right-0 top-0 mt-0.5 mr-1.5 flex items-center justify-center p-2 rounded-full bg-primary text-white hover:bg-green-700 transition duration-200"
+        >
+          <i class="fas fa-search"></i>
+        </button>
+        </div>
+      </div>
+      <!-- Cuadrícula de productos -->
+      <section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        ${
+          filteredProducts.length > 0
+          ? filteredProducts
+            .map(
+              (p) => `
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover-scale flex flex-col">
+              <a href="#product-${p.id}" onclick="navigateTo('product', '${p.id}', event)">
+              <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='https://placehold.co/400x400/D3D3D3/000000?text=Imagen+No+Disp';" class="w-full h-48 object-contain p-4 rounded-t-lg">
+              </a>
+              <div class="p-4 flex-grow flex flex-col justify-between">
+              <h3 class="text-lg font-semibold text-gray-800 mb-1">${p.name}</h3>
+              <p class="text-gray-600 text-sm mb-2">${p.brand || "Productos Integrales R&F"}</p>
+              <p class="text-xl font-bold text-primary mb-3">${formatPrice(p.priceDetail)} ${
+                p.priceWholesale
+                ? `<span class="text-sm text-gray-500">(RD$${p.priceWholesale.toFixed(2)} Mayor)</span>`
+                : ""
+              }</p>
+              <div class="flex items-center justify-center space-x-2 mt-2">
+                <button onclick="updateQuantity('${p.id}', -1, false)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">-</button>
+                <input type="number" min="0" value="${
+                cart.find((item) => item.productId === p.id && !item.isCombo)?.quantity || 0
+                }"
+                data-product-id="${p.id}"
+                onchange="updateProductQuantityInCartFromInput(this, '${p.id}', false)"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                class="w-16 text-center border border-gray-300 rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-primary">
+                <button onclick="updateQuantity('${p.id}', 1, false)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition duration-200">+</button>
+              </div>
+              <button onclick="addToCart('${p.id}')" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-green-700 transition duration-200 mt-4">
+                ${lang.addToCart}
+              </button>
+              </div>
+            </div>
+            `
+            )
+            .join("")
+          : `<p class="col-span-full text-center text-gray-600 text-lg">No se encontraron productos con la búsqueda seleccionada.</p>`
+        }
+        </div>
+      </section>
+      </div>
+    `;
+
+    // Buscador funcional interno
+    const shopSearchInput = document.getElementById("shop-search-input");
+    const shopSearchButton = document.getElementById("shop-search-button");
+    if (shopSearchButton && shopSearchInput) {
+      shopSearchButton.addEventListener("click", (event) => {
+      const searchQuery = shopSearchInput.value;
+      navigateTo("shop", null, event);
+      setTimeout(
+        () => window.renderShop({ searchQuery: searchQuery }),
+        0
+      );
+      });
+      shopSearchInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        shopSearchButton.click();
+      }
+      });
+    }
+
+    // Add this line to scroll to the top of the page AFTER the content is rendered
+    window.scrollTo(0, 0);
+    };
+  </script>
 <html lang="es">
   <head>
     <meta
@@ -3082,148 +3462,90 @@ if (query) {
 
         // Obtener opciones de filtro únicas para los desplegables
         const categories = getUniqueCategories();
+        // --- NUEVO: Filtrado en tiempo real al escribir en el buscador interno ---
+        setTimeout(() => {
+          const shopSearchInput = document.getElementById("shop-search-input");
+          const shopSearchButton = document.getElementById("shop-search-button");
+          let debounceTimeout;
+          if (shopSearchInput && shopSearchButton) {
+            // Al escribir, filtra en tiempo real con debounce para evitar bloqueo
+            shopSearchInput.addEventListener("input", () => {
+              clearTimeout(debounceTimeout);
+              debounceTimeout = setTimeout(() => {
+                const searchQuery = shopSearchInput.value;
+                renderShop({ searchQuery: searchQuery });
+                // Restaurar el foco y el valor después de renderizar
+                setTimeout(() => {
+                  const newInput = document.getElementById("shop-search-input");
+                  if (newInput) {
+                    newInput.value = searchQuery;
+                    newInput.focus();
+                    newInput.setSelectionRange(searchQuery.length, searchQuery.length);
+                  }
+                }, 0);
+              }, 200);
+            });
+            // Al hacer clic en la lupa
+            shopSearchButton.addEventListener("click", (event) => {
+              const searchQuery = shopSearchInput.value;
+              renderShop({ searchQuery: searchQuery });
+              setTimeout(() => {
+                const newInput = document.getElementById("shop-search-input");
+                if (newInput) {
+                  newInput.value = searchQuery;
+                  newInput.focus();
+                  newInput.setSelectionRange(searchQuery.length, searchQuery.length);
+                }
+              }, 0);
+            });
+            // Al presionar Enter
+            shopSearchInput.addEventListener("keypress", (e) => {
+              if (e.key === "Enter") {
+                const searchQuery = shopSearchInput.value;
+                renderShop({ searchQuery: searchQuery });
+                setTimeout(() => {
+                  const newInput = document.getElementById("shop-search-input");
+                  if (newInput) {
+                    newInput.value = searchQuery;
+                    newInput.focus();
+                    newInput.setSelectionRange(searchQuery.length, searchQuery.length);
+                  }
+                }, 0);
+              }
+            });
+          }
+        }, 0);
+
         const brands = getUniqueBrands();
         const certifications = getUniqueCertifications();
         const benefits = getUniqueBenefits();
 
         appContent.innerHTML = `
-                <div id="shop" class="flex flex-col lg:flex-row gap-8">
-                    <!-- Barra lateral de filtro -->
-                    <aside class="lg:w-1/4 bg-white p-6 rounded-lg shadow-md mb-8 lg:mb-0">
-                        <h3 class="text-xl font-bold text-primary mb-6">${
-                          lang.filterBy
-                        }</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label for="filter-brand" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.brand
-                                }</label>
-                                <select id="filter-brand" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                                    <option value="">${lang.all}</option>
-                                    ${brands
-                                      .map(
-                                        (b) =>
-                                          `<option value="${b}" ${
-                                            filter.brand === b ? "selected" : ""
-                                          }>${b}</option>`
-                                      )
-                                      .join("")}
-                                </select>
-                            </div>
-                            <div>
-                                <label for="filter-category" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.productType
-                                }</label>
-                                <select id="filter-category" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                                    <option value="">${lang.all}</option>
-                                    ${categories
-                                      .map(
-                                        (c) =>
-                                          `<option value="${c}" ${
-                                            filter.category === c
-                                              ? "selected"
-                                              : ""
-                                          }>${c}</option>`
-                                      )
-                                      .join("")}
-                                </select>
-                            </div>
-                            <div>
-                                <label for="filter-benefit" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.healthBenefit
-                                }</label>
-                                <select id="filter-benefit" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                                    <option value="">${lang.all}</option>
-                                    ${benefits
-                                      .map(
-                                        (b) =>
-                                          `<option value="${b}" ${
-                                            filter.benefit === b
-                                              ? "selected"
-                                              : ""
-                                          }>${b}</option>`
-                                      )
-                                      .join("")}
-                                </select>
-                            </div>
-                            <div>
-                                <label for="filter-certification" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.certifications
-                                }</label>
-                                <select id="filter-certification" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                                    <option value="">${lang.all}</option>
-                                    ${certifications
-                                      .map(
-                                        (c) =>
-                                          `<option value="${c}" ${
-                                            filter.certification === c
-                                              ? "selected"
-                                              : ""
-                                          }>${c}</option>`
-                                      )
-                                      .join("")}
-                                    </select>
-                            </div>
-                            <!-- Filtro de precio -->
-                            <div>
-                                <label for="filter-price-min" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.price
-                                } (Min)</label>
-                                <input type="number" id="filter-price-min" placeholder="0" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" value="${
-                                  filter.minPrice !== undefined
-                                    ? filter.minPrice
-                                    : ""
-                                }">
-                            </div>
-                            <div>
-                                <label for="filter-price-max" class="block text-gray-700 font-semibold mb-2">${
-                                  lang.price
-                                } (Max)</label>
-                                <input type="number" id="filter-price-max" placeholder="10000" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary" value="${
-                                  filter.maxPrice !== undefined
-                                    ? filter.maxPrice
-                                    : ""
-                                }">
-                            </div>
-                            <button onclick="applyFiltersAndSort()" class="w-full bg-primary text-white py-2 rounded-md hover:bg-green-700 transition duration-200">${
-                              lang.applyFilters
-                            }</button>
-                        </div>
-                    </aside>
-
+                
                     <!-- Cuadrícula de productos -->
                     <section class="lg:w-3/4">
                         <div class="flex justify-between items-center mb-6 flex-wrap">
+                            <div class="w-full max-w-xl mx-auto mb-8">
+                              <div class="relative flex items-center w-full">
+                                <input
+                                  type="text"
+                                  id="shop-search-input"
+                                  placeholder="${lang.searchPlaceholder}"
+                                  class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+                                  value="${query}"
+                                />
+                                <button
+                                  id="shop-search-button"
+                                  class="absolute right-0 top-0 mt-0.5 mr-1.5 flex items-center justify-center p-2 rounded-full bg-primary text-white hover:bg-green-700 transition duration-200"
+                                >
+                                  <i class="fas fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
                             <h2 class="text-3xl font-bold text-primary">${
                               lang.shop
                             }</h2>
-                            <div class="flex items-center space-x-2 mt-4 lg:mt-0">
-                                <label for="sort-options" class="text-gray-700">${
-                                  lang.sortBy
-                                }:</label>
-                                <select id="sort-options" onchange="applyFiltersAndSort()" class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary">
-                                    <option value="relevance" ${
-                                      sort === "relevance" ? "selected" : ""
-                                    }>${lang.relevance}</option>
-                                    <option value="priceAsc" ${
-                                      sort === "priceAsc" ? "selected" : ""
-                                    }>${lang.priceAsc}</option>
-                                    <option value="priceDesc" ${
-                                      sort === "priceDesc" ? "selected" : ""
-                                    }>${lang.priceDesc}</option>
-                                    <option value="new" ${
-                                      sort === "new" ? "selected" : ""
-                                    }>${lang.newest}</option>
-                                    <option value="bestsellers" ${
-                                      sort === "bestsellers" ? "selected" : ""
-                                    }>${lang.mostSold}</option>
-                                    <option value="customerRating" ${
-                                      sort === "customerRating"
-                                        ? "selected"
-                                        : ""
-                                    }>${lang.customerRating}</option>
-                                </select>
-                            </div>
+                            
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             ${
@@ -6615,4 +6937,3 @@ const addCustomItemToCart = (item) => {
     </script>
   </body>
 </html>
-
