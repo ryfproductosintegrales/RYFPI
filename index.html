@@ -3162,101 +3162,89 @@
       const diseases = [
       
         {
-          id: "d0",
-          name_es: "Sistema Inmunológico Débil",
-          image: "./images/echinacea.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>Un sistema inmunológico débil puede hacer que el cuerpo sea más susceptible a infecciones, enfermedades y alergias. Los síntomas comunes incluyen resfriados frecuentes, fatiga, inflamación y una recuperación lenta de enfermedades.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Fortalecer el sistema inmunológico es esencial para mantener la salud. Aquí hay algunos productos naturales que pueden ayudar:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Echinacea:</strong> Conocida por sus propiedades para estimular el sistema inmunológico y reducir la duración de los resfriados.</li>
-                        <li><strong>Vitamina C:</strong> Un antioxidante que apoya la función inmunológica y ayuda a combatir infecciones.</li>
-                        <li><strong>Zinc:</strong> Esencial para la función inmune adecuada y la cicatrización de heridas.</li>
-                        <li><strong>Ajo:</strong> Tiene propiedades antimicrobianas y puede ayudar a fortalecer las defensas del cuerpo.</li>
-                        <li><strong>Probióticos:</strong> Promueven un equilibrio saludable de la flora intestinal, lo cual es crucial para un sistema inmunológico fuerte.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Es importante mantener una dieta equilibrada, hacer ejercicio regularmente y dormir lo suficiente para apoyar la salud inmunológica.</p>
-                `,
-          relatedBenefits: [
-            "Salud Inmunológica",
-            "Antioxidante",
-            "Apoya La Salud Respiratoria",
-            "Ideal Para: Resfriados Frecuentes",
-            "Infecciones Recurrentes",
-            "Fatiga Crónica",
-            "Alergias",
-            "Etc.",
-          ],
-          relatedProducts: ["p77", "p8", "p43", "p46", "p52"], // Té Matcha  
-        },
-        {
-  "id": "d1",
-  "name_es": "Estrés y Ansiedad",
-  "image": "./images/ashwagandha.jpg",
-  "description_es": "El estrés y la ansiedad son respuestas naturales del cuerpo ante situaciones desafiantes. Cuando se vuelven crónicos pueden provocar insomnio, irritabilidad, problemas digestivos y debilitamiento del sistema inmune.",
-  "solutions": [
-    "La ashwagandha ayuda a reducir el estrés y mejorar el estado de ánimo",
-    "La valeriana y la pasiflora favorecen la relajación y el sueño",
-    "El magnesio contribuye a la función nerviosa saludable",
-    "La L-teanina calma la mente sin causar somnolencia",
-    "Otros apoyos naturales incluyen ganoderma, ginseng, hoja de zapote blanco, raíz de pachuli y regaliz"
+  id: "d0",
+  name_es: "Sistema Inmunológico Débil",
+  image: "./images/propoleo.jpg",
+  description_es: "Un sistema inmunológico débil aumenta la susceptibilidad a infecciones, resfriados frecuentes, fatiga e inflamación. Fortalecer las defensas naturales del organismo es esencial para mantener una buena salud. Factores como el estrés, la mala alimentación y la falta de sueño pueden debilitar la respuesta inmunitaria.",
+  solutions: [
+    "El propóleo ayuda a estimular las defensas naturales y proteger contra infecciones",
+    "La vitamina C refuerza el sistema inmunológico y es un potente antioxidante",
+    "La miel de abeja aporta energía natural y apoyo inmunológico"
   ],
-  "relatedBenefits": [
-    "Salud mental y emocional",
+  relatedBenefits: [
+    "Fortalece las defensas",
+    "Protección contra resfriados",
+    "Apoyo energético natural"
+  ],
+  relatedProducts: ["p8", "p5", "p24"] // Propóleo, Vitamina C, Miel de Abeja
+},
+
+        {
+  id: "d1",
+  name_es: "Estrés y Ansiedad",
+  image: "./images/ashwagandha.jpg",
+  description_es: "El estrés y la ansiedad son respuestas naturales del cuerpo ante situaciones desafiantes. Cuando se vuelven crónicos pueden provocar insomnio, irritabilidad, problemas digestivos y debilitamiento del sistema inmune.",
+  solutions: [
+    "La valeriana favorece la relajación y la calidad del sueño",
+    "El citrato de magnesio contribuye a la función nerviosa saludable",
+    "El triple magnesio aporta un apoyo adicional al sistema nervioso",
+    "El ginseng ayuda a equilibrar la energía y reducir la fatiga",
+    "El ginkgo biloba favorece la circulación cerebral y la claridad mental"
+  ],
+  relatedBenefits: [
+    "Apoyo al sistema nervioso",
     "Relajante natural",
     "Mejora la calidad del sueño",
-    "Apoya el sistema nervioso",
+    "Salud mental y emocional",
     "Ideal para: estrés crónico, ansiedad, insomnio, nerviosismo"
   ],
-  "relatedProducts": ["p27", "p16", "p64", "p75", "p43", "p46", "p50", "p70", "p41", "p56"] // Citrato De Magnesio, Valeriana, L-Teanina, Triple Magnesio Complex, Ganoderma, Ginseng, Hoja De Zapote Blanco, Raiz De Pachuli, Regaliz
+  relatedProducts: ["p16", "p27", "p75", "p46", "p41"] // Valeriana, Citrato de Magnesio, Triple Magnesio, Ginseng, Ginkgo Biloba
 },
+
         {
-          id: "d2",
-          name_es: "Salud Digestiva",
-          image: "./images/ayurcolon.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>Una digestión saludable es fundamental para el bienestar general. Problemas digestivos comunes incluyen hinchazón, gases, estreñimiento, diarrea y acidez. Estos pueden ser causados por la dieta, el estrés, o desequilibrios en la flora intestinal.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Apoyar el sistema digestivo con productos naturales puede mejorar significativamente la comodidad y la absorción de nutrientes:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Aceite de Ajonjolí:</strong> Puede ayudar a la salud digestiva.</li>
-                        <li><strong>Alcachofa Cápsulas:</strong> Conocidas por su apoyo a la función hepática y digestiva.</li>
-                        <li><strong>Fennel (Hinojo):</strong> Excelente para la digestión y el alivio de gases.</li>
-                        <li><strong>Cúrcuma:</strong> Propiedades digestivas y hepatoprotectoras.</li>
-                        <li><strong>Jengibre:</strong> Alivia náuseas y apoya la digestión.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Es importante mantener una dieta equilibrada, beber suficiente agua y consultar a un especialista si los síntomas persisten.</p>
-                `,
-          relatedBenefits: ["Salud Digestiva"],
-          relatedProducts: ["p1", "p13", "p38", "p32", "p52"], // Aceite De Ajonjoli, Alcachofa Capsulas, Fennel, Curcuma En Polvo, Jenjibre
-        },
+  id: "d2",
+  name_es: "Salud Digestiva",
+  image: "./images/ayurcolon.jpg",
+  description_es: "Una digestión saludable es fundamental para el bienestar general. Problemas digestivos comunes incluyen hinchazón, gases, estreñimiento, diarrea y acidez. Estos pueden ser causados por la dieta, el estrés o desequilibrios en la flora intestinal.",
+  solutions: [
+    "El aceite de ajonjolí puede ayudar a mantener una digestión equilibrada",
+    "Las cápsulas de alcachofa apoyan la función hepática y digestiva",
+    "El hinojo es excelente para aliviar gases y mejorar la digestión",
+    "La cúrcuma favorece la digestión y protege el hígado",
+    "El jengibre alivia náuseas y apoya el sistema digestivo"
+  ],
+  relatedBenefits: [
+    "Salud digestiva",
+    "Apoyo a la función hepática",
+    "Alivio de gases y náuseas",
+    "Mejora la absorción de nutrientes"
+  ],
+  relatedProducts: ["p1", "p13", "p38", "p32", "p52"] // Aceite de Ajonjolí, Alcachofa, Hinojo, Cúrcuma, Jengibre
+},
+
         {
-          id: "d17",
-          name_es: "Salud Articular",
-          image: "./images/Ginseng.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>Los problemas articulares pueden causar dolor, rigidez y limitar la movilidad. Factores como la edad, el desgaste, la inflamación o lesiones pueden afectar la salud de las articulaciones y los cartílagos.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Existen diversos productos naturales que pueden contribuir a mantener la flexibilidad y reducir las molestias articulares:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Colágeno Hidrolizado:</strong> Es el componente principal del cartílago. Su suplementación puede ayudar a la regeneración de tejidos y reducir el dolor.</li>
-                        <li><strong>Cúrcuma (Curcumina):</strong> Un potente antiinflamatorio natural que puede aliviar el dolor y la hinchazón en las articulaciones.</li>
-                        <li><strong>Glucosamina Sulfato:</strong> Esencial para la salud de las articulaciones y el cartílago.</li>
-                        <li><strong>Quercetina & Bromelina:</strong> Combinación con soporte antiinflamatorio.</li>
-                        <li><strong>Citrato de magnesio:</strong> Combinación con soporte antiinflamatorio.</li>
-                        <li><strong>Triple Magnesio:</strong> Combinación con soporte antiinflamatorio.</li>
-                        <li><strong>Crema Relabir:</strong> Combinación con soporte antiinflamatorio.</li>
-                        <li><strong>Kelp:</strong> Combinación con soporte antiinflamatorio.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Mantener un peso saludable y realizar ejercicio de bajo impacto son también cruciales para la salud articular.</p>
-                `,
-          relatedBenefits: ["Salud Osea Y Articular"],
-          relatedProducts: ["p30", "p33", "p47", "p69", "p27", "p75", "p31", "p53"], // Colageno Hidrolizado, Curcumin, Glucosamina Sulfato, Quercetin & Bromelain, Citrato De Magnesio, Triple Magnesio Complex, Crema Relabir, Kelp
-        },
+  id: "d17",
+  name_es: "Salud Articular",
+  image: "./images/Ginseng.jpg",
+  description_es: "Los problemas articulares pueden causar dolor, rigidez y limitar la movilidad. Factores como la edad, el desgaste, la inflamación o lesiones pueden afectar la salud de las articulaciones y los cartílagos.",
+  solutions: [
+    "El colágeno hidrolizado ayuda a regenerar tejidos y reducir el dolor articular",
+    "La cúrcuma (curcumina) actúa como antiinflamatorio natural y alivia la hinchazón",
+    "La glucosamina sulfato es esencial para la salud del cartílago y articulaciones",
+    "La combinación de quercetina y bromelina ofrece soporte antiinflamatorio",
+    "El citrato de magnesio y el triple magnesio apoyan la función muscular y articular",
+    "La crema Relabir proporciona alivio tópico en molestias articulares",
+    "El kelp aporta minerales que favorecen la salud ósea y articular"
+  ],
+  relatedBenefits: [
+    "Salud ósea y articular",
+    "Alivio de la inflamación",
+    "Mejora la movilidad",
+    "Soporte en desgaste y rigidez"
+  ],
+  relatedProducts: ["p30", "p33", "p47", "p69", "p27", "p75", "p31", "p53"] // Colágeno, Curcumina, Glucosamina, Quercetin & Bromelain, Magnesio, Relabir, Kelp
+},
+
         {
   id: "d3",
   name_es: "Diabetes",
@@ -3286,26 +3274,26 @@
 },
 
         {
-          id: "d4",
-          name_es: "Salud Cardiovascular",
-          image: "./images/omega3.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>La salud cardiovascular es crucial para el bienestar general. Problemas como la hipertensión, el colesterol alto y la arteriosclerosis pueden aumentar el riesgo de enfermedades cardíacas y accidentes cerebrovasculares.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Varios productos naturales pueden ayudar a mantener un corazón saludable:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Omega-3 (Aceite de Pescado):</strong> Conocido por sus beneficios para reducir la inflamación y mejorar la salud del corazón.</li>
-                        <li><strong>Ajo:</strong> Puede ayudar a reducir la presión arterial y el colesterol.</li>
-                        <li><strong>Coenzima Q10:</strong> Apoya la función cardíaca y la producción de energía en las células.</li>
-                        <li><strong>Magnesio:</strong> Importante para la salud cardiovascular y la regulación de la presión arterial.</li>
-                        <li><strong>Hibisco:</strong> Puede ayudar a reducir la presión arterial alta.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Adoptar un estilo de vida saludable, que incluya una dieta equilibrada, ejercicio regular y evitar el tabaco, es fundamental para la salud del corazón.</p>
-                `,
-          relatedBenefits: ["Salud Cardiovascular"],
-          relatedProducts: ["p15", "p8", "p16", "p27", "p17"], // Omega 3, Ajo, Coenzima Q10, Citrato De Magnesio, Hibisco
-        },
+  id: "d4",
+  name_es: "Salud Cardiovascular",
+  image: "./images/ginkgobiloba.jpg",
+  description_es: "La salud cardiovascular es crucial para el bienestar general. Problemas como la hipertensión, el colesterol alto y la arteriosclerosis aumentan el riesgo de eventos cardíacos. Un soporte adecuado puede favorecer la presión arterial, la circulación y el estado inflamatorio.",
+  solutions: [
+    "El citrato de magnesio ayuda a la relajación vascular y al equilibrio de la presión arterial",
+    "El triple magnesio refuerza el aporte de magnesio para función muscular y cardiovascular",
+    "La combinación de quercetina y bromelina ofrece soporte antioxidante y antiinflamatorio",
+    "La curcumina contribuye al balance inflamatorio y a la salud vascular",
+    "El ginkgo biloba favorece la circulación y el flujo sanguíneo periférico"
+  ],
+  relatedBenefits: [
+    "Apoyo a la presión arterial",
+    "Mejora de la circulación",
+    "Soporte antioxidante",
+    "Salud del sistema cardiovascular"
+  ],
+  relatedProducts: ["p27", "p75", "p69", "p33", "p41"] // Magnesio (citrato/triple), Quercetin & Bromelain, Curcumin, Ginkgo
+},
+
         {
           id: "d5",
           name_es: "Salud de la Piel y el Cabello",
@@ -3349,7 +3337,7 @@
         {
           id: "d7",
           name_es: "Salud Osea y Articular",
-          image: "./images/colageno.jpg",
+          image: "./images/colageno.png",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>La salud ósea y articular es esencial para la movilidad y la calidad de vida. Problemas como la osteoporosis, la artritis y el desgaste articular pueden causar dolor, rigidez y limitar la capacidad de realizar actividades diarias.</p>
@@ -3394,7 +3382,7 @@
         {
           id: "d9",
           name_es: "Salud Metabólica y Control de Peso",
-          image: "./images/yacon.jpg",
+          image: "./images/jarabeyacon.png",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>La salud metabólica es crucial para el mantenimiento de un peso saludable y la prevención de enfermedades crónicas como la diabetes tipo 2. Problemas metabólicos pueden incluir resistencia a la insulina, niveles elevados de azúcar en sangre y dificultades para perder peso.</p>
@@ -3415,7 +3403,7 @@
         {
           id: "d10",
           name_es: "Salud Sexual y Reproductiva",
-          image: "./images/maca.jpg",
+          image: "./images/macacapsula.jpg",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>La salud sexual y reproductiva es una parte integral del bienestar general. Problemas en esta área pueden incluir disfunción eréctil, baja libido, infertilidad y desequilibrios hormonales que afectan la salud reproductiva.</p>
@@ -3433,7 +3421,7 @@
         },
         {          id: "d11",
           name_es: "Salud del Sueño",
-          image: "./images/melatonina.jpg",
+          image: "./images/valerianaypasiflora.jpg",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>Un sueño de calidad es esencial para la salud física y mental. Problemas como el insomnio, la apnea del sueño y el sueño interrumpido pueden afectar negativamente la energía, el estado de ánimo y la función cognitiva.</p>
@@ -3453,7 +3441,7 @@
         },
         {          id: "d12",
           name_es: "Salud Cognitiva y Memoria",
-          image: "./images/ginkgo.jpg",
+          image: "./images/ginkgobiloba.jpg",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>La salud cognitiva es crucial para mantener la memoria, la concentración y la función cerebral en general. Problemas como el deterioro cognitivo, la pérdida de memoria y la falta de concentración pueden afectar la calidad de vida.</p>
@@ -3492,29 +3480,10 @@
           relatedBenefits: ["Salud De La Piel Y El Cabello"],
           relatedProducts: ["p2", "p21", "p30", "p20", "p6"], // Aceite De Batana, Biotina, Colageno Hidrolizado, Vitamina E, Zinc
         },
-        {          id: "d14",
-          name_es: "Salud Inmunológica",
-          image: "./images/vitaminaC.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>Un sistema inmunológico fuerte es esencial para proteger el cuerpo contra infecciones y enfermedades. Factores como el estrés, la mala alimentación y la falta de sueño pueden debilitar la respuesta inmunitaria.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Varios productos naturales pueden ayudar a fortalecer el sistema inmunológico:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Vitamina C:</strong> Un antioxidante que apoya la función inmunológica y ayuda a combatir infecciones.</li>
-                        <li><strong>Zinc:</strong> Esencial para la función inmune adecuada y la cicatrización de heridas.</li>
-                        <li><strong>Echinacea:</strong> Utilizada para prevenir y tratar resfriados y otras infecciones respiratorias.</li>
-                        <li><strong>Ajo:</strong> Conocido por sus propiedades antimicrobianas y su capacidad para estimular el sistema inmunológico.</li>
-                        <li><strong>Probióticos:</strong> Ayudan a mantener un equilibrio saludable de la flora intestinal, que es crucial para una función inmunológica óptima.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Adoptar un estilo de vida saludable, que incluya una dieta equilibrada, ejercicio regular y suficiente descanso, es fundamental para mantener un sistema inmunológico fuerte.</p>
-                `,
-          relatedBenefits: ["Salud Inmunologica"],
-          relatedProducts: ["p5", "p6", "p45", "p8", "p46"], // Vitamina C, Zinc, Echinacea, Ajo, Probióticos
-        },
+       
         {          id: "d15",
           name_es: "Salud Digestiva",
-          image: "./images/aceiteajonjoli.jpg",
+          image: "./images/ajonjoli.jpg",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>Los problemas digestivos pueden causar una variedad de síntomas incómodos, como hinchazón, gases, estreñimiento y diarrea. Factores como la dieta, el estrés y las intolerancias alimentarias pueden afectar la salud digestiva.</p>
@@ -3534,7 +3503,7 @@
         },
         {          id: "d16",
           name_es: "Salud Ocular",
-          image: "./images/zeaxantina.jpg",
+          image: "./images/ashwagandha.jpg",
           description_es: `
                     <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
                     <p>La salud ocular es esencial para una buena visión y calidad de vida. Problemas como la fatiga ocular, la degeneración macular y las cataratas pueden afectar la capacidad de ver claramente.</p>
