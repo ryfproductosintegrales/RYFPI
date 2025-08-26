@@ -2003,7 +2003,7 @@
           price: 300,
           priceDetail: 300,
           priceWholesale: 240,
-          image: "dianin.jpg",
+          image: "dianim.jpg",
           description_es:
             "Aceite de semillas de neem indicado para apoyar el equilibrio endocrino y contribuir a la regulación natural del azúcar en la sangre.",
           benefits: [
@@ -4115,22 +4115,15 @@
                 .slice(0, 3)   // 👈 limitar solo a 3 enfermedades
                   .map(
                     (d) => `
-                    <a href="#disease-${
-                      d.id
-                    }" onclick="navigateTo('disease', '${
-                      d.id
-                    }', event)" class="block bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col items-center justify-center">
-                        <img src="${d.image}" alt="${
-                      d[`name_es`]
-                    }" onerror="this.onerror=null;this.src='https://placehold.co/300x200/D3D3D3/000000?text=Enfermedad';" class="w-full h-48 object-cover mb-4 rounded-md">
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">${
-                          d[`name_es`]
-                        }</h3>
-                        <p class="text-gray-600">${lang.viewDetails}</p>
-                    </a>
-                `
-                  )
-                  .join("")}
+    <a href="#disease-${d.id}" onclick="navigateTo('disease', '${d.id}', event)" class="block bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col items-center justify-center">
+        ${d.image ? 
+          `<img src="${d.image}" alt="${d[`name_es`]}" class="w-full h-48 object-cover mb-4 rounded-md">` 
+          : 
+          `<img src="https://placehold.co/300x200/D3D3D3/000000?text=Enfermedad" alt="Enfermedad sin imagen" class="w-full h-48 object-cover mb-4 rounded-md">`}
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">${d[`name_es`]}</h3>
+        <p class="text-gray-600">${lang.viewDetails}</p>
+    </a>`
+  ).join('')}
             </div>
 
  <!-- Botón para ver todas -->
@@ -7569,4 +7562,3 @@ function renderEnfermedadesInicio() {
 
       </body>
 </html>
-
