@@ -3200,7 +3200,7 @@ isOffer: false
         {
   id: "d0",
   name_es: "Sistema Inmunológico Débil",
-  image: "mielpanal.jpg",
+  image: "miel.jpg",
   description_es: "Un sistema inmunológico débil aumenta la susceptibilidad a infecciones, resfriados frecuentes, fatiga e inflamación. Fortalecer las defensas naturales del organismo es esencial para mantener una buena salud. Factores como el estrés, la mala alimentación y la falta de sueño pueden debilitar la respuesta inmunitaria.",
   solutions: [
     "El propóleo ayuda a estimular las defensas naturales y proteger contra infecciones",
@@ -3309,7 +3309,7 @@ isOffer: false
 
         {
 id: "d5",
-name_es: "Salud de la Piel y el Cabello",
+name_es: "Salud de la Piel",
 image: "./images/batana.jpg",
 description_es: "La piel es la primera barrera de defensa del cuerpo y refleja el estado de salud general. Sequedad, irritaciones, acné o envejecimiento prematuro pueden indicar falta de nutrición o daño oxidativo.",
   solutions: [
@@ -3350,7 +3350,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 
         {
   id: "d7",
-  name_es: "Salud Ósea y Articular",
+  name_es: "Salud Ósea",
   image: "colageno.jpg",
   description_es: "Los huesos y articulaciones requieren un buen equilibrio de nutrientes para mantenerse fuertes y flexibles. El desgaste, la inflamación o la edad pueden provocar dolor, rigidez y fragilidad ósea.",
   solutions: [
@@ -3463,7 +3463,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 
 {
   id: "d12",
-  name_es: "Salud Cognitiva y Memoria",
+  name_es: "Salud Cognitiva, Memoria y Concentracion",
   image: "ginkgobiloba.jpg",
   description_es: "La memoria y la concentración son esenciales para el aprendizaje, el trabajo y la vida diaria. El estrés, la fatiga y la edad pueden afectar el rendimiento cognitivo y la agilidad mental.",
   solutions: [
@@ -3480,68 +3480,72 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   ],
   relatedProducts: ["p41", "p46", "p43", "p27", "p75"] // Ginkgo, Ginseng, Ganoderma, Magnesio
 },
+{
+  id: "d14",
+  name_es: "Salud Mental",
+  image: "./images/ginseng.jpg",
+  description_es: "La salud mental es esencial para el bienestar general. El estrés, la ansiedad, la fatiga y la falta de concentración pueden afectar la calidad de vida y la productividad.",
+  solutions: [
+    "La ashwagandha ayuda a reducir el estrés y mejorar el equilibrio emocional",
+    "El ginseng favorece la concentración, la memoria y la energía mental",
+    "El ganoderma apoya la función neurológica y combate el daño oxidativo",
+    "El citrato de magnesio promueve la relajación y el buen funcionamiento nervioso",
+    "El triple magnesio complex ayuda a calmar la mente y favorecer la claridad"
+  ],
+  relatedBenefits: [
+    "Reducción del estrés y la ansiedad",
+    "Mejora de la concentración y memoria",
+    "Apoyo al sistema nervioso",
+    "Equilibrio emocional"
+  ],
+  relatedProducts: ["p16", "p46", "p43", "p27", "p75"] 
+  // Ashwagandha, Ginseng, Ganoderma, Citrato de Magnesio, Triple Magnesio
+},
+         
         {
-          id: "d13",
-          name_es: "Salud del Cabello",
-          image: "./images/batana.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>El cabello es un reflejo de la salud general y puede verse afectado por factores como el estrés, la nutrición deficiente, cambios hormonales y el envejecimiento. Problemas comunes incluyen la caída del cabello, la sequedad y la falta de brillo.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Existen varios productos naturales que pueden ayudar a mejorar la salud del cabello:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Aceite de Batana:</strong> Rico en ácidos grasos esenciales, ayuda a hidratar y nutrir el cabello seco y dañado.</li>
-                        <li><strong>Biotina:</strong> Importante para el crecimiento saludable del cabello y las uñas.</li>
-                        <li><strong>Colágeno Hidrolizado:</strong> Apoya la estructura del cabello y puede ayudar a fortalecerlo.</li>
-                        <li><strong>Vitamina E:</strong> Un antioxidante que protege el cabello del daño ambiental y promueve un cuero cabelludo saludable.</li>
-                        <li><strong>Zinc:</strong> Esencial para la salud del cuero cabelludo y puede ayudar a prevenir la caída del cabello.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Mantener una dieta equilibrada, evitar el uso excesivo de herramientas de calor y proteger el cabello del sol son también cruciales para una melena saludable.</p>
-                `,
-          relatedBenefits: ["Salud De La Piel Y El Cabello"],
-          relatedProducts: ["p2", "p21", "p30", "p20", "p6"], // Aceite De Batana, Biotina, Colageno Hidrolizado, Vitamina E, Zinc
-        },
-       
-        {          id: "d15",
-          name_es: "Salud Digestiva",
-          image: "./images/ajonjoli.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>Los problemas digestivos pueden causar una variedad de síntomas incómodos, como hinchazón, gases, estreñimiento y diarrea. Factores como la dieta, el estrés y las intolerancias alimentarias pueden afectar la salud digestiva.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Apoyar el sistema digestivo con productos naturales puede mejorar significativamente la comodidad y la absorción de nutrientes:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Aceite de Ajonjolí:</strong> Puede ayudar a la salud digestiva.</li>
-                        <li><strong>Alcachofa Cápsulas:</strong> Conocidas por su apoyo a la función hepática y digestiva.</li>
-                        <li><strong>Fennel (Hinojo):</strong> Excelente para la digestión y el alivio de gases.</li>
-                        <li><strong>Cúrcuma:</strong> Propiedades digestivas y hepatoprotectoras.</li>
-                        <li><strong>Jengibre:</strong> Alivia náuseas y apoya la digestión.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Es importante mantener una dieta equilibrada, beber suficiente agua y consultar a un especialista si los síntomas persisten.</p>
-                `,
-          relatedBenefits: ["Salud Digestiva"],
-          relatedProducts: ["p1", "p13", "p38", "p32", "p52"], // Aceite De Ajonjoli, Alcachofa Capsulas, Fennel, Curcuma En Polvo, Jenjibre
-        },
-        {          id: "d16",
-          name_es: "Salud Ocular",
-          image: "./images/ashwagandha.jpg",
-          description_es: `
-                    <h4 class="font-bold text-lg mb-2">Descripción del Mal:</h4>
-                    <p>La salud ocular es esencial para una buena visión y calidad de vida. Problemas como la fatiga ocular, la degeneración macular y las cataratas pueden afectar la capacidad de ver claramente.</p>
-                    <h4 class="font-bold text-lg mt-4 mb-2">Posibles Soluciones Naturales y Productos Sugeridos:</h4>
-                    <p>Varios productos naturales pueden ayudar a mantener la salud ocular y prevenir problemas de visión:</p>
-                    <ul class="list-disc list-inside ml-4">
-                        <li><strong>Zeaxantina y Luteína:</strong> Antioxidantes que protegen los ojos del daño causado por la luz azul y los radicales libres.</li>
-                        <li><strong>Omega-3 (DHA):</strong> Esencial para la salud de la retina y puede ayudar a reducir el riesgo de degeneración macular.</li>
-                        <li><strong>Vitamina A:</strong> Importante para la visión nocturna y la salud general de los ojos.</li>
-                        <li><strong>Vitamina C y E:</strong> Antioxidantes que ayudan a proteger los ojos del daño oxidativo.</li>
-                        <li><strong>Zinc:</strong> Ayuda a transportar la vitamina A desde el hígado hasta la retina para producir melanina, un pigmento protector en los ojos.</li>
-                    </ul>
-                    <p class="mt-4 text-sm text-gray-600">Es fundamental realizar exámenes oculares regulares, proteger los ojos de la luz solar intensa y mantener una dieta rica en nutrientes esenciales para la salud ocular.</p>
-                `,
-          relatedBenefits: ["Salud Ocular"],
-          relatedProducts: ["p48", "p15", "p19", "p5", "p6"], // Zeaxantina Y Luteina, Omega 3, Vitamina A, Vitamina C, Zinc
-        },
+  id: "d15",
+  name_es: "Salud Digestiva",
+  image: "./images/ajonjoli.jpg",
+  description_es: "Los problemas digestivos pueden provocar hinchazón, gases, estreñimiento, acidez y malestar general. La dieta inadecuada, el estrés y los desequilibrios intestinales son causas frecuentes.",
+  solutions: [
+    "El aceite de ajonjolí favorece la lubricación digestiva y la regularidad",
+    "Las cápsulas de alcachofa apoyan la función hepática y digestiva",
+    "El hinojo ayuda a aliviar gases y mejorar la digestión",
+    "La cúrcuma en polvo contribuye a la salud hepática y digestiva",
+    "El jengibre alivia náuseas y estimula la digestión"
+  ],
+  relatedBenefits: [
+    "Apoyo digestivo natural",
+    "Reducción de gases e hinchazón",
+    "Mejora de la función hepática",
+    "Alivio de malestares estomacales"
+  ],
+  relatedProducts: ["p1", "p13", "p38", "p32", "p52"] 
+  // Aceite de Ajonjolí, Alcachofa Cápsulas, Fennel, Cúrcuma en Polvo, Jengibre
+},
+
+        {
+  id: "d16",
+  name_es: "Salud Ocular",
+  image: "./images/omega3.jpg",
+  description_es: "La salud ocular es clave para una buena visión y calidad de vida. Problemas como la fatiga ocular, visión borrosa, resequedad, cataratas o degeneración visual pueden aparecer por la edad, el estrés oxidativo o deficiencias nutricionales.",
+  solutions: [
+    "El Omega 3 apoya la salud de la retina y ayuda en casos de resequedad ocular",
+    "El ganoderma aporta antioxidantes que protegen los tejidos oculares",
+    "El ginseng mejora la circulación, favoreciendo la irrigación sanguínea de los ojos",
+    "La cúrcuma en polvo actúa como antiinflamatorio natural que protege contra el daño oxidativo",
+    "El magnesio contribuye a la relajación muscular y ayuda a reducir la fatiga ocular"
+  ],
+  relatedBenefits: [
+    "Protección antioxidante",
+    "Mejora de la circulación ocular",
+    "Reducción de la fatiga visual",
+    "Apoyo a la salud de la retina"
+  ],
+  relatedProducts: ["p15", "p43", "p46", "p32", "p27", "p75"] 
+  // Omega 3, Ganoderma, Ginseng, Cúrcuma en Polvo, Citrato de Magnesio, Triple Magnesio
+},
+
         {
   id: "d17",
   name_es: "Salud Hepática",
@@ -3602,6 +3606,27 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
     "Equilibrio emocional"
   ],
   relatedProducts: ["p27", "p75", "p64", "p46", "p43", "p16"]  
+},
+{
+  id: "d20",
+  name_es: "Salud Renal y Riñones",
+  image: "./images/alcachofa.jpg",
+  description_es: "Los riñones cumplen una función vital en la eliminación de toxinas, el equilibrio de líquidos y la regulación de minerales en el cuerpo. Problemas renales pueden causar fatiga, retención de líquidos, dolor lumbar y complicaciones metabólicas.",
+  solutions: [
+    "El aceite de ajonjolí contribuye a la depuración natural del organismo",
+    "Las cápsulas de alcachofa favorecen la función hepática y renal",
+    "El ganoderma apoya la desintoxicación y fortalece los riñones",
+    "El ginseng mejora la circulación y la vitalidad general",
+    "El triple magnesio ayuda a regular los minerales y el equilibrio electrolítico"
+  ],
+  relatedBenefits: [
+    "Apoyo a la función renal",
+    "Desintoxicación natural",
+    "Mejora del equilibrio de líquidos",
+    "Fortalecimiento del sistema urinario"
+  ],
+  relatedProducts: ["p1", "p13", "p43", "p46", "p75"] 
+  // Aceite de Ajonjolí, Alcachofa Cápsulas, Ganoderma, Ginseng, Triple Magnesio
 },
 
 
@@ -7131,163 +7156,68 @@ function toggleDisease(id) {
       // ===========================================
 
       const diseasesAndSolutions = [
-        {
-          id: "estres-ansiedad",
-          name_es: "Estrés y Ansiedad",
-          name_en: "Stress and Anxiety",
-        },
-        {
-          id: "salud-digestiva",
-          name_es: "Salud Digestiva",
-          name_en: "Digestive Health",
-        },
-        {
-          id: "salud-articular",
-          name_es: "Salud Articular",
-          name_en: "Joint Health",
-        },
-        { id: "diabetes", 
-        name_es: "Diabetes", 
-        name_en: "Diabetes" },
-        {
-          id: "azucar-alta-baja",
-          name_es: "Azúcar Alta/Baja",
-          name_en: "High/Low Blood Sugar",
-        },
-        { id: "dolor-cabeza", 
-        name_es: "Dolor de Cabeza", 
-        name_en: "Headache" },
-        {
-          id: "salud-cardiovascular",
-          name_es: "Salud Cardiovascular",
-          name_en: "Cardiovascular Health",
-        },
-        {
-          id: "energia-vitalidad",
-          name_es: "Energía y Vitalidad",
-          name_en: "Energy and Vitality",
-        },
-        {
-          id: "control-peso",
-          name_es: "Control de Peso",
-          name_en: "Weight Management",
-        },
-        {
-          id: "piel-cabello-unas",
-          name_es: "Piel, Cabello y Uñas",
-          name_en: "Skin, Hair & Nails",
-        },
-        {
-          id: "sistema-inmune",
-          name_es: "Sistema Inmune",
-          name_en: "Immune System",
-        },
-        {
-          id: "caida-cabello",
-          name_es: "Caida de Cabello",
-          name_en: "heair Loss",
-        },
-        {
-          id: "salud-ocular",
-          name_es: "Salud Ocular",
-          name_en: "Eye Health",
-        },
-        {
-          id: "salud-renal",
-          name_es: "Salud Renal",
-          name_en: "Kidney Health",
-        },
-        {
-          id: "salud-huesos",
-          name_es: "Salud de los Huesos",
-          name_en: "Bone Health",
-        },
-        {
-          id: "salud-hormonal",
-          name_es: "Salud Hormonal",
-          name_en: "Hormonal Health",
-        },
-        {
-          id: "salud-mental",
-          name_es: "Salud Mental",
-          name_en: "Mental Health",
-        },
-        {
-          id: "salud-respiratoria",
-          name_es: "Salud Respiratoria",
-          name_en: "Respiratory Health",
-        },
-        {
-          id: "salud-hepatica",
-          name_es: "Salud Hepática",
-          name_en: "Liver Health",
-        },
-        {
-          id: "salud-reproductiva",
-          name_es: "Salud Reproductiva",
-          name_en: "Reproductive Health",
-        },
-        {
-          id: "antioxidantes-desintoxicacion",
-          name_es: "Antioxidantes y Desintoxicación",
-          name_en: "Antioxidants & Detoxification",
-        },
-        {
-          id: "sueno-relajacion",
-          name_es: "Sueño y Relajación",
-          name_en: "Sleep & Relaxation",
-        },
-        {
-          id: "memoria-concentracion",
-          name_es: "Memoria y Concentración",
-          name_en: "Memory & Focus",
-        },
-        {
-          id: "embarazo-lactancia",
-          name_es: "Embarazo y Lactancia",
-          name_en: "Pregnancy & Breastfeeding",
-        },
-        {
-          id: "salud-dental",
-          name_es: "Salud Dental",
-          name_en: "Dental Health",
-        },
-        {
-          id: "salud-muscular",
-          name_es: "Salud Muscular",
-          name_en: "Muscle Health",
-        },
-        {
-          id: "alergias",
-          name_es: "Alergias",
-          name_en: "Allergies",
-        },
-        {
-          id: "salud-urinaria",
-          name_es: "Salud Urinaria",
-          name_en: "Urinary Health",
-        },
-        {
-          id: "salud-prostatica",
-          name_es: "Salud Prostática",
-          name_en: "Prostate Health",
-        },
-        {
-          id: "salud-femenina",
-          name_es: "Salud Femenina",
-          name
-          },
-          {
-          id: "desintoxicacion",
-          name_es: "Desintoxicación",
-           name_en: "Detoxification",
-          },
-          {
-          id: "memoria-concentracion",
-          name_es: "Memoria y Concentración",
-           name_en: "concentration",
-          }
-      ];
+  { id: "estres-ansiedad", name_es: "Estrés y Ansiedad", name_en: "Stress and Anxiety" },
+  { id: "salud-digestiva", name_es: "Salud Digestiva", name_en: "Digestive Health" },
+  { id: "salud-articular", name_es: "Salud Articular", name_en: "Joint Health" },
+  { id: "diabetes", name_es: "Diabetes", name_en: "Diabetes" },
+  { id: "azucar-alta-baja", name_es: "Azúcar Alta/Baja", name_en: "High/Low Blood Sugar" },
+  { id: "dolor-cabeza", name_es: "Dolor de Cabeza", name_en: "Headache" },
+  { id: "salud-cardiovascular", name_es: "Salud Cardiovascular", name_en: "Cardiovascular Health" },
+  { id: "energia-vitalidad", name_es: "Energía y Vitalidad", name_en: "Energy and Vitality" },
+  { id: "control-peso", name_es: "Control de Peso", name_en: "Weight Management" },
+  { id: "salud-piel", name_es: "Salud de la Piel", name_en: "Skin Health" },
+  { id: "sistema-inmunologico-debil", name_es: "Sistema Inmunológico Débil", name_en: "Weak Immune System" },
+  { id: "caida-pelo", name_es: "Caída del Pelo", name_en: "Hair Loss" },
+  { id: "salud-ocular", name_es: "Salud Ocular", name_en: "Eye Health" },
+  { id: "salud-renal", name_es: "Salud Renal", name_en: "Kidney Health" },
+  { id: "salud-osea", name_es: "Salud Ósea", name_en: "Bone Health" },
+  { id: "salud-hormonal", name_es: "Salud Hormonal", name_en: "Hormonal Health" },
+  { id: "salud-respiratoria", name_es: "Salud Respiratoria", name_en: "Respiratory Health" },
+  { id: "salud-hepatica", name_es: "Salud Hepática", name_en: "Liver Health" },
+  { id: "salud-reproductiva", name_es: "Salud Reproductiva", name_en: "Reproductive Health" },
+  { id: "desintoxicacion", name_es: "Desintoxicación", name_en: "Detoxification" },
+  { id: "salud-sueno", name_es: "Salud del Sueño", name_en: "Sleep Health" },
+  { id: "salud-dental", name_es: "Salud Dental", name_en: "Dental Health" },
+  { id: "alergias", name_es: "Alergias", name_en: "Allergies" },
+  { id: "salud-urinaria", name_es: "Salud Urinaria", name_en: "Urinary Health" },
+  { id: "salud-prostatica", name_es: "Salud Prostática", name_en: "Prostate Health" },
+  { id: "memoria-concentracion", name_es: "Memoria y Concentración", name_en: "Memory and Concentration" },
+  { id: "dolor-muscular", name_es: "Dolor Muscular", name_en: "Muscle Pain" },
+  { id: "salud-mental", name_es: "Salud Mental", name_en: "Mental Health" }
+];
+
+const diseaseIds = [
+  "estres-ansiedad",
+  "salud-digestiva",
+  "salud-articular",
+  "diabetes",
+  "azucar-alta-baja",
+  "dolor-cabeza",
+  "salud-cardiovascular",
+  "energia-vitalidad",
+  "control-peso",
+  "salud-piel",
+  "sistema-inmunologico-debil",
+  "caida-pelo",
+  "salud-ocular",
+  "salud-renal",
+  "salud-osea",
+  "salud-hormonal",
+  "salud-respiratoria",
+  "salud-hepatica",
+  "salud-reproductiva",
+  "desintoxicacion",
+  "salud-sueno",
+  "salud-dental",
+  "alergias",
+  "salud-urinaria",
+  "salud-prostatica",
+  "memoria-concentracion",
+  "dolor-muscular",
+  "salud-mental"
+];
+
+
 
       // Si tienes datos para el desplegable de Tienda (categorías), deberían ir aquí también:
       // const categories = [ ... ]; // Ejemplo
@@ -7613,4 +7543,3 @@ function renderEnfermedadesInicio() {
 
       </body>
 </html>
-
