@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -3101,9 +3102,9 @@ name: "Citrato de Calcio",
 presentation: "450 mg, 100 cáps.",
 category: "suplemento mineral",
 type: "cápsula",
-price: 800,
-priceDetail: 800,
-priceWholesale: 650,
+price: 850,
+priceDetail: 850,
+priceWholesale: 600,
 image: "calcio.png",
 description_es: "El Citrato de Calcio es un suplemento mineral fundamental para la salud ósea y muscular. Su fórmula avanzada ayuda a mantener la densidad ósea, previniendo la osteoporosis y reduciendo el riesgo de fracturas. Además, contribuye a la función muscular y nerviosa, y apoya la salud cardiovascular. Es un producto esencial para mantener un cuerpo fuerte y saludable.",
 benefits: [
@@ -4447,26 +4448,14 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
             </div>
         </section>
 
-        <section class="common-diseases mb-12">
-            <h2 class="text-3xl font-bold text-center mb-8 text-primary">${
-              lang.commonDiseases
-            }</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                ${diseases
-                .sort(() => 0.5 - Math.random()) // 👈 mezcla aleatoria
-                .slice(0, 3)   // 👈 limitar solo a 3 enfermedades
-                  .map(
-                    (d) => `
-    <a href="#disease-${d.id}" onclick="navigateTo('disease', '${d.id}', event)" class="block bg-white rounded-lg shadow-md p-6 text-center hover-scale flex flex-col items-center justify-center">
-        ${d.image ? 
-          `<img src="${d.image}" alt="${d[`name_es`]}" class="w-full h-48 object-cover mb-4 rounded-md">` 
-          : 
-          `<img src="https://placehold.co/300x200/D3D3D3/000000?text=Enfermedad" alt="Enfermedad sin imagen" class="w-full h-48 object-cover mb-4 rounded-md">`}
-        <h3 class="text-2xl font-semibold text-gray-800 mb-2">${d[`name_es`]}</h3>
-        <p class="text-gray-600">${lang.viewDetails}</p>
-    </a>`
-  ).join('')}
-            </div>
+      <section class="common-diseases mb-12">
+    <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commonDiseases}</h2>
+    <div class="flex justify-center">
+        <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <img src="./assets/images/ginseng.jpg" alt="Imagen de ginseng" class="w-full h-48 object-cover rounded-md">
+        </div>
+    </div>
+
 
  <!-- Botón para ver todas -->
   <div class="text-center mt-8">
@@ -7822,4 +7811,3 @@ function renderEnfermedadesInicio() {
 
       </body>
 </html>
-
