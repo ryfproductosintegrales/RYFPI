@@ -3198,9 +3198,9 @@ isOffer: false
       const diseases = [
       
         {
-  id: "d0",
+  id: "d1",
   name_es: "Sistema Inmunológico Débil",
-  image: "mielpanal.jpg",
+  image: "miel.jpg",
   description_es: "Un sistema inmunológico débil aumenta la susceptibilidad a infecciones, resfriados frecuentes, fatiga e inflamación. Fortalecer las defensas naturales del organismo es esencial para mantener una buena salud. Factores como el estrés, la mala alimentación y la falta de sueño pueden debilitar la respuesta inmunitaria.",
   solutions: [
     "El propóleo ayuda a estimular las defensas naturales y proteger contra infecciones",
@@ -3215,56 +3215,69 @@ isOffer: false
   relatedProducts: ["p8", "p5", "p24"] // Propóleo, Vitamina C, Miel de Abeja
 },
 
-        {
-  id: "d1",
+   {
+  id: "d2",
   name_es: "Estrés y Ansiedad",
-  image: "ashwagandha.jpg",
+  image: "./images/ashwagandha.jpg",
   description_es: "El estrés y la ansiedad son respuestas naturales del cuerpo ante situaciones desafiantes. Cuando se vuelven crónicos pueden provocar insomnio, irritabilidad, problemas digestivos y debilitamiento del sistema inmune.",
   solutions: [
     "La valeriana favorece la relajación y la calidad del sueño",
     "El citrato de magnesio contribuye a la función nerviosa saludable",
     "El triple magnesio aporta un apoyo adicional al sistema nervioso",
     "El ginseng ayuda a equilibrar la energía y reducir la fatiga",
-    "El ginkgo biloba favorece la circulación cerebral y la claridad mental"
+    "El ginkgo biloba favorece la circulación cerebral y la claridad mental",
+    "El ganoderma apoya el bienestar general y ayuda a reducir el cansancio asociado al estrés",
+    "La hoja de zapote contribuye a la relajación natural",
+    "La raíz de pachuli tiene propiedades calmantes y armonizantes",
+    "Las flores de jamaica ayudan a disminuir la tensión y aportan frescura",
+    "El licorice (regaliz) contribuye al equilibrio energético y nervioso",
+    "La ashwagandha es un adaptógeno clave que reduce el estrés y mejora el estado de ánimo"
   ],
   relatedBenefits: [
     "Apoyo al sistema nervioso",
     "Relajante natural",
     "Mejora la calidad del sueño",
     "Salud mental y emocional",
+    "Reducción del cansancio y la fatiga",
     "Ideal para: estrés crónico, ansiedad, insomnio, nerviosismo"
   ],
-  relatedProducts: ["p16", "p27", "p75", "p46", "p41"] // Valeriana, Citrato de Magnesio, Triple Magnesio, Ginseng, Ginkgo Biloba
-},
-
-        {
-  id: "d2",
-  name_es: "Salud Digestiva",
-  image: "ayurcolon.jpg",
-  description_es: "Una digestión saludable es fundamental para el bienestar general. Problemas digestivos comunes incluyen hinchazón, gases, estreñimiento, diarrea y acidez. Estos pueden ser causados por la dieta, el estrés o desequilibrios en la flora intestinal.",
-  solutions: [
-    "El aceite de ajonjolí puede ayudar a mantener una digestión equilibrada",
-    "Las cápsulas de alcachofa apoyan la función hepática y digestiva",
-    "El hinojo es excelente para aliviar gases y mejorar la digestión",
-    "La cúrcuma favorece la digestión y protege el hígado",
-    "El jengibre alivia náuseas y apoya el sistema digestivo"
-  ],
-  relatedBenefits: [
-    "Salud digestiva",
-    "Apoyo a la función hepática",
-    "Alivio de gases y náuseas",
-    "Mejora la absorción de nutrientes"
-  ],
-  relatedProducts: ["p1", "p13", "p38", "p32", "p52"] // Aceite de Ajonjolí, Alcachofa, Hinojo, Cúrcuma, Jengibre
+  relatedProducts: ["p16", "p27", "p75", "p46", "p41", "p43", "p50", "p70", "p60", "p56", "p10"]
+  // Valeriana, Citrato de Magnesio, Triple Magnesio, Ginseng, Ginkgo Biloba, Ganoderma, Hoja de Zapote, Raíz de Pachuli, Flores de Jamaica, Licorice (Regaliz), Ashwagandha
 },
 
   {
   id: "d3",
+  name_es: "Salud Digestiva",
+  image: "./images/ajonjoli.jpg",
+  description_es: "Una digestión saludable es fundamental para el bienestar general. Problemas comunes incluyen hinchazón, gases, estreñimiento, diarrea y acidez. Estos pueden estar relacionados con la dieta, el estrés o desequilibrios en la flora intestinal. Apoyar el sistema digestivo con productos naturales puede mejorar el confort y la absorción de nutrientes.",
+  solutions: [
+    "El aceite de ajonjolí favorece la lubricación digestiva y la regularidad",
+    "Las cápsulas de alcachofa apoyan la función hepática y digestiva",
+    "El hinojo ayuda a aliviar gases y mejorar la digestión",
+    "La cúrcuma en polvo contribuye a la salud hepática y digestiva",
+    "El jengibre alivia náuseas y estimula el sistema digestivo"
+  ],
+  relatedBenefits: [
+    "Apoyo digestivo natural",
+    "Reducción de gases e hinchazón",
+    "Mejora de la función hepática",
+    "Alivio de malestares estomacales",
+    "Mejor absorción de nutrientes"
+  ],
+  relatedProducts: ["p1", "p13", "p38", "p32", "p52"]
+  // Aceite de Ajonjolí, Alcachofa Cápsulas, Hinojo (Fennel), Cúrcuma en Polvo, Jengibre
+},
+
+  {
+  id: "d4",
   name_es: "Diabetes",
-  image: "diabenol.jpg",
+  image: "./images/diabenol.jpg",
   description_es: "La diabetes es una enfermedad metabólica caracterizada por niveles elevados de glucosa en sangre debido a problemas en la producción o en la acción de la insulina. Con el tiempo puede afectar órganos vitales, provocar complicaciones cardiovasculares, daño renal, nervioso y ocular. Su control adecuado es fundamental para mantener una buena calidad de vida.",
   solutions: [
     "El Dianim (aceite de semillas de neem) puede apoyar el equilibrio endocrino y contribuir a la regulación natural del azúcar en la sangre",
+    "El Diabenol es un apoyo natural formulado para contribuir al control saludable de la glucosa",
+    "El fenugreek (fenogreco) ayuda a mejorar la sensibilidad a la insulina y a regular los niveles de glucosa",
+    "Las cápsulas de alcachofa favorecen el metabolismo y la función hepática, lo que impacta positivamente en el control glucémico",
     "El ginseng ayuda a mejorar la sensibilidad a la insulina y favorece los niveles de energía",
     "El magnesio (en sus distintas formas) apoya el metabolismo de la glucosa y la función nerviosa",
     "La cúrcuma (curcumina) tiene propiedades antioxidantes y antiinflamatorias beneficiosas para el sistema metabólico",
@@ -3272,12 +3285,16 @@ isOffer: false
   ],
   relatedBenefits: [
     "Apoyo al metabolismo de la glucosa",
+    "Regulación natural del azúcar en sangre",
     "Equilibrio endocrino",
     "Salud cardiovascular",
     "Energía y vitalidad"
   ],
   relatedProducts: [
     "p53",  // Dianim
+    "p81",  // Diabenol
+    "p82",  // Fenugreek (Fenogreco)
+    "p13",  // Alcachofa Cápsulas
     "p46",  // Ginseng
     "p27",  // Citrato de Magnesio
     "p75",  // Triple Magnesio
@@ -3287,7 +3304,7 @@ isOffer: false
 },
 
         {
-  id: "d4",
+  id: "d5",
   name_es: "Salud Cardiovascular",
   image: "ginkgobiloba.jpg",
   description_es: "La salud cardiovascular es crucial para el bienestar general. Problemas como la hipertensión, el colesterol alto y la arteriosclerosis aumentan el riesgo de eventos cardíacos. Un soporte adecuado puede favorecer la presión arterial, la circulación y el estado inflamatorio.",
@@ -3308,9 +3325,9 @@ isOffer: false
 },
 
         {
-id: "d5",
+id: "d6",
 name_es: "Salud de la Piel",
-image: "batana.jpg",
+image: "./images/batana.jpg",
 description_es: "La piel es la primera barrera de defensa del cuerpo y refleja el estado de salud general. Sequedad, irritaciones, acné o envejecimiento prematuro pueden indicar falta de nutrición o daño oxidativo.",
   solutions: [
     "El aceite de batana nutre y repara la piel aportando suavidad y elasticidad",
@@ -3328,9 +3345,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   relatedProducts: ["p2", "p1", "p31", "p30", "p33"] // Batana, Ajonjolí, Relabir, Colágeno, Cúrcuma
 },
         {
-  id: "d6",
+  id: "d7",
   name_es: "Salud Hormonal",
-  image: "dianin.jpg",
+  image: "./images/dianim.jpg",
   description_es: "El sistema hormonal regula funciones esenciales como el metabolismo, el crecimiento, la reproducción y el estado de ánimo. El desequilibrio hormonal puede causar fatiga, cambios de humor, irregularidades menstruales o problemas metabólicos.",
   solutions: [
     "El Dianim apoya el equilibrio endocrino y la regulación natural del metabolismo",
@@ -3349,9 +3366,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d7",
+  id: "d8",
   name_es: "Salud Osea",
-  image: "triplemagnesio.jpg",
+  image: "./images/triplemagnesio.jpg",
   description_es: "La salud ósea es esencial para mantener una estructura fuerte y prevenir fracturas, osteoporosis y debilidad. Factores como la edad, deficiencia de nutrientes y el sedentarismo pueden afectar la densidad de los huesos.",
   solutions: [
     "El Triple Magnesio contribuye a la salud ósea y muscular",
@@ -3369,7 +3386,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d8",
+  id: "d9",
   name_es: "Salud Respiratoria",
   image: "propoleo.jpg",
   description_es: "La salud respiratoria es fundamental para el bienestar general. Tos frecuente, resfriados, bronquitis o dificultad respiratoria pueden ser señales de un sistema pulmonar debilitado.",
@@ -3390,9 +3407,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d9",
+  id: "d10",
   name_es: "Salud Metabólica y Control de Peso",
-  image: "jarabeyacon.png",
+  image: "./images/jarabeyacon.png",
   description_es: "El metabolismo regula cómo el cuerpo produce y utiliza la energía. Cuando se encuentra desequilibrado puede provocar aumento de peso, fatiga, resistencia a la insulina o dificultad para mantener niveles de glucosa estables.",
   solutions: [
     "El jarabe de yacón es un endulzante natural de bajo índice glucémico que favorece el control de peso y la regulación de la glucosa",
@@ -3412,9 +3429,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d10",
+  id: "d11",
   name_es: "Salud Sexual y Reproductiva",
-  image: "macacapsula.jpg",
+  image: "./images/macacapsula.jpg",
   description_es: "La salud sexual y reproductiva es fundamental para el bienestar integral. Alteraciones como baja libido, infertilidad, disfunción eréctil o desequilibrios hormonales pueden afectar la calidad de vida y el equilibrio emocional.",
   solutions: [
     "La maca en cápsulas y la maca negra aumentan la energía sexual y mejoran la fertilidad",
@@ -3436,9 +3453,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d11",
+  id: "d12",
   name_es: "Salud del Sueño",
-  image: "valerianaypasiflora.jpg",
+  image: "./images/valerianaypasiflora.jpg",
   description_es: "Un descanso reparador es vital para la salud física y mental. Problemas como insomnio, dificultad para conciliar el sueño o despertares frecuentes pueden afectar la energía, el estado de ánimo y la concentración.",
   solutions: [
     "La valeriana favorece la relajación y ayuda a mejorar la calidad del sueño",
@@ -3457,7 +3474,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
 {
-  id: "d12",
+  id: "d13",
   name_es: "Salud Cognitiva, Memoria y Concentracion",
   image: "ginkgobiloba.jpg",
   description_es: "La memoria y la concentración son esenciales para el aprendizaje, el trabajo y la vida diaria. El estrés, la fatiga y la edad pueden afectar el rendimiento cognitivo y la agilidad mental.",
@@ -3477,8 +3494,29 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 {
   id: "d14",
+  name_es: "Dolor de Garganta",
+  image: "./images/propoleo.jpg",
+  description_es: "El dolor de garganta puede deberse a infecciones virales, bacterianas, alergias, irritaciones por contaminantes o por el uso excesivo de la voz. Los síntomas incluyen irritación, enrojecimiento, inflamación y dificultad para tragar. Si no se trata adecuadamente, puede evolucionar a infecciones más graves como faringitis o amigdalitis.",
+  solutions: [
+    "El propóleo es un potente antimicrobiano natural que ayuda a calmar la irritación y combatir infecciones",
+    "La miel de abeja suaviza la garganta y aporta alivio inmediato",
+    "El eucalipto facilita la descongestión y calma la inflamación",
+    "El ajo, por sus propiedades antimicrobianas, apoya al sistema inmunológico"
+  ],
+  relatedBenefits: [
+    "Alivio de la irritación",
+    "Apoyo inmunológico",
+    "Acción antimicrobiana natural",
+    "Prevención de infecciones respiratorias"
+  ],
+  relatedProducts: ["p8", "p24", "p25", "p46"]
+  // Propóleo, Miel de Abeja, Eucalipto Aceite Esencial, Ajo
+},
+
+{
+  id: "d15",
   name_es: "Salud Mental",
-  image: "ginseng.jpg",
+  image: "./images/ginseng.jpg",
   description_es: "La salud mental es esencial para el bienestar general. El estrés, la ansiedad, la fatiga y la falta de concentración pueden afectar la calidad de vida y la productividad.",
   solutions: [
     "La ashwagandha ayuda a reducir el estrés y mejorar el equilibrio emocional",
@@ -3497,32 +3535,32 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Ashwagandha, Ginseng, Ganoderma, Citrato de Magnesio, Triple Magnesio
 },
          
-        {
-  id: "d15",
-  name_es: "Salud Digestiva",
-  image: "ajonjoli.jpg",
-  description_es: "Los problemas digestivos pueden provocar hinchazón, gases, estreñimiento, acidez y malestar general. La dieta inadecuada, el estrés y los desequilibrios intestinales son causas frecuentes.",
+  {
+  id: "d16",
+  name_es: "Mal Aliento",
+  image: "./images/ajonjoli.jpg",
+  description_es: "El mal aliento o halitosis puede tener varias causas, como problemas digestivos, acumulación de bacterias en la boca, encías inflamadas o consumo de ciertos alimentos. Aunque suele ser un problema leve, puede afectar la confianza y la vida social.",
   solutions: [
-    "El aceite de ajonjolí favorece la lubricación digestiva y la regularidad",
-    "Las cápsulas de alcachofa apoyan la función hepática y digestiva",
-    "El hinojo ayuda a aliviar gases y mejorar la digestión",
-    "La cúrcuma en polvo contribuye a la salud hepática y digestiva",
-    "El jengibre alivia náuseas y estimula la digestión"
+    "El aceite de ajonjolí utilizado en enjuagues bucales puede ayudar a reducir bacterias y mejorar el aliento",
+    "El propóleo, gracias a sus propiedades antimicrobianas, contribuye a mantener una boca más saludable",
+    "El jengibre puede apoyar la digestión y ayudar a neutralizar olores desagradables",
+    "El aloe vera favorece la salud bucal y digestiva, reduciendo la inflamación de encías",
+    "Mantener una adecuada hidratación y una higiene oral constante es clave para prevenir la halitosis"
   ],
   relatedBenefits: [
-    "Apoyo digestivo natural",
-    "Reducción de gases e hinchazón",
-    "Mejora de la función hepática",
-    "Alivio de malestares estomacales"
+    "Salud bucal y frescura",
+    "Reducción de bacterias orales",
+    "Apoyo a la digestión",
+    "Prevención de encías inflamadas"
   ],
-  relatedProducts: ["p1", "p13", "p38", "p32", "p52"] 
-  // Aceite de Ajonjolí, Alcachofa Cápsulas, Fennel, Cúrcuma en Polvo, Jengibre
+  relatedProducts: ["p1", "p24", "p52", "p18"]
+  // Aceite de Ajonjolí, Propóleo, Jengibre, Aloe Vera
 },
 
         {
-  id: "d16",
+  id: "d17",
   name_es: "Salud Ocular",
-  image: "ganoderma.jpg",
+  image: "./images/omega3.jpg",
   description_es: "La salud ocular es clave para una buena visión y calidad de vida. Problemas como la fatiga ocular, visión borrosa, resequedad, cataratas o degeneración visual pueden aparecer por la edad, el estrés oxidativo o deficiencias nutricionales.",
   solutions: [
     "El Omega 3 apoya la salud de la retina y ayuda en casos de resequedad ocular",
@@ -3542,7 +3580,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 
         {
-  id: "d17",
+  id: "d18",
   name_es: "Salud Hepática",
   image: "alcachofa.jpg",
   description_es: "El hígado cumple funciones vitales como la desintoxicación, la digestión de grasas y el equilibrio metabólico. Cuando se sobrecarga puede provocar cansancio, digestión lenta, piel opaca o acumulación de toxinas.",
@@ -3561,9 +3599,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   relatedProducts: ["p13", "p32", "p38", "p46"] // Alcachofa, Cúrcuma, Hinojo, Ginseng
 },
 {
-  id: "d18",
+  id: "d19",
   name_es: "Salud Articular",
-  image: "colageno.jpg",
+  image: "./images/colageno.jpg",
   description_es: "Los problemas articulares como la artritis, rigidez y el dolor limitan la movilidad y afectan la calidad de vida. Factores como la inflamación, el desgaste del cartílago o lesiones contribuyen a estas dolencias.",
   solutions: [
     "El colágeno hidrolizado ayuda a regenerar cartílagos y articulaciones",
@@ -3581,9 +3619,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Colágeno Hidrolizado, Cúrcuma, Crema Relabir, Triple Magnesio
 },
 {
-  id: "d19",
+  id: "d20",
   name_es: "Sistema Nervioso",
-  image: "citratomagnesio.png",
+  image: "./images/magnesio.jpg",
   description_es: "El sistema nervioso regula la actividad mental y física del organismo. El estrés, la ansiedad o la falta de nutrientes pueden provocar nerviosismo, insomnio y agotamiento.",
   solutions: [
     "El citrato de magnesio apoya la relajación muscular y nerviosa",
@@ -3601,9 +3639,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   relatedProducts: ["p27", "p75", "p64", "p46", "p43", "p16"]  
 },
 {
-  id: "d20",
+  id: "d21",
   name_es: "Salud Renal y Riñones",
-  image: "alcachofa.jpg",
+  image: "./images/alcachofa.jpg",
   description_es: "Los riñones cumplen una función vital en la eliminación de toxinas, el equilibrio de líquidos y la regulación de minerales en el cuerpo. Problemas renales pueden causar fatiga, retención de líquidos, dolor lumbar y complicaciones metabólicas.",
   solutions: [
     "El aceite de ajonjolí contribuye a la depuración natural del organismo",
@@ -3622,9 +3660,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Aceite de Ajonjolí, Alcachofa Cápsulas, Ganoderma, Ginseng, Triple Magnesio
 },
 {
-  id: "d21",
+  id: "d22",
   name_es: "Dolor Muscular",
-  image: "relabir.jpg",
+  image: "./images/cremarelabir.jpg",
   description_es: "El dolor muscular puede ser causado por el esfuerzo físico, malas posturas, lesiones o deficiencia de minerales como el magnesio. Estos dolores afectan la movilidad y el bienestar diario.",
   solutions: [
     "La Crema Relabir ayuda a aliviar contracturas y molestias musculares",
@@ -3642,9 +3680,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Crema Relabir, Triple Magnesio, Aceite de Ajonjolí, Colágeno Hidrolizado
 },
 {
-  id: "d22",
+  id: "d23",
   name_es: "Desintoxicación",
-  image: "ayurcolon.jpg",
+  image: "./images/ayurcolon.jpg",
   description_es: "La desintoxicación ayuda a eliminar toxinas acumuladas en el organismo que afectan la digestión, la energía y la salud general. Factores como una mala alimentación, el estrés y la contaminación pueden sobrecargar al hígado e intestinos.",
   solutions: [
     "Ayurcolon apoya el tránsito intestinal y la limpieza digestiva",
@@ -3662,9 +3700,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Ayurcolon, Jarabe de Yacón, Cúrcuma en polvo, Aceite de Ajonjolí
 },
 {
-  id: "d23",
+  id: "d24",
   name_es: "Salud Dental",
-  image: "colageno.jpg",
+  image: "./images/colageno.jpg",
   description_es: "La salud dental es fundamental para una buena calidad de vida. Problemas como caries, encías inflamadas y debilidad en el esmalte dental pueden afectar la alimentación y la salud general.",
   solutions: [
     "El colágeno hidrolizado apoya la regeneración de encías y tejidos bucales",
@@ -3680,9 +3718,9 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Colágeno Hidrolizado, Triple Magnesio, Aceite de Ajonjolí
 },
 {
-  id: "d24",
+  id: "d25",
   name_es: "Salud Prostática",
-  image: "ginseng.jpg",
+  image: "./images/ginseng.jpg",
   description_es: "La salud prostática es esencial para el bienestar masculino, especialmente con el paso de los años. Problemas como la inflamación de la próstata (prostatitis) o el agrandamiento prostático pueden afectar la micción y la calidad de vida.",
   solutions: [
     "El ginseng apoya la energía, la vitalidad y la función reproductiva masculina",
@@ -3698,7 +3736,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Ginseng, Huanarpo Macho, Citrato de Magnesio
 },
 {
-  id: "d25",
+  id: "d26",
   name_es: "Salud Urinaria",
   image: "./images/aceiteajonjoli.jpg",
   description_es: "La salud urinaria es clave para el buen funcionamiento de los riñones, la vejiga y las vías urinarias. Problemas como infecciones, inflamación o dificultad para orinar pueden afectar la calidad de vida y el equilibrio general del organismo.",
@@ -3716,7 +3754,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Aceite de Ajonjolí, Citrato de Magnesio, Huanarpo Macho
 },
 {
-  id: "d26",
+  id: "d27",
   name_es: "Alergias",
   image: "./images/propoleo.jpg",
   description_es: "Las alergias son respuestas exageradas del sistema inmunológico frente a sustancias inofensivas como polvo, polen o ciertos alimentos. Sus síntomas pueden incluir estornudos, picazón, lagrimeo, congestión nasal o irritación de la piel.",
@@ -3734,7 +3772,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Propóleo, Miel de Abeja, Vitamina C
 },
 {
-  id: "d27",
+  id: "d28",
   name_es: "Hernias",
   image: "./images/colageno.jpg",
   description_es: "Las hernias ocurren cuando un órgano o tejido sobresale a través de una abertura o zona débil en la pared muscular o tejido que normalmente lo contiene. Pueden presentarse en diferentes zonas del cuerpo y producir dolor, inflamación o limitación funcional. Los tipos más comunes incluyen: hernia inguinal, umbilical, hiatal y discal.",
@@ -3753,7 +3791,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   // Colágeno Hidrolizado, Citrato de Magnesio, Curcumina, Crema Relabir
 },
 {
-  id: "d28",
+  id: "d29",
   name_es: "Energía y Vitalidad",
   image: "./images/ginseng.jpg",
   description_es: "La falta de energía y vitalidad puede deberse al estrés, la mala alimentación, el cansancio crónico o deficiencias nutricionales. Los adaptógenos y tónicos naturales ayudan a mejorar la resistencia física y mental, favorecen la concentración y aportan un impulso natural de energía.",
@@ -3774,6 +3812,28 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 },
 {
   id: "d30",
+  name_es: "Azúcar Alta / Baja",
+  image: "./images/jarabeyacon.png",
+  description_es: "Los desequilibrios en los niveles de azúcar en sangre incluyen la hiperglucemia (azúcar alta) y la hipoglucemia (azúcar baja). La hiperglucemia puede estar asociada con diabetes, resistencia a la insulina, fatiga y complicaciones metabólicas. La hipoglucemia se manifiesta con mareos, debilidad, temblores, sudoración y, en casos graves, pérdida de conciencia. Mantener un nivel estable de glucosa es esencial para la salud y la energía diaria.",
+  solutions: [
+    "El jarabe de yacón, con bajo índice glucémico, ayuda a regular los niveles de azúcar en sangre",
+    "El ginseng favorece la sensibilidad a la insulina y contribuye a mantener la energía",
+    "El magnesio (citrato y combinaciones) apoya la función nerviosa y el metabolismo de la glucosa",
+    "La ashwagandha contribuye a reducir el estrés, que puede afectar los niveles de azúcar",
+    "El kelp y los minerales marinos ayudan a mantener un metabolismo equilibrado"
+  ],
+  relatedBenefits: [
+    "Regulación del azúcar en sangre",
+    "Apoyo al metabolismo energético",
+    "Prevención de complicaciones metabólicas",
+    "Mayor vitalidad y bienestar"
+  ],
+  relatedProducts: ["p80", "p46", "p27", "p75", "p10", "p31"]
+  // Jarabe de Yacón, Ginseng, Citrato de Magnesio, Triple Magnesio, Ashwagandha, Kelp
+},
+
+{
+  id: "d31",
   name_es: "Dolor de Cabeza",
   image: "./images/pachuli.jpg",
   description_es: "El dolor de cabeza puede variar desde una molestia leve hasta una migraña intensa e incapacitante. Entre sus causas comunes se encuentran el estrés, la tensión muscular, el insomnio, problemas digestivos, deshidratación, deficiencia de minerales y cambios hormonales. Cuando son frecuentes o severos, pueden afectar seriamente la calidad de vida, disminuyendo la concentración, la productividad y el bienestar emocional.",
@@ -3792,7 +3852,48 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   relatedProducts: ["p27", "p53", "p12", "p16", "p46", "p10"]
   // Citrato de Magnesio, Raíz de Pachuli, Pasiflora, Valeriana, Ginseng, Ashwagandha
 },
-
+{
+  id: "d32",
+  name_es: "Fatiga Crónica",
+  image: "./images/ginseng.jpg",
+  description_es: "La fatiga crónica es un estado persistente de cansancio físico y mental que no mejora con el descanso. Puede estar asociada a estrés, desbalances hormonales, problemas inmunológicos o metabólicos. Afecta la concentración, la energía y la calidad de vida diaria.",
+  solutions: [
+    "El ginseng contribuye a mejorar la energía, vitalidad y resistencia física",
+    "La maca fortalece el organismo y ayuda a combatir el agotamiento",
+    "El magnesio (citrato y combinaciones) apoya la función muscular y reduce el cansancio",
+    "La ashwagandha ayuda a equilibrar el estrés y favorece la recuperación energética",
+    "El ganoderma aporta soporte inmunológico y energético"
+  ],
+  relatedBenefits: [
+    "Aumento de la energía y vitalidad",
+    "Reducción del cansancio físico y mental",
+    "Apoyo al sistema nervioso y hormonal",
+    "Mejora de la concentración y el ánimo"
+  ],
+  relatedProducts: ["p46", "p57", "p27", "p75", "p43", "p10"]
+  // Ginseng, Maca, Citrato de Magnesio, Triple Magnesio, Ganoderma, Ashwagandha
+},
+{
+  id: "d33",
+  name_es: "Caída del Cabello",
+  image: "./images/batana.jpg",
+  description_es: "La caída del cabello puede deberse a factores como el estrés, desequilibrios hormonales, deficiencias nutricionales o envejecimiento. Aunque en muchos casos es un proceso natural, cuando es excesiva puede afectar la confianza y ser un signo de desequilibrio en la salud.",
+  solutions: [
+    "El aceite de batana nutre y fortalece los folículos capilares",
+    "La biotina favorece el crecimiento saludable del cabello y uñas",
+    "El colágeno hidrolizado apoya la regeneración y fortaleza del cabello",
+    "La vitamina E protege contra el daño oxidativo y mantiene el cuero cabelludo saludable",
+    "El aloe vera calma e hidrata el cuero cabelludo, ayudando a prevenir irritación"
+  ],
+  relatedBenefits: [
+    "Fortalecimiento capilar",
+    "Prevención de la caída excesiva",
+    "Mejora de brillo y volumen",
+    "Salud del cuero cabelludo"
+  ],
+  relatedProducts: ["p2", "p21", "p30", "p20", "p18"]
+  // Aceite de Batana, Biotina, Colágeno Hidrolizado, Vitamina E, Aloe Vera
+},
 
 
       ];
@@ -7320,66 +7421,79 @@ function toggleDisease(id) {
       // DATOS PARA DESPLEGABLES (asegúrate de que estén aquí)
       // ===========================================
 
-      const diseasesAndSolutions = [
-  { id: "estres-ansiedad", name_es: "Estrés y Ansiedad", name_en: "Stress and Anxiety" },
-  { id: "salud-digestiva", name_es: "Salud Digestiva", name_en: "Digestive Health" },
-  { id: "salud-articular", name_es: "Salud Articular", name_en: "Joint Health" },
-  { id: "diabetes", name_es: "Diabetes", name_en: "Diabetes" },
-  { id: "azucar-alta-baja", name_es: "Azúcar Alta/Baja", name_en: "High/Low Blood Sugar" },
-  { id: "dolor-cabeza", name_es: "Dolor de Cabeza", name_en: "Headache" },
-  { id: "salud-cardiovascular", name_es: "Salud Cardiovascular", name_en: "Cardiovascular Health" },
-  { id: "energia-vitalidad", name_es: "Energía y Vitalidad", name_en: "Energy and Vitality" },
-  { id: "control-peso", name_es: "Control de Peso", name_en: "Weight Management" },
-  { id: "salud-piel", name_es: "Salud de la Piel", name_en: "Skin Health" },
-  { id: "sistema-inmunologico-debil", name_es: "Sistema Inmunológico Débil", name_en: "Weak Immune System" },
-  { id: "caida-pelo", name_es: "Caída del Pelo", name_en: "Hair Loss" },
-  { id: "salud-ocular", name_es: "Salud Ocular", name_en: "Eye Health" },
-  { id: "salud-renal", name_es: "Salud Renal", name_en: "Kidney Health" },
-  { id: "salud-osea", name_es: "Salud Ósea", name_en: "Bone Health" },
-  { id: "salud-hormonal", name_es: "Salud Hormonal", name_en: "Hormonal Health" },
-  { id: "salud-respiratoria", name_es: "Salud Respiratoria", name_en: "Respiratory Health" },
-  { id: "salud-hepatica", name_es: "Salud Hepática", name_en: "Liver Health" },
-  { id: "salud-reproductiva", name_es: "Salud Reproductiva", name_en: "Reproductive Health" },
-  { id: "desintoxicacion", name_es: "Desintoxicación", name_en: "Detoxification" },
-  { id: "salud-sueno", name_es: "Salud del Sueño", name_en: "Sleep Health" },
-  { id: "salud-dental", name_es: "Salud Dental", name_en: "Dental Health" },
-  { id: "alergias", name_es: "Alergias", name_en: "Allergies" },
-  { id: "salud-urinaria", name_es: "Salud Urinaria", name_en: "Urinary Health" },
-  { id: "salud-prostatica", name_es: "Salud Prostática", name_en: "Prostate Health" },
-  { id: "memoria-concentracion", name_es: "Memoria y Concentración", name_en: "Memory and Concentration" },
-  { id: "dolor-muscular", name_es: "Dolor Muscular", name_en: "Muscle Pain" },
-  { id: "salud-mental", name_es: "Salud Mental", name_en: "Mental Health" }
+      
+const diseasesAndSolutions = [
+  { id: "d1",  name_es: "Estrés y Ansiedad", name_en: "Stress and Anxiety" },
+  { id: "d2",  name_es: "Salud Digestiva", name_en: "Digestive Health" },
+  { id: "d3",  name_es: "Salud Articular", name_en: "Joint Health" },
+  { id: "d4",  name_es: "Diabetes", name_en: "Diabetes" },
+  { id: "d5",  name_es: "Azúcar Alta/Baja", name_en: "High/Low Blood Sugar" },
+  { id: "d6",  name_es: "Dolor de Cabeza", name_en: "Headache" },
+  { id: "d7",  name_es: "Salud Cardiovascular", name_en: "Cardiovascular Health" },
+  { id: "d8",  name_es: "Energía y Vitalidad", name_en: "Energy and Vitality" },
+  { id: "d9",  name_es: "Control de Peso", name_en: "Weight Control" },
+  { id: "d10", name_es: "Salud de la Piel", name_en: "Skin Health" },
+  { id: "d11", name_es: "Sistema Inmunológico Débil", name_en: "Weak Immune System" },
+  { id: "d12", name_es: "Caída del Cabello", name_en: "Hair Loss" },
+  { id: "d13", name_es: "Salud Ocular", name_en: "Eye Health" },
+  { id: "d14", name_es: "Salud Renal", name_en: "Kidney Health" },
+  { id: "d15", name_es: "Salud Hormonal", name_en: "Hormonal Health" },
+  { id: "d16", name_es: "Salud Respiratoria", name_en: "Respiratory Health" },
+  { id: "d17", name_es: "Salud Hepática", name_en: "Liver Health" },
+  { id: "d18", name_es: "Salud Sexual y Reproductiva", name_en: "Sexual and Reproductive Health" },
+  { id: "d19", name_es: "Desintoxicación", name_en: "Detoxification" },
+  { id: "d20", name_es: "Salud del Sueño", name_en: "Sleep Health" },
+  { id: "d21", name_es: "Salud Dental", name_en: "Dental Health" },
+  { id: "d22", name_es: "Alergias", name_en: "Allergies" },
+  { id: "d23", name_es: "Salud Urinaria", name_en: "Urinary Health" },
+  { id: "d24", name_es: "Salud Prostática", name_en: "Prostate Health" },
+  { id: "d25", name_es: "Salud Ósea", name_en: "Bone Health" },
+  { id: "d26", name_es: "Memoria y Concentración", name_en: "Memory and Concentration" },
+  { id: "d27", name_es: "Dolor Muscular", name_en: "Muscle Pain" },
+  { id: "d28", name_es: "Salud Mental", name_en: "Mental Health" },
+  { id: "d29", name_es: "Sistema Nervioso", name_en: "Nervous System" },
+  { id: "d30", name_es: "Hernias", name_en: "Hernias" },
+  { id: "d31", name_es: "Fatiga Crónica", name_en: "Chronic Fatigue" },
+  { id: "d32", name_es: "Dolor de Garganta", name_en: "Sore Throat" },
+  { id: "d33", name_es: "Mal Aliento", name_en: "Bad Breath" }
 ];
 
+
+
 const diseaseIds = [
-  "estres-ansiedad",
-  "salud-digestiva",
-  "salud-articular",
-  "diabetes",
-  "azucar-alta-baja",
-  "dolor-cabeza",
-  "salud-cardiovascular",
-  "energia-vitalidad",
-  "control-peso",
-  "salud-piel",
-  "sistema-inmunologico-debil",
-  "caida-pelo",
-  "salud-ocular",
-  "salud-renal",
-  "salud-osea",
-  "salud-hormonal",
-  "salud-respiratoria",
-  "salud-hepatica",
-  "salud-reproductiva",
-  "desintoxicacion",
-  "salud-sueno",
-  "salud-dental",
-  "alergias",
-  "salud-urinaria",
-  "salud-prostatica",
-  "memoria-concentracion",
-  "dolor-muscular",
-  "salud-mental"
+  "d1",  // Estrés y Ansiedad
+  "d2",  // Salud Digestiva
+  "d3",  // Salud Articular
+  "d4",  // Diabetes
+  "d5",  // Azúcar Alta/Baja
+  "d6",  // Dolor de Cabeza
+  "d7",  // Salud Cardiovascular
+  "d8",  // Energía y Vitalidad
+  "d9",  // Control de Peso
+  "d10", // Salud de la Piel
+  "d11", // Sistema Inmunológico Débil
+  "d12", // Caída del Cabello
+  "d13", // Salud Ocular
+  "d14", // Salud Renal
+  "d15", // Salud Hormonal
+  "d16", // Salud Respiratoria
+  "d17", // Salud Hepática
+  "d18", // Salud Sexual y Reproductiva
+  "d19", // Desintoxicación
+  "d20", // Salud del Sueño
+  "d21", // Salud Dental
+  "d22", // Alergias
+  "d23", // Salud Urinaria
+  "d24", // Salud Prostática
+  "d25", // Salud Ósea
+  "d26", // Memoria y Concentración
+  "d27", // Dolor Muscular
+  "d28", // Salud Mental
+  "d29", // Sistema Nervioso
+  "d30", // Hernias
+  "d31", // Fatiga Crónica
+  "d32",  // Dolor de Garganta
+  "d33" // Mal Aliento
 ];
 
 
@@ -7708,4 +7822,3 @@ function renderEnfermedadesInicio() {
 
       </body>
 </html>
-
