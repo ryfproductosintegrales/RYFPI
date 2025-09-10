@@ -2976,7 +2976,7 @@
           price: 1200,
           priceDetail: 1200,
           priceWholesale: 960,
-          image: "matcha.jpg",
+          image: "matcha.png",
           description_es:
             "El té matcha es un té verde japonés en polvo, obtenido de hojas finamente molidas. Es conocido por su alto contenido en antioxidantes, aminoácidos como la L-teanina y su capacidad para aportar energía sostenida y concentración mental. A diferencia del té verde convencional, en el matcha se consume la hoja entera, lo que potencia sus beneficios para la salud.",
           benefits: [
@@ -3138,7 +3138,7 @@ isOffer: false
   price: 250,
   priceDetail: 250,
   priceWholesale: 200,
-  image: "uñagato.jpg",
+  image: "unadegato.png",
   description_es: "La Uña de Gato (Uncaria tomentosa) es una planta amazónica reconocida por sus múltiples propiedades terapéuticas. Se utiliza tradicionalmente para fortalecer el sistema inmunológico, reducir la inflamación y proteger la salud articular. Gracias a sus compuestos antioxidantes, ayuda a combatir los radicales libres y promueve el bienestar general. Además, favorece la digestión, contribuye a la salud cardiovascular y es valorada como un apoyo natural en la prevención de diversas afecciones.",
   benefits: [
     "Refuerza el sistema inmunológico.",
@@ -4485,14 +4485,13 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
             </div>
         </section>
 
-<section class="common-diseases mb-12">
+     <section class="common-diseases mb-12">
     <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commonDiseases}</h2>
     <div class="flex justify-center">
         <div class="bg-white rounded-lg shadow-md p-6 text-center">
-            <img src="images/gripe.png" alt="Ilustración de gripe" class="w-full h-48 object-cover rounded-md">
+            <img src="./assets/images/ginseng.jpg" alt="Imagen de ginseng" class="w-full h-48 object-cover rounded-md">
         </div>
     </div>
-  
 
  <!-- Botón para ver todas -->
   <div class="text-center mt-8">
@@ -5001,6 +5000,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
         window.scrollTo(0, 0);
       };
 
+
       /**
        * Renderiza la página de detalles del producto para un ID de producto dado.
        * @param {string} productId - El ID del producto a mostrar.
@@ -5117,46 +5117,14 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                                 <button class="tab-button text-primary whitespace-nowrap py-4 px-1 border-b-2 border-primary font-medium text-lg" data-tab="description">${
                                   lang.description
                                 }</button>
-                                <button class="tab-button text-gray-500 hover:text-gray-700 whitespace-nowrap py-4 px-1 border-b-2 border-transparent hover:border-gray-300 font-medium text-lg" data-tab="reviews">${
-                                  lang.reviews
-                                }</button>
+                                
                             </nav>
                         </div>
 
                         <div id="tab-content" class="mt-6 text-gray-800 leading-relaxed">
                             <div id="tab-description" class="tab-pane active">${fullDescriptionHtml}</div>
-                            <div id="tab-reviews" class="tab-pane hidden">
-                                <h4 class="text-xl font-semibold text-gray-800 mb-3">Opiniones de Clientes:</h4>
-                                ${
-                                  product.opinions &&
-                                  product.opinions.length > 0
-                                    ? `<div class="space-y-4">
-                                        ${product.opinions
-                                          .map(
-                                            (opinion) => `
-                                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                                <div class="flex items-center mb-2">
-                                                    <div class="text-yellow-500">
-                                                        ${"&#9733;".repeat(
-                                                          opinion.rating
-                                                        )}${"&#9734;".repeat(
-                                              5 - opinion.rating
-                                            )}
-                                                    </div>
-                                                    <span class="ml-2 text-gray-700 font-semibold">${
-                                                      opinion.user
-                                                    }</span>
-                                                </div>
-                                                <p class="text-gray-600 italic">"${
-                                                  opinion.text
-                                                }"</p>
-                                            </div>
-                                        `
-                                          )
-                                          .join("")}
-                                    </div>`
-                                    : `<p class="mb-2">Aún no hay opiniones para este producto. ¡Sé el primero en dejar una!</p>`
-                                }
+                            
+                                
                                 ${
                                   product.averageRating > 0
                                     ? `<div class="flex items-center text-yellow-500 mt-4">
@@ -5180,24 +5148,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                             </div>
                         </div>
 
-                        <!-- Certificaciones -->
-                        <div class="mt-8">
-                            <h3 class="text-xl font-semibold text-primary mb-3">Certificaciones:</h3>
-                            <div class="flex flex-wrap gap-3">
-                                ${
-                                  product.certifications &&
-                                  product.certifications.length > 0
-                                    ? product.certifications
-                                        .map(
-                                          (cert) => `
-                                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">${cert}</span>
-                                    `
-                                        )
-                                        .join("")
-                                    : '<p class="text-gray-600 text-sm">No hay certificaciones disponibles.</p>'
-                                }
-                            </div>
-                        </div>
+                        
 
                         <!-- Productos relacionados -->
                         <div class="mt-8">
@@ -7848,12 +7799,3 @@ function renderEnfermedadesInicio() {
 
       </body>
 </html>
-
-
-
-
-
-
-
-
-
