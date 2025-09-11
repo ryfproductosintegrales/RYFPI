@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    
     <meta
       name="google-site-verification"
       content="GIQXFZFxW4wimdIzD4pRYruuHOIvxn_qMMhk5CeG-vc"
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    
+    
     <title>
       Productos Integrales R&F | Productos y Alimentos Saludables y Naturales
     </title>
@@ -119,6 +121,7 @@
     background: #fafafa;
   }
 </style>
+
 
 
 <style>
@@ -245,48 +248,7 @@
         transform: scale(1.2);
       }
 
-      /* Estilos para el botón "Volver Arriba" */
-      #scrollToTopBtn {
-        position: fixed;
-        bottom: 20px; /* más alto para evitar la barra inferior en móviles */
-        right: 20px;
-        z-index: 9999; /* más alto que cualquier otro elemento */
-        border: none;
-        outline: none;
-        background-color: #16a34a; /* verde primario */
-        color: white;
-        cursor: pointer;
-        padding: 12px 14px;
-        border-radius: 50%;
-        font-size: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        opacity: 0;
-        transform: translateY(10px);
-        pointer-events: none;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-       display:block; /* aseguramos que sea un bloque para el botón */
-      }
-
-      /* Clase extra para mostrar con transición (opcional si cambias JS) */
-      #scrollToTopBtn.show {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
-
-      #scrollToTopBtn:hover {
-        background-color: #1a6b1a; /* Un verde más oscuro al pasar el ratón */
-        transform: translateY(-3px); /* Pequeño efecto de elevación */
-      }
-
-      /* Ajuste especial para móviles */
-      @media (max-width: 768px) {
-        #scrollToTopBtn {
-          bottom: 100px !important; /* lo subimos para evitar solaparse con la barra o menú móvil */
-          z-index: 9999 !important; /* por encima de cualquier elemento flotante */
-        }
-      }
-    </style>
+     
 
 <style>
       html {
@@ -840,11 +802,18 @@
           .map(
             (cat) =>
               `<a href="#shop" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        onclick="closeMobileDropdown(this); navigateTo('shop', null, event); setTimeout(function(){ applyFiltersAndSort({ category: '${cat}' }); }, 0);">
+        onclick="mobileShopCategoryClick('${cat}', event, this)">
         ${cat}
         </a>`
           )
           .join("");
+      // Función global para manejar el click en categorías del menú móvil
+      window.mobileShopCategoryClick = function(cat, event, el) {
+        event.preventDefault();
+        navigateTo('shop', null, event);
+        window.renderShop({ category: cat });
+        closeMobileDropdown(el);
+      };
         dropdown.appendChild(listDiv);
         tiendaLink.parentElement.appendChild(dropdown);
 
@@ -918,6 +887,13 @@
     const lang = translations[currentLanguage];
     if (!appContent) return;
     let filteredProducts = [...products];
+
+    // Aplicar filtro por categoría
+    if (filter && filter.category) {
+      filteredProducts = filteredProducts.filter(p => 
+        p.category && p.category.toLowerCase() === filter.category.toLowerCase()
+      );
+    }
 
     // Buscador interno (similar al general)
     const rawQuery =
@@ -1057,6 +1033,13 @@
       function toggleMobileMenu() {
         const menu = document.getElementById("mobile-menu");
         if (!menu) return;
+        
+        // Si estamos cerrando el menú, también cerramos todos los dropdowns
+        if (!menu.classList.contains("hidden")) {
+          const openDropdowns = menu.querySelectorAll(".dropdown-list.show");
+          openDropdowns.forEach(dropdown => dropdown.classList.remove("show"));
+        }
+        
         menu.classList.toggle("hidden");
         // bloquear scroll opcional:
         document.body.style.overflow = menu.classList.contains("hidden")
@@ -1064,10 +1047,38 @@
           : "hidden";
       }
 
+      // Función para cerrar el menú móvil y sus dropdowns
+      function closeMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        if (!menu) return;
+        
+        // Cerrar todos los dropdowns
+        const openDropdowns = menu.querySelectorAll(".dropdown-list.show");
+        openDropdowns.forEach(dropdown => dropdown.classList.remove("show"));
+        
+        // Ocultar el menú
+        menu.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         const hamburgerBtn = document.getElementById("hamburger-btn");
-        if (hamburgerBtn)
+        if (hamburgerBtn) {
           hamburgerBtn.addEventListener("click", toggleMobileMenu);
+        }
+
+        // Agregar manejador de clics para el menú móvil
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (mobileMenu) {
+          mobileMenu.addEventListener("click", (e) => {
+            // Si el clic fue en un enlace dentro de un dropdown
+            if (e.target.tagName === "A" && 
+                (e.target.closest(".dropdown-list") || e.target.closest(".nav-dropdown"))) {
+              // Cerrar el menú después de un pequeño retraso para permitir la navegación
+              setTimeout(closeMobileMenu, 100);
+            }
+          });
+        }
 
         // Sincronizar contador del carrito
         const cartCount = document.getElementById("cart-count");
@@ -1622,7 +1633,7 @@
             "Barro natural purificado, ideal para mascarillas faciales y corporales, Propiedades desintoxicantes.",
           benefits:
             '["Desintoxica Y Purifica La Piel", "Astringente Y Revitalizante", ]',
-          "mode of use":
+          mode of use:
             '["Mezclar Con Agua Hasta Formar Pasta; Aplicar En Rostro O Cuerpo Por 30 Minutos", ]',
           ailments: [],
           dateAdded: "2025-07-01",
@@ -1656,9 +1667,9 @@
           presentation: "1000 und,",
           category: "capsula",
           type: "capsula",
-          price: 450,
-          priceDetail: 450,
-          priceWholesale: 360,
+          price: 500,
+          priceDetail: 500,
+          priceWholesale: 400,
           image: "capsulas0.png",
           description_es:
             "Mil cápsulas vegetales vacías, tamaño #0, Perfectas para crear tus propios suplementos herbales,",
@@ -1677,9 +1688,9 @@
           presentation: "30 und,",
           category: "capsula",
           type: "capsula",
-          price: 75,
-          priceDetail: 75,
-          priceWholesale: 60,
+          price: 100,
+          priceDetail: 100,
+          priceWholesale: 70,
           image: "capsulas1.jpg",
           description_es:
             "Mil cápsulas vegetales vacías, tamaño #0, Perfectas para crear tus propios suplementos herbales,",
@@ -2003,7 +2014,7 @@
           price: 300,
           priceDetail: 300,
           priceWholesale: 240,
-          image: "dianin.jpg",
+          image: "dianim.jpg",
           description_es:
             "Aceite de semillas de neem indicado para apoyar el equilibrio endocrino y contribuir a la regulación natural del azúcar en la sangre.",
           benefits: [
@@ -2976,7 +2987,7 @@
           price: 1200,
           priceDetail: 1200,
           priceWholesale: 960,
-          image: "matcha.jpg",
+          image: "matcha.png",
           description_es:
             "El té matcha es un té verde japonés en polvo, obtenido de hojas finamente molidas. Es conocido por su alto contenido en antioxidantes, aminoácidos como la L-teanina y su capacidad para aportar energía sostenida y concentración mental. A diferencia del té verde convencional, en el matcha se consume la hoja entera, lo que potencia sus beneficios para la salud.",
           benefits: [
@@ -3138,7 +3149,7 @@ isOffer: false
   price: 250,
   priceDetail: 250,
   priceWholesale: 200,
-  image: "uñagato.jpg",
+  image: "unadegato.png",
   description_es: "La Uña de Gato (Uncaria tomentosa) es una planta amazónica reconocida por sus múltiples propiedades terapéuticas. Se utiliza tradicionalmente para fortalecer el sistema inmunológico, reducir la inflamación y proteger la salud articular. Gracias a sus compuestos antioxidantes, ayuda a combatir los radicales libres y promueve el bienestar general. Además, favorece la digestión, contribuye a la salud cardiovascular y es valorada como un apoyo natural en la prevención de diversas afecciones.",
   benefits: [
     "Refuerza el sistema inmunológico.",
@@ -3932,6 +3943,28 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
   relatedProducts: ["p2", "p21", "p30", "p20", "p18"]
   // Aceite de Batana, Biotina, Colágeno Hidrolizado, Vitamina E, Aloe Vera
 },
+{
+  id: "d34",
+  name_es: "Migraña",
+  image: "./images/migrana.png",
+  description_es: "La migraña es mucho más que un dolor de cabeza. Es una enfermedad compleja y debilitante que se manifiesta con ataques o episodios recurrentes que pueden durar horas o incluso días. Los síntomas clave que la distinguen son el dolor pulsátil e intenso (usualmente en un solo lado de la cabeza), y a menudo viene acompañada de otros síntomas como náuseas, vómitos y una extrema sensibilidad a la luz (fotofobia) y al sonido (fonofobia). A diferencia del dolor de cabeza común, la migraña es una condición neurológica específica.",
+  solutions: [
+    "La ashwagandha es un adaptógeno clave que reduce el estrés y mejora el estado de ánimo.",
+    "La valeriana favorece la relajación y ayuda a reducir la tensión.",
+    "El triple magnesio contribuye a la función nerviosa saludable y al alivio muscular.",
+    "El ginkgo biloba puede mejorar la circulación sanguínea en el cerebro.",
+    "El aceite de lavanda (en aromaterapia) ayuda a calmar y relajar.",
+    "El jengibre ayuda a aliviar las náuseas asociadas a la migraña."
+  ],
+  relatedBenefits: [
+    "Alivio del dolor de cabeza",
+    "Reducción de la tensión",
+    "Mejora la circulación cerebral",
+    "Promueve la relajación",
+    "Apoyo al sistema nervioso"
+  ],
+  relatedProducts: ["p85", "p16", "p27", "p46", "p68", "p80"] 
+},
 
 
       ];
@@ -4485,11 +4518,11 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
             </div>
         </section>
 
-    <section class="common-diseases mb-12">
+     <section class="common-diseases mb-12">
     <h2 class="text-3xl font-bold text-center mb-8 text-primary">${lang.commonDiseases}</h2>
     <div class="flex justify-center">
         <div class="bg-white rounded-lg shadow-md p-6 text-center">
-            <img src="images/gripe.png" alt="Ilustración de gripe" class="w-full h-48 object-cover rounded-md">
+            <img src="./assets/images/ginseng.jpg" alt="Imagen de ginseng" class="w-full h-48 object-cover rounded-md">
         </div>
     </div>
 
@@ -5062,7 +5095,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
         }
 
         appContent.innerHTML = `
-                <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col lg:flex-row gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-8 flex flex-col gap-8">
                     <div class="lg:w-1/2 flex justify-center items-center">
                         <img src="${product.image}" alt="${
           product.name
@@ -5111,6 +5144,11 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                             }
                         </button>
 
+<button onclick="navigateTo('shop', '', event)" class="w-full bg-gray-300 text-gray-700 text-xl py-3 rounded-full hover:bg-gray-400 transition duration-200">
+    <i class="fas fa-arrow-left mr-2"></i> Volver a la Tienda
+</button>
+                        
+
                         <!-- Pestaña única para la descripción (ahora incluye toda la información detallada) -->
                         <div class="border-b border-gray-200">
                             <nav class="-mb-px flex space-x-8 overflow-x-auto pb-2" aria-label="Tabs">
@@ -5148,7 +5186,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                             </div>
                         </div>
 
-                        
+                     
 
                         <!-- Productos relacionados -->
                         <div class="mt-8">
@@ -5218,6 +5256,8 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
           });
         });
       };
+
+
 
       /**
        * Renderiza la página de ofertas, mostrando un número limitado de productos y combos especiales.
@@ -7323,22 +7363,7 @@ function toggleDisease(id) {
           });
         }
 
-        if (scrollToTopBtn) {
-  window.addEventListener("scroll", function () {
-    if (
-      document.body.scrollTop > 200 ||
-      document.documentElement.scrollTop > 200
-    ) {
-      scrollToTopBtn.classList.add("show");   // 👈 usamos la clase show
-    } else {
-      scrollToTopBtn.classList.remove("show");
-    }
-  });
-
-  scrollToTopBtn.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
+     
       });
 
       // AÑADE ESTO EN TU SCRIPT, JUNTO A OTROS ARRAYS DE DATOS (ej. 'products', 'diseases')
@@ -7432,7 +7457,9 @@ const diseasesAndSolutions = [
   { id: "d30", name_es: "Hernias", name_en: "Hernias" },
   { id: "d31", name_es: "Fatiga Crónica", name_en: "Chronic Fatigue" },
   { id: "d32", name_es: "Dolor de Garganta", name_en: "Sore Throat" },
-  { id: "d33", name_es: "Mal Aliento", name_en: "Bad Breath" }
+  { id: "d33", name_es: "Mal Aliento", name_en: "Bad Breath" },
+  { id: "d34", name_es: "Migrañas", name_en: "Migraines" }
+
 ];
 
 
@@ -7469,8 +7496,9 @@ const diseaseIds = [
   "d29", // Sistema Nervioso
   "d30", // Hernias
   "d31", // Fatiga Crónica
-  "d32",  // Dolor de Garganta
-  "d33" // Mal Aliento
+  "d32", // Dolor de Garganta
+  "d33", // Mal Aliento
+  "d34" // Migrañas
 ];
 
 
@@ -7527,6 +7555,8 @@ const diseaseIds = [
       });
     </script>
 
+    <script>
+      
 // === Render sección Enfermedades más comunes SOLO en Inicio ===
 function renderEnfermedadesInicio() {
   if (typeof diseasesAndSolutions !== "undefined") {
@@ -7563,7 +7593,7 @@ function renderEnfermedadesInicio() {
     `;
   }
 }
-
+</script>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
@@ -7680,33 +7710,7 @@ function renderEnfermedadesInicio() {
       } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
     </script>
 
-    <!-- BOTÓN SUBIR -->
-    <button onclick="scrollToTop()" id="scrollToTopBtn" title="Volver arriba">
-      <i class="fas fa-chevron-up"></i>
-    </button>
 
-    <!-- FUNCIONES JS -->
-    <script>
-  (function () {
-    const btn = document.getElementById("scrollToTopBtn");
-    if (!btn) return;
-
-    function onScroll() {
-      if (window.scrollY > 100) {
-        btn.classList.add("show");      // 👈 activa visibilidad
-      } else {
-        btn.classList.remove("show");
-      }
-    }
-
-    window.addEventListener("scroll", onScroll);
-    onScroll(); // estado inicial
-
-    btn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  })();
-</script>
 
         <script>
         function toggleMobileMenu() {
@@ -7797,8 +7801,6 @@ function renderEnfermedadesInicio() {
       };
     </script>
 
-      </body>
+    
+  </body>
 </html>
-
-
-
