@@ -7704,34 +7704,33 @@ function renderEnfermedadesInicio() {
             </div>
             `;
 
-            // 3) Listener del formulario
-            document
-                .getElementById("formOpinionFirestore")
-                .addEventListener("submit", async (e) => {
-                    e.preventDefault();
-                    const f = e.target;
-                    const nombre = f.nombre.value.trim(); // Corregido: 'autor' toma el valor de 'nombre'
-                    const comentario = f.comentario.value.trim();
-                    const puntuacion = parseInt(f.puntuacion.value, 10);
-                    
-                    if (!nombre || !comentario || !puntuacion) {
-                        return alert("Completa todos los campos.");
-                    }
-                    
-                    try { // Corregido: El try...catch estaba mal cerrado
-                        await addDoc(collection(db, "opiniones"), {
-                            nombre, 
-                            comentario,
-                            puntuacion,                          
-                        });
-                        f.reset();
-                        await loadComments();
-                        alert("✅ Opinión enviada con éxito");
-                    } catch (error) {
-                        console.error("❌ Error al guardar opinión:", error);
-                        alert("Ocurrió un error al enviar la opinión.");
-                    }
-                });
+           // 3 Listener del formulario
+document.getElementById("formOpinionFirestore").addEventListener("submit", async (e) => {
+    // IMPORTANTE: Esta línea evita que la página se recargue
+    e.preventDefault(); 
+    const f = e.target;
+    const nombre = f.nombre.value.trim();
+    const comentario = f.comentario.value.trim();
+    const puntuacion = parseInt(f.puntuacion.value, 10);
+    
+    if (!nombre || !comentario || !puntuacion) {
+        return alert("Completa todos los campos.");
+    }
+    
+    try {
+        await addDoc(collection(db, "opiniones"), {
+            nombre,
+            comentario,
+            puntuacion,
+        });
+        f.reset();
+        await loadComments();
+        alert("✅ Opinión enviada con éxito");
+    } catch (error) {
+        console.error("❌ Error al guardar opinión:", error);
+        alert("Ocurrió un error al enviar la opinión.");
+    }
+});
         }
 
         // 4) Carga inicial de comentarios
