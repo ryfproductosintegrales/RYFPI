@@ -4562,35 +4562,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
         </div>
     `;
 
-  // *IMPORTANTE: El código del formulario de opiniones debe ir aquí.*
-  // Se ejecutará después de que el HTML del formulario se haya insertado.
-  const formOpinionFirestore = document.getElementById("formOpinionFirestore");
-  if (formOpinionFirestore) {
-    formOpinionFirestore.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const f = e.target;
-      const nombre = f.nombre.value.trim();
-      const comentario = f.comentario.value.trim();
-      const puntuacion = parseInt(f.puntuacion.value, 10);
-
-      if (!nombre || !comentario || !puntuacion) {
-        return alert("Completa todos los campos.");
-      }
-
-      try {
-        await addDoc(collection(db, "opiniones"), {
-          nombre,
-          comentario,
-          puntuacion,
-        });
-        f.reset();
-        alert("✅ ¡Opinión enviada con éxito!");
-      } catch (error) {
-        console.error("❌ Error al guardar opinión:", error);
-        alert("Ocurrió un error al enviar la opinión.");
-      }
-    });
-  }
+  
 
   // Ahora, las otras funciones que manejan elementos del DOM pueden ir aquí
   initCarousel();
@@ -7683,3 +7655,4 @@ function renderEnfermedadesInicio() {
     
   </body>
 </html>
+
