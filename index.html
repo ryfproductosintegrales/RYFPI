@@ -7710,20 +7710,19 @@ function renderEnfermedadesInicio() {
                 .addEventListener("submit", async (e) => {
                     e.preventDefault();
                     const f = e.target;
-                    const autor = f.nombre.value.trim(); // Corregido: 'autor' toma el valor de 'nombre'
+                    const nombre = f.nombre.value.trim(); // Corregido: 'autor' toma el valor de 'nombre'
                     const comentario = f.comentario.value.trim();
                     const puntuacion = parseInt(f.puntuacion.value, 10);
                     
-                    if (!autor || !comentario || !puntuacion) {
+                    if (!nombre || !comentario || !puntuacion) {
                         return alert("Completa todos los campos.");
                     }
                     
                     try { // Corregido: El try...catch estaba mal cerrado
                         await addDoc(collection(db, "opiniones"), {
-                            autor, // Corregido: Ahora se guarda con el campo 'autor'
+                            nombre, 
                             comentario,
-                            puntuacion,
-                            fecha: serverTimestamp(), // IMPORTANTE: Agregado el campo 'fecha' con la marca de tiempo del servidor
+                            puntuacion,                          
                         });
                         f.reset();
                         await loadComments();
