@@ -7696,6 +7696,7 @@ formNewsletter.addEventListener("submit", async (e) => {
             </select>
             <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
           </form>
+          <div id="opinionesLista"></div>
         </div>
       `;
 
@@ -7714,8 +7715,7 @@ formNewsletter.addEventListener("submit", async (e) => {
               await addDoc(collection(db, "opiniones"), {
                 nombre,
                 comentario,
-                puntuacion,
-                
+                puntuacion, 
               });
               f.reset();
               await loadComments();
