@@ -7663,7 +7663,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const snap = await getDocs(
       query(
         collection(db, "opiniones"),
-        orderBy("fecha", "desc"),
+        // Se ha eliminado la línea para ordenar por fecha
         limit(5)
       )
     );
@@ -7672,9 +7672,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       const div = document.createElement("div");
       div.className = "mb-4 p-4 bg-white rounded shadow";
       div.innerHTML = `
-        <p><strong>${d.nombre}</strong> (${new Date(
-          d.fecha.seconds * 1000
-        ).toLocaleString()}):</p>
+        <p><strong>${d.nombre}</strong>:</p>
         <p>${d.comentario}</p>
         <p>⭐ ${d.puntuacion}</p>
       `;
