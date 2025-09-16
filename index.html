@@ -7600,8 +7600,8 @@ function renderEnfermedadesInicio() {
 </script>
 
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-      import {
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
         getFirestore,
         collection,
         query,
@@ -7609,133 +7609,136 @@ function renderEnfermedadesInicio() {
         limit,
         getDocs,
         addDoc,
-        serverTimestamp,
-      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+        serverTimestamp, // IMPORTANTE: Agregado para usar la fecha del servidor
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+    
+    // IMPORTANTE: Mover la importación de getAuth al inicio.
+    import { getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
-      // — Inicializar Firebase —
-      const firebaseConfig = {
+
+    // — Inicializar Firebase —
+    const firebaseConfig = {
         apiKey: "AIzaSyAtHqNcQ3XkJTSEBbuw_FNPcntHyOns4vw",
         authDomain: "productos-integrales-ryf.firebaseapp.com",
         projectId: "productos-integrales-ryf",
         storageBucket: "productos-integrales-ryf.firebasestorage.app",
         messagingSenderId: "608589002219",
         appId: "1:608589002219:web:980c9203d23f1d838255ae",
-      };
-      initializeApp(firebaseConfig);
-      const auth = getAuth();
-      const db = getFirestore();
+    };
+    initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore();
 
-      // --- Newsletter ---
-const formNewsletter = document.getElementById("formNewsletter");
-formNewsletter.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const email = document.getElementById("emailNewsletter").value.trim();
+    // --- Newsletter ---
+    const formNewsletter = document.getElementById("formNewsletter");
+    formNewsletter.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("emailNewsletter").value.trim();
 
-  if (email) {
-    try {
-      await addDoc(collection(db, "newsletter"), { email });
-      alert("✅ Suscripción enviada con éxito");
-      formNewsletter.reset();
-    } catch (error) {
-      console.error("❌ Error al guardar suscripción:", error);
-      alert("Ocurrió un error, intenta de nuevo.");
-    }
-  }
-});
+        if (email) {
+            try {
+                await addDoc(collection(db, "newsletter"), { email });
+                alert("✅ Suscripción enviada con éxito");
+                formNewsletter.reset();
+            } catch (error) {
+                console.error("❌ Error al guardar suscripción:", error);
+                alert("Ocurrió un error, intenta de nuevo.");
+            }
+        }
+    });
 
-
-      window.addEventListener("DOMContentLoaded", async () => {
+    // --- Opiniones ---
+    window.addEventListener("DOMContentLoaded", async () => {
         const container = document.getElementById(
-          "contenedorOpinionesFirestore"
+            "contenedorOpinionesFirestore"
         );
-        if (!container) return; // Sólo en Inicio
+        if (!container) return; 
 
         const lista = document.getElementById("comentariosList");
         const formWrapper = document.getElementById("formOpiniones");
 
         // 1) Función para cargar comentarios
         async function loadComments() {
-          lista.innerHTML = ""; // limpia solo la lista
-          const snap = await getDocs(
-            query(
-              collection(db, "opiniones"),
-              orderBy("fecha", "desc"),
-              limit(5)
-            )
-          );
-          snap.forEach((doc) => {
-            const d = doc.data();
-            const div = document.createElement("div");
-            div.className = "mb-4 p-4 bg-white rounded shadow";
-            div.innerHTML = `
-          <p><strong>${d.autor}</strong> (${new Date(
-              d.fecha.seconds * 1000
-            ).toLocaleString()}):</p>
-          <p>${d.comentario}</p>
-          <p>⭐ ${d.puntuacion}</p>
-        `;
-            lista.appendChild(div);
-          });
+            lista.innerHTML = ""; 
+            const snap = await getDocs(
+                query(
+                    collection(db, "opiniones"),
+                    orderBy("fecha", "desc"),
+                    limit(5)
+                )
+            );
+            snap.forEach((doc) => {
+                const d = doc.data();
+                const div = document.createElement("div");
+                div.className = "mb-4 p-4 bg-white rounded shadow";
+                div.innerHTML = `
+                <p><strong>${d.autor}</strong> (${new Date(
+                    d.fecha.seconds * 1000
+                ).toLocaleString()}):</p>
+                <p>${d.comentario}</p>
+                <p>⭐ ${d.puntuacion}</p>
+            `;
+                lista.appendChild(div);
+            });
         }
 
         // 2) Crear e inyectar formulario UNA VEZ
         if (!formWrapper.innerHTML.trim()) {
-          formWrapper.innerHTML = `
-        <div class="mt-8 p-6 bg-gray-100 rounded shadow">
-          <h3 class="text-xl font-semibold mb-4">¿Quieres dejarnos tu opinión?</h3>
-          <form id="formOpinionFirestore" class="space-y-4">
-            <input name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
-            <textarea name="comentario" placeholder="Tu opinión" required class="w-full p-2 border rounded"></textarea>
-            <select name="puntuacion" required class="w-full p-2 border rounded">
-              <option value="">Puntuación</option>
-              <option value="5">⭐⭐⭐⭐⭐</option>
-              <option value="4">⭐⭐⭐⭐</option>
-              <option value="3">⭐⭐⭐</option>
-              <option value="2">⭐⭐</option>
-              <option value="1">⭐</option>
-            </select>
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
-          </form>
-          <div id="opinionesLista"></div>
-        </div>
-      `;
+            formWrapper.innerHTML = `
+            <div class="mt-8 p-6 bg-gray-100 rounded shadow">
+              <h3 class="text-xl font-semibold mb-4">¿Quieres dejarnos tu opinión?</h3>
+              <form id="formOpinionFirestore" class="space-y-4">
+                <input name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
+                <textarea name="comentario" placeholder="Tu opinión" required class="w-full p-2 border rounded"></textarea>
+                <select name="puntuacion" required class="w-full p-2 border rounded">
+                  <option value="">Puntuación</option>
+                  <option value="5">⭐⭐⭐⭐⭐</option>
+                  <option value="4">⭐⭐⭐⭐</option>
+                  <option value="3">⭐⭐⭐</option>
+                  <option value="2">⭐⭐</option>
+                  <option value="1">⭐</option>
+                </select>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
+              </form>
+              <div id="opinionesLista"></div>
+            </div>
+            `;
 
-          // 3) Listener del formulario
-          document
-            .getElementById("formOpinionFirestore")
-            .addEventListener("submit", async (e) => {
-              e.preventDefault();
-              const f = e.target;
-              const nombre = f.nombre.value.trim();
-              const comentario = f.comentario.value.trim();
-              const puntuacion = parseInt(f.puntuacion.value, 10);
-              if (!autor || !comentario || !puntuacion) {
-                return alert("Completa todos los campos.");
-              }
-              await addDoc(collection(db, "opiniones"), {
-                nombre,
-                comentario,
-                puntuacion, 
-              });
-              f.reset();
-              await loadComments();
-               alert("✅ Opinión enviada con éxito");
-          } catch (error) {
-            console.error("❌ Error al guardar opinión:", error);
-            alert("Ocurrió un error al enviar la opinión.");
-          
-            });
+            // 3) Listener del formulario
+            document
+                .getElementById("formOpinionFirestore")
+                .addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const f = e.target;
+                    const autor = f.nombre.value.trim(); // Corregido: 'autor' toma el valor de 'nombre'
+                    const comentario = f.comentario.value.trim();
+                    const puntuacion = parseInt(f.puntuacion.value, 10);
+                    
+                    if (!autor || !comentario || !puntuacion) {
+                        return alert("Completa todos los campos.");
+                    }
+                    
+                    try { // Corregido: El try...catch estaba mal cerrado
+                        await addDoc(collection(db, "opiniones"), {
+                            autor, // Corregido: Ahora se guarda con el campo 'autor'
+                            comentario,
+                            puntuacion,
+                            fecha: serverTimestamp(), // IMPORTANTE: Agregado el campo 'fecha' con la marca de tiempo del servidor
+                        });
+                        f.reset();
+                        await loadComments();
+                        alert("✅ Opinión enviada con éxito");
+                    } catch (error) {
+                        console.error("❌ Error al guardar opinión:", error);
+                        alert("Ocurrió un error al enviar la opinión.");
+                    }
+                });
         }
 
-        // 5) Carga inicial de comentarios
+        // 4) Carga inicial de comentarios
         await loadComments();
-      });
-
-      import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        sendEmailVerification,
-      } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    });
+     
     </script>
 
 
