@@ -4584,97 +4584,78 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
         );
 
         // Listener para el formulario de opinión global
-        if (formOpinionFirestore) {
-          formOpinionFirestore.onsubmit = async (e) => {
-            // Usamos onsubmit para evitar múltiples listeners
-            e.preventDefault();
-            const f = e.target;
-            const autor = f.nombre.value.trim();
-            const comentario = f.comentario.value.trim();
-            const puntuacion = parseInt(f.puntuacion.value, 10);
+if (formOpinionFirestore) {
+  formOpinionFirestore.onsubmit = async (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const nombre = f.nombre.value.trim();
+    const comentario = f.comentario.value.trim();
+    const puntuacion = parseInt(f.puntuacion.value, 10);
 
-            if (!autor || !comentario || !puntuacion) {
-              return alert("Completa todos los campos.");
-            }
+    if (!nombre || !comentario || !puntuacion) {
+      return alert("Completa todos los campos.");
+    }
 
-            await addDoc(collection(db, "opiniones"), {
-              autor,
-              comentario,
-              puntuacion,
-              fecha: serverTimestamp(),
-            });
-            f.reset();
-            // Al enviar un nuevo comentario, reiniciamos la lista y la recargamos.
-            // Esto asegura que el nuevo comentario aparezca y la paginación funcione correctamente.
-            lastVisible = null; // Para que se carguen desde el principio
-            opinionesListHome.innerHTML = ""; // Limpiar comentarios existentes para evitar duplicados
-            cargarComentariosDesdeFirestore(
-              opinionesListHome,
-              verMasComentariosBtn
-            );
-          };
-        }
+    await addDoc(collection(db, "opiniones"), {
+      nombre, // CORREGIDO: ahora usa 'nombre'
+      comentario,
+      puntuacion,
+      // ELIMINADO: Se ha quitado el campo 'fecha'
+    });
+    f.reset();
+    lastVisible = null;
+    opinionesListHome.innerHTML = "";
+    cargarComentariosDesdeFirestore(opinionesListHome, verMasComentariosBtn);
+  };
+}
+// ...
+// Esta función también ha sido corregida
+function cargarComentariosDesdeFirestore() {
+  const contenedor = document.getElementById("contenedorOpiniones");
+  const btnMas = document.getElementById("verMasComentarios");
+  const opinionesRef = collection(db, "opiniones");
+  const batchSize = 3;
+  let ultimo = null;
 
-        // === PEGA EL CÓDIGO DE DESPLAZAMIENTO AQUÍ ABAJO, JUSTO ANTES DE LA ÚLTIMA LLAVE ===
-        const homeSection = document.getElementById("home"); // Asegúrate que tu sección principal de inicio tiene id="home"
-        if (homeSection) {
-          setTimeout(() => {
-            homeSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
-        }
-      }; // <--- ESTA ES LA ÚLTIMA LLAVE DE CIERRE DE LA FUNCIÓN renderHome
-
-      function cargarComentariosDesdeFirestore() {
-        const contenedor = document.getElementById("contenedorOpiniones");
-        const btnMas = document.getElementById("verMasComentarios");
-
-        const opinionesRef = collection(db, "opiniones");
-        const batchSize = 3;
-        let ultimo = null;
-
-        async function cargarLote() {
-          let q = query(
-            opinionesRef,
-            orderBy("fecha", "desc"),
-            limit(batchSize)
-          );
-          if (ultimo) {
-            q = query(
-              opinionesRef,
-              orderBy("fecha", "desc"),
-              startAfter(ultimo),
-              limit(batchSize)
-            );
-          }
-
-          const snap = await getDocs(q);
-          snap.forEach((doc) => {
-            const d = doc.data();
-            const div = document.createElement("div");
-            div.className = "bg-white p-6 rounded-lg shadow-md";
-            div.innerHTML = `
+  async function cargarLote() {
+    let q = query(
+      opinionesRef,
+      // ELIMINADO: Se ha quitado el ordenamiento por fecha
+      limit(batchSize)
+    );
+    if (ultimo) {
+      q = query(
+        opinionesRef,
+        startAfter(ultimo),
+        limit(batchSize)
+      );
+    }
+    const snap = await getDocs(q);
+    snap.forEach((doc) => {
+      const d = doc.data();
+      const div = document.createElement("div");
+      div.className = "bg-white p-6 rounded-lg shadow-md";
+      div.innerHTML = `
         <div class="flex items-center mb-2">
           <div class="text-yellow-500">${"★".repeat(
             d.puntuacion || 0
           )}${"☆".repeat(5 - (d.puntuacion || 0))}</div>
           <span class="ml-2 text-gray-600 font-semibold">${
-            d.autor || "Anónimo"
+            d.nombre || "Anónimo" // CORREGIDO: ahora usa 'nombre'
           }</span>
         </div>
         <p class="text-gray-700 leading-relaxed">"${d.comentario}"</p>
       `;
-            contenedor.appendChild(div);
-          });
-
-          if (snap.empty || snap.docs.length < batchSize) {
-            btnMas.style.display = "none";
-          }
-
-          if (!snap.empty) {
-            ultimo = snap.docs[snap.docs.length - 1];
-          }
-        }
-
+      contenedor.appendChild(div);
+    });
+    if (snap.empty || snap.docs.length < batchSize) {
+      btnMas.style.display = "none";
+    }
+    if (!snap.empty) {
+      ultimo = snap.docs[snap.docs.length - 1];
+    }
+  }
+}
         // Primera carga
         cargarLote();
         btnMas.addEventListener("click", cargarLote);
@@ -7600,19 +7581,14 @@ function renderEnfermedadesInicio() {
 </script>
 
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
     import {
         getFirestore,
         collection,
-        query,
-        orderBy,
-        limit,
-        getDocs,
-        addDoc,
-        serverTimestamp, // IMPORTANTE: Agregado para usar la fecha del servidor
+        addDoc
     } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-    
-    // IMPORTANTE: Mover la importación de getAuth al inicio.
     import { getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 
@@ -7631,114 +7607,52 @@ function renderEnfermedadesInicio() {
 
     // --- Newsletter ---
     const formNewsletter = document.getElementById("formNewsletter");
-    formNewsletter.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("emailNewsletter").value.trim();
-
-        if (email) {
-            try {
-                await addDoc(collection(db, "newsletter"), { email });
-                alert("✅ Suscripción enviada con éxito");
-                formNewsletter.reset();
-            } catch (error) {
-                console.error("❌ Error al guardar suscripción:", error);
-                alert("Ocurrió un error, intenta de nuevo.");
+    if (formNewsletter) {
+        formNewsletter.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("emailNewsletter").value.trim();
+            if (email) {
+                try {
+                    await addDoc(collection(db, "newsletter"), { email });
+                    alert("✅ Suscripción enviada con éxito");
+                    formNewsletter.reset();
+                } catch (error) {
+                    console.error("❌ Error al guardar suscripción:", error);
+                    alert("Ocurrió un error, intenta de nuevo.");
+                }
             }
-        }
-    });
-
-import { collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-    // --- Opiniones ---
-window.addEventListener("DOMContentLoaded", async () => {
-  const container = document.getElementById(
-    "contenedorOpinionesFirestore"
-  );
-  if (!container) return; 
-
-  const lista = document.getElementById("comentariosList");
-  const formWrapper = document.getElementById("formOpiniones");
-
-  // 1) Función para cargar comentarios
-  async function loadComments() {
-    lista.innerHTML = ""; 
-    const snap = await getDocs(
-      query(
-        collection(db, "opiniones"),
-        // Se ha eliminado la línea para ordenar por fecha
-        limit(5)
-      )
-    );
-    snap.forEach((doc) => {
-      const d = doc.data();
-      const div = document.createElement("div");
-      div.className = "mb-4 p-4 bg-white rounded shadow";
-      div.innerHTML = `
-        <p><strong>${d.nombre}</strong>:</p>
-        <p>${d.comentario}</p>
-        <p>⭐ ${d.puntuacion}</p>
-      `;
-      lista.appendChild(div);
-    });
-  }
-});
-
-        // 2) Crear e inyectar formulario UNA VEZ
-        if (!formWrapper.innerHTML.trim()) {
-            formWrapper.innerHTML = `
-            <div class="mt-8 p-6 bg-gray-100 rounded shadow">
-              <h3 class="text-xl font-semibold mb-4">¿Quieres dejarnos tu opinión?</h3>
-              <form id="formOpinionFirestore" class="space-y-4">
-                <input name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
-                <textarea name="comentario" placeholder="Tu opinión" required class="w-full p-2 border rounded"></textarea>
-                <select name="puntuacion" required class="w-full p-2 border rounded">
-                  <option value="">Puntuación</option>
-                  <option value="5">⭐⭐⭐⭐⭐</option>
-                  <option value="4">⭐⭐⭐⭐</option>
-                  <option value="3">⭐⭐⭐</option>
-                  <option value="2">⭐⭐</option>
-                  <option value="1">⭐</option>
-                </select>
-                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
-              </form>
-              <div id="opinionesLista"></div>
-            </div>
-            `;
-
-           // 3 Listener del formulario
-document.getElementById("formOpinionFirestore").addEventListener("submit", async (e) => {
-    // IMPORTANTE: Esta línea evita que la página se recargue
-    e.preventDefault(); 
-    const f = e.target;
-    const nombre = f.nombre.value.trim();
-    const comentario = f.comentario.value.trim();
-    const puntuacion = parseInt(f.puntuacion.value, 10);
-    
-    if (!nombre || !comentario || !puntuacion) {
-        return alert("Completa todos los campos.");
-    }
-    
-    try {
-        await addDoc(collection(db, "opiniones"), {
-            nombre,
-            comentario,
-            puntuacion,
         });
-        f.reset();
-        await loadComments();
-        alert("✅ Opinión enviada con éxito");
-    } catch (error) {
-        console.error("❌ Error al guardar opinión:", error);
-        alert("Ocurrió un error al enviar la opinión.");
     }
-});
-        }
 
-        // 4) Carga inicial de comentarios
-        await loadComments();
-    });
-     
-    </script>
+    // --- Opiniones: Solo el formulario de envío ---
+    const formOpinionFirestore = document.getElementById("formOpinionFirestore");
+    if (formOpinionFirestore) {
+        formOpinionFirestore.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const f = e.target;
+            const nombre = f.nombre.value.trim();
+            const comentario = f.comentario.value.trim();
+            const puntuacion = parseInt(f.puntuacion.value, 10);
+            
+            if (!nombre || !comentario || !puntuacion) {
+                return alert("Completa todos los campos.");
+            }
+            
+            try {
+                await addDoc(collection(db, "opiniones"), {
+                    nombre,
+                    comentario,
+                    puntuacion,
+                });
+                f.reset();
+                alert("✅ ¡Opinión enviada con éxito!");
+            } catch (error) {
+                console.error("❌ Error al guardar opinión:", error);
+                alert("Ocurrió un error al enviar la opinión.");
+            }
+        });
+    }
+</script>
 
 
 
