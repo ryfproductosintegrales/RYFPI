@@ -4559,107 +4559,42 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                     <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Enviar opinión</button>
                 </form>
             </div>
-      </div>
-      `;
-
-        initCarousel(); // Inicializar el carrusel después de renderizar
-
-        // Después de renderizar el HTML, obtenemos las referencias a los nuevos elementos
-        // Es CRUCIAL obtener estas referencias *después* de que el HTML haya sido insertado.
-        const opinionesListHome = document.getElementById(
-          "contenedorOpiniones"
-        );
-        const verMasComentariosBtn =
-          document.getElementById("verMasComentarios");
-        const formOpinionFirestore = document.getElementById(
-          "formOpinionFirestore"
-        );
-
-        // Reiniciar lastVisible para asegurar que siempre cargamos desde el principio en cada renderizado de Home
-        // Esto evita que la paginación de comentarios se "quede" en un estado anterior.
-        lastVisible = null;
-        cargarComentariosDesdeFirestore(
-          opinionesListHome,
-          verMasComentariosBtn
-        );
-
-        // Listener para el formulario de opinión global
-if (formOpinionFirestore) {
-  formOpinionFirestore.onsubmit = async (e) => {
-    e.preventDefault();
-    const f = e.target;
-    const nombre = f.nombre.value.trim();
-    const comentario = f.comentario.value.trim();
-    const puntuacion = parseInt(f.puntuacion.value, 10);
-
-    if (!nombre || !comentario || !puntuacion) {
-      return alert("Completa todos los campos.");
-    }
-
-    await addDoc(collection(db, "opiniones"), {
-      nombre, // CORREGIDO: ahora usa 'nombre'
-      comentario,
-      puntuacion,
-      // ELIMINADO: Se ha quitado el campo 'fecha'
-    });
-    f.reset();
-    lastVisible = null;
-    opinionesListHome.innerHTML = "";
-    cargarComentariosDesdeFirestore(opinionesListHome, verMasComentariosBtn);
-  };
-}
-// ...
-// Esta función también ha sido corregida
-function cargarComentariosDesdeFirestore() {
-  const contenedor = document.getElementById("contenedorOpiniones");
-  const btnMas = document.getElementById("verMasComentarios");
-  const opinionesRef = collection(db, "opiniones");
-  const batchSize = 3;
-  let ultimo = null;
-
-  async function cargarLote() {
-    let q = query(
-      opinionesRef,
-      // ELIMINADO: Se ha quitado el ordenamiento por fecha
-      limit(batchSize)
-    );
-    if (ultimo) {
-      q = query(
-        opinionesRef,
-        startAfter(ultimo),
-        limit(batchSize)
-      );
-    }
-    const snap = await getDocs(q);
-    snap.forEach((doc) => {
-      const d = doc.data();
-      const div = document.createElement("div");
-      div.className = "bg-white p-6 rounded-lg shadow-md";
-      div.innerHTML = `
-        <div class="flex items-center mb-2">
-          <div class="text-yellow-500">${"★".repeat(
-            d.puntuacion || 0
-          )}${"☆".repeat(5 - (d.puntuacion || 0))}</div>
-          <span class="ml-2 text-gray-600 font-semibold">${
-            d.nombre || "Anónimo" // CORREGIDO: ahora usa 'nombre'
-          }</span>
         </div>
-        <p class="text-gray-700 leading-relaxed">"${d.comentario}"</p>
-      `;
-      contenedor.appendChild(div);
-    });
-    if (snap.empty || snap.docs.length < batchSize) {
-      btnMas.style.display = "none";
-    }
-    if (!snap.empty) {
-      ultimo = snap.docs[snap.docs.length - 1];
-    }
-  }
-}
-        // Primera carga
-        cargarLote();
-        btnMas.addEventListener("click", cargarLote);
+    `;
+
+  // *IMPORTANTE: El código del formulario de opiniones debe ir aquí.*
+  // Se ejecutará después de que el HTML del formulario se haya insertado.
+  const formOpinionFirestore = document.getElementById("formOpinionFirestore");
+  if (formOpinionFirestore) {
+    formOpinionFirestore.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const f = e.target;
+      const nombre = f.nombre.value.trim();
+      const comentario = f.comentario.value.trim();
+      const puntuacion = parseInt(f.puntuacion.value, 10);
+
+      if (!nombre || !comentario || !puntuacion) {
+        return alert("Completa todos los campos.");
       }
+
+      try {
+        await addDoc(collection(db, "opiniones"), {
+          nombre,
+          comentario,
+          puntuacion,
+        });
+        f.reset();
+        alert("✅ ¡Opinión enviada con éxito!");
+      } catch (error) {
+        console.error("❌ Error al guardar opinión:", error);
+        alert("Ocurrió un error al enviar la opinión.");
+      }
+    });
+  }
+
+  // Ahora, las otras funciones que manejan elementos del DOM pueden ir aquí
+  initCarousel();
+};
 
       let slideIndex = 0;
       let carouselInterval;
