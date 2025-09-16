@@ -4541,6 +4541,10 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 
         </section>
 
+<div id="contenedorOpiniones">
+    <!-- Aquí se cargarán las opiniones -->
+    <p>Cargando opiniones...</p>
+</div>
 
 
   <div id="formOpiniones" class="mt-8 p-6 bg-white rounded-lg shadow">
@@ -7494,7 +7498,10 @@ function renderEnfermedadesInicio() {
     import {
         getFirestore,
         collection,
-        addDoc
+        addDoc,
+        onSnapshot, // <-- Añade esta línea
+        query,      // <-- Añade esta línea
+        orderBy     // <-- Añade esta línea
     } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
     import { getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
@@ -7509,8 +7516,9 @@ function renderEnfermedadesInicio() {
         appId: "1:608589002219:web:980c9203d23f1d838255ae",
     };
     initializeApp(firebaseConfig);
-    const auth = getAuth();
-    const db = getFirestore();
+    const app = initializeApp(firebaseConfig); // Esto debería ser `const app = initializeApp(firebaseConfig);` para ser usado por getAuth si lo necesitas más adelante
+    const auth = getAuth(app); // Pasa la instancia de la app a getAuth
+    const db = getFirestore(app); // Pasa la instancia de la app a getFirestore
 
     // --- Newsletter ---
     const formNewsletter = document.getElementById("formNewsletter");
@@ -7532,33 +7540,72 @@ function renderEnfermedadesInicio() {
     }
 
     // --- Opiniones: Solo el formulario de envío ---
-    const formOpinionFirestore = document.getElementById("formOpinionFirestore");
-    if (formOpinionFirestore) {
-        formOpinionFirestore.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const f = e.target;
-            const nombre = f.nombre.value.trim();
-            const comentario = f.comentario.value.trim();
-            const puntuacion = parseInt(f.puntuacion.value, 10);
-            
-            if (!nombre || !comentario || !puntuacion) {
-                return alert("Completa todos los campos.");
-            }
-            
-            try {
-                await addDoc(collection(db, "opiniones"), {
-                    nombre,
-                    comentario,
-                    puntuacion,
-                });
-                f.reset();
-                alert("✅ ¡Opinión enviada con éxito!");
-            } catch (error) {
-                console.error("❌ Error al guardar opinión:", error);
-                alert("Ocurrió un error al enviar la opinión.");
-            }
+const formOpinionFirestore = document.getElementById("formOpinionFirestore");
+if (formOpinionFirestore) {
+    formOpinionFirestore.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const nombre = f.nombre.value.trim();
+        const comentario = f.comentario.value.trim();
+        const puntuacion = parseInt(f.puntuacion.value, 10);
+        
+        if (!nombre || !comentario || isNaN(puntuacion) || puntuacion < 1 || puntuacion > 5) {
+            // Mejorar la validación de puntuación
+            return alert("Por favor, completa todos los campos y asegúrate de que la puntuación sea un número entre 1 y 5.");
+        }
+        
+        try {
+            await addDoc(collection(db, "opiniones"), {
+                nombre,
+                comentario,
+                puntuacion,
+                timestamp: Date.now() // <-- ¡Añade una marca de tiempo para ordenar!
+            });
+            f.reset();
+            alert("✅ ¡Opinión enviada con éxito!");
+        } catch (error) {
+            console.error("❌ Error al guardar opinión:", error);
+            alert("Ocurrió un error al enviar la opinión.");
+        }
+    });
+}
+
+// --- Opiniones: Mostrar y escuchar cambios en tiempo real ---
+const contenedorOpiniones = document.getElementById("contenedorOpiniones"); // Asegúrate de tener un div con este ID en tu HTML
+
+if (contenedorOpiniones) {
+    // Crea una consulta para la colección 'opiniones', ordenada por la marca de tiempo (la más reciente primero)
+    const q = query(collection(db, "opiniones"), orderBy("timestamp", "desc"));
+
+    // Configura el oyente en tiempo real
+    onSnapshot(q, (snapshot) => {
+        contenedorOpiniones.innerHTML = ""; // Limpia el contenedor para evitar duplicados
+
+        snapshot.forEach((doc) => {
+            const opinion = doc.data(); // Obtiene los datos del documento
+            const idOpinion = doc.id; // Puedes usar el ID del documento si lo necesitas
+
+            // Crea el elemento HTML para cada opinión
+            const divOpinion = document.createElement("div");
+            divOpinion.classList.add("opinion-item"); // Puedes añadir una clase para estilos CSS
+
+            // Genera estrellas o algún indicador visual de puntuación
+            let estrellas = '⭐'.repeat(opinion.puntuacion);
+
+            divOpinion.innerHTML = `
+                <h3>${opinion.nombre}</h3>
+                <p>${opinion.comentario}</p>
+                <p>Puntuación: ${estrellas}</p>
+                ${opinion.timestamp ? `<small>${new Date(opinion.timestamp).toLocaleDateString()}</small>` : ''}
+            `;
+            contenedorOpiniones.appendChild(divOpinion);
         });
-    }
+    }, (error) => {
+        console.error("Error al obtener opiniones en tiempo real:", error);
+        contenedorOpiniones.innerHTML = "<p>Hubo un error al cargar las opiniones.</p>";
+    });
+}
+
 </script>
 
 
