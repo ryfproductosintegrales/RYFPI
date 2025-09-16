@@ -589,6 +589,7 @@
               ><i class="fab fa-tiktok"></i
             ></a>
           </div>
+          
           <h4 class="text-lg font-semibold mb-2 text-primary">Newsletter</h4>
 <form id="formNewsletter" class="flex">
   <input
@@ -4542,7 +4543,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 
 
 
- <div id="formOpiniones" class="mt-8 p-6 bg-white rounded-lg shadow">
+  <div id="formOpiniones" class="mt-8 p-6 bg-white rounded-lg shadow">
                 <h3 class="text-2xl font-bold text-center mb-6 text-primary">Deja tu opinión</h3>
                 <form id="formOpinionFirestore" class="space-y-4">
                     <input type="text" name="nombre" placeholder="Tu nombre" required class="w-full p-2 border rounded"/>
@@ -7704,7 +7705,7 @@ formNewsletter.addEventListener("submit", async (e) => {
             .addEventListener("submit", async (e) => {
               e.preventDefault();
               const f = e.target;
-              const autor = f.nombre.value.trim();
+              const nombre = f.nombre.value.trim();
               const comentario = f.comentario.value.trim();
               const puntuacion = parseInt(f.puntuacion.value, 10);
               if (!autor || !comentario || !puntuacion) {
@@ -7714,10 +7715,15 @@ formNewsletter.addEventListener("submit", async (e) => {
                 nombre,
                 comentario,
                 puntuacion,
-                fecha: serverTimestamp(),
+                
               });
               f.reset();
               await loadComments();
+               alert("✅ Opinión enviada con éxito");
+          } catch (error) {
+            console.error("❌ Error al guardar opinión:", error);
+            alert("Ocurrió un error al enviar la opinión.");
+          
             });
         }
 
@@ -7826,5 +7832,3 @@ formNewsletter.addEventListener("submit", async (e) => {
     
   </body>
 </html>
-
-
