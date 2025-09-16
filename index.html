@@ -7648,39 +7648,40 @@ function renderEnfermedadesInicio() {
     });
 
     // --- Opiniones ---
-    window.addEventListener("DOMContentLoaded", async () => {
-        const container = document.getElementById(
-            "contenedorOpinionesFirestore"
-        );
-        if (!container) return; 
+window.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById(
+    "contenedorOpinionesFirestore"
+  );
+  if (!container) return; 
 
-        const lista = document.getElementById("comentariosList");
-        const formWrapper = document.getElementById("formOpiniones");
+  const lista = document.getElementById("comentariosList");
+  const formWrapper = document.getElementById("formOpiniones");
 
-        // 1) Función para cargar comentarios
-        async function loadComments() {
-            lista.innerHTML = ""; 
-            const snap = await getDocs(
-                query(
-                    collection(db, "opiniones"),
-                    orderBy("fecha", "desc"),
-                    limit(5)
-                )
-            );
-            snap.forEach((doc) => {
-                const d = doc.data();
-                const div = document.createElement("div");
-                div.className = "mb-4 p-4 bg-white rounded shadow";
-                div.innerHTML = `
-                <p><strong>${d.autor}</strong> (${new Date(
-                    d.fecha.seconds * 1000
-                ).toLocaleString()}):</p>
-                <p>${d.comentario}</p>
-                <p>⭐ ${d.puntuacion}</p>
-            `;
-                lista.appendChild(div);
-            });
-        }
+  // 1) Función para cargar comentarios
+  async function loadComments() {
+    lista.innerHTML = ""; 
+    const snap = await getDocs(
+      query(
+        collection(db, "opiniones"),
+        orderBy("fecha", "desc"),
+        limit(5)
+      )
+    );
+    snap.forEach((doc) => {
+      const d = doc.data();
+      const div = document.createElement("div");
+      div.className = "mb-4 p-4 bg-white rounded shadow";
+      div.innerHTML = `
+        <p><strong>${d.nombre}</strong> (${new Date(
+          d.fecha.seconds * 1000
+        ).toLocaleString()}):</p>
+        <p>${d.comentario}</p>
+        <p>⭐ ${d.puntuacion}</p>
+      `;
+      lista.appendChild(div);
+    });
+  }
+});
 
         // 2) Crear e inyectar formulario UNA VEZ
         if (!formWrapper.innerHTML.trim()) {
