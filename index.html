@@ -7609,10 +7609,33 @@ function renderEnfermedadesInicio() {
         messagingSenderId: "608589002219",
         appId: "1:608589002219:web:980c9203d23f1d838255ae",
     };
-    initializeApp(firebaseConfig);
-    const app = initializeApp(firebaseConfig); // Esto debería ser `const app = initializeApp(firebaseConfig);` para ser usado por getAuth si lo necesitas más adelante
-    const auth = getAuth(app); // Pasa la instancia de la app a getAuth
-    const db = getFirestore(app); // Pasa la instancia de la app a getFirestore
+    // Inicializar Firebase una sola vez
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    
+    // Log para debug
+    console.log('Firebase inicializado correctamente');
+
+    // Función auxiliar para mostrar mensajes de error/éxito
+    function showMessage(message, isError = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = message;
+        messageDiv.className = `message ${isError ? 'error' : 'success'}`;
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: ${isError ? '#ffebee' : '#e8f5e9'};
+            color: ${isError ? '#c62828' : '#2e7d32'};
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        `;
+        document.body.appendChild(messageDiv);
+        setTimeout(() => messageDiv.remove(), 3000);
+    }
 
     // --- Newsletter ---
     const formNewsletter = document.getElementById("formNewsletter");
@@ -7633,15 +7656,19 @@ function renderEnfermedadesInicio() {
         });
     }
 
-    // --- Opiniones: Solo el formulario de envío ---
-const formOpinionFirestore = document.getElementById("formOpinionFirestore");
-if (formOpinionFirestore) {
-    formOpinionFirestore.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const nombre = f.nombre.value.trim();
-        const comentario = f.comentario.value.trim();
-        const puntuacion = parseInt(f.puntuacion.value, 10);
+    // --- Opiniones: Manejo del formulario ---
+    const formOpinionFirestore = document.getElementById("formOpinionFirestore");
+    console.log('Buscando formulario de opiniones:', formOpinionFirestore);
+    
+    if (formOpinionFirestore) {
+        formOpinionFirestore.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            console.log('Formulario de opinión enviado');
+            
+            const f = e.target;
+            const nombre = f.nombre.value.trim();
+            const comentario = f.comentario.value.trim();
+            const puntuacion = parseInt(f.puntuacion.value, 10);
         
         if (!nombre || !comentario || isNaN(puntuacion) || puntuacion < 1 || puntuacion > 5) {
             // Mejorar la validación de puntuación
@@ -7652,8 +7679,7 @@ if (formOpinionFirestore) {
             await addDoc(collection(db, "opiniones"), {
                 nombre,
                 comentario,
-                puntuacion,
-                timestamp: Date.now() // <-- ¡Añade una marca de tiempo para ordenar!
+                puntuacion
             });
             f.reset();
             alert("✅ ¡Opinión enviada con éxito!");
@@ -7669,10 +7695,8 @@ const contenedorOpiniones = document.getElementById("contenedorOpiniones"); // A
 
 if (contenedorOpiniones) {
     // Crea una consulta para la colección 'opiniones', ordenada por la marca de tiempo (la más reciente primero)
-    const q = query(collection(db, "opiniones"), orderBy("timestamp", "desc"));
-
-    // Configura el oyente en tiempo real
-    onSnapshot(q, (snapshot) => {
+    // Configura el oyente en tiempo real para las opiniones
+    onSnapshot(collection(db, "opiniones"), (snapshot) => {
         contenedorOpiniones.innerHTML = ""; // Limpia el contenedor para evitar duplicados
 
         snapshot.forEach((doc) => {
@@ -7687,10 +7711,11 @@ if (contenedorOpiniones) {
             let estrellas = '⭐'.repeat(opinion.puntuacion);
 
             divOpinion.innerHTML = `
-                <h3>${opinion.nombre}</h3>
-                <p>${opinion.comentario}</p>
-                <p>Puntuación: ${estrellas}</p>
-                ${opinion.timestamp ? `<small>${new Date(opinion.timestamp).toLocaleDateString()}</small>` : ''}
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-lg">${opinion.nombre}</h3>
+                    <p class="text-yellow-500 my-2">${estrellas}</p>
+                    <p class="text-gray-600">${opinion.comentario}</p>
+                </div>
             `;
             contenedorOpiniones.appendChild(divOpinion);
         });
@@ -7701,6 +7726,8 @@ if (contenedorOpiniones) {
 }
 
 </script>
+
+
    
 </body>
 </html>
