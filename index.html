@@ -7607,9 +7607,12 @@ function renderEnfermedadesInicio() {
         orderBy,
         limit,
         getDocs,
-        startAfter
+        startAfter,
+        serverTimestamp
     } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+        getAuth
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 
     // — Inicializar Firebase —
@@ -7628,23 +7631,44 @@ function renderEnfermedadesInicio() {
     // Variables para la paginación de opiniones
     const batchSize = 5;
     let lastVisible = null;
+    let isInitialLoad = true;
 
-    // Función para mostrar opiniones
+    // --- Newsletter ---
+    const formNewsletter = document.getElementById("formNewsletter");
+    if (formNewsletter) {
+        formNewsletter.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("emailNewsletter").value.trim();
+            if (email) {
+                try {
+                    await addDoc(collection(db, "newsletter"), {
+                        email
+                    });
+                    alert("✅ Suscripción enviada con éxito");
+                    formNewsletter.reset();
+                } catch (error) {
+                    console.error("❌ Error al guardar suscripción:", error);
+                    alert("Ocurrió un error, intenta de nuevo.");
+                }
+            }
+        });
+    }
+
+    // --- Opiniones: Lógica para cargar los comentarios por lotes ---
     async function cargarLote() {
         const contenedorOpiniones = document.getElementById("contenedorOpiniones");
         const verMasComentariosBtn = document.getElementById("verMasComentarios");
         
         let q = query(
             collection(db, "opiniones"),
-            // Ordena por puntuacion descendente, luego por nombre
-            orderBy("puntuacion", "desc"),
+            orderBy("fechaCreacion", "desc"),
             limit(batchSize)
         );
 
         if (lastVisible) {
             q = query(
                 collection(db, "opiniones"),
-                orderBy("puntuacion", "desc"),
+                orderBy("fechaCreacion", "desc"),
                 startAfter(lastVisible),
                 limit(batchSize)
             );
@@ -7653,24 +7677,22 @@ function renderEnfermedadesInicio() {
         try {
             const documentSnapshots = await getDocs(q);
             if (documentSnapshots.empty) {
-                // Oculta el botón si no hay más documentos
-                verMasComentariosBtn.style.display = "none";
-                if (!lastVisible) {
+                if (isInitialLoad) {
                     contenedorOpiniones.innerHTML = "<p class='text-center text-gray-500'>Aún no hay opiniones. ¡Sé el primero en dejar una!</p>";
                 }
+                verMasComentariosBtn.style.display = "none";
                 return;
             }
 
-            // Oculta el mensaje de "Cargando..."
-            if (!lastVisible) {
+            if (isInitialLoad) {
                 contenedorOpiniones.innerHTML = "";
+                isInitialLoad = false;
             }
 
             documentSnapshots.forEach((doc) => {
                 const opinion = doc.data();
                 const divOpinion = document.createElement("div");
                 divOpinion.className = "bg-white p-4 rounded-lg shadow-md mb-4";
-
                 const estrellas = '⭐'.repeat(opinion.puntuacion);
 
                 divOpinion.innerHTML = `
@@ -7683,10 +7705,9 @@ function renderEnfermedadesInicio() {
                 contenedorOpiniones.appendChild(divOpinion);
             });
 
-            // Actualiza la última opinión visible para la próxima carga
             lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-
-            // Muestra el botón si hay más documentos disponibles
+            
+            // Si la cantidad de documentos cargados es menor que el tamaño del lote, significa que no hay más.
             if (documentSnapshots.docs.length < batchSize) {
                 verMasComentariosBtn.style.display = "none";
             } else {
@@ -7699,65 +7720,49 @@ function renderEnfermedadesInicio() {
         }
     }
 
-    // --- Newsletter ---
-    const formNewsletter = document.getElementById("formNewsletter");
-    if (formNewsletter) {
-        formNewsletter.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("emailNewsletter").value.trim();
-            if (email) {
-                try {
-                    await addDoc(collection(db, "newsletter"), { email });
-                    alert("✅ Suscripción enviada con éxito");
-                    formNewsletter.reset();
-                } catch (error) {
-                    console.error("❌ Error al guardar suscripción:", error);
-                    alert("Ocurrió un error, intenta de nuevo.");
-                }
-            }
-        });
-    }
-
     // --- Opiniones: Manejo del formulario ---
-    const formOpinionFirestore = document.getElementById("formOpinionFirestore");
-    if (formOpinionFirestore) {
-        formOpinionFirestore.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const f = e.target;
-            const nombre = f.nombre.value.trim();
-            const comentario = f.comentario.value.trim();
-            const puntuacion = parseInt(f.puntuacion.value, 10);
-            
-            if (!nombre || !comentario || isNaN(puntuacion) || puntuacion < 1 || puntuacion > 5) {
-                return alert("Por favor, completa todos los campos y asegúrate de que la puntuación sea un número entre 1 y 5.");
-            }
-            
-            try {
-                await addDoc(collection(db, "opiniones"), {
-                    nombre,
-                    comentario,
-                    puntuacion
-                });
-                f.reset();
-                alert("✅ ¡Opinión enviada con éxito!");
-
-                // Resetea la paginación y recarga el primer lote de comentarios
-                lastVisible = null;
-                cargarLote();
-            } catch (error) {
-                console.error("❌ Error al guardar opinión:", error);
-                alert("Ocurrió un error al enviar la opinión.");
-            }
-        });
-    }
-
-    // Cuando el documento se cargue, se activa el listener
     document.addEventListener("DOMContentLoaded", () => {
-        // Carga el primer lote de comentarios
-        cargarLote();
-
-        // Agrega el listener para el botón "Ver más"
+        const formOpinionFirestore = document.getElementById("formOpinionFirestore");
         const verMasComentariosBtn = document.getElementById("verMasComentarios");
+
+        // 1. Manejar el envío del formulario de opinión
+        if (formOpinionFirestore) {
+            formOpinionFirestore.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const f = e.target;
+                const nombre = f.nombre.value.trim();
+                const comentario = f.comentario.value.trim();
+                const puntuacion = parseInt(f.puntuacion.value, 10);
+
+                if (!nombre || !comentario || isNaN(puntuacion) || puntuacion < 1 || puntuacion > 5) {
+                    return alert("Por favor, completa todos los campos y asegúrate de que la puntuación sea un número entre 1 y 5.");
+                }
+
+                try {
+                    await addDoc(collection(db, "opiniones"), {
+                        nombre,
+                        comentario,
+                        puntuacion,
+                        fechaCreacion: serverTimestamp()
+                    });
+                    f.reset();
+                    alert("✅ ¡Opinión enviada con éxito!");
+                    
+                    lastVisible = null;
+                    isInitialLoad = true;
+                    if (document.getElementById("contenedorOpiniones")) {
+                        document.getElementById("contenedorOpiniones").innerHTML = "";
+                    }
+                    cargarLote();
+
+                } catch (error) {
+                    console.error("❌ Error al guardar opinión:", error);
+                    alert("Ocurrió un error al enviar la opinión.");
+                }
+            });
+        }
+        // 2. Cargar el primer lote de comentarios y activar el botón
+        cargarLote();
         if (verMasComentariosBtn) {
             verMasComentariosBtn.addEventListener("click", cargarLote);
         }
