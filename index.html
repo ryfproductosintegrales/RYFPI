@@ -4171,7 +4171,11 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
             "Para pagos vía transferencia, haga el pago cuando su pedido ha sido confirmado por uno de nuestros representantes.",
           discountNote:
             "La aplicación de algún descuento especial, si el caso lo amerita, será realizado por el representante, una vez reciba la notificación del pedido, y se lo comunicará al cliente inmediatamente revise la solicitud del pedido y antes de proceder con el pago.",
-          aboutUsPageTitle: "Nuestra Historia en R&F Productos Integrales",
+          specialOrdersNote:
+    "Los pedidos al por mayor (a partir de 6 unidades), promociones, productos en especial o combos, no tienen descuentos adicionales, ya que cuentan con un precio especial.",
+  orderConfirmationNote:
+    "Una vez recibamos su pedido, le llamaremos para confirmar su orden; tenga siempre a mano y disponible su teléfono, ya que es posible que necesitemos contactarle para aclarar cualquier duda o detalle sobre su pedido.",
+            aboutUsPageTitle: "Nuestra Historia en R&F Productos Integrales",
           aboutUsPageContent:
             "En R&F Productos Integrales, nuestra pasión es tu bienestar. Fundada en 1995, nos dedicamos a seleccionar y ofrecer los más puros y efectivos productos naturales de la República Dominicana. Creemos firmemente en el poder de la naturaleza para nutrir el cuerpo y la mente, y nuestro compromiso es brindarte opciones saludables y sostenibles. Cada producto en nuestra tienda ha sido cuidadosamente elegido, garantizando calidad, origen y eficacia. Únete a nuestra comunidad y descubre un mundo de bienestar natural.",
           commonDiseases: "Enfermedades Más Comunes",
@@ -5528,13 +5532,16 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                                 </p>
                             </div>
                             <!-- Nueva nota de descuento -->
-                            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800">
-                                <p class="text-sm">
-                                    ${lang.discountNote}
-                                </p>
-                            </div>
-                        </div>
-
+                            <div class="mt-8 p-4 bg-gray-100 rounded-lg shadow-inner">
+    <h3 class="text-xl font-bold text-gray-800 mb-4" data-translate="specialNotes">Notas Especiales:</h3>
+    <div class="space-y-4 text-sm text-gray-600">
+        <p>${lang.discountNote}</p>
+        
+        <p>${lang.specialOrdersNote}</p>
+        
+        <p>${lang.orderConfirmationNote}</p>
+    </div>
+</div>
                         <div class="flex space-x-4 mt-6">
                             <button onclick="navigateTo('shop', null, event)" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300 transition duration-200">
                                 ${lang.continueShopping}
