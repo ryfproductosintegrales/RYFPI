@@ -65,6 +65,11 @@
 <!-- DESPLEGABLE ENFERMEDADES Y SOLUCIONES EN EL MENÚ DE NAVEGACIÓN -->
 <!-- El filtrado y orden de la página TIENDA ha sido eliminado. Solo queda el buscador interno y la cuadrícula de productos. -->
 <style>
+a[href="#gemstones"] {
+  display: none !important;
+}
+
+
   .nav-dropdown {
     position: absolute;
     left: 0;
@@ -400,12 +405,16 @@
                 >
               </li>
               <li>
-                <a
-                  href="#gemstones"
-                  class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav"
-                  onclick="navigateTo('gemstones', null, event)"
-                  >Piedras Preciosas</a
-                >
+                <!-- 
+<a
+  href="#gemstones"
+  class="hover:text-primary transition duration-200 inline-flex items-center py-2 leading-none navbar-nav"
+  onclick="navigateTo('gemstones', null, event)"
+>
+  Piedras Preciosas
+</a> 
+-->
+
               </li>
             </ul>
           </div>
