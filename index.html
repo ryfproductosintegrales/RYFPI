@@ -5256,8 +5256,11 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
                                 }</p>
                                 <button onclick="navigateTo('combo', '${
                                   combo.id
-                                }', event)" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-200">
+                                }', event)" class="bg-gray-300 text-gray-800 px-6 py-3 rounded-full hover:bg-gray-400 transition duration-200 mr-2">
                                     ${lang.viewDetails}
+                                </button>
+                                <button onclick="updateQuantity('${combo.id}', 1, true)" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-700 transition duration-200">
+                                    Añadir combo al carrito
                                 </button>
                             </div>
                         `
@@ -6156,9 +6159,7 @@ function toggleDisease(id) {
                             <p class="text-3xl font-extrabold text-green-600 mb-6">${
                               combo[`price_es`]
                             }</p>
-                           <button onclick="addComboToCart('${
-                             combo.id
-                           }')" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4">
+                           <button onclick="updateQuantity('${combo.id}', 1, true)" class="w-full bg-primary text-white text-xl py-3 rounded-full hover:bg-green-700 transition duration-200 mb-4">
                                 Añadir Combo al Carrito
                             </button>
                         </div>
