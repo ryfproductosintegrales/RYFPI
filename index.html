@@ -4507,7 +4507,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
 
       // --- Funciones de renderizado para páginas ---
 
-      /**
+     /**
  * Renderiza el contenido de la página de inicio, incluyendo el carrusel.
  */
 const renderHome = () => {
@@ -7011,6 +7011,10 @@ function toggleDisease(id) {
         }
 
         renderPage(page, param);
+
+// ¡Aquí está la solución! Esto hará que la página se desplace al principio.
+  window.scrollTo(0, 0);
+
       };
 
       /**
@@ -7086,14 +7090,7 @@ function toggleDisease(id) {
             break;
           default:
             renderHome();
-          // ... otros casos existentes ...
-          case "gemstones": // ESTE ES EL NUEVO CASO
-            renderGemstonesPage(); // Llama a la función que acabamos de crear
-            break;
-          case "gemstone-detail": // AÑADE ESTE NUEVO CASO
-            renderGemstoneDetailPage(param); // Llama a la nueva función de detalle
-            break;
-          // ... default ...
+          
         }
         if (searchInput && page !== "shop") {
           searchInput.value = "";
@@ -7809,4 +7806,3 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
-
