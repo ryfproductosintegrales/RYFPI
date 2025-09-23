@@ -6965,6 +6965,7 @@ function toggleDisease(id) {
 
         whatsappMessage += `Por favor, envíame los detalles para completar la compra. ¡Gracias!`;
 
+        const formattedMessage = whatsappMessage.replace(/\n/g, '%0A');
         const encodedMessage = encodeURIComponent(whatsappMessage);
         const whatsappNumber = "18094254540";
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -7806,3 +7807,4 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
+
