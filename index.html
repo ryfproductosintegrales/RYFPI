@@ -6961,7 +6961,7 @@ function toggleDisease(id) {
         whatsappMessage += `\n*💳 ${
           translations[currentLanguage].total
         }* ${formatPrice(total)}`;
-        whatsappMessage += `\n\n*Nota Importante sobre Descuentos:*\n${lang.discountNote}\n\n`;
+        whatsappMessage += `\n\n*Nota Importante sobre Descuentos:*\n${lang.discountNote}\n\n${lang.specialOrdersNote}\n\n${lang.orderConfirmationNote}\n\n`;
 
         whatsappMessage += `Por favor, envíame los detalles para completar la compra. ¡Gracias!`;
 
@@ -7807,4 +7807,5 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
+
 
