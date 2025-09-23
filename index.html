@@ -4508,64 +4508,66 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
       // --- Funciones de renderizado para páginas ---
 
       /**
-       * Renderiza el contenido de la página de inicio, incluyendo el carrusel.
-       */
-      const renderHome = () => {
-        const lang = translations[currentLanguage];
-        if (!appContent) return;
-        appContent.innerHTML = `
-        <section id="home" class="relative h-[200px] md:h-[280px] lg:h-[350px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
-            <div id="hero-carousel" class="absolute inset-0">
-                ${carouselImages
-                  .map(
-                    (item, index) => `
-                    <div class="carousel-item ${
-                      index === 0 ? "active" : ""
-                    }" style="background-image: url('${item.src}');">
-                        <div class="carousel-content bg-black bg-opacity-40 py-2 px-4 md:p-6 rounded-lg mx-4">
-                            <h1 class="text-2xl md:text-5xl font-extrabold mb-2 animate-fade-in">${
-                              item[`title_${currentLanguage}`]
-                            }</h1>
-                            <p class="text-base md:text-xl mb-6 opacity-90 animate-fade-in-delay">${
-                              item[`subtitle_${currentLanguage}`]
-                            }</p>
-                            ${
-                              item.buttonLink
-                                ? `
-                            <a href="${
-                              item.buttonLink
-                            }" onclick="navigateTo('${item.buttonLink.substring(
-                                    1
-                                  )}', null, event)" class="bg-white text-primary px-6 py-2 rounded-full text-xs md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
-    ${item[`buttonText_${currentLanguage}`]}
-</a>
-                            `
-                                : ""
-                            }
-                        </div>
-                    </div>
+ * Renderiza el contenido de la página de inicio, incluyendo el carrusel.
+ */
+const renderHome = () => {
+  const lang = translations[currentLanguage];
+  if (!appContent) return;
+  appContent.innerHTML = `
+    <section id="home" class="relative h-[200px] md:h-[280px] lg:h-[350px] w-full overflow-hidden rounded-lg shadow-lg mb-12">
+      <div id="hero-carousel" class="absolute inset-0">
+        ${carouselImages
+          .map(
+            (item, index) => `
+            <div class="carousel-item ${
+              index === 0 ? "active" : ""
+            }" style="background-image: url('${item.src}');">
+              <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+              
+              <div class="carousel-content py-2 px-4 md:p-6 rounded-lg mx-4">
+                <h1 class="text-white text-2xl md:text-5xl font-extrabold mb-2 animate-fade-in">${
+                  item[`title_${currentLanguage}`]
+                }</h1>
+                <p class="text-white text-base md:text-xl mb-6 opacity-90 animate-fade-in-delay">${
+                  item[`subtitle_${currentLanguage}`]
+                }</p>
+                ${
+                  item.buttonLink
+                    ? `
+                <a href="${
+                  item.buttonLink
+                }" onclick="navigateTo('${item.buttonLink.substring(
+                    1
+                  )}', null, event)" class="bg-white text-primary px-6 py-2 rounded-full text-xs md:text-lg font-semibold hover:bg-green-100 hover-scale transition duration-300 shadow-md">
+                  ${item[`buttonText_${currentLanguage}`]}
+                </a>
                 `
-                  )
-                  .join("")}
+                    : ""
+                }
+              </div>
             </div>
-            <button class="carousel-control-btn left-4" onclick="changeSlide(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-control-btn right-4" onclick="changeSlide(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="carousel-dots">
-                ${carouselImages
-                  .map(
-                    (_, index) => `
-                    <span class="carousel-dot ${
-                      index === 0 ? "active" : ""
-                    }" onclick="currentSlide(${index})"></span>
-                `
-                  )
-                  .join("")}
-            </div>
-        </section>
+          `
+          )
+          .join("")}
+      </div>
+      <button class="carousel-control-btn left-4" onclick="changeSlide(-1)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="carousel-control-btn right-4" onclick="changeSlide(1)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="carousel-dots">
+        ${carouselImages
+          .map(
+            (_, index) => `
+            <span class="carousel-dot ${
+              index === 0 ? "active" : ""
+            }" onclick="currentSlide(${index})"></span>
+        `
+          )
+          .join("")}
+      </div>
+    </section>
 
         <section class="new-products mb-12">
             <h2 class="text-3xl font-bold text-center mb-8 text-primary">${
@@ -7807,3 +7809,4 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
+
