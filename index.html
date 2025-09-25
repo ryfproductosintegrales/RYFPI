@@ -3272,18 +3272,17 @@ isOffer: false
       const combos = [
         {
           id: "combo1",
-          name_es: "Combo Bienestar Total",
-          image: "./images/combo1.jpg",
+          name_es: "Combo Proteico y Energético",
+          image: "./images/combo proteinico.png",
           description_es:
             "Un combo diseñado para potenciar tu salud general. Incluye productos esenciales para vitalidad y equilibrio diario.",
           products: [
-            "p1", // Aceite De Ajonjoli
-            "p27", // Citrato De Magnesio (Asumiendo que p27 existe en tu JSON real)
-            "p30", // Colageno Hidrolizado (Asumiendo que p30 existe en tu JSON real)
-            "p52", // Jenjibre (Asumiendo que p52 existe en tu JSON real)
-            "p61", // Moringa En Polvo (Asumiendo que p61 existe en tu JSON real)
+            "p57", // maca en capsula 
+            "p54", // levadura nutricional
+            "p71", // sacha inchi
+            
           ],
-          price_es: "Precio Especial: RD$3,500",
+          price_es: "Precio Especial: RD$1,600",
         },
         {
           id: "combo2",
@@ -4263,7 +4262,7 @@ description_es: "La piel es la primera barrera de defensa del cuerpo y refleja e
           diseasePrevention: "Prevención de Enfermedades",
           stressAnxietySleep: "Estrés, Ansiedad y Sueño",
           commentsRatings: "Comentarios y Valoraciones",
-          comboSpecial: "Combo Especial",
+          comboSpecial: "Combos Especial",
           viewDetails: "Ver Detalles",
           homePageNewProducts: "Nuevos Productos",
           contactPageTitle: "Contáctanos",
@@ -6965,7 +6964,7 @@ function toggleDisease(id) {
 
         whatsappMessage += `Por favor, envíame los detalles para completar la compra. ¡Gracias!`;
 
-        const formattedMessage = whatsappMessage.replace(/\n/g, '%0A');
+        const formattedMessage = whatsappMessage.replace(/\n/g, '%0A');     
         const encodedMessage = encodeURIComponent(whatsappMessage);
         const whatsappNumber = "18094254540";
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
@@ -7807,5 +7806,3 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
-
-
