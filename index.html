@@ -2050,6 +2050,7 @@ a[href="#gemstones"] {
           salesCount: 0,
           isOffer: false,
         },
+        
         {
           id: "p35",
           name: "diabenol",
@@ -2060,13 +2061,7 @@ a[href="#gemstones"] {
           priceDetail: 1900,
           priceWholesale: 1700,
           image: "diabenol.png",
-          description_es: 
-          "Diabenol es una formulación herbolaria diseñada para apoyar el equilibrio glucémico y la función metabólica. Combina extractos vegetales tradicionalmente utilizados en el control de la glucosa con minerales esenciales que participan en la señalización de la insulina y el metabolismo energético. Su sinergia de ingredientes favorece la regulación de la absorción de carbohidratos, la sensibilidad a la insulina y el mantenimiento de niveles saludables de glucosa en sangre.",
-          "Fórmula integral orientada al equilibrio glucémico.",
-          "Combinación de extractos vegetales con respaldo en estudios preliminares.",
-          "Incluye minerales esenciales para soporte metabólico.",
-          "Acción sinérgica sobre absorción, sensibilidad y metabolismo de la glucosa.",
-          "Apoyo complementario al perfil lipídico.",
+          description_es: "Diabenol es una formulación herbolaria diseñada para apoyar el equilibrio glucémico y la función metabólica. Combina extractos vegetales tradicionalmente utilizados en el control de la glucosa con minerales esenciales que participan en la señalización de la insulina y el metabolismo energético. Su sinergia de ingredientes favorece la regulación de la absorción de carbohidratos, la sensibilidad a la insulina y el mantenimiento de niveles saludables de glucosa en sangre. Fórmula integral orientada al equilibrio glucémico; combinación de extractos vegetales con respaldo en estudios preliminares; incluye minerales esenciales para soporte metabólico; acción sinérgica sobre absorción, sensibilidad y metabolismo de la glucosa; apoyo complementario al perfil lipídico.",
   
           benefits: [
             "Reduce Los Niveles De Azúcar En La Sangre",
@@ -3390,16 +3385,16 @@ isOffer: false
   salesCount: 0,
   isOffer: false
 },
- {
+{
   id: "p86",
   name: "Bambú Brotes Orgánico Extracto en Polvo",
   presentation: "5.0 oz (142 gr.)",
   category: "superalimento",
   type: "extractos en polvo",
-  price: 900,
-  priceDetail: 900,
-  priceWholesale: 700,
-  image: "bambu0.png",
+  price: 580,
+  priceDetail: 580,
+  priceWholesale: 460,
+  image: "bambu.png",
   description_es: "El Bambú Brotes Orgánico Extracto en Polvo es una fuente natural de silicio vegetal altamente biodisponible, esencial para la salud de huesos, cartílagos y tejido conectivo. Este extracto orgánico contribuye a la remineralización del organismo, favoreciendo articulaciones móviles, piel firme, cabello fuerte y uñas saludables. Además, su contenido en fibra apoya una digestión ligera y equilibrada.",
   features: [
     "Extracto de brotes de bambú 100% orgánico.",
@@ -3434,6 +3429,9 @@ isOffer: false
   salesCount: 0,
   isOffer: false
 }
+
+
+          
 
         
         // ... Y ASÍ SUCESIVAMENTE CON TODOS TUS PRODUCTOS ...
@@ -5255,7 +5253,7 @@ const renderHome = () => {
                     </ul>
                 `;
         }
-        
+
         if (product.presentation) {
           fullDescriptionHtml += `
                     <h4 class="text-xl font-semibold text-gray-800 mb-3">Presentación:</h4>
@@ -7498,7 +7496,7 @@ function toggleDisease(id) {
           if (p.type) p.type = capitalizeWords(p.type);
           if (p.brand) p.brand = capitalizeWords(p.brand);
 
-// Asegurar que `ingredientes` existe y sea un array
+          // Asegurar que `ingredientes` existe y sea un array
           if (typeof p.ingredientes === "string") {
             try {
               p.ingredientes = JSON.parse(p.ingredientes);
@@ -7508,7 +7506,7 @@ function toggleDisease(id) {
           }
           if (!Array.isArray(p.ingredientes)) p.ingredientes = [];
           p.ingredientes = p.ingredientes.map((ing) => capitalizeWords(ing));
-          
+
           return p;
         });
         console.log("Productos procesados exitosamente (embebidos):", products);
@@ -8010,18 +8008,3 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
