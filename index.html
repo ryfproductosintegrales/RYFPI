@@ -7498,6 +7498,17 @@ function toggleDisease(id) {
           if (p.type) p.type = capitalizeWords(p.type);
           if (p.brand) p.brand = capitalizeWords(p.brand);
 
+// Asegurar que `ingredientes` existe y sea un array
+          if (typeof p.ingredientes === "string") {
+            try {
+              p.ingredientes = JSON.parse(p.ingredientes);
+            } catch {
+              p.ingredientes = [p.ingredientes];
+            }
+          }
+          if (!Array.isArray(p.ingredientes)) p.ingredientes = [];
+          p.ingredientes = p.ingredientes.map((ing) => capitalizeWords(ing));
+          
           return p;
         });
         console.log("Productos procesados exitosamente (embebidos):", products);
@@ -7999,6 +8010,7 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
+
 
 
 
