@@ -5255,11 +5255,21 @@ const renderHome = () => {
                     </ul>
                 `;
         }
-
+        
         if (product.presentation) {
           fullDescriptionHtml += `
                     <h4 class="text-xl font-semibold text-gray-800 mb-3">Presentación:</h4>
                     <p class="text-gray-700 mb-4">${product.presentation}</p>
+                `;
+        }
+
+        // Sección de Ingredientes (añadida de forma segura)
+        if (product.ingredientes && product.ingredientes.length > 0) {
+          fullDescriptionHtml += `
+                    <h4 class="text-xl font-semibold text-gray-800 mb-3">Ingredientes:</h4>
+                    <ul class="list-disc list-inside text-gray-700 mb-4 ml-4">
+                        ${product.ingredientes.map((ing) => `<li>${ing}</li>`).join("")}
+                    </ul>
                 `;
         }
 
@@ -7989,6 +7999,7 @@ function renderEnfermedadesInicio() {
    
 </body>
 </html>
+
 
 
 
